@@ -1,0 +1,39 @@
+div {
+  font-family: 'Roboto', sans-serif;
+}
+
+.center {
+    margin: auto;
+    width: 90%;
+}
+
+input[type=number] {
+  width: 40px;
+}
+
+.group {
+  width: 40px;
+}
+
+.filter {
+  width: 100px;
+}
+
+button {
+  background-color: #4ddbff;
+  border: none;
+  color: white;
+  padding: 6px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+}
+
+button:disabled {
+  background-color: #767d87;
+}
+
+.advanced {
+  color: #4886c9;
+}
