@@ -110,7 +110,12 @@
         </tr>
         <tr>
           <td></td>
-          <td *ngFor="let event of groupService.wcif.events"><button (click)="groupService.generateGrouping(event.id)">Re-generate</button></td>
+          <td *ngFor="let event of groupService.wcif.events"><button (click)="handleGenerateOneEvent(event.id)">Re-generate</button></td>
+        </tr>
+
+        <tr>
+          <td>Count</td>
+          <td *ngFor="let event of groupService.wcif.events">{{event.numberOfRegistrations}}</td>
         </tr>
 
         <tr *ngFor="let group of groupCounter; let i = index" [attr.data-index]="i">
@@ -123,11 +128,6 @@
           <td *ngFor="let event of groupService.wcif.events">
             <input class="group" [(ngModel)]="competitor[event.id].group" (blur)="handleBlurEvent(event.id)">
           </td>
-        </tr>
-
-        <tr>
-          <td>Count</td>
-          <td *ngFor="let event of groupService.wcif.events">{{event.numberOfRegistrations}}</td>
         </tr>
       </table>
     </div>

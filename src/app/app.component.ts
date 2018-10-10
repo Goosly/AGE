@@ -81,6 +81,11 @@ export class AppComponent  {
     this.groupsGenerated = true;
   };
 
+  handleGenerateOneEvent(eventId: string) {
+    this.groupService.generateGrouping(eventId);
+    this.countCJRSForEvent(eventId);
+  }
+
   handleExport(value: boolean) {
     this.groupService.sortCompetitorsByName();
     this.readyForExport = value;
