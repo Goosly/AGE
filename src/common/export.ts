@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {Wcif, EventConfiguration} from '../common/classes';
-import {saveAs} from "file-saver";
+import {Wcif, EventConfiguration} from './classes';
+import {saveAs} from 'file-saver';
 declare var pdfMake: any;
 
 @Injectable({
@@ -9,37 +9,37 @@ declare var pdfMake: any;
 export class ExportService {
 
   private eventNames = [
-    {id: "222", label: "2x2x2 Cube"},
-    {id: "333", label: "3x3x3 Cube"},
-    {id: "444", label: "4x4x4 Cube"},
-    {id: "555", label: "5x5x5 Cube"},
-    {id: "666", label: "6x6x6 Cube"},
-    {id: "777", label: "7x7x7 Cube"},
-    {id: "333bf", label: "3x3x3 Blindfolded"},
-    {id: "333oh", label: "3x3x3 One-Handed"},
-    {id: "333ft", label: "3x3x3 With Feet"},
-    {id: "clock", label: "Clock"},
-    {id: "minx", label: "Megaminx"},
-    {id: "pyram", label: "Pyraminx"},
-    {id: "skewb", label: "Skewb"},
-    {id: "sq1", label: "Square-1"},
-    {id: "444bf", label: "4x4x4 Blindfolded"},
-    {id: "555bf", label: "5x5x5 Blindfolded"},
-    {id: "333mbf", label: "3x3x3 Multi-Blind"},
-    {id: "333fm", label: "3x3x3 Fewest Moves"}
+    {id: '222', label: '2x2x2 Cube'},
+    {id: '333', label: '3x3x3 Cube'},
+    {id: '444', label: '4x4x4 Cube'},
+    {id: '555', label: '5x5x5 Cube'},
+    {id: '666', label: '6x6x6 Cube'},
+    {id: '777', label: '7x7x7 Cube'},
+    {id: '333bf', label: '3x3x3 Blindfolded'},
+    {id: '333oh', label: '3x3x3 One-Handed'},
+    {id: '333ft', label: '3x3x3 With Feet'},
+    {id: 'clock', label: 'Clock'},
+    {id: 'minx', label: 'Megaminx'},
+    {id: 'pyram', label: 'Pyraminx'},
+    {id: 'skewb', label: 'Skewb'},
+    {id: 'sq1', label: 'Square-1'},
+    {id: '444bf', label: '4x4x4 Blindfolded'},
+    {id: '555bf', label: '5x5x5 Blindfolded'},
+    {id: '333mbf', label: '3x3x3 Multi-Blind'},
+    {id: '333fm', label: '3x3x3 Fewest Moves'}
   ]
   private formats = [
-    {id: "a", label: "ao5"},
-    {id: "m", label: "mo3"},
-    {id: "1", label: "mo3"},
-    {id: "2", label: "mo3"},
-    {id: "3", label: "mo3"}
+    {id: 'a', label: 'ao5'},
+    {id: 'm', label: 'mo3'},
+    {id: '1', label: 'mo3'},
+    {id: '2', label: 'mo3'},
+    {id: '3', label: 'mo3'}
   ]
 
   constructor() {}
 
   csvGroupAndTaskAssignments(wcif: Wcif) {
-    let csv:string = "Name," + wcif.events.map(event => event.id).join(',') + '\r\n';
+    let csv:string = 'Name,' + wcif.events.map(event => event.id).join(',') + '\r\n';
     wcif.persons.forEach(p => {
       csv += (p.name + ',');
       csv += wcif.events.map(event => p[event.id].group).join(',');
@@ -51,10 +51,10 @@ export class ExportService {
   }
 
   csvGroups(wcif: Wcif) {
-    let csv:string = "Name," + wcif.events.map(event => event.id).join(',') + '\r\n';
+    let csv:string = 'Name,' + wcif.events.map(event => event.id).join(',') + '\r\n';
     wcif.persons.forEach(p => {
       csv += (p.name + ',');
-      csv += wcif.events.map(event => p[event.id].group.split(";")[0]).join(',');
+      csv += wcif.events.map(event => p[event.id].group.split(';')[0]).join(',');
       csv += '\r\n';
     });
 
@@ -75,7 +75,7 @@ export class ExportService {
       csv += (label + ',');
       csv += (format + ',');
       csv += (limit + ',');
-      csv += ((cumulative ? "yes" : "no") + ',');
+      csv += ((cumulative ? 'yes' : 'no') + ',');
       csv += (cutoff + ',');
       csv += '\r\n';
     });
@@ -120,10 +120,10 @@ export class ExportService {
         // Write information to pdf
         var groupSummary: string = event.id + ' - group ' + i +  ' has ' + competitors.length + ' competitors, ' + judges.length + ' judges, '
             + scramblers.length + ' scramblers and ' + runners.length + ' runners\n';
-        groupSummary += 'Competitors: ' + competitors.map(p => p.name).join(", ") + "\n";
-        groupSummary += 'Judges: ' + judges.map(p => p.name).join(", ") + "\n";
-        groupSummary += 'Scramblers: ' + scramblers.map(p => p.name).join(", ") + "\n";
-        groupSummary += 'Runners: ' + runners.map(p => p.name).join(", ") + "\n";
+        groupSummary += 'Competitors: ' + competitors.map(p => p.name).join(', ') + '\n';
+        groupSummary += 'Judges: ' + judges.map(p => p.name).join(', ') + '\n';
+        groupSummary += 'Scramblers: ' + scramblers.map(p => p.name).join(', ') + '\n';
+        groupSummary += 'Runners: ' + runners.map(p => p.name).join(', ') + '\n';
         groupSummary += '\n';
         document.content.push(
           {
@@ -134,7 +134,7 @@ export class ExportService {
       }
       document.content.push('\n\n');
     });
-    
+
     let filename = 'namesPerGroupOverview-' + wcif.id + '.pdf';
     pdfMake.createPdf(document).download(filename);
   }
@@ -166,7 +166,7 @@ export class ExportService {
       }
     }
 
-    document.content[0].table.body.push(["Name"]);
+    document.content[0].table.body.push(['Name']);
     wcif.events.forEach(event => {
       document.content[0].table.body[0].push(event.id);
     });
@@ -177,13 +177,13 @@ export class ExportService {
       });
       document.content[0].table.body.push(array);
     });
-    
+
     let filename = 'tableOverview-' + wcif.id + '.pdf';
     pdfMake.createPdf(document).download(filename);
   }
 
   csvForCubeComps(wcif: Wcif) {
-    let csv:string = "Status,Name,Country,WCA ID,Birth Date,Gender," + wcif.events.map(event => event.id).join(',') + ",Email,Guests,IP" + '\r\n';
+    let csv:string = 'Status,Name,Country,WCA ID,Birth Date,Gender,' + wcif.events.map(event => event.id).join(',') + ',Email,Guests,IP' + '\r\n';
     wcif.persons.forEach(p => {
       csv += ('a,');
       csv += (p.name + ',');

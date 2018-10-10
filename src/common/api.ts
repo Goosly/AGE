@@ -10,10 +10,10 @@ export class ApiService {
 
   public oauthToken;
   private headerParams: HttpHeaders;
-  
+
   constructor(private httpClient: HttpClient) {
     this.getToken();
-    
+
     this.headerParams = new HttpHeaders();
     this.headerParams = this.headerParams.set('Authorization', `Bearer ${this.oauthToken}`);
     this.headerParams = this.headerParams.set('Content-Type', 'application/json');
@@ -27,16 +27,16 @@ export class ApiService {
     }
   }
 
-  logIn() : void {
+  logIn(): void {
     window.location.href = `${environment.wcaUrl}/oauth/authorize?client_id=${environment.wcaAppId}&redirect_uri=${environment.appUrl}&response_type=token&scope=manage_competitions`;
   }
-  
-  getCompetitions() : Observable<any> {
+
+  getCompetitions(): Observable<any> {
     return this.httpClient.get(`${environment.wcaUrl}/api/v0/competitions?managed_by_me=true&start=${new Date().toISOString()}`,
       {headers: this.headerParams});
   }
 
-  getWcif(competitionId) : Observable<any> {
+  getWcif(competitionId): Observable<any> {
     return this.httpClient.get(`${environment.wcaUrl}/api/v0/competitions/${competitionId}/wcif`,
       {headers: this.headerParams});
   }
