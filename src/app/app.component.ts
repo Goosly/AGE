@@ -19,11 +19,12 @@ export class AppComponent  {
   competitionId: string;
   numberOfEvents: number;
   numberOfCompetitors: number;
-  
+
   // Fields for binding
   filter: string = '';
   competitorsToShow: Array<any>;
   showAdvanced: boolean;
+  groupCounter: Array<number> = [];
   Math: any;
 
   constructor (
@@ -104,7 +105,7 @@ export class AppComponent  {
     let event: any = this.groupService.wcif.events.filter(e => e.id === eventId)[0];
     let configuration: EventConfiguration = event.configuration;
     let numberOfGroups: number = configuration.stages * configuration.scrambleGroups;
-    
+
     event.groupCounters = [];
     for (let group: number = 1; group <= numberOfGroups; group++) {
       let groupCounter: string = this.groupService.wcif.persons
@@ -114,9 +115,10 @@ export class AppComponent  {
       groupCounter += this.groupService.wcif.persons
         .filter(p => p[eventId].group.split(';').indexOf('R' + group) > -1).length + '|';
       groupCounter += this.groupService.wcif.persons
-        .filter(p => p[eventId].group.split(';').indexOf('S' + group) > -1).length + '|';
+        .filter(p => p[eventId].group.split(';').indexOf('S' + group) > -1).length;
       event.groupCounters.push(groupCounter);
     }
+    this.groupCounter = Array(Math.max(this.groupCounter.length, numberOfGroups));
   }
 
 }

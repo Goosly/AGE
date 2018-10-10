@@ -21,7 +21,7 @@
     {{ numberOfEvents }} events and {{ numberOfCompetitors }} competitors found!<br>
     --------------------------------------------------</p>
   </div>
-  
+
 <!-- GENERAL CONFIGURATION -->
   <div *ngIf="competitionId && groupService.wcif && ! readyForExport">
     <h3>General configuration</h3>
@@ -31,7 +31,7 @@
     <br><br>
 
     <input type="checkbox" [(ngModel)]="showAdvanced">Show advanced configuration<br>
-    
+
     <p *ngIf="showAdvanced">
       <input type="checkbox" [(ngModel)]="groupService.configuration.skipDelegatesAndOrganizers"><label class="advanced">Never assign delegates and organizers to judging</label><br>
     </p>
@@ -113,12 +113,11 @@
           <td *ngFor="let event of groupService.wcif.events"><button (click)="groupService.generateGrouping(event.id)">Re-generate</button></td>
         </tr>
 
-        <tr> 
-          <!-- TODO repeat this for all groups -->
-          <td>C|J|R|S</td>
-          <td *ngFor="let event of groupService.wcif.events">{{ event.groupCounters[0] }}</td>
+        <tr *ngFor="let group of groupCounter; let i = index" [attr.data-index]="i">
+          <td>C|J|R|S Group {{i}}</td>
+          <td *ngFor="let event of groupService.wcif.events">{{ event.groupCounters[i] }}</td>
         </tr>
-        
+
         <tr *ngFor="let competitor of competitorsToShow">
           <td >{{ competitor.name}}</td>
           <td *ngFor="let event of groupService.wcif.events">
@@ -144,7 +143,7 @@
     <p><button (click)="exportService.pdfTableGroupAndTaskAssignments(this.groupService.wcif)">All group + task assignments (PDF)</button></p>
     <p>TODO: Personal schedules</p>
     <p><button (click)="exportService.pdfGroupOverview(this.groupService.wcif)">Overview per group with names of all competitors, judges, scramblers and runners (PDF)</button></p>
-    
+
     <h4>CubeComps</h4>
     CubeComps assigns id's to competitors in the order of the CSV, therefore you MUST use this as import for CubeComps.
     <p><button (click)="exportService.csvForCubeComps(this.groupService.wcif)">CSV for CubeComps</button></p>
@@ -153,6 +152,6 @@
     <a href="https://github.com/Goosly/WCA-Tools" target="_blank">See tool on my github</a> and use these files as input:
     <p><button (click)="exportService.csvGroups(this.groupService.wcif)">Groups only (CSV)</button></p>
     <p><button (click)="exportService.csvEvents(this.groupService.wcif)">Event configuration (CSV)</button></p>
-    
+
   </div>
 </div>
