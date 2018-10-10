@@ -1,6 +1,8 @@
 export class Wcif {
   persons: Array<any>;
   events: Array<any>;
+  id: any;
+  schedule: any;
 }
 
 export class EventConfiguration {

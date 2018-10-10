@@ -28,7 +28,7 @@ export class ApiService {
   }
 
   logIn() : void {
-    window.location = `${environment.wcaUrl}/oauth/authorize?client_id=${environment.wcaAppId}&redirect_uri=${environment.appUrl}&response_type=token&scope=manage_competitions`;
+    window.location.href = `${environment.wcaUrl}/oauth/authorize?client_id=${environment.wcaAppId}&redirect_uri=${environment.appUrl}&response_type=token&scope=manage_competitions`;
   }
   
   getCompetitions() : Observable<any> {

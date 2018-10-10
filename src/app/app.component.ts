@@ -3,7 +3,6 @@ import { ApiService } from '../common/api';
 import { GroupService } from '../common/group';
 import { ExportService } from '../common/export';
 import { EventConfiguration } from '../common/classes';
-import { moment } from 'moment-duration-format';
 
 @Component({
   selector: 'my-app',

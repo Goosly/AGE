@@ -13,13 +13,13 @@ export class GroupService {
 
   generateGrouping(eventId: string) {
     let handler = (eventId, staff) => this.staffIsReadyForGrouping(eventId, staff);
-    let file = document.getElementById('staff').files[0];
+    let file = document.getElementById('staff')['files'][0];
     let staff = null;
     if (file) {
       var reader = new FileReader();
       reader.readAsText(file);
       reader.onload = function(e) {
-        staff = JSON.parse(e.target.result);
+        staff = JSON.parse(e.target['result']);
         handler(eventId, staff);
       };
     } else {
