@@ -28,9 +28,9 @@ export class AppComponent  {
   Math: any;
 
   constructor (
-    protected apiService: ApiService,
-    protected groupService: GroupService,
-    protected exportService: ExportService
+    public apiService: ApiService,
+    public groupService: GroupService,
+    public exportService: ExportService
     ) {
       this.Math = Math;
       if (this.apiService.oauthToken) {
