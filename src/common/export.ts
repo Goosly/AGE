@@ -181,7 +181,144 @@ export class ExportService {
     let filename = 'tableOverview-' + wcif.id + '.pdf';
     pdfMake.createPdf(document).download(filename);
   }
-
+  
+  pdfPersonalSchedules(wcif: Wcif) {
+    var document = {
+      content: [
+      ],
+      styles: {
+          nametag: {
+          margin: [0, 30, 0, 0],
+          lineHeight: 0.7
+            
+        },
+        tableExample: {
+          margin: [0, 0, 0, 0],
+          lineHeight: 0.7
+            
+        },
+        name: {
+            fontSize: 20,
+            alignment: 'center',
+            margin: [0, 10, 0, 0] // add white to top
+        },
+        country: {
+            fontSize: 15,
+            alignment: 'center',
+            margin: [0, 5, 0, 0] // add white to top
+        }
+      },
+      defaultStyle: {
+        fontSize: 10,
+      }
+    }
+    
+    wcif.persons.forEach(p => {
+      let nametag = this.getOneNametagToFill();
+      
+      // Set name and country on nametag
+      nametag.table.body[0][1].table.body[0][0].text = p.name.split('(')[0]; // Remove local name
+      nametag.table.body[0][1].table.body[1][0].text = this.getCountryName(p.countryIso2);
+      
+      // Add all events + group
+      wcif.events.forEach(event => {
+        // TODO
+        //event.id;
+        //p[event.id].group;
+      });
+      
+      document.content.push(nametag);
+    });
+        
+    let filename = 'personalSchedules-' + wcif.id + '.pdf';
+    pdfMake.createPdf(document).download(filename);
+  }
+  
+  private getOneNametagToFill(): any {
+    return {
+      style: 'nametag',
+      table: {
+        widths: [ 245, 245 ],
+        body: [
+          [
+            {
+              style: 'tableExample',
+              table: {
+                body: [
+                  [
+                    {
+                      style: 'tableExample',
+                      table: {
+                        body: [
+                          ['333:', '1;J3'],
+                          ['444:', '2'],
+                          ['222:', '6'],
+                          ['pyram:', '2;R4'],
+                          ['skewb:', '2'],
+                          ['555:', '2;S1']
+                        ]
+                      },
+                      layout: 'noBorders'
+                    }
+                    ,
+                    {
+                      style: 'tableExample',
+                      table: {
+                        body: [
+                          ['333:', '1;J3'],
+                          ['444:', '2'],
+                          ['222:', '6'],
+                          ['pyram:', '2;R4'],
+                          ['444:', '2']
+                        ]
+                      },
+                      layout: 'noBorders'
+                    }
+                    ,
+                    {
+                      style: 'tableExample',
+                      table: {
+                        body: [
+                          ['333:', '1;J3'],
+                          ['444:', '2'],
+                          ['222:', '6'],
+                          ['pyram:', '2;R4'],
+                          ['444:', '2']
+                        ]
+                      },
+                      layout: 'noBorders'
+                    }
+                  ]
+                ]
+              },
+              //layout: 'noBorders'
+            }
+            ,
+            {
+              style: 'tableExample',
+              table: {
+                body: [
+                  [{ 
+                      style: 'name',
+                      text: ''
+                  }],
+                  [{ 
+                      style: 'country',
+                      text: ''
+                  }],
+                ]
+              },
+              layout: 'noBorders'
+            }
+          ]
+        ]
+      },
+      layout: 'noBorders',
+      unbreakable: true
+    };
+  }
+  
+  
   csvForCubeComps(wcif: Wcif) {
     let csv:string = 'Status,Name,Country,WCA ID,Birth Date,Gender,' + wcif.events.map(event => event.id).join(',') + ',Email,Guests,IP' + '\r\n';
     wcif.persons.forEach(p => {
@@ -207,7 +344,7 @@ export class ExportService {
     saveAs(blob, filename);
   }
 
-
+  
 
 
   // TODO Alternative?

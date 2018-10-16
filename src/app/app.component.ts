@@ -56,17 +56,17 @@ export class AppComponent  {
     this.competitionId = competitionId;
     this.apiService.getWcif(this.competitionId).subscribe(wcif => {
       this.groupService.wcif = wcif;
-	  try {
-		this.groupService.processWcif();
+      try {
+        this.groupService.processWcif();
         this.numberOfEvents = this.groupService.wcif["events"].length;
-		this.numberOfCompetitors = this.groupService.wcif["persons"].length;
-		this.competitorsToShow = this.groupService.wcif.persons;
-	  } catch (error) {
-		console.error(error);
-		alert('An error occured. Check the console.');
-		this.groupService.wcif = null;
-		this.competitionId = null;
-	  }
+        this.numberOfCompetitors = this.groupService.wcif["persons"].length;
+        this.competitorsToShow = this.groupService.wcif.persons;
+      } catch (error) {
+        console.error(error);
+        alert('An error occured. Check the console.');
+        this.groupService.wcif = null;
+        this.competitionId = null;
+      }
     });
   }
 
