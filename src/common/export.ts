@@ -221,10 +221,19 @@ export class ExportService {
       nametag.table.body[0][1].table.body[1][0].text = this.getCountryName(p.countryIso2);
       
       // Add all events + group
+      let i: number = 0;
+      let j: number = 0;
       wcif.events.forEach(event => {
-        // TODO
-        //event.id;
-        //p[event.id].group;
+        if (p[event.id].group !== '') {
+          nametag.table.body[0][0].table.body[0][i].table.body[j][0] = event.id + ':';
+          nametag.table.body[0][0].table.body[0][i].table.body[j][1] = p[event.id].group;
+        
+          j++;
+          if (j > 5) {
+            i++;
+            j = 0;
+          }
+        }
       });
       
       document.content.push(nametag);
@@ -250,12 +259,12 @@ export class ExportService {
                       style: 'tableExample',
                       table: {
                         body: [
-                          ['333:', '1;J3'],
-                          ['444:', '2'],
-                          ['222:', '6'],
-                          ['pyram:', '2;R4'],
-                          ['skewb:', '2'],
-                          ['555:', '2;S1']
+                          ['', ''],
+                          ['', ''],
+                          ['', ''],
+                          ['', ''],
+                          ['', ''],
+                          ['', '']
                         ]
                       },
                       layout: 'noBorders'
@@ -265,11 +274,12 @@ export class ExportService {
                       style: 'tableExample',
                       table: {
                         body: [
-                          ['333:', '1;J3'],
-                          ['444:', '2'],
-                          ['222:', '6'],
-                          ['pyram:', '2;R4'],
-                          ['444:', '2']
+                          ['', ''],
+                          ['', ''],
+                          ['', ''],
+                          ['', ''],
+                          ['', ''],
+                          ['', '']
                         ]
                       },
                       layout: 'noBorders'
@@ -279,11 +289,12 @@ export class ExportService {
                       style: 'tableExample',
                       table: {
                         body: [
-                          ['333:', '1;J3'],
-                          ['444:', '2'],
-                          ['222:', '6'],
-                          ['pyram:', '2;R4'],
-                          ['444:', '2']
+                          ['', ''],
+                          ['', ''],
+                          ['', ''],
+                          ['', ''],
+                          ['', ''],
+                          ['', '']
                         ]
                       },
                       layout: 'noBorders'
