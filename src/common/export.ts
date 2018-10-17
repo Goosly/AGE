@@ -182,7 +182,7 @@ export class ExportService {
     pdfMake.createPdf(document).download(filename);
   }
   
-  pdfPersonalSchedules(wcif: Wcif) {
+  pdfPersonalSchedules(wcif: Wcif, bordersOnNametags: boolean) {
     var document = {
       content: [
       ],
@@ -214,7 +214,7 @@ export class ExportService {
     }
     
     wcif.persons.forEach(p => {
-      let nametag = this.getOneNametagToFill();
+      let nametag = this.getOneNametagToFill(bordersOnNametags);
       
       // Set name and country on nametag
       nametag.table.body[0][1].table.body[0][0].text = p.name.split('(')[0]; // Remove local name
@@ -236,6 +236,14 @@ export class ExportService {
         }
       });
       
+      // Cleanup empty space of personal schedule
+      if (j === 0) { i--; }
+      while (i < 2) {
+        nametag.table.body[0][0].table.body[0].pop();
+        i++;
+      }
+      
+      // Add to nametags
       document.content.push(nametag);
     });
         
@@ -243,7 +251,7 @@ export class ExportService {
     pdfMake.createPdf(document).download(filename);
   }
   
-  private getOneNametagToFill(): any {
+  private getOneNametagToFill(bordersOnNametags: boolean): any {
     return {
       style: 'nametag',
       table: {
@@ -259,12 +267,12 @@ export class ExportService {
                       style: 'tableExample',
                       table: {
                         body: [
-                          ['', ''],
-                          ['', ''],
-                          ['', ''],
-                          ['', ''],
-                          ['', ''],
-                          ['', '']
+                          [' ', ' '],
+                          [' ', ' '],
+                          [' ', ' '],
+                          [' ', ' '],
+                          [' ', ' '],
+                          [' ', ' ']
                         ]
                       },
                       layout: 'noBorders'
@@ -274,12 +282,12 @@ export class ExportService {
                       style: 'tableExample',
                       table: {
                         body: [
-                          ['', ''],
-                          ['', ''],
-                          ['', ''],
-                          ['', ''],
-                          ['', ''],
-                          ['', '']
+                          [' ', ' '],
+                          [' ', ' '],
+                          [' ', ' '],
+                          [' ', ' '],
+                          [' ', ' '],
+                          [' ', ' ']
                         ]
                       },
                       layout: 'noBorders'
@@ -289,12 +297,12 @@ export class ExportService {
                       style: 'tableExample',
                       table: {
                         body: [
-                          ['', ''],
-                          ['', ''],
-                          ['', ''],
-                          ['', ''],
-                          ['', ''],
-                          ['', '']
+                          [' ', ' '],
+                          [' ', ' '],
+                          [' ', ' '],
+                          [' ', ' '],
+                          [' ', ' '],
+                          [' ', ' ']
                         ]
                       },
                       layout: 'noBorders'
@@ -302,33 +310,36 @@ export class ExportService {
                   ]
                 ]
               },
-              //layout: 'noBorders'
+              //layout: 'noBorders' // To disable borders around personal schedule
             }
             ,
             {
               style: 'tableExample',
               table: {
+                widths: [ 240 ],
                 body: [
                   [{ 
                       style: 'name',
-                      text: ''
+                      text: '',
+                      alignment: 'center'
                   }],
                   [{ 
                       style: 'country',
-                      text: ''
+                      text: '',
+                      alignment: 'center'
                   }],
                 ]
               },
-              layout: 'noBorders'
+              layout: 'noBorders',
+              alignment: 'center'
             }
           ]
         ]
       },
-      layout: 'noBorders',
+      layout: ( bordersOnNametags ? { hLineColor: 'lightgray', vLineColor: 'lightgray' } : 'noBorders' ),
       unbreakable: true
     };
   }
-  
   
   csvForCubeComps(wcif: Wcif) {
     let csv:string = 'Status,Name,Country,WCA ID,Birth Date,Gender,' + wcif.events.map(event => event.id).join(',') + ',Email,Guests,IP' + '\r\n';
