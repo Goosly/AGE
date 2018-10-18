@@ -2,7 +2,7 @@
 
 Hosted at: https://goosly.github.io/AGE/
 
-#Development
+# Development
 
 To run locally:
 1) > ng serve
