@@ -22,10 +22,11 @@ export class GroupService {
         staff = JSON.parse(e.target['result']);
         handler(eventId, staff);
       };
+    } else if (this.configuration.everyoneCanScrambleAndRun) {
+      handler(eventId, []);
     } else {
-      // Note that this is the staff.json file, but minified
-      staff = JSON.parse('[{"This is an example:":"The current board members are allowed to run & scramble everything, I can only scramble 2x2 and pyraminx. You should add reliable people attending your competition."},{"name":"Alberto Pérez de Rada Fiol","wcaId":"2011FIOL01","isAllowedTo":["run","scrambleEverything"]},{"name":"Bob Burton","wcaId":"2003BURT01","isAllowedTo":["run","scrambleEverything"]},{"name":"Chris Wright","wcaId":"2011WRIG01","isAllowedTo":["run","scrambleEverything"]},{"name":"Olivér Perge","wcaId":"2007PERG01","isAllowedTo":["run","scrambleEverything"]},{"name":"Manu Vereecken","wcaId":"2010VERE01","isAllowedTo":["222","pyram"]}]');
-      handler(eventId, staff);
+      alert("There are no scramblers and runners! Please select a json file or allow everyone to scramble and run (NOT RECOMMENDED).");
+      throw Error("No scramblers and runners");
     }
   }
 
@@ -108,6 +109,18 @@ export class GroupService {
   }
 
   processWcif(): void {
+    if (! this.wcif.events || this.wcif.events.length === 0) {
+      alert('No events found! Please define all rounds and the schedule on the WCA website and then restart.');
+      this.wcif = null;
+      throw new Error('No events');
+    }
+
+    if (! this.wcif.persons || this.wcif.persons.length === 0) {
+      alert('No competitors found! Maybe registration is not open yet?');
+      this.wcif = null;
+      throw new Error('No competitors');
+    }
+
     // TODO count rounds (only one round?)
     for (let e of this.wcif.events) {
       e.numberOfRegistrations = 0; // Add field
@@ -130,7 +143,7 @@ export class GroupService {
         }
       }
     }
-	// All events should have a startTime now (if they're included in the schedule)
+	  // All events should have a startTime now (if they're included in the schedule)
     this.sortEventsByStartTime();
 
     // For every person: set registration fields per event to 1 or 0 (and count per event)

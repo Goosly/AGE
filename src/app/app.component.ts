@@ -63,7 +63,6 @@ export class AppComponent  {
         this.competitorsToShow = this.groupService.wcif.persons;
       } catch (error) {
         console.error(error);
-        alert('An error occured. Check the console.');
         this.groupService.wcif = null;
         this.competitionId = null;
       }
@@ -82,11 +81,15 @@ export class AppComponent  {
   }
 
   handleGenerate() {
-    this.groupService.wcif.events.forEach(e => {
-      this.groupService.generateGrouping(e.id);
-      this.countCJRSForEvent(e.id);
-    });
-    this.groupsGenerated = true;
+    try {
+      this.groupService.wcif.events.forEach(e => {
+        this.groupService.generateGrouping(e.id);
+        this.countCJRSForEvent(e.id);
+      });
+      this.groupsGenerated = true;
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   handleGenerateOneEvent(eventId: string) {

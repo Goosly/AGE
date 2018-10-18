@@ -119,7 +119,7 @@
         </tr>
 
         <tr *ngFor="let group of groupCounter; let i = index" [attr.data-index]="i">
-          <td>C|J|R|S Group {{i}}</td>
+          <td>C|J|R|S Group {{i + 1}}</td>
           <td *ngFor="let event of groupService.wcif.events">{{ event.groupCounters[i] }}</td>
         </tr>
 
