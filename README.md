@@ -10,7 +10,7 @@ To run locally:
 2) Navigate to http://localhost:4200/
 
 To build & deploy to github pages:
-1) > ng build
+1) > ng build -c=production
 
 2) Move content of 'demo' directory to parent
 
