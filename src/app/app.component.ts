@@ -11,10 +11,11 @@ import { EventConfiguration } from '../common/classes';
 })
 export class AppComponent  {
   // Keep track of app flow
+  // TODO replace this by one state?
   groupsGenerated: boolean = false;
   readyForExport: boolean = false;
 
-  // Competitions managed by user
+  // Info about competitions managed by user
   competitionsToChooseFrom: Array<String> = [];
   competitionId: string;
   numberOfEvents: number;
@@ -55,10 +56,17 @@ export class AppComponent  {
     this.competitionId = competitionId;
     this.apiService.getWcif(this.competitionId).subscribe(wcif => {
       this.groupService.wcif = wcif;
-      this.groupService.processWcif();
-      this.numberOfEvents = this.groupService.wcif["events"].length;
-      this.numberOfCompetitors = this.groupService.wcif["persons"].length;
-      this.competitorsToShow = this.groupService.wcif.persons;
+      try {
+        this.groupService.processWcif();
+        this.numberOfEvents = this.groupService.wcif["events"].length;
+        this.numberOfCompetitors = this.groupService.wcif["persons"].length;
+        this.competitorsToShow = this.groupService.wcif.persons;
+      } catch (error) {
+        console.error(error);
+        alert('An error occured. Check the console.');
+        this.groupService.wcif = null;
+        this.competitionId = null;
+      }
     });
   }
 

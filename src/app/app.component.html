@@ -91,12 +91,12 @@
     </table>
 
     <br>
-    <button [disabled]="groupsGenerated" (click)="handleGenerate()">I'm ready, let's generate groups & tasks</button><br>
+    Edit all options until you're happy, then click: <button [disabled]="groupsGenerated" (click)="handleGenerate()">I'm ready, let's generate groups & tasks</button><br>
 
 <!-- EDIT COMPETITORS GROUPS -->
     <div *ngIf="groupsGenerated">
-      <h3>Competitors</h3>
-      Edit until you're happy, then click: <button (click)="handleExport(true)">I'm ready, let's export</button><br>
+      <h3>Competitors & group/task assginments</h3>
+      Edit all groups and task assignments until you're happy, then click: <button (click)="handleExport(true)">I'm ready, let's export</button><br>
 
       Filter by name: <input type="text" class="filter" [(ngModel)]="filter" (ngModelChange)="handleFilterChanged($event)"/>
       <table>
@@ -114,7 +114,7 @@
         </tr>
 
         <tr>
-          <td>Count</td>
+          <td>Competitors</td>
           <td *ngFor="let event of groupService.wcif.events">{{event.numberOfRegistrations}}</td>
         </tr>
 
@@ -141,15 +141,16 @@
     <h4>General</h4>
     <p><button (click)="exportService.csvGroupAndTaskAssignments(this.groupService.wcif)">All group + task assignments (CSV)</button></p>
     <p><button (click)="exportService.pdfTableGroupAndTaskAssignments(this.groupService.wcif)">All group + task assignments (PDF)</button></p>
-    <p>TODO: Personal schedules</p>
     <p><button (click)="exportService.pdfGroupOverview(this.groupService.wcif)">Overview per group with names of all competitors, judges, scramblers and runners (PDF)</button></p>
-
+    <p><button (click)="exportService.pdfPersonalSchedules(this.groupService.wcif, this.groupService.configuration.bordersOnNametags)">Personal schedules + nametags (PDF)</button>
+        <input type="checkbox" [(ngModel)]="groupService.configuration.bordersOnNametags"><label>Show light borders for cutting and folding</label></p>
+    
     <h4>CubeComps</h4>
     CubeComps assigns id's to competitors in the order of the CSV, therefore you MUST use this as import for CubeComps.
     <p><button (click)="exportService.csvForCubeComps(this.groupService.wcif)">CSV for CubeComps</button></p>
 
     <h4>Scorecards</h4>
-    <a href="https://github.com/Goosly/WCA-Tools" target="_blank">See tool on my github</a> and use these files as input:
+    <a href="https://github.com/Goosly/GenerateScoreCards" target="_blank">See tool on my github</a> and use these files as input:
     <p><button (click)="exportService.csvGroups(this.groupService.wcif)">Groups only (CSV)</button></p>
     <p><button (click)="exportService.csvEvents(this.groupService.wcif)">Event configuration (CSV)</button></p>
 

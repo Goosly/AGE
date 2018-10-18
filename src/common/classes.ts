@@ -19,4 +19,5 @@ export class EventConfiguration {
 export class GeneralConfiguration {
   skipDelegatesAndOrganizers: boolean = true;
   everyoneCanScrambleAndRun: boolean = false;
+  bordersOnNametags: boolean = true;
 }

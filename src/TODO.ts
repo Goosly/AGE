@@ -1,6 +1,6 @@
 /*
 Processing
-  WIP - Show counter of judges, scramblers and runners per group
+  xxxx- Show counter of judges, scramblers and runners per group
   - Validation/warnings after/while editing tasks!
   xxxx- Order events by schedule
   xxxx- Basic default configuration of events

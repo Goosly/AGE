@@ -191,7 +191,166 @@ export class ExportService {
     let filename = 'tableOverview-' + wcif.id + '.pdf';
     pdfMake.createPdf(document).download(filename);
   }
-
+  
+  pdfPersonalSchedules(wcif: Wcif, bordersOnNametags: boolean) {
+    var document = {
+      content: [
+      ],
+      styles: {
+          nametag: {
+          margin: [0, 30, 0, 0],
+          lineHeight: 0.7
+            
+        },
+        tableExample: {
+          margin: [0, 0, 0, 0],
+          lineHeight: 0.7
+            
+        },
+        name: {
+            fontSize: 20,
+            alignment: 'center',
+            margin: [0, 10, 0, 0] // add white to top
+        },
+        country: {
+            fontSize: 15,
+            alignment: 'center',
+            margin: [0, 5, 0, 0] // add white to top
+        }
+      },
+      defaultStyle: {
+        fontSize: 10,
+      }
+    }
+    
+    wcif.persons.forEach(p => {
+      let nametag = this.getOneNametagToFill(bordersOnNametags);
+      
+      // Set name and country on nametag
+      nametag.table.body[0][1].table.body[0][0].text = p.name.split('(')[0]; // Remove local name
+      nametag.table.body[0][1].table.body[1][0].text = this.getCountryName(p.countryIso2);
+      
+      // Add all events + group
+      let i: number = 0;
+      let j: number = 0;
+      wcif.events.forEach(event => {
+        if (p[event.id].group !== '') {
+          nametag.table.body[0][0].table.body[0][i].table.body[j][0] = event.id + ':';
+          nametag.table.body[0][0].table.body[0][i].table.body[j][1] = p[event.id].group;
+        
+          j++;
+          if (j > 5) {
+            i++;
+            j = 0;
+          }
+        }
+      });
+      
+      // Cleanup empty space of personal schedule
+      if (j === 0) { i--; }
+      while (i < 2) {
+        nametag.table.body[0][0].table.body[0].pop();
+        i++;
+      }
+      
+      // Add to nametags
+      document.content.push(nametag);
+    });
+        
+    let filename = 'personalSchedules-' + wcif.id + '.pdf';
+    pdfMake.createPdf(document).download(filename);
+  }
+  
+  private getOneNametagToFill(bordersOnNametags: boolean): any {
+    return {
+      style: 'nametag',
+      table: {
+        widths: [ 245, 245 ],
+        body: [
+          [
+            {
+              style: 'tableExample',
+              table: {
+                body: [
+                  [
+                    {
+                      style: 'tableExample',
+                      table: {
+                        body: [
+                          [' ', ' '],
+                          [' ', ' '],
+                          [' ', ' '],
+                          [' ', ' '],
+                          [' ', ' '],
+                          [' ', ' ']
+                        ]
+                      },
+                      layout: 'noBorders'
+                    }
+                    ,
+                    {
+                      style: 'tableExample',
+                      table: {
+                        body: [
+                          [' ', ' '],
+                          [' ', ' '],
+                          [' ', ' '],
+                          [' ', ' '],
+                          [' ', ' '],
+                          [' ', ' ']
+                        ]
+                      },
+                      layout: 'noBorders'
+                    }
+                    ,
+                    {
+                      style: 'tableExample',
+                      table: {
+                        body: [
+                          [' ', ' '],
+                          [' ', ' '],
+                          [' ', ' '],
+                          [' ', ' '],
+                          [' ', ' '],
+                          [' ', ' ']
+                        ]
+                      },
+                      layout: 'noBorders'
+                    }
+                  ]
+                ]
+              },
+              //layout: 'noBorders' // To disable borders around personal schedule
+            }
+            ,
+            {
+              style: 'tableExample',
+              table: {
+                widths: [ 240 ],
+                body: [
+                  [{ 
+                      style: 'name',
+                      text: '',
+                      alignment: 'center'
+                  }],
+                  [{ 
+                      style: 'country',
+                      text: '',
+                      alignment: 'center'
+                  }],
+                ]
+              },
+              layout: 'noBorders',
+              alignment: 'center'
+            }
+          ]
+        ]
+      },
+      layout: ( bordersOnNametags ? { hLineColor: 'lightgray', vLineColor: 'lightgray' } : 'noBorders' ),
+      unbreakable: true
+    };
+  }
+  
   csvForCubeComps(wcif: Wcif) {
     let csv:string = 'Status,Name,Country,WCA ID,Birth Date,Gender,' + wcif.events.map(event => event.id).join(',') + ',Email,Guests,IP' + '\r\n';
     wcif.persons.forEach(p => {
@@ -217,7 +376,7 @@ export class ExportService {
     saveAs(blob, filename);
   }
 
-
+  
 
 
   // TODO Alternative?
