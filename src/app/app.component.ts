@@ -16,7 +16,7 @@ export class AppComponent  {
   readyForExport: boolean = false;
 
   // Info about competitions managed by user
-  competitionsToChooseFrom: Array<String> = [];
+  competitionsToChooseFrom: Array<String> = null;
   competitionId: string;
   numberOfEvents: number;
   numberOfCompetitors: number;

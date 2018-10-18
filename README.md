@@ -18,4 +18,4 @@ To build & deploy to github pages:
 
 4) > git subtree push --prefix dist origin gh-pages
 
-This pushes the dist directory to a branch called 'gh-pages', which will trigger a build by GitHub Pages
+This pushes the 'dist' directory to a branch called 'gh-pages', which will trigger a build by GitHub Pages

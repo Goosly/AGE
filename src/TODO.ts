@@ -7,7 +7,7 @@ Processing
   - If only one round: top 5 in group 1?
   - Check if before or after tutorial
   - New competitor can only judge after tutorial
-  - Scrambler json: give example
+  xxxx- Scrambler json: give example
   xxxx- Scramblers: allow to use everyone (not recommended)
   - Generate scrambler json in some way?
   - Table: split events by day
@@ -21,12 +21,13 @@ Export
   - Scorecards: local name (add br tag?)
   xxxx- Formats: bo1 & bo2 --> 3 attempts on scorecard
 
-  - Personal schedules/nametags
+  xxxx- Personal schedules/nametags
     - Fancy css/svg event icons
-    - Local name?
+    xxxx- Local name? (removed)
     - Different layouts?
       - Full nametag vs. just personal schedule
-      - Add WCA ID, country, ...
+      - Add WCA ID
+      xxxx- Add country
 
 Other
   - Token can expire? Logout?
