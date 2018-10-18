@@ -71,7 +71,7 @@ export class AppComponent  {
   }
 
   handleTotalNumberOfTimersSet(value: number) {
-    this.groupService.totalNumberOfTimers = Math.min(1, value);
+    this.groupService.totalNumberOfTimers = Math.max(1, value);
     this.groupService.setEventConfiguration();
   }
 

@@ -381,6 +381,23 @@ export class ExportService {
     this.downloadFile(csv, filename);
   }
 
+  staffExample() {
+    let content: string = '[\n' +
+      '\n' +
+      '  {"This is an example:" : "The current board members are allowed to run & scramble everything, I can only scramble 2x2 and pyraminx. You should add reliable people attending your competition."},\n' +
+      '\n' +
+      '  {"name":"Alberto Pérez de Rada Fiol","wcaId":"2011FIOL01","isAllowedTo":["run","scrambleEverything"]},\n' +
+      '  {"name":"Bob Burton","wcaId":"2003BURT01","isAllowedTo":["run","scrambleEverything"]},\n' +
+      '  {"name":"Chris Wright","wcaId":"2011WRIG01","isAllowedTo":["run","scrambleEverything"]},\n' +
+      '  {"name":"Olivér Perge","wcaId":"2007PERG01","isAllowedTo":["run","scrambleEverything"]},\n' +
+      '\n' +
+      '  {"name":"Manu Vereecken","wcaId":"2010VERE01","isAllowedTo":["222","pyram"]}\n' +
+      '\n' +
+      ']\n';
+    let filename = 'staffExample.json';
+    this.downloadFile(content, filename);
+  }
+
   private downloadFile(data: string, filename: string){
     let blob = new Blob([data]);
     saveAs(blob, filename);

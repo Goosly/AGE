@@ -25,8 +25,8 @@
 <!-- GENERAL CONFIGURATION -->
   <div *ngIf="competitionId && groupService.wcif && ! readyForExport">
     <h3>General configuration</h3>
-    We'll be using <input type="number" [(ngModel)]="groupService.totalNumberOfTimers" (ngModelChange)="handleTotalNumberOfTimersSet($event)" min="1" [disabled]="groupsGenerated"> timers in total<br>
-    Select scramblers and runners: <input type="file" id="staff" accept=".json" title="This is a json file, which contains trusted scramblers and capable runners"/><br>
+    We'll be using <input type="number" [(ngModel)]="groupService.totalNumberOfTimers" (ngModelChange)="handleTotalNumberOfTimersSet($event)" min="1" [disabled]="groupsGenerated"> timers in total<br><br>
+    Select scramblers and runners <a ngHref='#here' (click)='exportService.staffExample()'>(example)</a>: <input type="file" id="staff" accept=".json" title="This is a json file, which contains trusted scramblers and capable runners"/><br>
     Alternatively: <input type="checkbox" [(ngModel)]="groupService.configuration.everyoneCanScrambleAndRun"><label>Everyone can scramble and run (NOT RECOMMENDED)</label>
     <br><br>
 
@@ -144,7 +144,7 @@
     <p><button (click)="exportService.pdfGroupOverview(this.groupService.wcif)">Overview per group with names of all competitors, judges, scramblers and runners (PDF)</button></p>
     <p><button (click)="exportService.pdfPersonalSchedules(this.groupService.wcif, this.groupService.configuration.bordersOnNametags)">Personal schedules + nametags (PDF)</button>
         <input type="checkbox" [(ngModel)]="groupService.configuration.bordersOnNametags"><label>Show light borders for cutting and folding</label></p>
-    
+
     <h4>CubeComps</h4>
     CubeComps assigns id's to competitors in the order of the CSV, therefore you MUST use this as import for CubeComps.
     <p><button (click)="exportService.csvForCubeComps(this.groupService.wcif)">CSV for CubeComps</button></p>
