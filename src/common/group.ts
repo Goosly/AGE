@@ -149,6 +149,8 @@ export class GroupService {
     // For every person: set registration fields per event to 1 or 0 (and count per event)
     let idsToRemove = [];
     for (let p of this.wcif.persons) {
+      p.name = p.name.split('(')[0]; // Remove local name
+      
       if (!!p.registration && p.registration.status !== 'accepted') {
         idsToRemove.push(p.registrantId);
         continue;
