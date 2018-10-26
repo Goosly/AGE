@@ -151,7 +151,7 @@ export class GroupService {
     for (let p of this.wcif.persons) {
       p.name = p.name.split('(')[0]; // Remove local name
       
-      if (!!p.registration && p.registration.status !== 'accepted') {
+      if (!p.registration || p.registration.status !== 'accepted') {
         idsToRemove.push(p.registrantId);
         continue;
       }
