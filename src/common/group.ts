@@ -130,6 +130,7 @@ export class GroupService {
         throw new Error('No rounds for ' + e.id);
       }
       e.round1 = e.rounds[0];
+      e.numberOfRounds =  !e.rounds ? 0 : e.rounds.length;
 
       e.startTime = '';
       for (let v of this.wcif.schedule.venues) {
@@ -196,6 +197,7 @@ export class GroupService {
 
     for (let e of this.wcif.events) {
       e.configuration = defaults.filter(d => d.id === e.id)[0];
+      e.configuration.scrambleGroups = Math.max(e.round1.scrambleSetCount, e.configuration.scrambleGroups);
     }
   }
 
