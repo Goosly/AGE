@@ -367,7 +367,7 @@ export class ExportService {
       csv += ('a,');
       csv += (p.name + ',');
       csv += (this.getCountryName(p.countryIso2) + ',');
-      csv += (p.wcaId + ',');
+      csv += ((p.wcaId === null ? '' : p.wcaId) + ',');
       csv += (p.birthdate + ',');
       csv += (p.gender + ',');
       csv += wcif.events.map(event => (p[event.id].competing ? '1' : '0')).join(',');
@@ -586,7 +586,7 @@ export class ExportService {
     'QA' : 'Qatar',
     'RE' : 'Reunion',
     'RO' : 'Romania',
-    'RU' : 'Russian Federation',
+    'RU' : 'Russia',
     'RW' : 'Rwanda',
     'BL' : 'Saint Barthelemy',
     'SH' : 'Saint Helena',
@@ -637,7 +637,7 @@ export class ExportService {
     'UA' : 'Ukraine',
     'AE' : 'United Arab Emirates',
     'GB' : 'United Kingdom',
-    'US' : 'United States',
+    'US' : 'USA',
     'UM' : 'United States Outlying Islands',
     'UY' : 'Uruguay',
     'UZ' : 'Uzbekistan',
