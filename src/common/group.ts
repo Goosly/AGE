@@ -97,6 +97,7 @@ export class GroupService {
       group = this.nextGroup(group, numberOfGroups);
     });
 
+    this.countCJRSForEvent(eventId);
     this.sortCompetitorsByName();
   }
 
@@ -198,6 +199,27 @@ export class GroupService {
     for (let e of this.wcif.events) {
       e.configuration = defaults.filter(d => d.id === e.id)[0];
       e.configuration.scrambleGroups = Math.max(e.round1.scrambleSetCount, e.configuration.scrambleGroups);
+    }
+  }
+  
+  public countCJRSForEvent(eventId: string) {
+    let event: any = this.wcif.events.filter(e => e.id === eventId)[0];
+    let configuration: EventConfiguration = event.configuration;
+    let numberOfGroups: number = configuration.stages * configuration.scrambleGroups;
+
+    event.groupCounters = [];
+    let group: number = 1;
+    while (group <= numberOfGroups) {
+      let groupCounter: string = this.wcif.persons
+        .filter(p => p[eventId].group.split(';').indexOf(group.toString()) > -1).length + '|';
+      groupCounter += this.wcif.persons
+        .filter(p => p[eventId].group.split(';').indexOf('J' + group) > -1).length + '|';
+      groupCounter += this.wcif.persons
+        .filter(p => p[eventId].group.split(';').indexOf('R' + group) > -1).length + '|';
+      groupCounter += this.wcif.persons
+        .filter(p => p[eventId].group.split(';').indexOf('S' + group) > -1).length;
+      event.groupCounters.push(groupCounter);
+      group++;
     }
   }
 

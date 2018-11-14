@@ -83,8 +83,8 @@ export class AppComponent  {
   handleGenerate() {
     try {
       this.groupService.wcif.events.forEach(e => {
-        this.groupService.generateGrouping(e.id);
-        this.countCJRSForEvent(e.id);
+        this.handleGenerateOneEvent(e.id);
+        this.groupCounter = Array(Math.max(this.groupCounter.length, e.configuration.stages * e.configuration.scrambleGroups));
       });
       this.groupsGenerated = true;
     } catch (error) {
@@ -94,7 +94,6 @@ export class AppComponent  {
 
   handleGenerateOneEvent(eventId: string) {
     this.groupService.generateGrouping(eventId);
-    this.countCJRSForEvent(eventId);
   }
 
   handleExport(value: boolean) {
@@ -114,27 +113,7 @@ export class AppComponent  {
   }
 
   handleBlurEvent(eventId: string) {
-    this.countCJRSForEvent(eventId);
-  }
-
-  private countCJRSForEvent(eventId: string) {
-    let event: any = this.groupService.wcif.events.filter(e => e.id === eventId)[0];
-    let configuration: EventConfiguration = event.configuration;
-    let numberOfGroups: number = configuration.stages * configuration.scrambleGroups;
-
-    event.groupCounters = [];
-    for (let group: number = 1; group <= numberOfGroups; group++) {
-      let groupCounter: string = this.groupService.wcif.persons
-        .filter(p => p[eventId].group.split(';').indexOf(group.toString()) > -1).length + '|';
-      groupCounter += this.groupService.wcif.persons
-        .filter(p => p[eventId].group.split(';').indexOf('J' + group) > -1).length + '|';
-      groupCounter += this.groupService.wcif.persons
-        .filter(p => p[eventId].group.split(';').indexOf('R' + group) > -1).length + '|';
-      groupCounter += this.groupService.wcif.persons
-        .filter(p => p[eventId].group.split(';').indexOf('S' + group) > -1).length;
-      event.groupCounters.push(groupCounter);
-    }
-    this.groupCounter = Array(Math.max(this.groupCounter.length, numberOfGroups));
+    this.groupService.countCJRSForEvent(eventId);
   }
 
 }
