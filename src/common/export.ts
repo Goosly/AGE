@@ -51,11 +51,11 @@ export class ExportService {
   }
 
   csvGroups(wcif: Wcif) {
-    let csv:string = 'Name,' + wcif.events.map(event => event.id).join(',') + '\r\n';
+    let csv:string = 'Name,' + wcif.events.map(event => event.id).join(',') + ',\r\n';
     wcif.persons.forEach(p => {
       csv += (p.name + ',');
       csv += wcif.events.map(event => p[event.id].group.split(';')[0]).join(',');
-      csv += '\r\n';
+      csv += ',\r\n';
     });
 
     let filename = 'groups-' + wcif.id + '.csv';
