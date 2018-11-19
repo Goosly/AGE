@@ -370,7 +370,7 @@ export class ExportService {
       csv += ((p.wcaId === null ? '' : p.wcaId) + ',');
       csv += (p.birthdate + ',');
       csv += (p.gender + ',');
-      csv += wcif.events.map(event => (p[event.id].competing ? '1' : '0')).join(',');
+      csv += (wcif.events.map(event => (p[event.id].competing ? '1' : '0')).join(',') + ',');
       csv += (p.email + ',');
       csv += (p.guests + ',');
       csv += ('"",');
