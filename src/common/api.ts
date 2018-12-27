@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, isDevMode} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../environments/environment';
@@ -32,8 +32,11 @@ export class ApiService {
   }
 
   getCompetitions(): Observable<any> {
-    return this.httpClient.get(`${environment.wcaUrl}/api/v0/competitions?managed_by_me=true&start=${new Date().toISOString()}`,
-      {headers: this.headerParams});
+    let url: string = `${environment.wcaUrl}/api/v0/competitions?managed_by_me=true`;
+    if (! isDevMode()) {
+      url += `&start=${new Date().toISOString()}`;
+    }
+    return this.httpClient.get(url, {headers: this.headerParams});
   }
 
   getWcif(competitionId): Observable<any> {

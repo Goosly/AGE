@@ -127,7 +127,7 @@
         <tr *ngFor="let group of groupCounter; let i = index" [attr.data-index]="i">
           <td><label title="C|J|R|S is short for Competitors|Judges|Runners|Scramblers. The numbers will be updated when you make a change to the assignments.">&#9432;</label>
           C|J|R|S Group {{i + 1}}</td>
-          <td *ngFor="let event of groupService.wcif.events">{{ event.groupCounters[i] }}</td>
+          <td *ngFor="let event of groupService.wcif.events">{{ event.configuration.skip ? '' : event.groupCounters[i] }}</td>
         </tr>
 
         <tr *ngFor="let competitor of competitorsToShow">
