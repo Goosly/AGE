@@ -103,7 +103,7 @@
       <h3>Competitors & group/task assignments</h3>
       Edit all groups and task assignments until you're happy, then click: <button (click)="handleExport(true)">I'm ready, let's export</button><br>
       You can also sort the competitors by the assignments of an event, or re-generate a suggestion for the assignments of an entire event<br><br>
-      
+
       Filter by name: <input type="text" class="filter" [(ngModel)]="filter" (ngModelChange)="handleFilterChanged($event)"/>
       <table>
         <tr>
@@ -131,7 +131,7 @@
         </tr>
 
         <tr *ngFor="let competitor of competitorsToShow">
-          <td >{{ competitor.name}}</td>
+          <td [ngClass]="{'newCompetitor': ! competitor.wcaId}">{{ competitor.name}}</td>
           <td *ngFor="let event of groupService.wcif.events">
             <input class="group" [(ngModel)]="competitor[event.id].group" (blur)="handleBlurEvent(event.id)">
           </td>
