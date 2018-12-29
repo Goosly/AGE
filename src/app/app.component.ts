@@ -3,6 +3,7 @@ import { ApiService } from '../common/api';
 import { GroupService } from '../common/group';
 import { ExportService } from '../common/export';
 import { EventConfiguration } from '../common/classes';
+declare var $ :any;
 
 @Component({
   selector: 'my-app',
@@ -112,8 +113,36 @@ export class AppComponent  {
     this.groupService.sortCompetitorsByEvent(event.id);
   }
 
-  handleBlurEvent(eventId: string) {
+  handleBlurEvent(target, group: string, eventId: string) {
+    if (this.isValidAssignment(group, eventId)) {
+      $(target).removeClass('invalidAssignment');
+    } else {
+      $(target).addClass('invalidAssignment');
+    }
+    
     this.groupService.countCJRSForEvent(eventId);
+  }
+  
+  isValidAssignment(group: string, eventId: string): boolean {
+    if (group === null || group === "") {
+      return true;
+    }
+    if (! RegExp('^[0-9SJR;]+$').test(group)) {
+      return false;
+    }
+    
+    let event: EventConfiguration = this.groupService.wcif.events.filter(e => e.id === eventId)[0].configuration;
+    let max: number = event.scrambleGroups * event.stages;
+    let p = group.split(';')
+    for (let i = 0; i < p.length; i++) {
+      if (! RegExp('^[SJR]?[0-9]+$').test(p[i])) {
+        return false;
+      }
+      if (parseInt(p[i].match(/[0-9]+/)[0]) > max) {
+        return false;
+      }
+    }
+    return true;
   }
 
 }

@@ -45,3 +45,7 @@ a {
 .newCompetitor {
   color: crimson;
 }
+
+.invalidAssignment {
+  border:1px solid red;
+}

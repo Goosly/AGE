@@ -133,7 +133,8 @@
         <tr *ngFor="let competitor of competitorsToShow">
           <td [ngClass]="{'newCompetitor': ! competitor.wcaId}">{{ competitor.name}}</td>
           <td *ngFor="let event of groupService.wcif.events">
-            <input class="group" [(ngModel)]="competitor[event.id].group" (blur)="handleBlurEvent(event.id)">
+            <input class="group" [(ngModel)]="competitor[event.id].group" (blur)="handleBlurEvent($event.target, competitor[event.id].group, event.id)">
+              <!-- [ngClass]="{'': invalidAssignment(competitor[event.id].group, event.id)}" -->
           </td>
         </tr>
       </table>
