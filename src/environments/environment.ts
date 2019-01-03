@@ -4,7 +4,7 @@ export const environment = {
   appUrl : 'http://localhost:4200/',
   wcaUrl : 'https://staging.worldcubeassociation.org',
 
-  wcaAppId : 'e1de1264ee79700651cbf363d10c1e0dc154c77829b16b1a3ca2f61e07a0fede',
-  wcaSecret : '8fd9cea7e67f10ef49df07c931adbfcb02fe6da796c741c18d6cad763cf30aca'
+  wcaAppId : 'f7ffda736fb0ed19ef3c3930570458aa9cbe2e88d9d305854e27c1bed21e478a',
+  wcaSecret : 'd9d5661326bf896389277a3da8a0a759a4c7cc31b06f5d09970abd31ec53d569'
 
 };
