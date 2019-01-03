@@ -218,12 +218,17 @@ export class ExportService {
 
         },
         name: {
-            fontSize: 20,
+            fontSize: 18,
             alignment: 'center',
             margin: [0, 10, 0, 0] // add white to top
         },
+        wcaId: {
+            fontSize: 10,
+            alignment: 'center',
+            margin: [0, 5, 0, 0] // add white to top
+        },
         country: {
-            fontSize: 15,
+            fontSize: 10,
             alignment: 'center',
             margin: [0, 5, 0, 0] // add white to top
         }
@@ -236,9 +241,10 @@ export class ExportService {
     wcif.persons.forEach(p => {
       let nametag = this.getOneNametagToFill(bordersOnNametags);
 
-      // Set name and country on nametag
+      // Set name, wcaId and country on nametag
       nametag.table.body[0][1].table.body[0][0].text = p.name;
-      nametag.table.body[0][1].table.body[1][0].text = this.getCountryName(p.countryIso2);
+      nametag.table.body[0][1].table.body[1][0].text = ! p.wcaId ? ' ' : p.wcaId;
+      nametag.table.body[0][1].table.body[2][0].text = this.getCountryName(p.countryIso2);
 
       // Add all events + group
       let i: number = 0;
@@ -344,6 +350,11 @@ export class ExportService {
                       alignment: 'center'
                   }],
                   [{
+                      style: 'wcaId',
+                      text: '',
+                      alignment: 'center'
+                  }],
+                  [{
                       style: 'country',
                       text: '',
                       alignment: 'center'
@@ -365,7 +376,7 @@ export class ExportService {
     let csv:string = 'Status,Name,Country,WCA ID,Birth Date,Gender,' + wcif.events.map(event => event.id).join(',') + ',Email,Guests,IP' + '\r\n';
     wcif.persons.forEach(p => {
       csv += ('a,');
-      csv += (p.name + ',');
+      csv += (p.fullName + ',');
       csv += (this.getCountryName(p.countryIso2) + ',');
       csv += ((p.wcaId === null ? '' : p.wcaId) + ',');
       csv += (p.birthdate + ',');
