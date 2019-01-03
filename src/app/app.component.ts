@@ -124,21 +124,27 @@ export class AppComponent  {
   }
   
   isValidAssignment(group: string, eventId: string): boolean {
-    if (group === null || group === "") {
+    if (group === null || group === "") { // Empty is OK
       return true;
     }
-    if (! RegExp('^[0-9SJR;]+$').test(group)) {
+    if (! RegExp('^[0-9SJR;]+$').test(group)) { // Anything else than numbers, SJR and ; is not OK
       return false;
     }
     
     let event: EventConfiguration = this.groupService.wcif.events.filter(e => e.id === eventId)[0].configuration;
     let max: number = event.scrambleGroups * event.stages;
     let p = group.split(';')
-    for (let i = 0; i < p.length; i++) {
-      if (! RegExp('^[SJR]?[0-9]+$').test(p[i])) {
+    for (let i = 0; i < p.length; i++) { // Loop over the assignments for this event (for example: 1;J3)
+      if (! RegExp('^[SJR]?[0-9]+$').test(p[i])) { // Every part must be (optionally S J or R followed by) a groupnumber
         return false;
       }
-      if (parseInt(p[i].match(/[0-9]+/)[0]) > max) {
+      if (parseInt(p[i].match(/[0-9]+/)[0]) > max) { // Groupnumber can't be higher than the amount of groups for this event
+        return false;
+      }
+    }
+    for (let i = 0; i < p.length; i++) { // New loop because this should only be checked if all parts are valid themselves
+      // Check multiple assignments for one group (for example: 2;J2)
+      if (p.map(e => parseInt(e.match(/[0-9]+/)[0])).indexOf(parseInt(p[i].match(/[0-9]+/)[0])) !== i) {
         return false;
       }
     }
