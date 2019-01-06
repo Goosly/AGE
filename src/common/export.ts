@@ -210,12 +210,10 @@ export class ExportService {
           nametag: {
           margin: [0, 30, 0, 0],
           lineHeight: 0.7
-
         },
         tableExample: {
           margin: [0, 0, 0, 0],
           lineHeight: 0.7
-
         },
         name: {
             fontSize: 18,
@@ -231,6 +229,9 @@ export class ExportService {
             fontSize: 10,
             alignment: 'center',
             margin: [0, 5, 0, 0] // add white to top
+        },
+        startTime: {
+            fontSize: 7
         }
       },
       defaultStyle: {
@@ -251,8 +252,11 @@ export class ExportService {
       let j: number = 0;
       wcif.events.forEach(event => {
         if (p[event.id].group !== '') {
-          nametag.table.body[0][0].table.body[0][i].table.body[j][0] = this.getIconOf(event.id, 10);
-          nametag.table.body[0][0].table.body[0][i].table.body[j][1] = p[event.id].group;
+          let start: Date = new Date(event.startTime);
+          nametag.table.body[0][0].table.body[0][i].table.body[j][0].text
+            = start.getHours() + ':' + (start.getMinutes() < 10 ? '0' : '') + start.getMinutes();
+          nametag.table.body[0][0].table.body[0][i].table.body[j][1] = this.getIconOf(event.id, 10);
+          nametag.table.body[0][0].table.body[0][i].table.body[j][2] = p[event.id].group;
 
           j++;
           if (j > 5) {
@@ -293,12 +297,12 @@ export class ExportService {
                       style: 'tableExample',
                       table: {
                         body: [
-                          [' ', ' '],
-                          [' ', ' '],
-                          [' ', ' '],
-                          [' ', ' '],
-                          [' ', ' '],
-                          [' ', ' ']
+                          [{ style: 'startTime', text: ' ' }, ' ', ' '],
+                          [{ style: 'startTime', text: ' ' }, ' ', ' '],
+                          [{ style: 'startTime', text: ' ' }, ' ', ' '],
+                          [{ style: 'startTime', text: ' ' }, ' ', ' '],
+                          [{ style: 'startTime', text: ' ' }, ' ', ' '],
+                          [{ style: 'startTime', text: ' ' }, ' ', ' ']
                         ]
                       },
                       layout: 'noBorders'
@@ -308,12 +312,12 @@ export class ExportService {
                       style: 'tableExample',
                       table: {
                         body: [
-                          [' ', ' '],
-                          [' ', ' '],
-                          [' ', ' '],
-                          [' ', ' '],
-                          [' ', ' '],
-                          [' ', ' ']
+                          [{ style: 'startTime', text: ' ' }, ' ', ' '],
+                          [{ style: 'startTime', text: ' ' }, ' ', ' '],
+                          [{ style: 'startTime', text: ' ' }, ' ', ' '],
+                          [{ style: 'startTime', text: ' ' }, ' ', ' '],
+                          [{ style: 'startTime', text: ' ' }, ' ', ' '],
+                          [{ style: 'startTime', text: ' ' }, ' ', ' ']
                         ]
                       },
                       layout: 'noBorders'
@@ -323,12 +327,12 @@ export class ExportService {
                       style: 'tableExample',
                       table: {
                         body: [
-                          [' ', ' '],
-                          [' ', ' '],
-                          [' ', ' '],
-                          [' ', ' '],
-                          [' ', ' '],
-                          [' ', ' ']
+                          [{ style: 'startTime', text: ' ' }, ' ', ' '],
+                          [{ style: 'startTime', text: ' ' }, ' ', ' '],
+                          [{ style: 'startTime', text: ' ' }, ' ', ' '],
+                          [{ style: 'startTime', text: ' ' }, ' ', ' '],
+                          [{ style: 'startTime', text: ' ' }, ' ', ' '],
+                          [{ style: 'startTime', text: ' ' }, ' ', ' ']
                         ]
                       },
                       layout: 'noBorders'
