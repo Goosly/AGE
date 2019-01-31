@@ -232,7 +232,7 @@ export class GroupService {
 
   private canScramble(person, staff, event): boolean {
     if (this.configuration.everyoneCanScrambleAndRun) {
-      return this.canJudge(person);
+      return !!person.wcaId && this.canJudge(person);
     }
     let x = staff.filter(s => s.wcaId === person.wcaId);
     if (x.length === 1) {
@@ -243,7 +243,7 @@ export class GroupService {
 
   private canRun(person, staff): boolean {
     if (this.configuration.everyoneCanScrambleAndRun) {
-      return this.canJudge(person);
+      return !!person.wcaId && this.canJudge(person);
     }
     let x = staff.filter(s => s.wcaId === person.wcaId);
     if (x.length === 1) {
