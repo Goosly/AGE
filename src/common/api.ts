@@ -33,7 +33,7 @@ export class ApiService {
 
   getCompetitions(): Observable<any> {
     let url: string = `${environment.wcaUrl}/api/v0/competitions?managed_by_me=true`;
-    if (! isDevMode()) {
+    if (! environment.testMode) {
       url += `&start=${new Date().toISOString()}`;
     }
     return this.httpClient.get(url, {headers: this.headerParams});
