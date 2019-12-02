@@ -151,4 +151,8 @@ export class AppComponent  {
     return true;
   }
 
+  get advancedStrategy(): boolean {
+    return this.groupService.configuration.groupStrategy === 'advanced';
+  }
+
 }

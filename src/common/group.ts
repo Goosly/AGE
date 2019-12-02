@@ -12,7 +12,15 @@ export class GroupService {
   constructor() {}
 
   generateGrouping(eventId: string) {
-    let handler = (e, s) => this.staffIsReadyForGrouping(e, s);
+    if (this.configuration.groupStrategy === 'basic') {
+      this.generateBasicGrouping(eventId);
+    } else {
+      this.generateAdvancedGrouping(eventId);
+    }
+  }
+
+  generateAdvancedGrouping(eventId: string) {
+    let generateGroupingForEvent = (e, s) => this.generateGroupingForEvent(e, s);
     let file = document.getElementById('staff')['files'][0];
     let staff = null;
     if (file) {
@@ -20,20 +28,31 @@ export class GroupService {
       reader.readAsText(file);
       reader.onload = function(e) {
         staff = JSON.parse(e.target['result']);
-        handler(eventId, staff);
+        generateGroupingForEvent(eventId, staff);
       };
     } else if (this.configuration.everyoneCanScrambleAndRun) {
-      handler(eventId, []);
+      generateGroupingForEvent(eventId, []);
     } else {
       alert("There are no scramblers and runners! Please select a json file or allow everyone to scramble and run (NOT RECOMMENDED).");
       throw Error("No scramblers and runners");
     }
   }
 
-  private staffIsReadyForGrouping(eventId: string, staff) {
+  private generateBasicGrouping(eventId: string) {
+    let event: any = this.wcif.events.filter(e => e.id === eventId)[0];
+    let eventConfiguration: EventConfiguration = event.configuration;
+    let i = 0;
+    this.shuffleCompetitors();
+    this.wcif.persons.filter(p => p[eventId].competing).forEach(p => {
+      p[eventId].group = (i + 1) + '';
+      i = (i + 1) % eventConfiguration.scrambleGroups;
+    });
+    this.sortCompetitorsByName();
+  }
+
+  private generateGroupingForEvent(eventId: string, staff) {
     // Make some variables
     let event: any = this.wcif.events.filter(e => e.id === eventId)[0];
-    let numberOfCompetitors: number = event.numberOfRegistrations;
     let configuration: EventConfiguration = event.configuration;
     let numberOfGroups: number = configuration.stages * configuration.scrambleGroups;
     let tasks = this.createTaskCounter(configuration); // Variable to keep track of assignments for all groups

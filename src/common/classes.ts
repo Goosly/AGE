@@ -17,6 +17,7 @@ export class EventConfiguration {
 }
 
 export class GeneralConfiguration {
+  groupStrategy: 'basic' | 'advanced' = 'basic';
   skipDelegatesAndOrganizers: boolean = true;
   everyoneCanScrambleAndRun: boolean = false;
   bordersOnNametags: boolean = true;

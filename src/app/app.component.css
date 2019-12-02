@@ -4,7 +4,6 @@ div {
 
 .center {
     margin: auto;
-    width: 90%;
 }
 
 input[type=number] {
@@ -30,8 +29,16 @@ button {
   font-size: 12px;
 }
 
+.small {
+  padding: 6px 2px;
+}
+
 button:disabled {
   background-color: #767d87;
+}
+
+th {
+  text-align: left;
 }
 
 .advanced {
