@@ -3,6 +3,7 @@ import { ApiService } from '../common/api';
 import { GroupService } from '../common/group';
 import { ExportService } from '../common/export';
 import { EventConfiguration } from '../common/classes';
+import { ScoreCardService } from '../common/scorecard';
 declare var $ :any;
 
 @Component({
@@ -32,7 +33,8 @@ export class AppComponent  {
   constructor (
     public apiService: ApiService,
     public groupService: GroupService,
-    public exportService: ExportService
+    public exportService: ExportService,
+    public scoreCardsService: ScoreCardService
     ) {
       this.Math = Math;
       if (this.apiService.oauthToken) {

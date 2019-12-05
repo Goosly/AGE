@@ -4,6 +4,7 @@
 <!-- LOGIN -->
   <div *ngIf="! apiService.oauthToken">
     <button (click)="handleLoginToWca()">First: login</button><br>
+    <button (click)="scoreCardsService.printScoreCardsForRound({})">Test</button><br>
   </div>
 
 <!-- SELECT COMP -->
