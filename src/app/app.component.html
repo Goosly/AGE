@@ -4,7 +4,6 @@
 <!-- LOGIN -->
   <div *ngIf="! apiService.oauthToken">
     <button (click)="handleLoginToWca()">First: login</button><br>
-    <button (click)="scoreCardsService.printScoreCardsForRound({})">Test</button><br>
   </div>
 
 <!-- SELECT COMP -->
@@ -27,8 +26,8 @@
   <div *ngIf="competitionId && groupService.wcif && ! readyForExport">
     <h3>General configuration</h3>
     <select class='form-control' [disabled]="groupsGenerated" [(ngModel)]='groupService.configuration.groupStrategy'>
-      <option value='basic'>Basic manual grouping</option>
-      <option value='advanced'>Advanced version</option>
+      <option value='basic'>Only grouping (no staff assignments)</option>
+      <option value='advanced'>Advanced grouping</option>
     </select><br><br>
 
     <div *ngIf="advancedStrategy">
@@ -39,11 +38,7 @@
       Alternatively: <input type="checkbox" [(ngModel)]="groupService.configuration.everyoneCanScrambleAndRun"><label>Everyone can scramble and run (NOT RECOMMENDED)</label>
       <br><br>
 
-      <input type="checkbox" [(ngModel)]="showAdvanced">Show advanced configuration<br>
-
-      <p *ngIf="showAdvanced">
-        <input type="checkbox" [(ngModel)]="groupService.configuration.skipDelegatesAndOrganizers"><label class="advanced">Never assign delegates and organizers to judging</label><br>
-      </p>
+      <input type="checkbox" [(ngModel)]="groupService.configuration.skipDelegatesAndOrganizers"><label>Never assign delegates and organizers to judging</label><br>
     </div>
 
 <!-- EVENTS CONFIGURATION -->
@@ -119,7 +114,7 @@
           <th *ngFor="let event of groupService.wcif.events">{{ event.id }}</th>
         </tr>
         <tr>
-          <td><button (click)="groupService.sortCompetitorsByName()">Sort by name</button></td>
+          <td><button (click)="handleSortCompetitorsByName()">Sort by name</button></td>
           <td *ngFor="let event of groupService.wcif.events"><button (click)="handleSortByEvent(event)">Sort</button></td>
         </tr>
         <tr>

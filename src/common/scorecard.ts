@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
 import {formatCentiseconds, Event, getEventName, Round, Person} from '@wca/helpers';
+import {Helpers} from './helpers';
+import {Wcif} from './classes';
 declare var pdfMake: any;
 
 @Injectable({
@@ -7,10 +9,11 @@ declare var pdfMake: any;
 })
 export class ScoreCardService {
 
-  public printScoreCardsForAllFirstRounds(wcif: any) {
+  public printScoreCardsForAllFirstRoundsExceptFMC(wcif: Wcif) {
     let scorecards: ScoreCardInfo[] = [];
-    wcif['events'].forEach(event => {
-      let competitorsOfEvent: Person[] = wcif['persons'].filter(p => p[event.id].competing && !! p[event.id].group);
+    wcif['events'].filter(e => e.id !== '333fm').forEach(event => {
+      Helpers.sortCompetitorsByEvent(wcif, event.id);
+      let competitorsOfEvent: Person[] = wcif.persons.filter(p => p[event.id].competing && !! p[event.id].group);
       competitorsOfEvent.forEach(c => {
         let scorecard: ScoreCardInfo = this.getScoreCardForFirstRoundOfEvent(wcif, event);
         scorecard.competitorName = c.name;
@@ -21,6 +24,7 @@ export class ScoreCardService {
       this.addEmptyScoreCardsUntilPageIsFull(scorecards, wcif);
     });
 
+    Helpers.sortCompetitorsByName(wcif);
     this.print(wcif, scorecards);
   }
 
@@ -46,6 +50,7 @@ export class ScoreCardService {
       competitorId: null,
       competitorName: null,
       timeLimit: this.getTimeLimitOf(event.rounds[0]),
+      cumulative: this.getCumulative(event.rounds[0]),
       cutoff: this.getCutoffOf(event.rounds[0])
     }
   }
@@ -55,6 +60,14 @@ export class ScoreCardService {
       return null;
     } else {
       return formatCentiseconds(round.timeLimit.centiseconds);
+    }
+  }
+
+  private getCumulative(round: Round): boolean {
+    if (round === null || round.timeLimit === null || round.timeLimit.cumulativeRoundIds === null) {
+      return false;
+    } else {
+      return round.timeLimit.cumulativeRoundIds.length > 0
     }
   }
 
@@ -79,6 +92,7 @@ export class ScoreCardService {
       competitorId: 15,
       competitorName: 'Manu Vereecken',
       timeLimit: formatCentiseconds(5 * 6000),
+      cumulative: false,
       cutoff: formatCentiseconds(3 * 6000)
     }
   }
@@ -94,6 +108,7 @@ export class ScoreCardService {
       competitorId: null,
       competitorName: ' ',
       timeLimit: null,
+      cumulative: false,
       cutoff: null
     }
   }
@@ -113,18 +128,17 @@ export class ScoreCardService {
         fontSize: 12
       }
     };
-    // todo use different types of scorecards: avg5/mo3/cumulative limit
     for (let i = 0; i < scorecards.length; i += 4) {
       let onePage = [
         [
-          [this.oneAvg5ScoreCard(scorecards[i])],
+          [this.getScoreCardTemplate(scorecards[i])],
           '',
-          [this.oneAvg5ScoreCard(scorecards[i + 1])]
+          [this.getScoreCardTemplate(scorecards[i + 1])]
         ],
         [
-          [this.oneAvg5ScoreCard(scorecards[i + 2])],
+          [this.getScoreCardTemplate(scorecards[i + 2])],
           '',
-          [this.oneAvg5ScoreCard(scorecards[i + 3])]
+          [this.getScoreCardTemplate(scorecards[i + 3])]
         ]
       ];
       document.content.push({
@@ -138,7 +152,56 @@ export class ScoreCardService {
         pageBreak: 'after'
       });
     }
+    // todo remove pagebreak of last page
     return document;
+  }
+
+  private getScoreCardTemplate(info: ScoreCardInfo) {
+    // todo improve template for mbld
+    if (['666', '777', '333bf', '444bf', '555bf', '333mbf'].includes(info.eventId)) {
+      return this.oneMo3ScoreCard(info);
+    }
+    return this.oneAvg5ScoreCard(info);
+  }
+
+  private oneMo3ScoreCard(info: ScoreCardInfo): any[]  {
+    return [
+      {text: info.competitionName, alignment: 'center', fontSize: 10},
+      {text: info.eventName, alignment: 'center', fontSize: 18, bold: true},
+      {text: 'Round ' + (info.round === null ? '    ' : info.round)
+          + ' | Group ' + (info.group === null ? '    ' : info.group)
+          + ' of ' + (info.totalGroups === null ? '    ' : info.totalGroups), alignment: 'center', fontSize: 10},
+      {table : {
+          widths: [30, 215],
+          body: [[
+            {text: (info.competitorId === null ? ' ' : info.competitorId), fontSize: 16, alignment: 'center'},
+            {text: info.competitorName, fontSize: 16, alignment: 'center'}]]
+        },margin: [0, 5]},
+      {table : {
+          widths: [5, 16, 157, 20, 20],
+          body: [[
+            {text:''},
+            {text:'S', alignment: 'center'},
+            {text:
+                info.cumulative ? 'Result\n(Cumulative limit: ' + info.timeLimit + ')' :
+                  (info.timeLimit !== null ? 'Result (DNF if > ' + info.timeLimit + ')' : ''), alignment: 'center'},
+            {text:'J', alignment: 'center'},
+            {text:'C', alignment: 'center'}],
+            [{text:'1', margin: [0, 7]}, '', '', '', '']]
+        },margin: [0, 2]},
+      {text: info.cutoff !== null ? '-------------- Continue if 1 or 2 < ' + info.cutoff +' --------------' : '', alignment: 'center', fontSize: 10},
+      {table : {
+          widths: [5, 16, 157, 20, 20],
+          body: [
+            [{text:'2', margin: [0, 7]}, '', '', '', ''],
+            [{text:'3', margin: [0, 7]}, '', '', '', '']]
+        },margin: [0, 2]},
+      {text: '-------------- Extra or provisional --------------', alignment: 'center', fontSize: 10},
+      {table : {
+          widths: [5, 16, 157, 20, 20],
+          body: [[{text:'E', margin: [0, 5]}, '', '', '', '']]
+        },margin: [0, 2]}
+    ]
   }
 
   private oneAvg5ScoreCard(info: ScoreCardInfo): any[]  {
@@ -159,7 +222,9 @@ export class ScoreCardService {
           body: [[
             {text:''},
             {text:'S', alignment: 'center'},
-            {text: info.timeLimit !== null ? 'Result (DNF if > ' + info.timeLimit + ')' : '', alignment: 'center'},
+            {text:
+                info.cumulative ? 'Result\n(Cumulative limit: ' + info.timeLimit :
+                  (info.timeLimit !== null ? 'Result (DNF if > ' + info.timeLimit + ')' : ''), alignment: 'center'},
             {text:'J', alignment: 'center'},
             {text:'C', alignment: 'center'}],
             [{text:'1', margin: [0, 7]}, '', '', '', ''],
@@ -192,6 +257,7 @@ export class ScoreCardInfo {
   competitorId: number;
   competitorName: string;
   timeLimit: string;
+  cumulative: boolean;
   cutoff: string;
 }
 

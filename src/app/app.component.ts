@@ -4,6 +4,7 @@ import { GroupService } from '../common/group';
 import { ExportService } from '../common/export';
 import { EventConfiguration } from '../common/classes';
 import { ScoreCardService } from '../common/scorecard';
+import {Helpers} from '../common/helpers';
 declare var $ :any;
 
 @Component({
@@ -26,7 +27,6 @@ export class AppComponent  {
   // Fields for binding
   filter: string = '';
   competitorsToShow: Array<any>;
-  showAdvanced: boolean;
   groupCounter: Array<number> = [];
   Math: any;
 
@@ -61,8 +61,8 @@ export class AppComponent  {
       this.groupService.wcif = wcif;
       try {
         this.groupService.processWcif();
-        this.numberOfEvents = this.groupService.wcif["events"].length;
-        this.numberOfCompetitors = this.groupService.wcif["persons"].length;
+        this.numberOfEvents = this.groupService.wcif.events.length;
+        this.numberOfCompetitors = this.groupService.wcif.persons.length;
         this.competitorsToShow = this.groupService.wcif.persons;
       } catch (error) {
         console.error(error);
@@ -100,7 +100,7 @@ export class AppComponent  {
   }
 
   handleExport(value: boolean) {
-    this.groupService.sortCompetitorsByName();
+    Helpers.sortCompetitorsByName(this.groupService.wcif);
     this.readyForExport = value;
   }
 
@@ -112,7 +112,11 @@ export class AppComponent  {
   }
 
   handleSortByEvent(event) {
-    this.groupService.sortCompetitorsByEvent(event.id);
+    Helpers.sortCompetitorsByEvent(this.groupService.wcif, event.id);
+  }
+
+  handleSortCompetitorsByName() {
+    Helpers.sortCompetitorsByName(this.groupService.wcif);
   }
 
   handleBlurEvent(target, group: string, eventId: string) {

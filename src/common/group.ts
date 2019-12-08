@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Wcif, EventConfiguration, GeneralConfiguration} from './classes';
+import {Helpers} from './helpers';
 
 @Injectable({
   providedIn: 'root'
@@ -47,7 +48,7 @@ export class GroupService {
       p[eventId].group = (i + 1) + '';
       i = (i + 1) % eventConfiguration.scrambleGroups;
     });
-    this.sortCompetitorsByName();
+    Helpers.sortCompetitorsByName(this.wcif);
   }
 
   private generateGroupingForEvent(eventId: string, staff) {
@@ -68,12 +69,12 @@ export class GroupService {
 
     if (potentialScramblers.length < numberOfGroups * configuration.scramblers) {
       alert('Not enough scramblers for ' + eventId + '!\nMake sure you add plenty of reliable people in your json file, then retry.');
-      this.sortCompetitorsByName();
+      Helpers.sortCompetitorsByName(this.wcif);
       return;
     }
     if (potentialRunners.length < numberOfGroups * configuration.runners) {
       alert('Not enough runners for ' + eventId + '!\nMake sure you add plenty of reliable people in your json file, then retry.');
-      this.sortCompetitorsByName();
+      Helpers.sortCompetitorsByName(this.wcif);
       return;
     }
 
@@ -117,7 +118,7 @@ export class GroupService {
     });
 
     this.countCJRSForEvent(eventId);
-    this.sortCompetitorsByName();
+    Helpers.sortCompetitorsByName(this.wcif);
   }
 
   private nextGroup(group: number, numberOfGroups: number): number {
@@ -279,28 +280,6 @@ export class GroupService {
       this.wcif.persons[i] = this.wcif.persons[j];
       this.wcif.persons[j] = x;
     }
-  }
-
-  public sortCompetitorsByName() {
-    this.wcif.persons = this.wcif.persons.sort(function(a, b) {
-      var textA = a.name.toUpperCase();
-      var textB = b.name.toUpperCase();
-      return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
-    });
-  }
-
-  public sortCompetitorsByEvent(eventId: string) {
-    this.wcif.persons = this.wcif.persons.sort(function(a, b) {
-      var textA = a[eventId].group;
-      var textB = b[eventId].group;
-      if (textA === '') {
-        return 1;
-      }
-      if (textB === '') {
-        return -1;
-      }
-      return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
-    });
   }
 
   private sortEventsByStartTime() {
