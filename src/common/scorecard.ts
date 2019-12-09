@@ -152,7 +152,7 @@ export class ScoreCardService {
         pageBreak: 'after'
       });
     }
-    // todo remove pagebreak of last page
+    document.content[document.content.length - 1].pageBreak = null;
     return document;
   }
 
@@ -189,7 +189,7 @@ export class ScoreCardService {
             {text:'C', alignment: 'center'}],
             [{text:'1', margin: [0, 7]}, '', '', '', '']]
         },margin: [0, 2]},
-      {text: info.cutoff !== null ? '-------------- Continue if 1 or 2 < ' + info.cutoff +' --------------' : '', alignment: 'center', fontSize: 10},
+      {text: info.cutoff !== null ? '-------------- Continue if 1 < ' + info.cutoff +' --------------' : '', alignment: 'center', fontSize: 10},
       {table : {
           widths: [5, 16, 157, 20, 20],
           body: [
