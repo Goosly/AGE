@@ -157,8 +157,9 @@ export class ScoreCardService {
   }
 
   private getScoreCardTemplate(info: ScoreCardInfo) {
-    // todo improve template for mbld
-    if (['666', '777', '333bf', '444bf', '555bf', '333mbf'].includes(info.eventId)) {
+    if ('333mbf' === info.eventId) {
+      return this.oneMbldScoreCard(info);
+    } else if (['666', '777', '333bf', '444bf', '555bf'].includes(info.eventId)) {
       return this.oneMo3ScoreCard(info);
     }
     return this.oneAvg5ScoreCard(info);
@@ -244,6 +245,38 @@ export class ScoreCardService {
       {table : {
           widths: [5, 16, 157, 20, 20],
           body: [[{text:'E', margin: [0, 5]}, '', '', '', '']]
+        },margin: [0, 2]}
+    ]
+  }
+
+  private oneMbldScoreCard(info: ScoreCardInfo): any[]  {
+    return [
+      {text: info.competitionName, alignment: 'center', fontSize: 10},
+      {text: info.eventName, alignment: 'center', fontSize: 18, bold: true},
+      {text: 'Round ' + (info.round === null ? '    ' : info.round)
+          + ' | Group ' + (info.group === null ? '    ' : info.group)
+          + ' of ' + (info.totalGroups === null ? '    ' : info.totalGroups), alignment: 'center', fontSize: 10},
+      {table : {
+          widths: [30, 215],
+          body: [[
+            {text: (info.competitorId === null ? ' ' : info.competitorId), fontSize: 16, alignment: 'center'},
+            {text: info.competitorName, fontSize: 16, alignment: 'center'}]]
+        },margin: [0, 5]},
+      {text: 'Count and write down the number of cubes before the attempt starts', bold: true, alignment: 'center'},
+      {table : {
+          widths: [5, 16, 157, 20, 20],
+          body: [[
+            {text:''},
+            {text:'S', alignment: 'center'},
+            {text: 'Result', alignment: 'center'},
+            {text:'J', alignment: 'center'},
+            {text:'C', alignment: 'center'}],
+            [{text:'1', margin: [0, 7]}, '',
+              {text:'_______ / _______\n\nTime:', margin: [0, 7]}, '', ''],
+            [{text:'2', margin: [0, 7]}, '',
+              {text:'_______ / _______\n\nTime:', margin: [0, 7]}, '', ''],
+            [{text:'3', margin: [0, 7]}, '',
+              {text:'_______ / _______\n\nTime:', margin: [0, 7]}, '', '']]
         },margin: [0, 2]}
     ]
   }
