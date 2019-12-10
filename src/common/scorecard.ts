@@ -177,6 +177,7 @@ export class ScoreCardService {
             {text: (info.competitorId === null ? ' ' : info.competitorId), fontSize: 16, alignment: 'center'},
             {text: info.competitorName, fontSize: 16, alignment: 'center'}]]
         },margin: [0, 5]},
+      {text: info.cumulative ? 'Also write down the time for a DNF!' : '', bold: true, alignment: 'center'},
       {table : {
           widths: [5, 16, 157, 20, 20],
           body: [[
@@ -217,13 +218,14 @@ export class ScoreCardService {
             {text: (info.competitorId === null ? ' ' : info.competitorId), fontSize: 16, alignment: 'center'},
             {text: info.competitorName, fontSize: 16, alignment: 'center'}]]
         },margin: [0, 5]},
+      {text: info.cumulative ? 'Also write down the time for a DNF!' : '', bold: true, alignment: 'center'},
       {table : {
           widths: [5, 16, 157, 20, 20],
           body: [[
             {text:''},
             {text:'S', alignment: 'center'},
             {text:
-                info.cumulative ? 'Result\n(Cumulative limit: ' + info.timeLimit :
+                info.cumulative ? 'Result\n(Cumulative limit: ' + info.timeLimit + ')' :
                   (info.timeLimit !== null ? 'Result (DNF if > ' + info.timeLimit + ')' : ''), alignment: 'center'},
             {text:'J', alignment: 'center'},
             {text:'C', alignment: 'center'}],
