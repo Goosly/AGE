@@ -133,11 +133,12 @@
           <td *ngFor="let event of groupService.wcif.events">{{ event.configuration.skip ? '' : event.groupCounters[i] }}</td>
         </tr>
 
-        <tr *ngFor="let competitor of competitorsToShow">
+        <tr *ngFor="let competitor of competitorsToShow; index as c">
           <td [ngClass]="{'newCompetitor': ! competitor.wcaId}">{{ competitor.name}}</td>
-          <td *ngFor="let event of groupService.wcif.events">
-            <input class="group" [(ngModel)]="competitor[event.id].group" (blur)="handleBlurEvent($event.target, competitor[event.id].group, event.id)">
-              <!-- [ngClass]="{'': invalidAssignment(competitor[event.id].group, event.id)}" -->
+          <td *ngFor="let event of groupService.wcif.events; index as e">
+            <input class="group" [(ngModel)]="competitor[event.id].group"
+                   [tabIndex]="e * competitorsToShow.length + c + 1"
+                   (blur)="handleBlurEvent($event.target, competitor[event.id].group, event.id)">
           </td>
         </tr>
       </table>
