@@ -39,7 +39,7 @@ export class GroupService {
     }
   }
 
-  private generateBasicGrouping(eventId: string) {
+  private generateBasicGrouping(eventId: string) { // Very simple: random groups
     let event: any = this.wcif.events.filter(e => e.id === eventId)[0];
     let eventConfiguration: EventConfiguration = event.configuration;
     let i = 0;
@@ -56,7 +56,7 @@ export class GroupService {
     let event: any = this.wcif.events.filter(e => e.id === eventId)[0];
     let configuration: EventConfiguration = event.configuration;
     let numberOfGroups: number = configuration.stages * configuration.scrambleGroups;
-    let tasks = this.createTaskCounter(configuration); // Variable to keep track of assignments for all groups
+    let taskCounter = this.createTaskCounter(configuration); // Variable to keep track of assignments for all groups
     if (configuration.skip) {
       return;
     }
@@ -82,22 +82,24 @@ export class GroupService {
     let assignedIds: Array<number> = [];
 
     // 1. Find scramblers, divide them into groups
+    potentialScramblers = this.sortScramblersByScramblingAssigned(potentialScramblers);
     potentialScramblers.forEach(p => {
-      if (tasks[group]['S']['max'] > tasks[group]['S']['count']) {
+      if (taskCounter[group]['S']['max'] > taskCounter[group]['S']['count']) {
         // Still room for another scrambler, so let's assign group & task to him/her!
         p[eventId].group = (group + 1) + ';S' + (((group + configuration.stages) % numberOfGroups) + 1);
-        tasks[group]['S']['count']++;
+        taskCounter[group]['S']['count']++;
         assignedIds.push(p.registrantId);
       }
       group = this.nextGroup(group, numberOfGroups);
     });
 
     // 2. Find runners, divide them into groups
+    potentialRunners = this.sortRunnersByRunningAssigned(potentialRunners);
     potentialRunners.filter(p => this.isNotAssigned(p, assignedIds)).forEach(p => {
-      if (tasks[group]['R']['max'] > tasks[group]['R']['count']) {
+      if (taskCounter[group]['R']['max'] > taskCounter[group]['R']['count']) {
         // Still room for another runner, so let's assign group & task to him/her!
         p[eventId].group = (group + 1) + ';R' + (((group + configuration.stages) % numberOfGroups) + 1);
-        tasks[group]['R']['count']++;
+        taskCounter[group]['R']['count']++;
         assignedIds.push(p.registrantId);
       }
       group = this.nextGroup(group, numberOfGroups);
@@ -105,10 +107,10 @@ export class GroupService {
 
     // 3. Assign everyone else
     allCompetitors.filter(p => this.isNotAssigned(p, assignedIds)).forEach(p => {
-      if (this.canJudge(p) && tasks[group]['J']['max'] > tasks[group]['J']['count']) {
+      if (this.canJudge(p) && taskCounter[group]['J']['max'] > taskCounter[group]['J']['count']) {
         // Still room for another judge, so let's assign group & task to him/her!
         p[eventId].group = (group + 1) + ';J' + (((group + configuration.stages) % numberOfGroups) + 1);
-        tasks[group]['J']['count']++;
+        taskCounter[group]['J']['count']++;
         assignedIds.push(p.registrantId);
       } else {
         p[eventId].group = (group + 1) + ''; // Person will compete in this group, but doesn't have a task
@@ -270,6 +272,26 @@ export class GroupService {
       return x[0].isAllowedTo.indexOf('run') > -1;
     }
     return false;
+  }
+
+  private sortScramblersByScramblingAssigned(persons: any) {
+    return this.sortByAssignedTaskOfType(persons, 'S');
+  }
+
+  private sortRunnersByRunningAssigned(persons: any) {
+    return this.sortByAssignedTaskOfType(persons, 'R');
+  }
+
+  private sortByAssignedTaskOfType(persons: any, taskType: string) {
+    return persons.sort(function (a, b) {
+      var countA = this.allEventIds().filter(e => a[e].group.indexOf(taskType) > -1).length;
+      var countB = this.allEventIds().filter(e => b[e].group.indexOf(taskType) > -1).length;
+      return (countA < countB) ? -1 : (countA > countB) ? 1 : 0;
+    }.bind(this));
+  }
+
+  private allEventIds(): string[] {
+    return this.wcif.events.map(e => e.id);
   }
 
   private shuffleCompetitors() {
