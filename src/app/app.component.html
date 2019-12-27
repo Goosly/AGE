@@ -38,7 +38,8 @@
       Alternatively: <input type="checkbox" [(ngModel)]="groupService.configuration.everyoneCanScrambleAndRun"><label>Everyone can scramble and run (NOT RECOMMENDED)</label>
       <br><br>
 
-      <input type="checkbox" [(ngModel)]="groupService.configuration.skipDelegatesAndOrganizers"><label>Never assign delegates and organizers to judging</label><br>
+      <input type="checkbox" [(ngModel)]="groupService.configuration.doNotAssignJudges" [disabled]="groupsGenerated"><label>Do not assign judges (only scramblers & runners)</label><br>
+      <input type="checkbox" [(ngModel)]="groupService.configuration.skipDelegatesAndOrganizers" [disabled]="groupsGenerated"><label>Do not assign delegates and organizers to judging</label><br>
     </div>
 
 <!-- EVENTS CONFIGURATION -->

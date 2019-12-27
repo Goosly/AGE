@@ -68,14 +68,10 @@ export class GroupService {
     let potentialRunners: Array<any> = this.wcif.persons.filter(p => p[eventId].competing && this.canRun(p, staff));
 
     if (potentialScramblers.length < numberOfGroups * configuration.scramblers) {
-      alert('Not enough scramblers for ' + eventId + '!\nMake sure you add plenty of reliable people in your json file, then retry.');
-      Helpers.sortCompetitorsByName(this.wcif);
-      return;
+      alert('Not enough scramblers for ' + eventId + '!\nMake sure you add plenty of reliable people in your json file');
     }
     if (potentialRunners.length < numberOfGroups * configuration.runners) {
-      alert('Not enough runners for ' + eventId + '!\nMake sure you add plenty of reliable people in your json file, then retry.');
-      Helpers.sortCompetitorsByName(this.wcif);
-      return;
+      alert('Not enough runners for ' + eventId + '!\nMake sure you add plenty of reliable people in your json file');
     }
 
     let group: number = 0; // Group starts counting at 0, so always display as group+1
@@ -107,7 +103,7 @@ export class GroupService {
 
     // 3. Assign everyone else
     allCompetitors.filter(p => this.isNotAssigned(p, assignedIds)).forEach(p => {
-      if (this.canJudge(p) && taskCounter[group]['J']['max'] > taskCounter[group]['J']['count']) {
+      if (! this.configuration.doNotAssignJudges && this.canJudge(p) && taskCounter[group]['J']['max'] > taskCounter[group]['J']['count']) {
         // Still room for another judge, so let's assign group & task to him/her!
         p[eventId].group = (group + 1) + ';J' + (((group + configuration.stages) % numberOfGroups) + 1);
         taskCounter[group]['J']['count']++;
