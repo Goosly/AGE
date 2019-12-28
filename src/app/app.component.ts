@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { environment } from '../environments/environment';
 import { ApiService } from '../common/api';
 import { GroupService } from '../common/group';
 import { ExportService } from '../common/export';
 import { EventConfiguration } from '../common/classes';
 import { ScoreCardService } from '../common/scorecard';
 import {Helpers} from '../common/helpers';
+import {EventId} from '@wca/helpers';
 declare var $ :any;
 
 @Component({
@@ -95,7 +97,7 @@ export class AppComponent  {
     }
   };
 
-  handleGenerateOneEvent(eventId: string) {
+  handleGenerateOneEvent(eventId: EventId) {
     this.groupService.generateGrouping(eventId);
   }
 
@@ -112,14 +114,14 @@ export class AppComponent  {
   }
 
   handleSortByEvent(event) {
-    Helpers.sortCompetitorsByEvent(this.groupService.wcif, event.id);
+    Helpers.sortCompetitorsByGroupInEvent(this.groupService.wcif, event.id);
   }
 
   handleSortCompetitorsByName() {
     Helpers.sortCompetitorsByName(this.groupService.wcif);
   }
 
-  handleBlurEvent(target, group: string, eventId: string) {
+  handleBlurEvent(target, group: string, eventId: EventId) {
     if (this.isValidAssignment(group, eventId)) {
       $(target).removeClass('invalidAssignment');
     } else {
@@ -129,7 +131,7 @@ export class AppComponent  {
     this.groupService.countCJRSForEvent(eventId);
   }
   
-  isValidAssignment(group: string, eventId: string): boolean {
+  isValidAssignment(group: string, eventId: EventId): boolean {
     if (group === null || group === "") { // Empty is OK
       return true;
     }
@@ -139,7 +141,7 @@ export class AppComponent  {
     
     let event: EventConfiguration = this.groupService.wcif.events.filter(e => e.id === eventId)[0].configuration;
     let max: number = event.scrambleGroups * event.stages;
-    let p = group.split(';')
+    let p = group.split(';');
     for (let i = 0; i < p.length; i++) { // Loop over the assignments for this event (for example: 1;J3)
       if (! RegExp('^[SJR]?[0-9]+$').test(p[i])) { // Every part must be (optionally S J or R followed by) a groupnumber
         return false;
@@ -161,4 +163,7 @@ export class AppComponent  {
     return this.groupService.configuration.groupStrategy === 'advanced';
   }
 
+  version() {
+    return environment.version;
+  }
 }

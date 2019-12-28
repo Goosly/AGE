@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Wcif, EventConfiguration, GeneralConfiguration} from './classes';
 import {Helpers} from './helpers';
+import {EventId} from '@wca/helpers';
 
 @Injectable({
   providedIn: 'root'
@@ -12,15 +13,17 @@ export class GroupService {
 
   constructor() {}
 
-  generateGrouping(eventId: string) {
+  generateGrouping(eventId: EventId) {
     if (this.configuration.groupStrategy === 'basic') {
       this.generateBasicGrouping(eventId);
-    } else {
+    } else if (this.configuration.groupStrategy === 'basicBySpeed') {
+      this.generateBasicBySpeedGrouping(eventId);
+    } else if (this.configuration.groupStrategy === 'advanced') {
       this.generateAdvancedGrouping(eventId);
     }
   }
 
-  generateAdvancedGrouping(eventId: string) {
+  generateAdvancedGrouping(eventId: EventId) {
     let generateGroupingForEvent = (e, s) => this.generateGroupingForEvent(e, s);
     let file = document.getElementById('staff')['files'][0];
     let staff = null;
@@ -39,7 +42,7 @@ export class GroupService {
     }
   }
 
-  private generateBasicGrouping(eventId: string) { // Very simple: random groups
+  private generateBasicGrouping(eventId: EventId) { // Very simple: random groups
     let event: any = this.wcif.events.filter(e => e.id === eventId)[0];
     let eventConfiguration: EventConfiguration = event.configuration;
     let i = 0;
@@ -51,7 +54,18 @@ export class GroupService {
     Helpers.sortCompetitorsByName(this.wcif);
   }
 
-  private generateGroupingForEvent(eventId: string, staff) {
+  private generateBasicBySpeedGrouping(eventId: EventId) { // Sort by speed, then loop and assign group 1, then group 2, etc.
+    let event: any = this.wcif.events.filter(e => e.id === eventId)[0];
+    let eventConfiguration: EventConfiguration = event.configuration;
+    let sizeOfGroup = this.wcif.persons.filter(p => p[eventId].competing).length / eventConfiguration.scrambleGroups;
+    Helpers.sortCompetitorsBySpeedInEvent(this.wcif, eventId);
+    this.wcif.persons.filter(p => p[eventId].competing).forEach((p, index) => {
+      p[eventId].group = (Math.trunc(index / sizeOfGroup) + 1) + '';
+    });
+    Helpers.sortCompetitorsByName(this.wcif);
+  }
+
+  private generateGroupingForEvent(eventId: EventId, staff) {
     // Make some variables
     let event: any = this.wcif.events.filter(e => e.id === eventId)[0];
     let configuration: EventConfiguration = event.configuration;

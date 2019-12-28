@@ -52,3 +52,7 @@ a {
 .invalidAssignment {
   border:1px solid red;
 }
+
+h1, h6 {
+  display: inline-block;
+}

@@ -12,7 +12,7 @@ export class ScoreCardService {
   public printScoreCardsForAllFirstRoundsExceptFMC(wcif: Wcif) {
     let scorecards: ScoreCardInfo[] = [];
     wcif['events'].filter(e => e.id !== '333fm').forEach(event => {
-      Helpers.sortCompetitorsByEvent(wcif, event.id);
+      Helpers.sortCompetitorsByGroupInEvent(wcif, event.id);
       let competitorsOfEvent: Person[] = wcif.persons.filter(p => p[event.id].competing && !! p[event.id].group);
       competitorsOfEvent.forEach(c => {
         let scorecard: ScoreCardInfo = this.getScoreCardForFirstRoundOfEvent(wcif, event);

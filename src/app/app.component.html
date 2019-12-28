@@ -1,5 +1,5 @@
 <div class="center">
-  <h1>Advanced Group Editor (AGE)</h1>
+  <h1>Advanced Group Editor (AGE)</h1>&nbsp;<h6>{{version()}}</h6>
 
 <!-- LOGIN -->
   <div *ngIf="! apiService.oauthToken">
@@ -26,9 +26,10 @@
   <div *ngIf="competitionId && groupService.wcif && ! readyForExport">
     <h3>General configuration</h3>
     <select class='form-control' [disabled]="groupsGenerated" [(ngModel)]='groupService.configuration.groupStrategy'>
-      <option value='basic'>Only grouping (no staff assignments)</option>
-      <option value='advanced'>Advanced grouping</option>
-    </select><br><br>
+      <option value='basic'>Random groups (no staff assignments)</option>
+      <option value='basicBySpeed'>Groups by speed (no staff assignments)</option>
+      <option value='advanced'>Advanced grouping options</option>
+    </select>&nbsp;&larr;&nbsp;New options since v1.0.002!<br><br>
 
     <div *ngIf="advancedStrategy">
       We'll be using <input type="number" [(ngModel)]="groupService.totalNumberOfTimers" (ngModelChange)="handleTotalNumberOfTimersSet($event)" min="1" step="1" [disabled]="groupsGenerated"> timers in total<br><br>
@@ -120,7 +121,8 @@
         </tr>
         <tr>
           <td></td>
-          <td *ngFor="let event of groupService.wcif.events"><button class="small" (click)="handleGenerateOneEvent(event.id)">Randomize</button></td>
+          <td *ngFor="let event of groupService.wcif.events">
+            <button class="small"(click)="handleGenerateOneEvent(event.id)">{{groupService.configuration.groupStrategy === 'basicBySpeed' ? 'By speed' : 'Randomize'}}</button></td>
         </tr>
 
         <tr>

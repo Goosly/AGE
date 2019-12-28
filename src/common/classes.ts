@@ -17,7 +17,7 @@ export class EventConfiguration {
 }
 
 export class GeneralConfiguration {
-  groupStrategy: 'basic' | 'advanced' = 'basic';
+  groupStrategy: 'basic' | 'basicBySpeed' | 'advanced' = 'basic';
   skipDelegatesAndOrganizers: boolean = true;
   doNotAssignJudges: boolean = false;
   everyoneCanScrambleAndRun: boolean = false;
