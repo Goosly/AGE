@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
-import {Wcif, EventConfiguration} from './classes';
+import {EventConfiguration, Wcif} from './classes';
 import {saveAs} from 'file-saver';
+
 declare var pdfMake: any;
 
 @Injectable({
@@ -252,9 +253,7 @@ export class ExportService {
       let j: number = 0;
       wcif.events.forEach(event => {
         if (p[event.id].group !== '') {
-          let start: Date = new Date(event.startTime);
-          nametag.table.body[0][0].table.body[0][i].table.body[j][0].text
-            = start.getHours() + ':' + (start.getMinutes() < 10 ? '0' : '') + start.getMinutes();
+          nametag.table.body[0][0].table.body[0][i].table.body[j][0].text = this.formatStartTimeOf(event, wcif.schedule.venues[0].timezone);
           nametag.table.body[0][0].table.body[0][i].table.body[j][1] = this.getIconOf(event.id, 10);
           nametag.table.body[0][0].table.body[0][i].table.body[j][2] = p[event.id].group;
 
@@ -279,6 +278,12 @@ export class ExportService {
 
     let filename = 'personalSchedules-' + wcif.id + '.pdf';
     pdfMake.createPdf(document).download(filename);
+  }
+
+  private formatStartTimeOf(event, timezone: string) {
+    let start: string = new Date(event.startTime).toLocaleString("en-US", {timeZone: timezone});
+    let date: Date = new Date(start);
+    return date.getHours() + ':' + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
   }
 
   private getOneNametagToFill(bordersOnNametags: boolean): any {
