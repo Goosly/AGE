@@ -25,7 +25,17 @@ export class ScoreCardService {
     });
 
     Helpers.sortCompetitorsByName(wcif);
-    this.print(wcif, scorecards);
+    pdfMake.createPdf(this.document(scorecards)).download('scorecards-' + wcif.id + '.pdf');
+  }
+
+  public printFourEmptyScorecards(wcif: Wcif) {
+    let scorecards: ScoreCardInfo[] = [
+      this.getEmptyScoreCard(wcif),
+      this.getEmptyScoreCard(wcif),
+      this.getEmptyScoreCard(wcif),
+      this.getEmptyScoreCard(wcif)
+    ];
+    pdfMake.createPdf(this.document(scorecards)).download('emptyScorecards-' + wcif.id + '.pdf');
   }
 
   private addEmptyScoreCardsUntilPageIsFull(scorecards: ScoreCardInfo[], wcif: any) {
@@ -95,10 +105,6 @@ export class ScoreCardService {
       cumulative: false,
       cutoff: null
     }
-  }
-
-  private print(wcif: any, scorecards: ScoreCardInfo[]) {
-    pdfMake.createPdf(this.document(scorecards)).download('scorecards-' + wcif.id + '.pdf');
   }
 
   private document(scorecards): any {
