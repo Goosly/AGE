@@ -11,7 +11,7 @@ export class ScoreCardService {
 
   public printScoreCardsForAllFirstRoundsExceptFMC(wcif: Wcif) {
     let scorecards: ScoreCardInfo[] = [];
-    wcif['events'].filter(e => e.id !== '333fm').forEach(event => {
+    wcif.events.filter(e => e.id !== '333fm').forEach(event => {
       Helpers.sortCompetitorsByGroupInEvent(wcif, event.id);
       let competitorsOfEvent: Person[] = wcif.persons.filter(p => p[event.id].competing && !! p[event.id].group);
       competitorsOfEvent.forEach(c => {
@@ -78,22 +78,6 @@ export class ScoreCardService {
       return round.cutoff.attemptResult;
     } else {
       return formatCentiseconds(round.cutoff.attemptResult);
-    }
-  }
-
-  private getFakeScoreCard(): ScoreCardInfo {
-    return {
-      eventId: '333',
-      competitionName: 'Belgian Open 2020',
-      eventName: '3x3x3 Cube',
-      round: 1,
-      group: 2,
-      totalGroups: 4,
-      competitorId: 15,
-      competitorName: 'Manu Vereecken',
-      timeLimit: formatCentiseconds(5 * 6000),
-      cumulative: false,
-      cutoff: formatCentiseconds(3 * 6000)
     }
   }
 

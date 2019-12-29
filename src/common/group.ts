@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Wcif, EventConfiguration, GeneralConfiguration} from './classes';
+import {Wcif, EventConfiguration, GeneralConfiguration, StaffPerson} from './classes';
 import {Helpers} from './helpers';
 import {EventId} from '@wca/helpers';
 
@@ -75,6 +75,8 @@ export class GroupService {
       return;
     }
 
+    this.markPersonsThatArePartOfTheStaff(staff);
+
     this.shuffleCompetitors();
     // Determine competitors and which of them can scramble, run and/or judge
     let allCompetitors: Array<any> = this.wcif.persons.filter(p => p[eventId].competing);
@@ -131,6 +133,11 @@ export class GroupService {
 
     this.countCJRSForEvent(eventId);
     Helpers.sortCompetitorsByName(this.wcif);
+  }
+
+  private markPersonsThatArePartOfTheStaff(staff: StaffPerson[]) {
+    let staffWcaIds = staff.map(s => s.wcaId);
+    this.wcif.persons.forEach(p => p.isStaff = staffWcaIds.includes(p.wcaId));
   }
 
   private nextGroup(group: number, numberOfGroups: number): number {
@@ -257,9 +264,17 @@ export class GroupService {
   }
 
   private canJudge(person): boolean {
-    return ! this.configuration.skipDelegatesAndOrganizers
-      || (person.roles.indexOf('delegate') < 0
-        && person.roles.indexOf('organizer') < 0);
+    if (this.configuration.doNotAssignTasksToNewCompetitors && !person.wcaId) {
+      return false;
+    }
+
+    if (this.configuration.skipDelegatesAndOrganizers
+      && (person.roles.includes('delegate')
+        || person.roles.includes('organizer'))) {
+      return false;
+    }
+
+    return true;
   }
 
   private canScramble(person, staff, event): boolean {

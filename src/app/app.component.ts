@@ -163,6 +163,10 @@ export class AppComponent  {
     return this.groupService.configuration.groupStrategy === 'advanced';
   }
 
+  get basicBySpeedStrategy(): boolean {
+    return this.groupService.configuration.groupStrategy === 'basicBySpeed';
+  }
+
   version() {
     return environment.version;
   }

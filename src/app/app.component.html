@@ -29,7 +29,7 @@
       <option value='basic'>Random groups (no staff assignments)</option>
       <option value='basicBySpeed'>Groups by speed (no staff assignments)</option>
       <option value='advanced'>Advanced grouping options</option>
-    </select>&nbsp;&larr;&nbsp;New options since v1.0.002!<br><br>
+    </select>&nbsp;&larr;&nbsp;New options since version 1.0.002!<br><br>
 
     <div *ngIf="advancedStrategy">
       We'll be using <input type="number" [(ngModel)]="groupService.totalNumberOfTimers" (ngModelChange)="handleTotalNumberOfTimersSet($event)" min="1" step="1" [disabled]="groupsGenerated"> timers in total<br><br>
@@ -40,6 +40,7 @@
       <br><br>
 
       <input type="checkbox" [(ngModel)]="groupService.configuration.doNotAssignJudges" [disabled]="groupsGenerated"><label>Do not assign judges (only scramblers & runners)</label><br>
+      <input type="checkbox" [(ngModel)]="groupService.configuration.doNotAssignTasksToNewCompetitors" [disabled]="groupsGenerated"><label>Do not assign new competitors to judging</label><br>
       <input type="checkbox" [(ngModel)]="groupService.configuration.skipDelegatesAndOrganizers" [disabled]="groupsGenerated"><label>Do not assign delegates and organizers to judging</label><br>
     </div>
 
@@ -122,7 +123,7 @@
         <tr>
           <td></td>
           <td *ngFor="let event of groupService.wcif.events">
-            <button class="small"(click)="handleGenerateOneEvent(event.id)">{{groupService.configuration.groupStrategy === 'basicBySpeed' ? 'By speed' : 'Randomize'}}</button></td>
+            <button class="small"(click)="handleGenerateOneEvent(event.id)">{{basicBySpeedStrategy ? 'By speed' : 'Randomize'}}</button></td>
         </tr>
 
         <tr>
@@ -137,7 +138,7 @@
         </tr>
 
         <tr *ngFor="let competitor of competitorsToShow; index as c">
-          <td [ngClass]="{'newCompetitor': ! competitor.wcaId}">{{ competitor.name}}</td>
+          <td [ngClass]="{'newCompetitor': ! competitor.wcaId, 'staff': competitor.isStaff}">{{ competitor.name}}</td>
           <td *ngFor="let event of groupService.wcif.events; index as e">
             <input class="group" [(ngModel)]="competitor[event.id].group"
                    [tabIndex]="e * competitorsToShow.length + c + 1"

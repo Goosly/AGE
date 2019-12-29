@@ -49,6 +49,10 @@ a {
   color: crimson;
 }
 
+.staff {
+  color: forestgreen;
+}
+
 .invalidAssignment {
   border:1px solid red;
 }

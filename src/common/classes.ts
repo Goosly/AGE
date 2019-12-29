@@ -5,6 +5,11 @@ export class Wcif {
   schedule: any;
 }
 
+export class StaffPerson {
+  wcaId: string;
+  isAllowedTo: string[];
+}
+
 export class EventConfiguration {
   id: string;
   scrambleGroups: number;
@@ -20,6 +25,7 @@ export class GeneralConfiguration {
   groupStrategy: 'basic' | 'basicBySpeed' | 'advanced' = 'basic';
   skipDelegatesAndOrganizers: boolean = true;
   doNotAssignJudges: boolean = false;
+  doNotAssignTasksToNewCompetitors = false;
   everyoneCanScrambleAndRun: boolean = false;
   bordersOnNametags: boolean = true;
 }
