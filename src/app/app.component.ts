@@ -20,15 +20,11 @@ export class AppComponent  {
   groupsGenerated: boolean = false;
   readyForExport: boolean = false;
 
-  // Info about competitions managed by user
+  // Competitions managed by user
   competitionsToChooseFrom: Array<String> = null;
-  competitionId: string;
-  numberOfEvents: number;
-  numberOfCompetitors: number;
 
   // Fields for binding
   filter: string = '';
-  competitorsToShow: Array<any>;
   groupCounter: Array<number> = [];
   Math: any;
 
@@ -58,18 +54,13 @@ export class AppComponent  {
   }
 
   handleCompetitionSelected(competitionId: string) {
-    this.competitionId = competitionId;
-    this.apiService.getWcif(this.competitionId).subscribe(wcif => {
+    this.apiService.getWcif(competitionId).subscribe(wcif => {
       this.groupService.wcif = wcif;
       try {
         this.groupService.processWcif();
-        this.numberOfEvents = this.groupService.wcif.events.length;
-        this.numberOfCompetitors = this.groupService.wcif.persons.length;
-        this.competitorsToShow = this.groupService.wcif.persons;
       } catch (error) {
         console.error(error);
-        this.groupService.wcif = null;
-        this.competitionId = null;
+        this.groupService.wcif = undefined;
       }
     });
   }
@@ -108,9 +99,12 @@ export class AppComponent  {
 
   handleFilterChanged(value: string) {
     this.filter = value;
-    // Note that the shown elements are actually references to the actual elements of the list, so the binding still works
-    this.competitorsToShow = value === '' ? this.groupService.wcif.persons
-      : this.groupService.wcif.persons.filter(p => p.name.toUpperCase().indexOf(this.filter.toUpperCase()) > -1);
+  }
+
+  handleImportFromGroupifier() {
+    this.groupService.configuration.groupStrategy = 'fromGroupifier';
+    this.groupService.importAssignmentsFromGroupifier();
+    this.groupsGenerated = true;
   }
 
   handleSortByEvent(event) {
@@ -159,12 +153,53 @@ export class AppComponent  {
     return true;
   }
 
+  competingButNoGroup(competitor: any, eventId: string) {
+    return competitor[eventId].competing && ! RegExp('^[0-9]').test(competitor[eventId].group);
+  }
+
+  notCompeting(competitor: any, eventId: string) {
+    return ! competitor[eventId].competing;
+  }
+
+  get competitionId() {
+    return ! this.groupService.wcif ? null : this.groupService.wcif.id;
+  }
+
+  get numberOfEvents() {
+    return ! this.groupService.wcif ? null : this.groupService.wcif.events.length;
+  }
+
+  get numberOfCompetitors() {
+    return ! this.groupService.wcif ? null : this.groupService.wcif.persons.length;
+  }
+
+  get competitorsToShow() {
+    return this.filter === '' ? this.groupService.wcif.persons
+      : this.groupService.wcif.persons.filter(p => p.name.toUpperCase().indexOf(this.filter.toUpperCase()) > -1);
+  }
+
   get advancedStrategy(): boolean {
     return this.groupService.configuration.groupStrategy === 'advanced';
   }
 
   get basicBySpeedStrategy(): boolean {
     return this.groupService.configuration.groupStrategy === 'basicBySpeed';
+  }
+
+  get fromGroupifierStrategy(): boolean {
+    return this.groupService.configuration.groupStrategy === 'fromGroupifier';
+  }
+
+  get canImportFromGroupifier(): boolean {
+    // Not sure how to check... Probably every person should have at least one assignment?
+    // Play safe for whatever weird scenario: at least half of the persons should have at least one assignment
+    let countPersonsWithAssignments = 0;
+    this.groupService.wcif.persons.forEach(p => {
+      if (p.assignments.length > 0) {
+        countPersonsWithAssignments++;
+      }
+    });
+    return countPersonsWithAssignments * 2 > this.groupService.wcif.persons.length;
   }
 
   version() {

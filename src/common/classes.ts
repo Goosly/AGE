@@ -1,8 +1,10 @@
+import {Schedule} from '@wca/helpers';
+
 export class Wcif {
   persons: Array<any>;
   events: Array<any>;
   id: any;
-  schedule: any;
+  schedule: Schedule;
 }
 
 export class StaffPerson {
@@ -22,7 +24,7 @@ export class EventConfiguration {
 }
 
 export class GeneralConfiguration {
-  groupStrategy: 'basic' | 'basicBySpeed' | 'advanced' = 'basic';
+  groupStrategy: 'basic' | 'basicBySpeed' | 'advanced' | 'fromGroupifier' = 'basic';
   skipDelegatesAndOrganizers: boolean = true;
   doNotAssignJudges: boolean = false;
   doNotAssignTasksToNewCompetitors = false;

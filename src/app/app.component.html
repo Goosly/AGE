@@ -20,89 +20,95 @@
   <div *ngIf="competitionId && groupService.wcif">
     <p> Selected competition: {{ competitionId }}<br>
     {{ numberOfEvents }} events and {{ numberOfCompetitors }} competitors found!</p>
+    <p class="red" *ngIf="canImportFromGroupifier">This competition has assignments generated with Groupifier. Would you like to import them?
+      <button [disabled]="groupsGenerated" (click)="handleImportFromGroupifier()">Yes, import</button></p>
   </div>
 
 <!-- GENERAL CONFIGURATION -->
   <div *ngIf="competitionId && groupService.wcif && ! readyForExport">
-    <h3>General configuration</h3>
-    <select class='form-control' [disabled]="groupsGenerated" [(ngModel)]='groupService.configuration.groupStrategy'>
-      <option value='basic'>Random groups (no staff assignments)</option>
-      <option value='basicBySpeed'>Groups by speed (no staff assignments)</option>
-      <option value='advanced'>Advanced grouping options</option>
-    </select>&nbsp;&larr;&nbsp;New options since version 1.0.002!<br><br>
+    <div  *ngIf="! fromGroupifierStrategy">
+      <h3>General configuration</h3>
+      <select class='form-control' [disabled]="groupsGenerated" [(ngModel)]='groupService.configuration.groupStrategy'>
+        <option value='basic'>Random groups (no staff assignments)</option>
+        <option value='basicBySpeed'>Groups by speed (no staff assignments)</option>
+        <option value='advanced'>Groups with staffing for one group in every event one competes in</option>
+      </select>&nbsp;&larr;&nbsp;New options since version 1.0.002!<br><br>
 
-    <div *ngIf="advancedStrategy">
-      We'll be using <input type="number" [(ngModel)]="groupService.totalNumberOfTimers" (ngModelChange)="handleTotalNumberOfTimersSet($event)" min="1" step="1" [disabled]="groupsGenerated"> timers in total<br><br>
-      <label title='Select your json file that contains trusted scramblers and capable runners'>&#9432;</label>
-      Select scramblers and runners <a ngHref='#here' (click)='exportService.staffExample()'>(click for an example)</a>: <input type="file" id="staff" accept=".json"/><br>
-      <label title='Or allow everyone to scramble and run... NOT RECOMMENDED'>&#9432;</label>
-      Alternatively: <input type="checkbox" [(ngModel)]="groupService.configuration.everyoneCanScrambleAndRun"><label>Everyone can scramble and run (NOT RECOMMENDED)</label>
-      <br><br>
+      <div *ngIf="advancedStrategy">
+        We'll be using <input type="number" [(ngModel)]="groupService.totalNumberOfTimers" (ngModelChange)="handleTotalNumberOfTimersSet($event)" min="1" step="1" [disabled]="groupsGenerated"> timers in total<br><br>
+        <label title='Select your json file that contains trusted scramblers and capable runners'>&#9432;</label>
+        Select scramblers and runners <a ngHref='#here' (click)='exportService.staffExample()'>(click for an example)</a>: <input type="file" id="staff" accept=".json"/><br>
+        <label title='Or allow everyone to scramble and run... NOT RECOMMENDED'>&#9432;</label>
+        Alternatively: <input type="checkbox" [(ngModel)]="groupService.configuration.everyoneCanScrambleAndRun"><label>Everyone can scramble and run (NOT RECOMMENDED)</label>
+        <br><br>
 
-      <input type="checkbox" [(ngModel)]="groupService.configuration.doNotAssignJudges" [disabled]="groupsGenerated"><label>Do not assign judges (only scramblers & runners)</label><br>
-      <input type="checkbox" [(ngModel)]="groupService.configuration.doNotAssignTasksToNewCompetitors" [disabled]="groupsGenerated"><label>Do not assign new competitors to judging</label><br>
-      <input type="checkbox" [(ngModel)]="groupService.configuration.skipDelegatesAndOrganizers" [disabled]="groupsGenerated"><label>Do not assign delegates and organizers to judging</label><br>
+        <input type="checkbox" [(ngModel)]="groupService.configuration.doNotAssignJudges" [disabled]="groupsGenerated"><label>Do not assign judges (only scramblers & runners)</label><br>
+        <input type="checkbox" [(ngModel)]="groupService.configuration.doNotAssignTasksToNewCompetitors" [disabled]="groupsGenerated"><label>Do not assign new competitors to judging</label><br>
+        <input type="checkbox" [(ngModel)]="groupService.configuration.skipDelegatesAndOrganizers" [disabled]="groupsGenerated"><label>Do not assign delegates and organizers to judging</label><br>
+      </div>
     </div>
 
 <!-- EVENTS CONFIGURATION -->
-    <h3>Events configuration</h3>
-    <table>
-      <tr>
-        <th></th>
-        <th *ngFor="let event of groupService.wcif.events">{{ event.id }}</th>
-      </tr>
+    <div *ngIf="! fromGroupifierStrategy">
+      <h3>Events configuration</h3>
+      <table>
+        <tr>
+          <th></th>
+          <th *ngFor="let event of groupService.wcif.events">{{ event.id }}</th>
+        </tr>
 
-      <tr>
-        <td>(C) Competitors</td>
-        <td *ngFor="let event of groupService.wcif.events">{{event.numberOfRegistrations}}</td>
-      </tr>
+        <tr>
+          <td>(C) Competitors</td>
+          <td *ngFor="let event of groupService.wcif.events">{{event.numberOfRegistrations}}</td>
+        </tr>
 
-      <tr>
-        <td><label title="Do not generate groups for this event. You'll have to assign groups and tasks yourself.">&#9432;</label>Skip event</td>
-        <td *ngFor="let event of groupService.wcif.events">
-          <input type="checkbox" [(ngModel)]="event.configuration.skip" [disabled]="groupsGenerated">
-        </td>
-      </tr>
-      <tr>
-        <td>Scramblegroups</td>
-        <td *ngFor="let event of groupService.wcif.events">
-          <input type="number" [(ngModel)]="event.configuration.scrambleGroups" min="2" step="1" [disabled]="groupsGenerated" [hidden]="event.configuration.skip">
-        </td>
-      </tr>
-      <tr *ngIf="advancedStrategy">
-        <td>Stages</td>
-        <td *ngFor="let event of groupService.wcif.events">
-          <input type="number" [(ngModel)]="event.configuration.stages" (ngModelChange)="handleNumberOfStagesSet($event, event.id)" min="1" step="1" [disabled]="groupsGenerated" [hidden]="event.configuration.skip">
-        </td>
-      </tr>
-      <tr *ngIf="advancedStrategy">
-        <td><label title="Number of groups is scramblegroups multiplied by stages">&#9432;</label>Number of groups</td>
-        <td *ngFor="let event of groupService.wcif.events"><div [hidden]="event.configuration.skip">{{event.configuration.scrambleGroups * event.configuration.stages}}</div></td>
-      </tr>
-      <tr>
-        <td><label title="Number of competitors divided by number of groups">&#9432;</label>Average competitors</td>
-        <td *ngFor="let event of groupService.wcif.events"><div [hidden]="event.configuration.skip">{{Math.round(event.numberOfRegistrations / (event.configuration.scrambleGroups * event.configuration.stages) * 10) / 10}}</div></td>
-      </tr>
-      <tr *ngIf="advancedStrategy">
-        <td><label title="Total number of timers divided by number of stages. This will be the maximum number of assigned judges per group.">&#9432;</label>(J) Timers per stage</td>
-        <td *ngFor="let event of groupService.wcif.events"><div [hidden]="event.configuration.skip">{{Math.round(event.configuration.timers * 10) / 10}}</div></td>
-      </tr>
-      <tr *ngIf="advancedStrategy">
-        <td><label title="Amount of runners you want per group">&#9432;</label>(R) Runners</td>
-        <td *ngFor="let event of groupService.wcif.events">
-          <input type="number" [(ngModel)]="event.configuration.runners" min="0" step="1" [disabled]="groupsGenerated" [hidden]="event.configuration.skip">
-        </td>
-      </tr>
-      <tr *ngIf="advancedStrategy">
-        <td><label title="Amount of scramblers you want per group">&#9432;</label>(S) Scramblers</td>
-        <td *ngFor="let event of groupService.wcif.events">
-          <input type="number" [(ngModel)]="event.configuration.scramblers" min="1" step="1" [disabled]="groupsGenerated" [hidden]="event.configuration.skip">
-        </td>
-      </tr>
-    </table>
+        <tr>
+          <td><label title="Do not generate groups for this event. You'll have to assign groups and tasks yourself.">&#9432;</label>Skip event</td>
+          <td *ngFor="let event of groupService.wcif.events">
+            <input type="checkbox" [(ngModel)]="event.configuration.skip" [disabled]="groupsGenerated">
+          </td>
+        </tr>
+        <tr>
+          <td>Scramblegroups</td>
+          <td *ngFor="let event of groupService.wcif.events">
+            <input type="number" [(ngModel)]="event.configuration.scrambleGroups" min="2" step="1" [disabled]="groupsGenerated" [hidden]="event.configuration.skip">
+          </td>
+        </tr>
+        <tr *ngIf="advancedStrategy">
+          <td>Stages</td>
+          <td *ngFor="let event of groupService.wcif.events">
+            <input type="number" [(ngModel)]="event.configuration.stages" (ngModelChange)="handleNumberOfStagesSet($event, event.id)" min="1" step="1" [disabled]="groupsGenerated" [hidden]="event.configuration.skip">
+          </td>
+        </tr>
+        <tr *ngIf="advancedStrategy">
+          <td><label title="Number of groups is scramblegroups multiplied by stages">&#9432;</label>Number of groups</td>
+          <td *ngFor="let event of groupService.wcif.events"><div [hidden]="event.configuration.skip">{{event.configuration.scrambleGroups * event.configuration.stages}}</div></td>
+        </tr>
+        <tr>
+          <td><label title="Number of competitors divided by number of groups">&#9432;</label>Average competitors</td>
+          <td *ngFor="let event of groupService.wcif.events"><div [hidden]="event.configuration.skip">{{Math.round(event.numberOfRegistrations / (event.configuration.scrambleGroups * event.configuration.stages) * 10) / 10}}</div></td>
+        </tr>
+        <tr *ngIf="advancedStrategy">
+          <td><label title="Total number of timers divided by number of stages. This will be the maximum number of assigned judges per group.">&#9432;</label>(J) Timers per stage</td>
+          <td *ngFor="let event of groupService.wcif.events"><div [hidden]="event.configuration.skip">{{Math.round(event.configuration.timers * 10) / 10}}</div></td>
+        </tr>
+        <tr *ngIf="advancedStrategy">
+          <td><label title="Amount of runners you want per group">&#9432;</label>(R) Runners</td>
+          <td *ngFor="let event of groupService.wcif.events">
+            <input type="number" [(ngModel)]="event.configuration.runners" min="0" step="1" [disabled]="groupsGenerated" [hidden]="event.configuration.skip">
+          </td>
+        </tr>
+        <tr *ngIf="advancedStrategy">
+          <td><label title="Amount of scramblers you want per group">&#9432;</label>(S) Scramblers</td>
+          <td *ngFor="let event of groupService.wcif.events">
+            <input type="number" [(ngModel)]="event.configuration.scramblers" min="1" step="1" [disabled]="groupsGenerated" [hidden]="event.configuration.skip">
+          </td>
+        </tr>
+      </table>
 
-    <br>
-    Edit all options until you're happy, then click: <button [disabled]="groupsGenerated" (click)="handleGenerate()">I'm ready, let's generate groups & tasks</button><br>
+      <br>
+      Edit all options until you're happy, then click: <button [disabled]="groupsGenerated" (click)="handleGenerate()">I'm ready, let's generate groups & tasks</button><br>
+    </div>
 
 <!-- EDIT COMPETITORS GROUPS -->
     <div *ngIf="groupsGenerated">
@@ -120,7 +126,7 @@
           <td><button (click)="handleSortCompetitorsByName()">Sort by name</button></td>
           <td *ngFor="let event of groupService.wcif.events"><button (click)="handleSortByEvent(event)">Sort</button></td>
         </tr>
-        <tr>
+        <tr *ngIf="! fromGroupifierStrategy">
           <td></td>
           <td *ngFor="let event of groupService.wcif.events">
             <button class="small"(click)="handleGenerateOneEvent(event.id)">{{basicBySpeedStrategy ? 'By speed' : 'Randomize'}}</button></td>
@@ -140,7 +146,9 @@
         <tr *ngFor="let competitor of competitorsToShow; index as c">
           <td [ngClass]="{'newCompetitor': ! competitor.wcaId, 'staff': competitor.isStaff}">{{ competitor.name}}</td>
           <td *ngFor="let event of groupService.wcif.events; index as e">
-            <input class="group" [(ngModel)]="competitor[event.id].group"
+            <input class="group"
+                   [ngClass]="{'competingButNoGroup': competingButNoGroup(competitor, event.id), 'notCompeting': notCompeting(competitor, event.id)}"
+                   [(ngModel)]="competitor[event.id].group"
                    [tabIndex]="e * competitorsToShow.length + c + 1"
                    (blur)="handleBlurEvent($event.target, competitor[event.id].group, event.id)">
           </td>

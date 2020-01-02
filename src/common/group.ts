@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Wcif, EventConfiguration, GeneralConfiguration, StaffPerson} from './classes';
 import {Helpers} from './helpers';
-import {EventId} from '@wca/helpers';
+import {Activity, AssignmentCode, EventId, Person} from '@wca/helpers';
+import {environment} from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -148,16 +149,16 @@ export class GroupService {
     return assignedIds.indexOf(p.registrantId) === -1;
   }
 
-  processWcif(): void {
+  public processWcif(): void {
     if (! this.wcif.events || this.wcif.events.length === 0) {
       alert('No events found! Please define all rounds and the schedule on the WCA website and then restart.');
-      this.wcif = null;
+      this.wcif = undefined;
       throw new Error('No events');
     }
 
     if (! this.wcif.persons || this.wcif.persons.length === 0) {
       alert('No competitors found! Maybe registration is not open yet?');
-      this.wcif = null;
+      this.wcif = undefined;
       throw new Error('No competitors');
     }
 
@@ -166,7 +167,7 @@ export class GroupService {
       e.numberOfRegistrations = 0; // Add field
       if (! e.rounds || ! e.rounds.length) {
         alert('No rounds found for ' + e.id + '! Please define all rounds and the schedule on the WCA website and then restart.');
-        this.wcif = null;
+        this.wcif = undefined;
         throw new Error('No rounds for ' + e.id);
       }
       e.round1 = e.rounds[0];
@@ -204,6 +205,10 @@ export class GroupService {
         } else {
           p[e.id] = { competing: false, group: '' };
         }
+
+        if (environment.testMode && p.fullName === 'Manu Vereecken' && e.id === 'minx') {
+          p[e.id] = { competing: true, group: '' };
+        }
       }
     }
 
@@ -214,22 +219,105 @@ export class GroupService {
     this.setEventConfiguration();
   }
 
+  public importAssignmentsFromGroupifier(): void {
+    this.resetTheDefaultGroupOnesForAllCompetitors();
+
+    let allActivities: Activity[] = this.getAllActivitiesFromWcif();
+    this.wcif.persons.forEach(p => this.readPersonAssignmentsFromGroupifier(p, allActivities));
+  }
+
+  private resetTheDefaultGroupOnesForAllCompetitors() {
+    this.wcif.persons.forEach(p => {
+      this.wcif.events.forEach(e => {
+        p[e.id].group = '';
+      })
+    });
+  }
+
+  private readPersonAssignmentsFromGroupifier(p: Person, allActivities: Activity[]) {
+    this.sortAssignmentsByAssignmentCode(p);
+    p.assignments.forEach(assignmentFromGroupifier => {
+      let activity = allActivities.filter(a => a.id.toString() === assignmentFromGroupifier.activityId.toString());
+      if (activity.length === 0) {
+        return;
+      }
+      let activityCode: string[] = activity[0].activityCode.split('-');
+      this.validateActivityCode(activityCode);
+      let eventId = activityCode[0];
+      let group: number = parseInt(activityCode[2].substring(1));
+
+      if (p[eventId].group.length !== 0) {
+        p[eventId].group += ';';
+      }
+      p[eventId].group += this.convertAssignmentCodeFromGroupifier(assignmentFromGroupifier.assignmentCode);
+      p[eventId].group += group.toString();
+    });
+  }
+
+  private convertAssignmentCodeFromGroupifier(code: AssignmentCode) {
+    switch (code) {
+      case 'competitor':
+        return '';
+      case 'staff-judge':
+        return 'J';
+      case 'staff-scrambler':
+        return 'S';
+      case 'staff-runner':
+        return 'R';
+      case 'staff-dataentry':
+        return 'D';
+      case 'staff-announcer':
+        return 'A';
+    }
+  }
+
+  private validateActivityCode(activityCode: string[]) {
+    if (activityCode.length !== 3) {
+      throw new Error('Expected activity to have 3 parts, but wasn\'t: ' + activityCode.join('-'));
+    }
+    if (!this.wcif.events.map(e => e.id).includes(activityCode[0])){
+      throw new Error('Expected activity to be of some event, but wasn\'t: ' + activityCode[0]);
+    }
+    if (activityCode[1] !== 'r1') {
+      throw new Error('Expected activity to be of round 1, but wasn\'t: ' + activityCode[1]);
+    }
+    if (! RegExp('^[ag][0-9]+$').test(activityCode[2])){
+      throw new Error('Expected activity to indicate a group, but wasn\'t: ' + activityCode[2]);
+    }
+  }
+
+  private sortAssignmentsByAssignmentCode(p: Person) {
+    // codes: 'competitor' | 'staff-judge' | 'staff-scrambler' | 'staff-runner'
+    p.assignments = p.assignments.sort((a, b) => a.assignmentCode.localeCompare(b.assignmentCode));
+  }
+
+  private getAllActivitiesFromWcif() {
+    let allActivities: Activity[] = [];
+    this.wcif.schedule.venues.forEach(v => {
+      v.rooms.forEach(r => r.activities.forEach(a => {
+        allActivities.push(a);
+        a.childActivities.forEach(childActivity => allActivities.push(childActivity));
+      }));
+    });
+    return allActivities;
+  }
+
   public setEventConfiguration() {
     let defaults : Array<EventConfiguration> = [
-      { id: '222', stages: 1, scramblers: 2, runners: 2, timers: (this.totalNumberOfTimers), totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
-      { id: '333', stages: 1, scramblers: 2, runners: 2, timers: (this.totalNumberOfTimers), totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
-      { id: '444', stages: 1, scramblers: 2, runners: 2, timers: (this.totalNumberOfTimers), totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
-      { id: '555', stages: 1, scramblers: 2, runners: 2, timers: (this.totalNumberOfTimers), totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
-      { id: '666', stages: 1, scramblers: 2, runners: 1, timers: (this.totalNumberOfTimers), totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
-      { id: '777', stages: 1, scramblers: 2, runners: 1, timers: (this.totalNumberOfTimers), totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
-      { id: '333bf', stages: 1, scramblers: 1, runners: 1, timers: (this.totalNumberOfTimers), totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
-      { id: '333oh', stages: 1, scramblers: 2, runners: 2, timers: (this.totalNumberOfTimers), totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
-      { id: '333ft', stages: 1, scramblers: 2, runners: 1, timers: (this.totalNumberOfTimers), totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
-      { id: 'clock', stages: 1, scramblers: 2, runners: 2, timers: (this.totalNumberOfTimers), totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
-      { id: 'minx', stages: 1, scramblers: 2, runners: 2, timers: (this.totalNumberOfTimers), totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
-      { id: 'pyram', stages: 1, scramblers: 2, runners: 2, timers: (this.totalNumberOfTimers), totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
-      { id: 'skewb', stages: 1, scramblers: 2, runners: 2, timers: (this.totalNumberOfTimers), totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
-      { id: 'sq1', stages: 1, scramblers: 2, runners: 2, timers: (this.totalNumberOfTimers), totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
+      { id: '222', stages: 1, scramblers: 2, runners: 2, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
+      { id: '333', stages: 1, scramblers: 2, runners: 2, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
+      { id: '444', stages: 1, scramblers: 2, runners: 2, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
+      { id: '555', stages: 1, scramblers: 2, runners: 2, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
+      { id: '666', stages: 1, scramblers: 2, runners: 1, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
+      { id: '777', stages: 1, scramblers: 2, runners: 1, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
+      { id: '333bf', stages: 1, scramblers: 1, runners: 1, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
+      { id: '333oh', stages: 1, scramblers: 2, runners: 2, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
+      { id: '333ft', stages: 1, scramblers: 2, runners: 1, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
+      { id: 'clock', stages: 1, scramblers: 2, runners: 2, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
+      { id: 'minx', stages: 1, scramblers: 2, runners: 2, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
+      { id: 'pyram', stages: 1, scramblers: 2, runners: 2, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
+      { id: 'skewb', stages: 1, scramblers: 2, runners: 2, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
+      { id: 'sq1', stages: 1, scramblers: 2, runners: 2, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
       { id: '444bf', stages: 1, scramblers: 2, runners: 0, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: true, scrambleGroups: 2 },
       { id: '555bf', stages: 1, scramblers: 2, runners: 0, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: true, scrambleGroups: 2 },
       { id: '333mbf', stages: 1, scramblers: 2, runners: 0, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: true, scrambleGroups: 2 },

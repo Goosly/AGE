@@ -11,7 +11,7 @@ input[type=number] {
 }
 
 .group {
-  width: 40px;
+  width: 60px;
 }
 
 .filter {
@@ -54,7 +54,19 @@ a {
 }
 
 .invalidAssignment {
-  border:1px solid red;
+  border: 1px solid red;
+}
+
+input.competingButNoGroup {
+  border: 2px solid red;
+}
+
+input.notCompeting {
+  border: 1px dotted lightgray;
+}
+
+.red {
+  color: darkred;
 }
 
 h1, h6 {

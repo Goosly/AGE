@@ -238,7 +238,7 @@ export class ExportService {
       defaultStyle: {
         fontSize: 10,
       }
-    }
+    };
 
     wcif.persons.forEach(p => {
       let nametag = this.getOneNametagToFill(bordersOnNametags);
