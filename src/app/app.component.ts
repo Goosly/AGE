@@ -78,9 +78,9 @@ export class AppComponent  {
 
   handleGenerate() {
     try {
-      this.groupService.wcif.events.forEach(e => {
-        this.handleGenerateOneEvent(e.id);
-        this.groupCounter = Array(Math.max(this.groupCounter.length, e.configuration.stages * e.configuration.scrambleGroups));
+      this.groupService.wcif.events.forEach(event => {
+        this.groupService.generateGrouping(event.id);
+        this.groupCounter = Array(Math.max(this.groupCounter.length, event.configuration.stages * event.configuration.scrambleGroups));
       });
       this.groupsGenerated = true;
     } catch (error) {
@@ -90,6 +90,7 @@ export class AppComponent  {
 
   handleGenerateOneEvent(eventId: EventId) {
     this.groupService.generateGrouping(eventId);
+    Helpers.sortCompetitorsByGroupInEvent(this.groupService.wcif, eventId);
   }
 
   handleExport(value: boolean) {
@@ -104,6 +105,7 @@ export class AppComponent  {
   handleImportFromGroupifier() {
     this.groupService.configuration.groupStrategy = 'fromGroupifier';
     this.groupService.importAssignmentsFromGroupifier();
+    Helpers.sortCompetitorsByName(this.groupService.wcif);
     this.groupsGenerated = true;
   }
 
@@ -135,22 +137,29 @@ export class AppComponent  {
     
     let event: EventConfiguration = this.groupService.wcif.events.filter(e => e.id === eventId)[0].configuration;
     let max: number = event.scrambleGroups * event.stages;
-    let p = group.split(';');
-    for (let i = 0; i < p.length; i++) { // Loop over the assignments for this event (for example: 1;J3)
-      if (! RegExp('^[SJR]?[0-9]+$').test(p[i])) { // Every part must be (optionally S J or R followed by) a groupnumber
+    let parts = group.split(';');
+    for (let i = 0; i < parts.length; i++) { // Loop over the assignments for this event (for example: 1;J3)
+      if (! RegExp('^[SJR]?[0-9]+$').test(parts[i])) { // Every part must be (optionally S J or R followed by) a groupnumber
         return false;
       }
-      if (parseInt(p[i].match(/[0-9]+/)[0]) > max) { // Groupnumber can't be higher than the amount of groups for this event
-        return false;
-      }
-    }
-    for (let i = 0; i < p.length; i++) { // New loop because this should only be checked if all parts are valid themselves
-      // Check multiple assignments for one group (for example: 2;J2)
-      if (p.map(e => parseInt(e.match(/[0-9]+/)[0])).indexOf(parseInt(p[i].match(/[0-9]+/)[0])) !== i) {
+      if (parseInt(parts[i].match(/[0-9]+/)[0]) > max) { // Groupnumber can't be higher than the amount of groups for this event
         return false;
       }
     }
+
+    if (this.hasDuplicates(this.mapPartsToParallelGroupNumber(parts, event))) {
+      return false;
+    }
+
     return true;
+  }
+
+  private mapPartsToParallelGroupNumber(parts, event: EventConfiguration) {
+    return parts.map(p => Math.trunc((parseInt(p.match(/[0-9]+/)[0]) - 1) / event.stages));
+  }
+
+  private hasDuplicates(array) {
+    return (new Set(array)).size !== array.length;
   }
 
   competingButNoGroup(competitor: any, eventId: string) {
