@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {Wcif, EventConfiguration, GeneralConfiguration, StaffPerson} from './classes';
 import {Helpers} from './helpers';
 import {Activity, AssignmentCode, EventId, Person} from '@wca/helpers';
-import {environment} from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -204,10 +203,6 @@ export class GroupService {
           e.numberOfRegistrations++;
         } else {
           p[e.id] = { competing: false, group: '' };
-        }
-
-        if (environment.testMode && p.fullName === 'Manu Vereecken' && e.id === 'minx') {
-          p[e.id] = { competing: true, group: '' };
         }
       }
     }
