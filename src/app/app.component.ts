@@ -192,7 +192,8 @@ export class AppComponent  {
   }
 
   get basicBySpeedStrategy(): boolean {
-    return this.groupService.configuration.groupStrategy === 'basicBySpeed';
+    return this.groupService.configuration.groupStrategy === 'basicBySpeed'
+      || this.groupService.configuration.groupStrategy === 'basicBySpeedReverse';
   }
 
   get fromGroupifierStrategy(): boolean {

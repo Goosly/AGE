@@ -17,7 +17,9 @@ export class GroupService {
     if (this.configuration.groupStrategy === 'basic') {
       this.generateBasicGrouping(eventId);
     } else if (this.configuration.groupStrategy === 'basicBySpeed') {
-      this.generateBasicBySpeedGrouping(eventId);
+      this.generateBasicBySpeedGrouping(eventId, false);
+    } else if (this.configuration.groupStrategy === 'basicBySpeedReverse') {
+      this.generateBasicBySpeedGrouping(eventId, true);
     } else if (this.configuration.groupStrategy === 'advanced') {
       this.generateAdvancedGrouping(eventId);
     }
@@ -54,11 +56,11 @@ export class GroupService {
     Helpers.sortCompetitorsByName(this.wcif);
   }
 
-  private generateBasicBySpeedGrouping(eventId: EventId) { // Sort by speed, then loop and assign group 1, then group 2, etc.
+  private generateBasicBySpeedGrouping(eventId: EventId, reverse: boolean) { // Sort by speed, then loop and assign group 1, then group 2, etc.
     let event: any = this.wcif.events.filter(e => e.id === eventId)[0];
     let eventConfiguration: EventConfiguration = event.configuration;
     let sizeOfGroup = this.wcif.persons.filter(p => p[eventId].competing).length / eventConfiguration.scrambleGroups;
-    Helpers.sortCompetitorsBySpeedInEvent(this.wcif, eventId);
+    Helpers.sortCompetitorsBySpeedInEvent(this.wcif, eventId, reverse);
     this.wcif.persons.filter(p => p[eventId].competing).forEach((p, index) => {
       p[eventId].group = (Math.trunc(index / sizeOfGroup) + 1) + '';
     });

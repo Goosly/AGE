@@ -17,7 +17,7 @@ export class Helpers {
     });
   }
 
-  public static sortCompetitorsBySpeedInEvent(wcif: Wcif, eventId: EventId) {
+  public static sortCompetitorsBySpeedInEvent(wcif: Wcif, eventId: EventId, reverse: boolean) {
     wcif.persons = wcif.persons.sort(function(a: Person, b: Person) {
       var wrA = this.worldRankingOfPersonInEvent(a, eventId);
       var wrB = this.worldRankingOfPersonInEvent(b, eventId);
@@ -27,9 +27,11 @@ export class Helpers {
       if (isNaN(wrB)) {
         return -1;
       }
-      console.log('comparing ' + wrA + ' and ' + wrB);
       return (wrA < wrB) ? -1 : (wrA > wrB) ? 1 : 0;
     }.bind(this));
+    if (reverse) {
+      wcif.persons = wcif.persons.reverse();
+    }
   }
 
   private static worldRankingOfPersonInEvent(person: Person, eventId: EventId): number {

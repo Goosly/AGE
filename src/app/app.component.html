@@ -30,9 +30,10 @@
       <h3>General configuration</h3>
       <select class='form-control' [disabled]="groupsGenerated" [(ngModel)]='groupService.configuration.groupStrategy'>
         <option value='basic'>Random groups (no staff assignments)</option>
-        <option value='basicBySpeed'>Groups by speed (no staff assignments)</option>
+        <option value='basicBySpeed'>Groups by speed, fast first (no staff assignments)</option>
+        <option value='basicBySpeedReverse'>Groups by speed, fast last (no staff assignments)</option>
         <option value='advanced'>Groups with staffing for one group in every event one competes in</option>
-      </select>&nbsp;&larr;&nbsp;New options since version 1.0.002!<br><br>
+      </select>&nbsp;&larr;&nbsp;New options since version 1.0.005!<br><br>
 
       <div *ngIf="advancedStrategy">
         We'll be using <input type="number" [(ngModel)]="groupService.totalNumberOfTimers" (ngModelChange)="handleTotalNumberOfTimersSet($event)" min="1" step="1" [disabled]="groupsGenerated"> timers in total<br><br>
