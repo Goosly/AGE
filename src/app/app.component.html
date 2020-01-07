@@ -17,7 +17,7 @@
   </div>
 
 <!-- INFORMATION ABOUT COMP -->
-  <div *ngIf="competitionId && groupService.wcif">
+  <div *ngIf="competitionId && groupService.wcif && ! readyForExport">
     <p> Selected competition: {{ competitionId }}<br>
     {{ numberOfEvents }} events and {{ numberOfCompetitors }} competitors found!</p>
     <p class="red" *ngIf="canImportFromGroupifier">This competition has assignments generated with Groupifier. Would you like to import them?
