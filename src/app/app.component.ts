@@ -24,6 +24,7 @@ export class AppComponent  {
   competitionsToChooseFrom: Array<String> = null;
 
   // Fields for binding
+  userNameShort: string;
   filter: string = '';
   groupCounter: Array<number> = [];
   competitorCounterFromCsv: number = 0;
@@ -37,6 +38,7 @@ export class AppComponent  {
     ) {
       this.Math = Math;
       if (this.apiService.oauthToken) {
+        this.handleGetUser();
         this.handleGetCompetitions();
       }
   }
@@ -45,7 +47,14 @@ export class AppComponent  {
     this.apiService.logIn();
   }
 
-  handleGetCompetitions() {
+  private handleGetUser() {
+    this.apiService.getUser().subscribe(user => {
+      this.userNameShort = user.me.name.split(' ')[0];
+      this.apiService.logUserLoggedIn(user);
+    });
+  }
+
+  private handleGetCompetitions() {
     this.apiService.getCompetitions().subscribe(comps => {
       if (comps.length === 1) {
         this.handleCompetitionSelected(comps[0]['id']);
@@ -56,6 +65,7 @@ export class AppComponent  {
 
   handleCompetitionSelected(competitionId: string) {
     this.apiService.getWcif(competitionId).subscribe(wcif => {
+      this.apiService.logUserFetchedWcifOf(this.userNameShort, competitionId);
       this.groupService.wcif = wcif;
       try {
         this.groupService.processWcif();
@@ -105,6 +115,7 @@ export class AppComponent  {
 
   handleImportFromGroupifier() {
     this.groupService.importAssignmentsFromGroupifier();
+    this.apiService.logUserImportedFromGroupifier(this.userNameShort, this.groupService.wcif.id);
     this.groupService.configuration.groupStrategy = 'fromGroupifier';
     Helpers.sortCompetitorsByName(this.groupService.wcif);
     this.groupsGenerated = true;

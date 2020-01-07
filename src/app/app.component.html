@@ -8,7 +8,7 @@
 
 <!-- SELECT COMP -->
   <div *ngIf="apiService.oauthToken && ! competitionId">
-    <p>Welcome!</p>
+    <p>Welcome{{!! userNameShort ? ', ' + userNameShort : ''}}!</p>
     <p>Select a competition:</p>
     <p *ngFor="let competitionId of competitionsToChooseFrom">
       <button (click)="handleCompetitionSelected(competitionId)">{{competitionId}}</button>
