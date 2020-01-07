@@ -24,7 +24,7 @@ export class EventConfiguration {
 }
 
 export class GeneralConfiguration {
-  groupStrategy: 'basic' | 'basicBySpeed' | 'basicBySpeedReverse' | 'advanced' | 'fromGroupifier' = 'basic';
+  groupStrategy: 'basic' | 'basicBySpeed' | 'basicBySpeedReverse' | 'advanced' | 'fromGroupifier' | 'fromCsv' = 'basic';
   skipDelegatesAndOrganizers: boolean = true;
   doNotAssignJudges: boolean = false;
   doNotAssignTasksToNewCompetitors = false;

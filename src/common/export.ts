@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {EventConfiguration, Wcif} from './classes';
 import {saveAs} from 'file-saver';
+import {Person} from '@wca/helpers';
 
 declare var pdfMake: any;
 
@@ -467,6 +468,25 @@ export class ExportService {
       ']\n';
     let filename = 'staffExample.json';
     this.downloadFile(content, filename);
+  }
+
+  csvGroupAndTaskAssignmentsExampleImport(wcif: Wcif) {
+    let csv:string = 'Name,' + wcif.events.map(event => event.id).join(',') + '\r\n';
+    let p: Person = wcif.persons[0];
+    csv += (p.name + ',');
+    csv += wcif.events.map(event => this.randomGroup()).join(',');
+    csv += '\r\n';
+
+    let filename = 'exampleImport-' + wcif.id + '.csv';
+    this.downloadFile(csv, filename);
+  }
+
+  private randomGroup(): string {
+    if (Math.random() < 0.5) {
+      return (Math.round(Math.random()) + 1) + '';
+    } else {
+      return Math.random() < 0.5 ? '1;J2' : '';
+    }
   }
 
   private downloadFile(data: string, filename: string){

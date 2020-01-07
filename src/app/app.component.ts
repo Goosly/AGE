@@ -26,6 +26,7 @@ export class AppComponent  {
   // Fields for binding
   filter: string = '';
   groupCounter: Array<number> = [];
+  competitorCounterFromCsv: number = 0;
   Math: any;
 
   constructor (
@@ -103,10 +104,19 @@ export class AppComponent  {
   }
 
   handleImportFromGroupifier() {
-    this.groupService.configuration.groupStrategy = 'fromGroupifier';
     this.groupService.importAssignmentsFromGroupifier();
+    this.groupService.configuration.groupStrategy = 'fromGroupifier';
     Helpers.sortCompetitorsByName(this.groupService.wcif);
     this.groupsGenerated = true;
+  }
+
+  handleImportFromCsv() {
+    this.groupService.importAssignmentsFromCsv((competitorCounterFromCsv: number) => {
+      this.groupService.configuration.groupStrategy = 'fromCsv';
+      Helpers.sortCompetitorsByName(this.groupService.wcif);
+      this.competitorCounterFromCsv = competitorCounterFromCsv;
+      this.groupsGenerated = true;
+    });
   }
 
   handleSortByEvent(event) {
@@ -196,8 +206,13 @@ export class AppComponent  {
       || this.groupService.configuration.groupStrategy === 'basicBySpeedReverse';
   }
 
-  get fromGroupifierStrategy(): boolean {
-    return this.groupService.configuration.groupStrategy === 'fromGroupifier';
+  get importStrategy(): boolean {
+    return this.groupService.configuration.groupStrategy === 'fromGroupifier'
+      || this.groupService.configuration.groupStrategy === 'fromCsv';
+  }
+
+  get importFromCsvStrategy(): boolean {
+    return this.groupService.configuration.groupStrategy === 'fromCsv';
   }
 
   get canImportFromGroupifier(): boolean {

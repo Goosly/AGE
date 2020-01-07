@@ -13,7 +13,7 @@ export class ScoreCardService {
     let scorecards: ScoreCardInfo[] = [];
     wcif.events.filter(e => e.id !== '333fm').forEach(event => {
       Helpers.sortCompetitorsByGroupInEvent(wcif, event.id);
-      let competitorsOfEvent: Person[] = wcif.persons.filter(p => p[event.id].competing && !! p[event.id].group);
+      let competitorsOfEvent: Person[] = wcif.persons.filter(p => !! p[event.id].group && RegExp('^[0-9]+').test(p[event.id].group));
       competitorsOfEvent.forEach(c => {
         let scorecard: ScoreCardInfo = this.getScoreCardForFirstRoundOfEvent(wcif, event);
         scorecard.competitorName = c.name;

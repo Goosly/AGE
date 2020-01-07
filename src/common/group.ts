@@ -299,6 +299,39 @@ export class GroupService {
     return allActivities;
   }
 
+  importAssignmentsFromCsv(callback: (competitors: number) => void) {
+    let file = document.getElementById('importCsv')['files'][0];
+    if (file) {
+      let reader = new FileReader();
+      reader.readAsText(file);
+      reader.onload = function(e) {
+        let csv: string = e.target['result'];
+        let lines: string[] = csv.includes('\r\n') ? csv.split('\r\n') : csv.split('\n');
+        let headers = lines[0].split(',');
+        let competitors = lines.splice(1);
+        let importedCompetitorsCounter = 0;
+        for (let i = 0; i < competitors.length; i++) {
+          if (competitors[i] === null || competitors[i] === undefined || competitors[i] === "") {
+            continue;
+          }
+          let competitorToImport = competitors[i].split(',');
+          let matchingPersons = this.wcif.persons.filter(p => p.name === competitorToImport[0] || p.fullName === competitorToImport[0]);
+          if (matchingPersons.length === 0) {
+            continue;
+          }
+          for (let j = 1; j < headers.length; j++) {
+            matchingPersons[0][headers[j]].group = competitorToImport[j];
+          }
+          importedCompetitorsCounter++;
+        }
+        callback(importedCompetitorsCounter);
+      }.bind(this);
+    } else {
+      alert("Please select a CSV file to import first");
+      throw Error("No CSV file to import");
+    }
+  }
+
   public setEventConfiguration() {
     let defaults : Array<EventConfiguration> = [
       { id: '222', stages: 1, scramblers: 2, runners: 2, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
@@ -440,5 +473,4 @@ export class GroupService {
     }
     return tasks;
   }
-
 }

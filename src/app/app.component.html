@@ -22,11 +22,15 @@
     {{ numberOfEvents }} events and {{ numberOfCompetitors }} competitors found!</p>
     <p class="red" *ngIf="canImportFromGroupifier">This competition has assignments generated with Groupifier. Would you like to import them?
       <button [disabled]="groupsGenerated" (click)="handleImportFromGroupifier()">Yes, import</button></p>
+    <p>Import assignments from a CSV file <a ngHref='#here' (click)='exportService.csvGroupAndTaskAssignmentsExampleImport(groupService.wcif)'>(click for an example)</a>?
+      <input type="file" id="importCsv" [disabled]="groupsGenerated" accept=".csv"/>
+      <button [disabled]="groupsGenerated" (click)="handleImportFromCsv()">Import CSV</button>
+      <span *ngIf="groupsGenerated && importFromCsvStrategy"> &#10004; Imported {{competitorCounterFromCsv}} competitors</span></p>
   </div>
 
 <!-- GENERAL CONFIGURATION -->
   <div *ngIf="competitionId && groupService.wcif && ! readyForExport">
-    <div  *ngIf="! fromGroupifierStrategy">
+    <div  *ngIf="! importStrategy">
       <h3>General configuration</h3>
       <select class='form-control' [disabled]="groupsGenerated" [(ngModel)]='groupService.configuration.groupStrategy'>
         <option value='basic'>Random groups (no staff assignments)</option>
@@ -50,7 +54,7 @@
     </div>
 
 <!-- EVENTS CONFIGURATION -->
-    <div *ngIf="! fromGroupifierStrategy">
+    <div *ngIf="! importStrategy">
       <h3>Events configuration</h3>
       <table>
         <tr>
@@ -127,7 +131,7 @@
           <td><button (click)="handleSortCompetitorsByName()">Sort by name</button></td>
           <td *ngFor="let event of groupService.wcif.events"><button (click)="handleSortByEvent(event)">Sort</button></td>
         </tr>
-        <tr *ngIf="! fromGroupifierStrategy">
+        <tr *ngIf="! importStrategy">
           <td></td>
           <td *ngFor="let event of groupService.wcif.events">
             <button class="small"(click)="handleGenerateOneEvent(event.id)">{{basicBySpeedStrategy ? 'By speed' : 'Randomize'}}</button></td>
