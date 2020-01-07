@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../environments/environment';
-import {LogglyService} from '../loggly';
+import {LogglyService} from '../loggly/loggly.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,19 +11,20 @@ export class ApiService {
 
   public oauthToken;
   private headerParams: HttpHeaders;
+  private logglyService:LogglyService;
 
-  constructor(private httpClient: HttpClient,
-              private logglyService:LogglyService) {
+  constructor(private httpClient: HttpClient) {
     this.getToken();
 
     this.headerParams = new HttpHeaders();
     this.headerParams = this.headerParams.set('Authorization', `Bearer ${this.oauthToken}`);
     this.headerParams = this.headerParams.set('Content-Type', 'application/json');
 
-    this.initLoggly();
+    this.initLoggly(httpClient);
   }
 
-  private initLoggly() {
+  private initLoggly(httpClient: HttpClient) {
+    this.logglyService = new LogglyService(this.httpClient);
     this.logglyService.push({
       logglyKey: '3c4e81e2-b2ae-40e3-88b5-ba8e8b810586',
       sendConsoleErrors: false,
