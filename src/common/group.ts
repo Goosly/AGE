@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Wcif, EventConfiguration, GeneralConfiguration, StaffPerson} from './classes';
+import {EventConfiguration, GeneralConfiguration, StaffPerson, Wcif} from './classes';
 import {Helpers} from './helpers';
 import {Activity, AssignmentCode, EventId, Person} from '@wca/helpers';
 
@@ -70,10 +70,8 @@ export class GroupService {
   private generateGroupingForEvent(eventId: EventId, staff) {
     // Make some variables
     let event: any = this.wcif.events.filter(e => e.id === eventId)[0];
-    let configuration: EventConfiguration = event.configuration;
-    let numberOfGroups: number = configuration.stages * configuration.scrambleGroups;
-    let taskCounter = this.createTaskCounter(configuration); // Variable to keep track of assignments for all groups
-    if (configuration.skip) {
+    let taskCounter = this.createTaskCounter(event.configuration); // Variable to keep track of assignments for all groups
+    if (event.configuration.skip) {
       return;
     }
 
@@ -85,10 +83,10 @@ export class GroupService {
     let potentialScramblers: Array<any> = this.wcif.persons.filter(p => p[eventId].competing && this.canScramble(p, staff, eventId));
     let potentialRunners: Array<any> = this.wcif.persons.filter(p => p[eventId].competing && this.canRun(p, staff));
 
-    if (potentialScramblers.length < numberOfGroups * configuration.scramblers) {
+    if (potentialScramblers.length < this.numberOfGroups(event) * event.configuration.scramblers) {
       alert('Not enough scramblers for ' + eventId + '!\nMake sure you add plenty of reliable people in your json file');
     }
-    if (potentialRunners.length < numberOfGroups * configuration.runners) {
+    if (potentialRunners.length < this.numberOfGroups(event) * event.configuration.runners) {
       alert('Not enough runners for ' + eventId + '!\nMake sure you add plenty of reliable people in your json file');
     }
 
@@ -100,11 +98,11 @@ export class GroupService {
     potentialScramblers.forEach(p => {
       if (taskCounter[group]['S']['max'] > taskCounter[group]['S']['count']) {
         // Still room for another scrambler, so let's assign group & task to him/her!
-        p[eventId].group = (group + 1) + ';S' + (((group + configuration.stages) % numberOfGroups) + 1);
+        p[eventId].group = (group + 1) + ';S' + this.nextGroupOnSameStage(group, event);
         taskCounter[group]['S']['count']++;
         assignedIds.push(p.registrantId);
       }
-      group = this.nextGroup(group, numberOfGroups);
+      group = this.increment(group, event);
     });
 
     // 2. Find runners, divide them into groups
@@ -112,29 +110,33 @@ export class GroupService {
     potentialRunners.filter(p => this.isNotAssigned(p, assignedIds)).forEach(p => {
       if (taskCounter[group]['R']['max'] > taskCounter[group]['R']['count']) {
         // Still room for another runner, so let's assign group & task to him/her!
-        p[eventId].group = (group + 1) + ';R' + (((group + configuration.stages) % numberOfGroups) + 1);
+        p[eventId].group = (group + 1) + ';R' + (((group + event.configuration.stages) % this.numberOfGroups(event)) + 1);
         taskCounter[group]['R']['count']++;
         assignedIds.push(p.registrantId);
       }
-      group = this.nextGroup(group, numberOfGroups);
+      group = this.increment(group, event);
     });
 
     // 3. Assign everyone else
     allCompetitors.filter(p => this.isNotAssigned(p, assignedIds)).forEach(p => {
       if (! this.configuration.doNotAssignJudges && this.canJudge(p) && taskCounter[group]['J']['max'] > taskCounter[group]['J']['count']) {
         // Still room for another judge, so let's assign group & task to him/her!
-        p[eventId].group = (group + 1) + ';J' + (((group + configuration.stages) % numberOfGroups) + 1);
+        p[eventId].group = (group + 1) + ';J' + (((group + event.configuration.stages) % this.numberOfGroups(event)) + 1);
         taskCounter[group]['J']['count']++;
         assignedIds.push(p.registrantId);
       } else {
         p[eventId].group = (group + 1) + ''; // Person will compete in this group, but doesn't have a task
         assignedIds.push(p.registrantId);
       }
-      group = this.nextGroup(group, numberOfGroups);
+      group = this.increment(group, event);
     });
 
     this.countCJRSForEvent(eventId);
     Helpers.sortCompetitorsByName(this.wcif);
+  }
+
+  private nextGroupOnSameStage(group: number, event: any) {
+    return (((group + event.configuration.stages) % this.numberOfGroups(event)) + 1);
   }
 
   private markPersonsThatArePartOfTheStaff(staff: StaffPerson[]) {
@@ -142,8 +144,13 @@ export class GroupService {
     this.wcif.persons.forEach(p => p.isStaff = staffWcaIds.includes(p.wcaId));
   }
 
-  private nextGroup(group: number, numberOfGroups: number): number {
-    return (group + 1) % numberOfGroups; // Go back to 0 on overflow
+  private numberOfGroups(event: any): number {
+    let configuration: EventConfiguration = event.configuration;
+    return configuration.stages * configuration.scrambleGroups;
+  }
+
+  private increment(group: number, event: any): number {
+    return (group + 1) % this.numberOfGroups(event); // Go back to 0 on overflow
   }
 
   private isNotAssigned(p: any, assignedIds: Array<number>): boolean {
@@ -163,7 +170,6 @@ export class GroupService {
       throw new Error('No competitors');
     }
 
-    // TODO count rounds (only one round?)
     for (let e of this.wcif.events) {
       e.numberOfRegistrations = 0; // Add field
       if (! e.rounds || ! e.rounds.length) {

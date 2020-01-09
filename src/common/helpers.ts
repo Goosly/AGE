@@ -18,7 +18,18 @@ export class Helpers {
   }
 
   public static sortCompetitorsBySpeedInEvent(wcif: Wcif, eventId: EventId, reverse: boolean) {
-    wcif.persons = wcif.persons.sort(function(a: Person, b: Person) {
+    wcif.persons = this.sortBySpeed(wcif, eventId);
+    if (reverse) {
+      wcif.persons = wcif.persons.reverse();
+    }
+  }
+
+  public static getTopFiveBySpeedInEvent(wcif: Wcif, eventId: EventId): Person[] {
+    return this.sortBySpeed(wcif, eventId).slice(0, 4);
+  }
+
+  private static sortBySpeed(wcif: Wcif, eventId: EventId): Person[] {
+    return wcif.persons.sort(function (a: Person, b: Person) {
       var wrA = this.worldRankingOfPersonInEvent(a, eventId);
       var wrB = this.worldRankingOfPersonInEvent(b, eventId);
       if (isNaN(wrA)) {
@@ -29,9 +40,6 @@ export class Helpers {
       }
       return (wrA < wrB) ? -1 : (wrA > wrB) ? 1 : 0;
     }.bind(this));
-    if (reverse) {
-      wcif.persons = wcif.persons.reverse();
-    }
   }
 
   private static worldRankingOfPersonInEvent(person: Person, eventId: EventId): number {
