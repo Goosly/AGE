@@ -25,7 +25,9 @@ export class Helpers {
   }
 
   public static getTopFiveBySpeedInEvent(wcif: Wcif, eventId: EventId): Person[] {
-    return this.sortBySpeed(wcif, eventId).slice(0, 4);
+    let slice = this.sortBySpeed(wcif, eventId).filter(p => p[eventId].competing).slice(0, 5);
+    console.log('top five of ' + eventId + ": " + slice.map(p => p.name).join(", "));
+    return slice;
   }
 
   private static sortBySpeed(wcif: Wcif, eventId: EventId): Person[] {

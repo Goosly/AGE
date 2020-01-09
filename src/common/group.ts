@@ -95,6 +95,7 @@ export class GroupService {
 
     // 1. Find scramblers, divide them into groups
     potentialScramblers = this.sortScramblersByScramblingAssigned(potentialScramblers);
+    this.moveTopFiveToPositionsForLastGroup(potentialScramblers, event);
     potentialScramblers.forEach(p => {
       if (taskCounter[group]['S']['max'] > taskCounter[group]['S']['count']) {
         // Still room for another scrambler, so let's assign group & task to him/her!
@@ -106,8 +107,11 @@ export class GroupService {
     });
 
     // 2. Find runners, divide them into groups
+    group = 0;
+    potentialRunners = potentialRunners.filter(p => this.isNotAssigned(p, assignedIds));
     potentialRunners = this.sortRunnersByRunningAssigned(potentialRunners);
-    potentialRunners.filter(p => this.isNotAssigned(p, assignedIds)).forEach(p => {
+    this.moveTopFiveToPositionsForLastGroup(potentialRunners, event);
+    potentialRunners.forEach(p => {
       if (taskCounter[group]['R']['max'] > taskCounter[group]['R']['count']) {
         // Still room for another runner, so let's assign group & task to him/her!
         p[eventId].group = (group + 1) + ';R' + this.nextGroupOnSameStage(group, event);
@@ -118,7 +122,10 @@ export class GroupService {
     });
 
     // 3. Assign everyone else
-    allCompetitors.filter(p => this.isNotAssigned(p, assignedIds)).forEach(p => {
+    group = 0;
+    allCompetitors = allCompetitors.filter(p => this.isNotAssigned(p, assignedIds));
+    this.moveTopFiveToPositionsForLastGroup(allCompetitors, event);
+    allCompetitors.forEach(p => {
       if (! this.configuration.doNotAssignJudges && this.canJudge(p) && taskCounter[group]['J']['max'] > taskCounter[group]['J']['count']) {
         // Still room for another judge, so let's assign group & task to him/her!
         p[eventId].group = (group + 1) + ';J' + this.nextGroupOnSameStage(group, event);
@@ -133,6 +140,43 @@ export class GroupService {
 
     this.countCJRSForEvent(eventId);
     Helpers.sortCompetitorsByName(this.wcif);
+  }
+
+  private moveTopFiveToPositionsForLastGroup(competitors: Array<any>, event: any) {
+    let topFive = Helpers.getTopFiveBySpeedInEvent(this.wcif, event.id)
+      .filter(p => competitors.includes(p));
+    if (this.isScrambleDependentEvent(event) && topFive.length <= competitors.length / event.configuration.scrambleGroups) {
+      for (let i = 0; i < topFive.length; i++) {
+        let position = (i+1) * event.configuration.scrambleGroups - 1;
+        let positionOfTopFiveCompetitor = competitors.indexOf(topFive[i]);
+        if (position === -1 || positionOfTopFiveCompetitor === -1) {
+          console.error('Error!');
+        }
+        if (position !== positionOfTopFiveCompetitor) {
+          competitors[positionOfTopFiveCompetitor] = competitors[position];
+          competitors[position] = topFive[i];
+        }
+      }
+    }
+  }
+
+  private isScrambleDependentEvent(event: any) {
+    return ['222', '333', '333bf', '333oh', 'clock', 'pyram', 'skewb', 'sq1', '444bf'].includes(event.id);
+  }
+
+  private groupOfAssignment(assignment: string): number {
+    return parseInt(assignment.split(';')[0]);
+  }
+
+  private isLastGroupOfEvent(group: number, event: any) {
+    return group > (event.configuration.stages * (event.configuration.scrambleGroups-1));
+  }
+
+  private swapAssignments(a: Person, b: Person, event: any) {
+    let assignmentA = a[event.id].group;
+    let assignmentB = b[event.id].group;
+    a[event.id].group = assignmentB;
+    b[event.id].group = assignmentA;
   }
 
   private nextGroupOnSameStage(group: number, event: any) {
