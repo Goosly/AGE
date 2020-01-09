@@ -110,7 +110,7 @@ export class GroupService {
     potentialRunners.filter(p => this.isNotAssigned(p, assignedIds)).forEach(p => {
       if (taskCounter[group]['R']['max'] > taskCounter[group]['R']['count']) {
         // Still room for another runner, so let's assign group & task to him/her!
-        p[eventId].group = (group + 1) + ';R' + (((group + event.configuration.stages) % this.numberOfGroups(event)) + 1);
+        p[eventId].group = (group + 1) + ';R' + this.nextGroupOnSameStage(group, event);
         taskCounter[group]['R']['count']++;
         assignedIds.push(p.registrantId);
       }
@@ -121,7 +121,7 @@ export class GroupService {
     allCompetitors.filter(p => this.isNotAssigned(p, assignedIds)).forEach(p => {
       if (! this.configuration.doNotAssignJudges && this.canJudge(p) && taskCounter[group]['J']['max'] > taskCounter[group]['J']['count']) {
         // Still room for another judge, so let's assign group & task to him/her!
-        p[eventId].group = (group + 1) + ';J' + (((group + event.configuration.stages) % this.numberOfGroups(event)) + 1);
+        p[eventId].group = (group + 1) + ';J' + this.nextGroupOnSameStage(group, event);
         taskCounter[group]['J']['count']++;
         assignedIds.push(p.registrantId);
       } else {
@@ -145,8 +145,7 @@ export class GroupService {
   }
 
   private numberOfGroups(event: any): number {
-    let configuration: EventConfiguration = event.configuration;
-    return configuration.stages * configuration.scrambleGroups;
+    return event.configuration.stages * event.configuration.scrambleGroups;
   }
 
   private increment(group: number, event: any): number {
