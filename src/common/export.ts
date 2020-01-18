@@ -125,9 +125,9 @@ export class ExportService {
       for (let i = 1; i <= groups; i++) {
         // For every group, collect all competitors, judges, scramblers and runners
         let competitors = wcif.persons.filter(p => p[event.id].group.split(';')[0] === ('' + i));
-        let judges = wcif.persons.filter(p => p[event.id].group.indexOf(';') > -1 && p[event.id].group.split(';')[1].indexOf('J' + i) > -1);
-        let scramblers = wcif.persons.filter(p => p[event.id].group.indexOf(';') > -1 && p[event.id].group.split(';')[1].indexOf('S' + i) > -1);
-        let runners = wcif.persons.filter(p => p[event.id].group.indexOf(';') > -1 && p[event.id].group.split(';')[1].indexOf('R' + i) > -1);
+        let judges = wcif.persons.filter(p => p[event.id].group.split(';').includes('J' + i));
+        let scramblers = wcif.persons.filter(p => p[event.id].group.split(';').includes('S' + i));
+        let runners = wcif.persons.filter(p => p[event.id].group.split(';').includes('R' + i));
 
         // Write information to pdf
         let groupSummary: string = event.id + ' - group ' + i +  ' has ' + competitors.length + ' competitors, ' + judges.length + ' judges, '
