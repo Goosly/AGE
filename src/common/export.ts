@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {EventConfiguration, Wcif} from './classes';
 import {saveAs} from 'file-saver';
 import {Person} from '@wca/helpers';
+import * as moment from 'moment-timezone';
 
 declare var pdfMake: any;
 
@@ -282,9 +283,7 @@ export class ExportService {
   }
 
   private formatStartTimeOf(event, timezone: string) {
-    let start: string = new Date(event.startTime).toLocaleString("en-US", {timeZone: timezone});
-    let date: Date = new Date(start);
-    return date.getHours() + ':' + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+    moment(event.startTime).tz(timezone).format('H:mm');
   }
 
   private getOneNametagToFill(bordersOnNametags: boolean): any {
