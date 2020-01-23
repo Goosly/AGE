@@ -282,8 +282,8 @@ export class ExportService {
     pdfMake.createPdf(document).download(filename);
   }
 
-  private formatStartTimeOf(event, timezone: string) {
-    moment(event.startTime).tz(timezone).format('H:mm');
+  private formatStartTimeOf(event, timezone: string): string {
+    return moment(event.startTime).tz(timezone).format('H:mm');
   }
 
   private getOneNametagToFill(bordersOnNametags: boolean): any {

@@ -143,33 +143,33 @@ export class GroupService {
   }
 
   private moveTopFiveToPositionsForLastGroup(competitors: Array<any>, event: any) {
-    let topFive = Helpers.getTopFiveBySpeedInEvent(this.wcif, event.id)
-      .filter(p => competitors.includes(p));
-    if (this.isScrambleDependentEvent(event) && topFive.length <= competitors.length / event.configuration.scrambleGroups) {
-      for (let i = 0; i < topFive.length; i++) {
-        let position = (i+1) * event.configuration.scrambleGroups - 1;
-        let positionOfTopFiveCompetitor = competitors.indexOf(topFive[i]);
-        if (position === -1 || positionOfTopFiveCompetitor === -1) {
-          console.error('Error!');
+    if (this.isScrambleDependentEvent(event)) {
+      let topFive = Helpers.getTopFiveBySpeedInEvent(this.wcif, event.id)
+        .filter(p => competitors.includes(p));
+      if (topFive.length <= competitors.length / event.configuration.scrambleGroups) {
+        for (let i = 0; i < topFive.length; i++) {
+          let m = i % event.configuration.stages;
+          let g = Math.trunc(i / event.configuration.stages);
+          let position = (g+1) * this.numberOfGroups(event) - m - 1;
+          let positionOfTopFiveCompetitor = competitors.indexOf(topFive[i]);
+          if (position === -1 || positionOfTopFiveCompetitor === -1
+            || position >= competitors.length || positionOfTopFiveCompetitor >= competitors.length) {
+            console.error('Error!');
+          }
+          if (position !== positionOfTopFiveCompetitor) {
+            competitors[positionOfTopFiveCompetitor] = competitors[position];
+            competitors[position] = topFive[i];
+          }
         }
-        if (position !== positionOfTopFiveCompetitor) {
-          competitors[positionOfTopFiveCompetitor] = competitors[position];
-          competitors[position] = topFive[i];
-        }
+      } else {
+        console.debug('Not doing top five in last group for event: ' + event.id);
+        console.debug(competitors.length);
       }
     }
   }
 
   private isScrambleDependentEvent(event: any) {
     return ['222', '333', '333bf', '333oh', 'clock', 'pyram', 'skewb', 'sq1', '444bf'].includes(event.id);
-  }
-
-  private groupOfAssignment(assignment: string): number {
-    return parseInt(assignment.split(';')[0]);
-  }
-
-  private isLastGroupOfEvent(group: number, event: any) {
-    return group > (event.configuration.stages * (event.configuration.scrambleGroups-1));
   }
 
   private swapAssignments(a: Person, b: Person, event: any) {
