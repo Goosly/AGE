@@ -20,6 +20,9 @@
   <div *ngIf="competitionId && groupService.wcif && ! readyForExport">
     <p> Selected competition: {{ competitionId }}<br>
     {{ numberOfEvents }} events and {{ numberOfCompetitors }} competitors found!</p>
+
+    <!-- IMPORT -->
+    <h3>Import</h3>
     <p class="red" *ngIf="canImportFromGroupifier">This competition has assignments generated with Groupifier. Would you like to import them?
       <button [disabled]="groupsGenerated" (click)="handleImportFromGroupifier()">Yes, import</button></p>
     <p>Import assignments from a CSV file <a ngHref='#here' (click)='exportService.csvGroupAndTaskAssignmentsExampleImport(groupService.wcif)'>(click for an example)</a>?
