@@ -23,8 +23,8 @@
 
     <!-- IMPORT -->
     <h3>Import</h3>
-    <p class="red" *ngIf="canImportFromGroupifier">This competition has assignments generated with Groupifier. Would you like to import them?
-      <button [disabled]="groupsGenerated" (click)="handleImportFromGroupifier()">Yes, import</button></p>
+    <p class="red" *ngIf="canImportFromWcif">This competition already has assignments generated with Groupifier or AGE. Would you like to import them?
+      <button [disabled]="groupsGenerated" (click)="handleImportFromWcif()">Yes, import</button></p>
     <p>Import assignments from a CSV file <a ngHref='#here' (click)='exportService.csvGroupAndTaskAssignmentsExampleImport(groupService.wcif)'>(click for an example)</a>?
       <input type="file" id="importCsv" [disabled]="groupsGenerated" accept=".csv"/>
       <button [disabled]="groupsGenerated" (click)="handleImportFromCsv()">Import CSV</button>

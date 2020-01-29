@@ -77,7 +77,7 @@ export class AppComponent  {
   }
 
   handleTotalNumberOfTimersSet(value: number) {
-    this.groupService.totalNumberOfTimers = Math.max(1, value);
+    this.groupService.configuration.totalNumberOfTimers = Math.max(1, value);
     this.groupService.setEventConfiguration();
   }
 
@@ -113,10 +113,10 @@ export class AppComponent  {
     this.filter = value;
   }
 
-  handleImportFromGroupifier() {
-    this.groupService.importAssignmentsFromGroupifier();
-    this.apiService.logUserImportedFromGroupifier(this.userNameShort, this.groupService.wcif.id);
-    this.groupService.configuration.groupStrategy = 'fromGroupifier';
+  handleImportFromWcif() {
+    this.groupService.importAssignmentsFromWcif();
+    this.apiService.logUserImportedFromWcif(this.userNameShort, this.groupService.wcif.id);
+    this.groupService.configuration.groupStrategy = 'assignmentsFromWcif';
     Helpers.sortCompetitorsByName(this.groupService.wcif);
     this.groupsGenerated = true;
   }
@@ -144,10 +144,10 @@ export class AppComponent  {
     } else {
       $(target).addClass('invalidAssignment');
     }
-    
+
     this.groupService.countCJRSForEvent(eventId);
   }
-  
+
   isValidAssignment(group: string, eventId: EventId): boolean {
     if (group === null || group === "") { // Empty is OK
       return true;
@@ -155,7 +155,7 @@ export class AppComponent  {
     if (! RegExp('^[0-9SJR;]+$').test(group)) { // Anything else than numbers, SJR and ; is not OK
       return false;
     }
-    
+
     let event: EventConfiguration = this.groupService.wcif.events.filter(e => e.id === eventId)[0].configuration;
     let max: number = event.scrambleGroups * event.stages;
     let parts = group.split(';');
@@ -218,7 +218,7 @@ export class AppComponent  {
   }
 
   get importStrategy(): boolean {
-    return this.groupService.configuration.groupStrategy === 'fromGroupifier'
+    return this.groupService.configuration.groupStrategy === 'assignmentsFromWcif'
       || this.groupService.configuration.groupStrategy === 'fromCsv';
   }
 
@@ -226,7 +226,7 @@ export class AppComponent  {
     return this.groupService.configuration.groupStrategy === 'fromCsv';
   }
 
-  get canImportFromGroupifier(): boolean {
+  get canImportFromWcif(): boolean {
     // Not sure how to check... Probably every person should have at least one assignment?
     // Play safe for whatever weird scenario: at least half of the persons should have at least one assignment
     let countPersonsWithAssignments = 0;

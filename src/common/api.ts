@@ -74,18 +74,20 @@ export class ApiService {
     this.logMessage(userNameShort + ' fetched the Wcif of ' + competitionId);
   }
 
-  logUserImportedFromGroupifier(userNameShort: string, competitionId: any) {
-    this.logMessage(userNameShort + ' imported assignments from Groupifier for ' + competitionId);
+  logUserImportedFromWcif(userNameShort: string, competitionId: any) {
+    this.logMessage(userNameShort + ' imported assignments from Wcif for ' + competitionId);
   }
 
   private logMessage(message: string) {
-    setTimeout(() => {
-      try {
-        this.logglyService.push((environment.testMode? '(staging) ' : '') + message);
-      } catch (e) {
-        console.error(e);
-      }
-    },0);
+    if (! environment.testMode) {
+      setTimeout(() => {
+        try {
+          this.logglyService.push(message);
+        } catch (e) {
+          console.error(e);
+        }
+      },0);
+    }
   }
 
 }

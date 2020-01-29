@@ -24,7 +24,8 @@ export class EventConfiguration {
 }
 
 export class GeneralConfiguration {
-  groupStrategy: 'basic' | 'basicBySpeed' | 'basicBySpeedReverse' | 'advanced' | 'fromGroupifier' | 'fromCsv' = 'basic';
+  groupStrategy: 'basic' | 'basicBySpeed' | 'basicBySpeedReverse' | 'advanced' | 'assignmentsFromWcif' | 'fromCsv' = 'basic';
+  totalNumberOfTimers: number = 16;
   skipDelegatesAndOrganizers: boolean = true;
   doNotAssignJudges: boolean = false;
   doNotAssignTasksToNewCompetitors = false;

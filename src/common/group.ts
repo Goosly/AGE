@@ -8,7 +8,6 @@ import {Activity, AssignmentCode, EventId, Person} from '@wca/helpers';
 })
 export class GroupService {
   wcif: Wcif;
-  totalNumberOfTimers: number = 16;
   configuration: GeneralConfiguration = new GeneralConfiguration();
 
   constructor() {}
@@ -243,7 +242,7 @@ export class GroupService {
     for (let p of this.wcif.persons) {
       p.fullName = p.name;
       p.name = p.name.split('(')[0]; // Remove local name
-      
+
       if (!p.registration || p.registration.status !== 'accepted') {
         idsToRemove.push(p.registrantId);
         continue;
@@ -265,11 +264,11 @@ export class GroupService {
     this.setEventConfiguration();
   }
 
-  public importAssignmentsFromGroupifier(): void {
+  public importAssignmentsFromWcif(): void {
     this.resetTheDefaultGroupOnesForAllCompetitors();
 
     let allActivities: Activity[] = this.getAllActivitiesFromWcif();
-    this.wcif.persons.forEach(p => this.readPersonAssignmentsFromGroupifier(p, allActivities));
+    this.wcif.persons.forEach(p => this.readPersonAssignmentsFromWcif(p, allActivities));
   }
 
   private resetTheDefaultGroupOnesForAllCompetitors() {
@@ -280,10 +279,10 @@ export class GroupService {
     });
   }
 
-  private readPersonAssignmentsFromGroupifier(p: Person, allActivities: Activity[]) {
+  private readPersonAssignmentsFromWcif(p: Person, allActivities: Activity[]) {
     this.sortAssignmentsByAssignmentCode(p);
-    p.assignments.forEach(assignmentFromGroupifier => {
-      let activity = allActivities.filter(a => a.id.toString() === assignmentFromGroupifier.activityId.toString());
+    p.assignments.forEach(assignmentFromWcif => {
+      let activity = allActivities.filter(a => a.id.toString() === assignmentFromWcif.activityId.toString());
       if (activity.length === 0) {
         return;
       }
@@ -295,12 +294,12 @@ export class GroupService {
       if (p[eventId].group.length !== 0) {
         p[eventId].group += ';';
       }
-      p[eventId].group += this.convertAssignmentCodeFromGroupifier(assignmentFromGroupifier.assignmentCode);
+      p[eventId].group += this.convertAssignmentCodeFromWcif(assignmentFromWcif.assignmentCode);
       p[eventId].group += group.toString();
     });
   }
 
-  private convertAssignmentCodeFromGroupifier(code: AssignmentCode) {
+  private convertAssignmentCodeFromWcif(code: AssignmentCode) {
     switch (code) {
       case 'competitor':
         return '';
@@ -383,24 +382,24 @@ export class GroupService {
 
   public setEventConfiguration() {
     let defaults : Array<EventConfiguration> = [
-      { id: '222', stages: 1, scramblers: 2, runners: 2, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
-      { id: '333', stages: 1, scramblers: 2, runners: 2, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
-      { id: '444', stages: 1, scramblers: 2, runners: 2, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
-      { id: '555', stages: 1, scramblers: 2, runners: 2, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
-      { id: '666', stages: 1, scramblers: 2, runners: 1, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
-      { id: '777', stages: 1, scramblers: 2, runners: 1, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
-      { id: '333bf', stages: 1, scramblers: 1, runners: 1, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
-      { id: '333oh', stages: 1, scramblers: 2, runners: 2, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
-      { id: '333ft', stages: 1, scramblers: 2, runners: 1, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
-      { id: 'clock', stages: 1, scramblers: 2, runners: 2, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
-      { id: 'minx', stages: 1, scramblers: 2, runners: 2, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
-      { id: 'pyram', stages: 1, scramblers: 2, runners: 2, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
-      { id: 'skewb', stages: 1, scramblers: 2, runners: 2, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
-      { id: 'sq1', stages: 1, scramblers: 2, runners: 2, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
-      { id: '444bf', stages: 1, scramblers: 2, runners: 0, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: true, scrambleGroups: 2 },
-      { id: '555bf', stages: 1, scramblers: 2, runners: 0, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: true, scrambleGroups: 2 },
-      { id: '333mbf', stages: 1, scramblers: 2, runners: 0, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: true, scrambleGroups: 2 },
-      { id: '333fm', stages: 1, scramblers: 2, runners: 0, timers: this.totalNumberOfTimers, totalTimers: this.totalNumberOfTimers, skip: true, scrambleGroups: 2 },
+      { id: '222', stages: 1, scramblers: 2, runners: 2, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
+      { id: '333', stages: 1, scramblers: 2, runners: 2, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
+      { id: '444', stages: 1, scramblers: 2, runners: 2, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
+      { id: '555', stages: 1, scramblers: 2, runners: 2, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
+      { id: '666', stages: 1, scramblers: 2, runners: 1, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
+      { id: '777', stages: 1, scramblers: 2, runners: 1, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
+      { id: '333bf', stages: 1, scramblers: 1, runners: 1, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
+      { id: '333oh', stages: 1, scramblers: 2, runners: 2, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
+      { id: '333ft', stages: 1, scramblers: 2, runners: 1, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
+      { id: 'clock', stages: 1, scramblers: 2, runners: 2, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
+      { id: 'minx', stages: 1, scramblers: 2, runners: 2, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
+      { id: 'pyram', stages: 1, scramblers: 2, runners: 2, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
+      { id: 'skewb', stages: 1, scramblers: 2, runners: 2, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
+      { id: 'sq1', stages: 1, scramblers: 2, runners: 2, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
+      { id: '444bf', stages: 1, scramblers: 2, runners: 0, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: true, scrambleGroups: 2 },
+      { id: '555bf', stages: 1, scramblers: 2, runners: 0, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: true, scrambleGroups: 2 },
+      { id: '333mbf', stages: 1, scramblers: 2, runners: 0, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: true, scrambleGroups: 2 },
+      { id: '333fm', stages: 1, scramblers: 2, runners: 0, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: true, scrambleGroups: 2 },
     ];
 
     for (let e of this.wcif.events) {
@@ -408,7 +407,7 @@ export class GroupService {
       e.configuration.scrambleGroups = Math.max(e.round1.scrambleSetCount, e.configuration.scrambleGroups);
     }
   }
-  
+
   public countCJRSForEvent(eventId: string) {
     let event: any = this.wcif.events.filter(e => e.id === eventId)[0];
     let configuration: EventConfiguration = event.configuration;
