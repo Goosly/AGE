@@ -1,5 +1,6 @@
 import {Wcif} from './classes';
 import {EventId, Person} from '@wca/helpers';
+import {environment} from '../environments/environment';
 
 export class Helpers {
 
@@ -26,7 +27,9 @@ export class Helpers {
 
   public static getTopFiveBySpeedInEvent(wcif: Wcif, eventId: EventId): Person[] {
     let slice = this.sortBySpeed(wcif, eventId).filter(p => p[eventId].competing).slice(0, 5);
-    console.log('top five of ' + eventId + ": " + slice.map(p => p.name).join(", "));
+    if (environment.testMode) {
+      console.log('top five of ' + eventId + ": " + slice.map(p => p.name).join(", "));
+    }
     return slice;
   }
 

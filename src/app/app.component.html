@@ -22,7 +22,7 @@
     {{ numberOfEvents }} events and {{ numberOfCompetitors }} competitors found!</p>
 
     <!-- IMPORT -->
-    <h3>Import</h3>
+    <h3>Import groups</h3>
     <p class="red" *ngIf="canImportFromWcif">This competition already has assignments generated with Groupifier or AGE. Would you like to import them?
       <button [disabled]="groupsGenerated" (click)="handleImportFromWcif()">Yes, import</button></p>
     <p>Import assignments from a CSV file <a ngHref='#here' (click)='exportService.csvGroupAndTaskAssignmentsExampleImport(groupService.wcif)'>(click for an example)</a>?
@@ -121,7 +121,7 @@
 <!-- EDIT COMPETITORS GROUPS -->
     <div *ngIf="groupsGenerated">
       <h3>Competitors & group/task assignments</h3>
-      Edit all groups and task assignments until you're happy, then click: <button (click)="handleExport(true)">I'm ready, let's export</button><br>
+      Edit all groups and task assignments until you're happy, then click: <button (click)="handleExport()">I'm ready, let's export</button><br>
       You can also sort the competitors by the assignments of an event, or randomize a suggestion for the assignments of an entire event<br><br>
 
       Filter by name: <input type="text" class="filter" [(ngModel)]="filter" (ngModelChange)="handleFilterChanged($event)"/>
@@ -168,7 +168,7 @@
 <!-- EXPORT STUFF -->
   <div *ngIf="readyForExport">
     <h3>Export</h3>
-    Want to go back to make more changes? <button (click)="handleExport(false)">Go back to editing</button><br>
+    Want to go back to make more changes? <button (click)="handleBackToEdit()">Go back to editing</button><br>
 
     <h4>General</h4>
     <p><button (click)="exportService.csvGroupAndTaskAssignments(this.groupService.wcif)">All group + task assignments (CSV)</button></p>

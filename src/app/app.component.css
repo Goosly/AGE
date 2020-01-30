@@ -72,3 +72,8 @@ input.notCompeting {
 h1, h6 {
   display: inline-block;
 }
+
+h1 {
+  margin-top: 10px;
+  margin-bottom: 0px;
+}

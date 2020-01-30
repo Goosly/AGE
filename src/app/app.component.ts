@@ -104,9 +104,15 @@ export class AppComponent  {
     Helpers.sortCompetitorsByGroupInEvent(this.groupService.wcif, eventId);
   }
 
-  handleExport(value: boolean) {
+  handleExport() {
     Helpers.sortCompetitorsByName(this.groupService.wcif);
-    this.readyForExport = value;
+    this.readyForExport = true;
+      this.apiService.logUserClicksExport(this.userNameShort, this.groupService.wcif.id);
+  }
+
+  handleBackToEdit() {
+    this.readyForExport = false;
+    this.apiService.logUserClicksBackToEdit(this.userNameShort, this.groupService.wcif.id);
   }
 
   handleFilterChanged(value: string) {
@@ -123,6 +129,7 @@ export class AppComponent  {
 
   handleImportFromCsv() {
     this.groupService.importAssignmentsFromCsv((competitorCounterFromCsv: number) => {
+      this.apiService.logUserImportedFromCsv(this.userNameShort, this.groupService.wcif.id);
       this.groupService.configuration.groupStrategy = 'fromCsv';
       Helpers.sortCompetitorsByName(this.groupService.wcif);
       this.competitorCounterFromCsv = competitorCounterFromCsv;

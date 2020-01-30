@@ -78,6 +78,18 @@ export class ApiService {
     this.logMessage(userNameShort + ' imported assignments from Wcif for ' + competitionId);
   }
 
+  logUserImportedFromCsv(userNameShort: string, competitionId: any) {
+    this.logMessage(userNameShort + ' imported from CSV for ' + competitionId);
+  }
+
+  logUserClicksExport(userNameShort: string, competitionId: any) {
+    this.logMessage(userNameShort + ' clicks export for ' + competitionId);
+  }
+
+  logUserClicksBackToEdit(userNameShort: string, competitionId: any) {
+    this.logMessage(userNameShort + ' goes back to editing for ' + competitionId);
+  }
+
   private logMessage(message: string) {
     if (! environment.testMode) {
       setTimeout(() => {

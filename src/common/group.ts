@@ -48,14 +48,16 @@ export class GroupService {
     let eventConfiguration: EventConfiguration = event.configuration;
     let i = 0;
     this.shuffleCompetitors();
-    this.wcif.persons.filter(p => p[eventId].competing).forEach(p => {
+    let competitors = this.wcif.persons.filter(p => p[eventId].competing);
+    this.moveTopFiveToPositionsForLastGroup(competitors, event);
+    competitors.forEach(p => {
       p[eventId].group = (i + 1) + '';
       i = (i + 1) % eventConfiguration.scrambleGroups;
     });
     Helpers.sortCompetitorsByName(this.wcif);
   }
 
-  private generateBasicBySpeedGrouping(eventId: EventId, reverse: boolean) { // Sort by speed, then loop and assign group 1, then group 2, etc.
+  private generateBasicBySpeedGrouping(eventId: EventId, reverse: boolean) { // Sort by speed, then loop and assign group 1 to first chunk, then group 2, etc.
     let event: any = this.wcif.events.filter(e => e.id === eventId)[0];
     let eventConfiguration: EventConfiguration = event.configuration;
     let sizeOfGroup = this.wcif.persons.filter(p => p[eventId].competing).length / eventConfiguration.scrambleGroups;
@@ -153,7 +155,8 @@ export class GroupService {
           let positionOfTopFiveCompetitor = competitors.indexOf(topFive[i]);
           if (position === -1 || positionOfTopFiveCompetitor === -1
             || position >= competitors.length || positionOfTopFiveCompetitor >= competitors.length) {
-            console.error('Error!');
+            console.error('Unexpected error!');
+            alert('Unexpected error! Please contact us');
           }
           if (position !== positionOfTopFiveCompetitor) {
             competitors[positionOfTopFiveCompetitor] = competitors[position];
