@@ -226,12 +226,12 @@ export class ExportService {
         wcaId: {
             fontSize: 10,
             alignment: 'center',
-            margin: [0, 5, 0, 0] // add white to top
+            margin: [0, 2, 0, 0] // add white to top
         },
         country: {
             fontSize: 10,
             alignment: 'center',
-            margin: [0, 5, 0, 0] // add white to top
+            margin: [0, 2, 0, 0] // add white to top
         },
         startTime: {
             fontSize: 7
@@ -247,8 +247,9 @@ export class ExportService {
 
       // Set name, wcaId and country on nametag
       nametag.table.body[0][1].table.body[0][0].text = p.name;
-      nametag.table.body[0][1].table.body[1][0].text = ! p.wcaId ? ' ' : p.wcaId;
-      nametag.table.body[0][1].table.body[2][0].text = this.getCountryName(p.countryIso2);
+      nametag.table.body[0][1].table.body[1][0].text = 'Competitor id: ' + p.registrantId;
+      nametag.table.body[0][1].table.body[2][0].text = ! p.wcaId ? ' ' : p.wcaId;
+      nametag.table.body[0][1].table.body[3][0].text = this.getCountryName(p.countryIso2);
 
       // Add all events + group
       let i: number = 0;
@@ -354,19 +355,20 @@ export class ExportService {
                 widths: [ 240 ],
                 body: [
                   [{
-                      style: 'name',
-                      text: '',
-                      alignment: 'center'
+                    style: 'name',
+                    text: ''
                   }],
                   [{
-                      style: 'wcaId',
-                      text: '',
-                      alignment: 'center'
+                    style: 'wcaId',
+                    text: ''
                   }],
                   [{
-                      style: 'country',
-                      text: '',
-                      alignment: 'center'
+                    style: 'wcaId',
+                    text: ''
+                  }],
+                  [{
+                    style: 'country',
+                    text: ''
                   }],
                 ]
               },
@@ -387,7 +389,7 @@ export class ExportService {
       width: width
     };
   }
-  
+
   private getDataUrlOf(eventId: string): string {
     switch(eventId) {
       case '222' :
@@ -431,7 +433,7 @@ export class ExportService {
         return '';
     }
   }
-  
+
   csvForCubeComps(wcif: Wcif) {
     let csv:string = 'Status,Name,Country,WCA ID,Birth Date,Gender,' + wcif.events.map(event => event.id).join(',') + ',Email,Guests,IP' + '\r\n';
     wcif.persons.forEach(p => {
