@@ -15,15 +15,18 @@ export class ScoreCardService {
     let scorecards: ScoreCardInfo[] = [];
     wcif.events.filter(e => e.id !== '333fm').forEach(event => {
       Helpers.sortCompetitorsByGroupInEvent(wcif, event.id);
+      let scorecardsForEvent: ScoreCardInfo[] = [];
       let competitorsOfEvent: Person[] = wcif.persons.filter(p => !! p[event.id].group && RegExp('^[0-9]+').test(p[event.id].group));
       competitorsOfEvent.forEach(c => {
         let scorecard: ScoreCardInfo = this.getScoreCardForFirstRoundOfEvent(wcif, event);
         scorecard.competitorName = c.name;
         scorecard.competitorId = c.registrantId;
         scorecard.group = c[event.id].group.split(";")[0];
-        scorecards.push(scorecard);
+        scorecardsForEvent.push(scorecard);
       });
-      this.addEmptyScoreCardsUntilPageIsFull(scorecards, wcif);
+      scorecardsForEvent.forEach((s, i) => s.scorecardNumber = (i + 1));
+      this.addEmptyScoreCardsUntilPageIsFull(scorecardsForEvent, wcif);
+      scorecards.push(...scorecardsForEvent);
     });
 
     Helpers.sortCompetitorsByName(wcif);
@@ -58,7 +61,8 @@ export class ScoreCardService {
       competitorName: null,
       timeLimit: this.getTimeLimitOf(event.rounds[0]),
       cumulative: this.getCumulative(event.rounds[0]),
-      cutoff: this.getCutoffOf(event.rounds[0])
+      cutoff: this.getCutoffOf(event.rounds[0]),
+      scorecardNumber: null
     }
   }
 
@@ -100,7 +104,8 @@ export class ScoreCardService {
       competitorName: ' ',
       timeLimit: null,
       cumulative: false,
-      cutoff: null
+      cutoff: null,
+      scorecardNumber: null
     }
   }
 
@@ -170,7 +175,10 @@ export class ScoreCardService {
 
   private oneMo3ScoreCard(info: ScoreCardInfo): any[]  {
     return [
-      {text: info.competitionName, alignment: 'center', fontSize: 10},
+      [
+        {text: ! info.scorecardNumber ? '' : info.scorecardNumber, alignment: 'left', fontSize: 7},
+        {text: info.competitionName, alignment: 'center', fontSize: 10}
+      ],
       {text: info.eventName, alignment: 'center', fontSize: 18, bold: true},
       {text: 'Round ' + (info.round === null ? '    ' : info.round)
           + ' | Group ' + (info.group === null ? '    ' : info.group)
@@ -211,7 +219,10 @@ export class ScoreCardService {
 
   private oneAvg5ScoreCard(info: ScoreCardInfo): any[]  {
     return [
-      {text: info.competitionName, alignment: 'center', fontSize: 10},
+      [
+        {text: ! info.scorecardNumber ? '' : info.scorecardNumber, alignment: 'left', fontSize: 7},
+        {text: info.competitionName, alignment: 'center', fontSize: 10}
+      ],
       {text: info.eventName, alignment: 'center', fontSize: 18, bold: true},
       {text: 'Round ' + (info.round === null ? '    ' : info.round)
           + ' | Group ' + (info.group === null ? '    ' : info.group)
@@ -254,7 +265,10 @@ export class ScoreCardService {
 
   private oneMbldScoreCard(info: ScoreCardInfo): any[]  {
     return [
-      {text: info.competitionName, alignment: 'center', fontSize: 10},
+      [
+        {text: ! info.scorecardNumber ? '' : info.scorecardNumber, alignment: 'left', fontSize: 7},
+        {text: info.competitionName, alignment: 'center', fontSize: 10}
+      ],
       {text: info.eventName, alignment: 'center', fontSize: 18, bold: true},
       {text: 'Round ' + (info.round === null ? '    ' : info.round)
           + ' | Group ' + (info.group === null ? '    ' : info.group)
@@ -297,5 +311,6 @@ export class ScoreCardInfo {
   timeLimit: string;
   cumulative: boolean;
   cutoff: string;
+  scorecardNumber: number;
 }
 
