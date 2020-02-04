@@ -43,7 +43,7 @@ export class AppComponent  {
       }
   }
 
-  private get testMomentJs(): string {
+  get testMomentJs(): string {
     return null;
     // return 'hello world';
   }
