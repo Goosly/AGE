@@ -210,8 +210,12 @@ export class ExportService {
       content: [
       ],
       styles: {
-          nametag: {
+        nametag: {
           margin: [0, 30, 0, 0],
+          lineHeight: 0.7
+        },
+        firstNametag: {
+          margin: [0, 0, 0, 0],
           lineHeight: 0.7
         },
         tableExample: {
@@ -219,22 +223,22 @@ export class ExportService {
           lineHeight: 0.7
         },
         name: {
-            fontSize: 18,
-            alignment: 'center',
-            margin: [0, 10, 0, 0] // add white to top
+          fontSize: 18,
+          alignment: 'center',
+          margin: [0, 10, 0, 0] // add white to top
         },
         wcaId: {
-            fontSize: 10,
-            alignment: 'center',
-            margin: [0, 2, 0, 0] // add white to top
+          fontSize: 10,
+          alignment: 'center',
+          margin: [0, 2, 0, 0] // add white to top
         },
         country: {
-            fontSize: 10,
-            alignment: 'center',
-            margin: [0, 2, 0, 0] // add white to top
+          fontSize: 10,
+          alignment: 'center',
+          margin: [0, 2, 0, 0] // add white to top
         },
         startTime: {
-            fontSize: 7
+          fontSize: 7
         }
       },
       defaultStyle: {
@@ -278,6 +282,8 @@ export class ExportService {
       // Add to nametags
       document.content.push(nametag);
     });
+
+    document.content[0].style = 'firstNametag';
 
     let filename = 'personalSchedules-' + wcif.id + '.pdf';
     pdfMake.createPdf(document).download(filename);
