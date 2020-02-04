@@ -54,6 +54,7 @@ export class GroupService {
       p[eventId].group = (i + 1) + '';
       i = (i + 1) % eventConfiguration.scrambleGroups;
     });
+    this.countCJRSForEvent(eventId);
     Helpers.sortCompetitorsByName(this.wcif);
   }
 
@@ -65,6 +66,7 @@ export class GroupService {
     this.wcif.persons.filter(p => p[eventId].competing).forEach((p, index) => {
       p[eventId].group = (Math.trunc(index / sizeOfGroup) + 1) + '';
     });
+    this.countCJRSForEvent(eventId);
     Helpers.sortCompetitorsByName(this.wcif);
   }
 
@@ -156,7 +158,7 @@ export class GroupService {
           if (position === -1 || positionOfTopFiveCompetitor === -1
             || position >= competitors.length || positionOfTopFiveCompetitor >= competitors.length) {
             console.error('Unexpected error!');
-            alert('Unexpected error! Please contact us');
+            alert('Unexpected error! Please check the console.');
           }
           if (position !== positionOfTopFiveCompetitor) {
             competitors[positionOfTopFiveCompetitor] = competitors[position];
@@ -411,10 +413,12 @@ export class GroupService {
     }
   }
 
-  public countCJRSForEvent(eventId: string) {
+  public countCJRSForEvent(eventId: string, numberOfGroups?: number) {
     let event: any = this.wcif.events.filter(e => e.id === eventId)[0];
     let configuration: EventConfiguration = event.configuration;
-    let numberOfGroups: number = configuration.stages * configuration.scrambleGroups;
+    if (! numberOfGroups) {
+      numberOfGroups = event.configuration.scrambleGroups * event.configuration.stages;
+    }
 
     event.groupCounters = [];
     let group: number = 1;

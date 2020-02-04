@@ -122,7 +122,7 @@
     <div *ngIf="groupsGenerated">
       <h3>Competitors & group/task assignments</h3>
       Edit all groups and task assignments until you're happy, then click: <button (click)="handleExport()">I'm ready, let's export</button><br>
-      You can also sort the competitors by the assignments of an event, or randomize a suggestion for the assignments of an entire event<br><br>
+      You can also sort the competitors by the assignments of an event<span *ngIf="! importStrategy">, or randomize a suggestion for the assignments of an entire event</span><br><br>
 
       Filter by name: <input type="text" class="filter" [(ngModel)]="filter" (ngModelChange)="handleFilterChanged($event)"/>
       <table>
@@ -145,7 +145,7 @@
           <td *ngFor="let event of groupService.wcif.events">{{event.numberOfRegistrations}}</td>
         </tr>
 
-        <tr *ngFor="let group of (advancedStrategy ? groupCounter : []); let i = index" [attr.data-index]="i">
+        <tr *ngFor="let group of groupCounter; let i = index" [attr.data-index]="i">
           <td><label title="C|J|R|S is short for Competitors|Judges|Runners|Scramblers. The numbers will be updated when you make a change to the assignments.">&#9432;</label>
           C|J|R|S Group {{i + 1}}</td>
           <td *ngFor="let event of groupService.wcif.events">{{ event.configuration.skip || ! event.groupCounters || event.groupCounters.length === 0 ? '' : event.groupCounters[i] }}</td>

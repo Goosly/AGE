@@ -91,13 +91,48 @@ export class AppComponent  {
     try {
       this.groupService.wcif.events.forEach(event => {
         this.groupService.generateGrouping(event.id);
-        this.groupCounter = Array(Math.max(this.groupCounter.length, event.configuration.stages * event.configuration.scrambleGroups));
+        this.groupCounter = this.getGroupCounterBasedOnEvent(event);
       });
       this.groupsGenerated = true;
     } catch (error) {
       console.error(error);
+      alert("Error while generating groups. Please check the console.");
     }
   };
+
+  private getGroupCounterBasedOnEvent(event) {
+    // This is weird, I'm not sure why this is an array. It should be a number. Probably needed for binding?
+    return Array(Math.max(this.groupCounter.length, event.configuration.stages * event.configuration.scrambleGroups));
+  }
+
+  private countCJRSForAllEvents(wcif) {
+    let maxGroup = 1;
+    wcif.events.forEach(e => {
+      let numberOfGroupsForEvent = 1;
+      wcif.persons.forEach(p => {
+        const max = this.groupOfAssignment(p[e.id].group);
+        if (max > numberOfGroupsForEvent) {
+          numberOfGroupsForEvent = max;
+        }
+      });
+      this.groupService.countCJRSForEvent(e.id, numberOfGroupsForEvent);
+      if (numberOfGroupsForEvent > maxGroup) {
+        maxGroup = numberOfGroupsForEvent;
+      }
+    });
+    return new Array(maxGroup);
+  }
+
+  private groupOfAssignment(group: any): number {
+    if (! group || group === '') {
+      return -1;
+    }
+    const firstAssignment = group.split(';')[0];
+    if (RegExp('^[0-9]+$').test(firstAssignment)) {
+      return parseInt(firstAssignment);
+    }
+    return -1;
+  }
 
   handleGenerateOneEvent(eventId: EventId) {
     this.groupService.generateGrouping(eventId);
@@ -121,6 +156,7 @@ export class AppComponent  {
 
   handleImportFromWcif() {
     this.groupService.importAssignmentsFromWcif();
+    this.groupCounter = this.countCJRSForAllEvents(this.groupService.wcif);
     this.apiService.logUserImportedFromWcif(this.userNameShort, this.groupService.wcif.id);
     this.groupService.configuration.groupStrategy = 'assignmentsFromWcif';
     Helpers.sortCompetitorsByName(this.groupService.wcif);
@@ -129,6 +165,7 @@ export class AppComponent  {
 
   handleImportFromCsv() {
     this.groupService.importAssignmentsFromCsv((competitorCounterFromCsv: number) => {
+      this.groupCounter = this.countCJRSForAllEvents(this.groupService.wcif);
       this.apiService.logUserImportedFromCsv(this.userNameShort, this.groupService.wcif.id);
       this.groupService.configuration.groupStrategy = 'fromCsv';
       Helpers.sortCompetitorsByName(this.groupService.wcif);
