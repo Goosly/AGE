@@ -197,7 +197,8 @@ export class ScoreCardService {
             {text:'S', alignment: 'center'},
             {text:
                 info.cumulative ? 'Result\n(Cumulative limit: ' + info.timeLimit + ')' :
-                  (info.timeLimit !== null ? 'Result (DNF if ≥ ' + info.timeLimit + ')' : ''), alignment: 'center'},
+                  (info.timeLimit !== null ? 'Result (DNF if ≥ ' + info.timeLimit + ')' : ''),
+              alignment: 'center', fontSize: info.cumulative ? 10 : 12 },
             {text:'J', alignment: 'center'},
             {text:'C', alignment: 'center'}],
             [{text:'1', margin: [0, 7]}, '', '', '', '']]
@@ -241,7 +242,8 @@ export class ScoreCardService {
             {text:'S', alignment: 'center'},
             {text:
                 info.cumulative ? 'Result\n(Cumulative limit: ' + info.timeLimit + ')' :
-                  (info.timeLimit !== null ? 'Result (DNF if ≥ ' + info.timeLimit + ')' : ''), alignment: 'center'},
+                  (info.timeLimit !== null ? 'Result (DNF if ≥ ' + info.timeLimit + ')' : ''),
+              alignment: 'center', fontSize: info.cumulative ? 10 : 12 },
             {text:'J', alignment: 'center'},
             {text:'C', alignment: 'center'}],
             [{text:'1', margin: [0, 7]}, '', '', '', ''],
