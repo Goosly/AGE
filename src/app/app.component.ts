@@ -43,6 +43,11 @@ export class AppComponent  {
       }
   }
 
+  private get testMomentJs(): string {
+    return null;
+    // return 'hello world';
+  }
+
   handleLoginToWca() {
     this.apiService.logIn();
   }
