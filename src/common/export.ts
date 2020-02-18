@@ -131,16 +131,22 @@ export class ExportService {
         let runners = wcif.persons.filter(p => p[event.id].group.split(';').includes('R' + i));
 
         // Write information to pdf
-        let groupSummary: string = event.id + ' - group ' + i +  ' has ' + competitors.length + ' competitors, ' + judges.length + ' judges, '
+        let headerLine: string = ' - group ' + i +  ' has ' + competitors.length + ' competitors, ' + judges.length + ' judges, '
             + scramblers.length + ' scramblers and ' + runners.length + ' runners\n';
-        groupSummary += 'Competitors: ' + competitors.map(p => p.name).join(', ') + '\n';
-        groupSummary += 'Judges: ' + judges.map(p => p.name).join(', ') + '\n';
-        groupSummary += 'Scramblers: ' + scramblers.map(p => p.name).join(', ') + '\n';
-        groupSummary += 'Runners: ' + runners.map(p => p.name).join(', ') + '\n';
-        groupSummary += '\n';
         document.content.push(
           {
-            text: groupSummary,
+            text: [
+              {text: event.id, bold: true},
+              {text: headerLine},
+              {text: '• Competitors: '},
+              {text: competitors.map(p => p.name).join(', ') + '\n'},
+              {text: '• Judges: '},
+              {text: judges.map(p => p.name).join(', ') + '\n'},
+              {text: '• Scramblers: '},
+              {text: scramblers.map(p => p.name).join(', ') + '\n'},
+              {text: '• Runners: '},
+              {text: runners.map(p => p.name).join(', ') + '\n' + '\n'}
+            ],
             unbreakable: true
           }
         );
