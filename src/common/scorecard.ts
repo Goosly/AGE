@@ -143,7 +143,7 @@ export class ScoreCardService {
       ];
       let page = {
         table: {
-          heights: [364, 22, 384],
+          heights: [384, 22, 364],
           widths: [260, 2, 8, 260],
           body: onePage
         },
