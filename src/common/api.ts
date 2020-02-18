@@ -9,6 +9,8 @@ import {LogglyService} from '../loggly/loggly.service';
 })
 export class ApiService {
 
+  private readonly ONE_WEEK = 7;
+
   public oauthToken;
   private headerParams: HttpHeaders;
   private logglyService:LogglyService;
@@ -52,7 +54,9 @@ export class ApiService {
   getCompetitions(): Observable<any> {
     let url: string = `${environment.wcaUrl}/api/v0/competitions?managed_by_me=true`;
     if (! environment.testMode) {
-      url += `&start=${new Date().toISOString()}`;
+      const startDate = new Date();
+      startDate.setDate(startDate.getDate() - this.ONE_WEEK);
+      url += `&start=${startDate.toISOString()}`;
     }
     return this.httpClient.get(url, {headers: this.headerParams});
   }
