@@ -5,6 +5,7 @@ export class Wcif {
   events: Array<any>;
   id: any;
   schedule: Schedule;
+  extensions: any[];
 }
 
 export class StaffPerson {

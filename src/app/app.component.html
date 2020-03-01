@@ -22,6 +22,7 @@
   <div *ngIf="competitionId && groupService.wcif && ! readyForExport">
     <p> Selected competition: {{ competitionId }}<br>
     {{ numberOfEvents }} events and {{ numberOfCompetitors }} competitors found!</p>
+    <button (click)="apiService.patchWcifWithExtension(groupService.wcif)">PATCH WCIF</button>
 
     <!-- IMPORT -->
     <h3>Import groups</h3>

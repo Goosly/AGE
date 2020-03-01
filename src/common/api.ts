@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../environments/environment';
 import {LogglyService} from '../loggly/loggly.service';
+import {Wcif} from './classes';
 
 @Injectable({
   providedIn: 'root'
@@ -22,10 +23,10 @@ export class ApiService {
     this.headerParams = this.headerParams.set('Authorization', `Bearer ${this.oauthToken}`);
     this.headerParams = this.headerParams.set('Content-Type', 'application/json');
 
-    this.initLoggly(httpClient);
+    this.initLoggly();
   }
 
-  private initLoggly(httpClient: HttpClient) {
+  private initLoggly() {
     this.logglyService = new LogglyService(this.httpClient);
     this.logglyService.push({
       logglyKey: '3c4e81e2-b2ae-40e3-88b5-ba8e8b810586',
@@ -62,12 +63,38 @@ export class ApiService {
   }
 
   getWcif(competitionId): Observable<any> {
-    if (environment.testMode) {
+    /* if (environment.testMode) {
       return this.httpClient.get(`https://www.worldcubeassociation.org/api/v0/competitions/AnnuntiaOpen2020/wcif/public`,
         {headers: this.headerParams});
-    }
+    }*/
     return this.httpClient.get(`${environment.wcaUrl}/api/v0/competitions/${competitionId}/wcif`,
       {headers: this.headerParams});
+  }
+
+  patchWcifWithExtension(wcif: Wcif) {
+    this.addAgeExtension(wcif);
+
+    // 'https://cors-anywhere.herokuapp.com/' +
+    this.httpClient.patch(
+      `${environment.wcaUrl}/api/v0/competitions/${wcif.id}/wcif`,
+      JSON.stringify(wcif),
+      {headers: this.headerParams})
+      .subscribe();
+  }
+
+  doesNotContainAGEExtension(wcif): boolean {
+    return wcif.extensions.filter(e => e.id === 'AGE').length > 0;
+  }
+
+  private addAgeExtension(wcif: Wcif) {
+    if (this.doesNotContainAGEExtension(wcif)) {
+      wcif.extensions.push(
+        {
+          'id': 'AGE',
+          'specUrl': 'https://github.com/Goosly/AGE',
+          'data': {}
+        });
+    }
   }
 
   logUserLoggedIn(user) {

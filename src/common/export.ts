@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {EventConfiguration, Wcif} from './classes';
 import {saveAs} from 'file-saver';
-import {Person} from '@wca/helpers';
+import {getEventName, Person} from '@wca/helpers';
 import * as moment from 'moment-timezone';
 
 declare var pdfMake: any;
@@ -11,26 +11,6 @@ declare var pdfMake: any;
 })
 export class ExportService {
 
-  private eventNames = [
-    {id: '222', label: '2x2x2 Cube'},
-    {id: '333', label: '3x3x3 Cube'},
-    {id: '444', label: '4x4x4 Cube'},
-    {id: '555', label: '5x5x5 Cube'},
-    {id: '666', label: '6x6x6 Cube'},
-    {id: '777', label: '7x7x7 Cube'},
-    {id: '333bf', label: '3x3x3 Blindfolded'},
-    {id: '333oh', label: '3x3x3 One-Handed'},
-    {id: '333ft', label: '3x3x3 With Feet'},
-    {id: 'clock', label: 'Clock'},
-    {id: 'minx', label: 'Megaminx'},
-    {id: 'pyram', label: 'Pyraminx'},
-    {id: 'skewb', label: 'Skewb'},
-    {id: 'sq1', label: 'Square-1'},
-    {id: '444bf', label: '4x4x4 Blindfolded'},
-    {id: '555bf', label: '5x5x5 Blindfolded'},
-    {id: '333mbf', label: '3x3x3 Multi-Blind'},
-    {id: '333fm', label: '3x3x3 Fewest Moves'}
-  ];
   private formats = [
     {id: 'a', label: 'ao5'},
     {id: 'm', label: 'mo3'},
@@ -68,7 +48,7 @@ export class ExportService {
   csvEvents(wcif: Wcif) {
     let csv: string = 'event,label,format,limit,cumulative,cutoff,\r\n';
     wcif.events.forEach(e => {
-      let label = this.eventNames.filter(f => f.id === e.id)[0].label;
+      let label = getEventName(e.id);
       let format = this.formats.filter(f => f.id === e.round1.format)[0].label;
       let limit: string = ! e.round1.timeLimit ? '' : this.centisToMinutesAndSeconds(e.round1.timeLimit.centiseconds);
       let cumulative: boolean = !! e.round1.timeLimit && e.round1.timeLimit.cumulativeRoundIds.length;

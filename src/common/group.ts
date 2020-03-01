@@ -227,17 +227,7 @@ export class GroupService {
       e.round1 = e.rounds[0];
       e.numberOfRounds =  !e.rounds ? 0 : e.rounds.length;
 
-      e.startTime = '';
-      for (let v of this.wcif.schedule.venues) {
-        for (let r of v.rooms) {
-          for (let a of r.activities) {
-            if (a.activityCode.startsWith(e.id + '-r1') // This is a round 1 of e
-                && (e.startTime === '' || e.startTime > a.startTime)) { // Starttime is earlier than currently known
-              e.startTime = a.startTime;
-            }
-          }
-        }
-      }
+      this.determineStartTimeOfEvent(e);
     }
 	  // All events should have a startTime now (if they're included in the schedule)
     this.sortEventsByStartTime();
@@ -267,6 +257,20 @@ export class GroupService {
 
     // Set configuration for events
     this.setEventConfiguration();
+  }
+
+  private determineStartTimeOfEvent(e) {
+    e.startTime = '';
+    for (const v of this.wcif.schedule.venues) {
+      for (const r of v.rooms) {
+        for (const a of r.activities) {
+          if (a.activityCode.startsWith(e.id + '-r1') // This is a round 1 of e
+            && (e.startTime === '' || e.startTime > a.startTime)) { // Starttime is earlier than currently known
+            e.startTime = a.startTime;
+          }
+        }
+      }
+    }
   }
 
   public importAssignmentsFromWcif(): void {

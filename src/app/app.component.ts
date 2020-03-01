@@ -276,6 +276,9 @@ export class AppComponent  {
   }
 
   get canImportFromWcif(): boolean {
+    const ageOrGroupifierExtension: boolean = this.groupService.wcif.extensions
+      .filter(e => e.id === 'AGE' || e.id.startsWith('groupifier')).length > 0;
+
     // Not sure how to check... Probably every person should have at least one assignment?
     // Play safe for whatever weird scenario: at least half of the persons should have at least one assignment
     let countPersonsWithAssignments = 0;
@@ -284,7 +287,7 @@ export class AppComponent  {
         countPersonsWithAssignments++;
       }
     });
-    return countPersonsWithAssignments * 2 > this.groupService.wcif.persons.length;
+    return ageOrGroupifierExtension && (countPersonsWithAssignments * 2 > this.groupService.wcif.persons.length);
   }
 
   version() {
