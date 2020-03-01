@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {EventConfiguration, GeneralConfiguration, StaffPerson, Wcif} from './classes';
 import {Helpers} from './helpers';
 import {Activity, AssignmentCode, EventId, Person} from '@wca/helpers';
+import {ActivityHelper} from './activity';
 
 @Injectable({
   providedIn: 'root'
@@ -232,6 +233,12 @@ export class GroupService {
 	  // All events should have a startTime now (if they're included in the schedule)
     this.sortEventsByStartTime();
 
+    this.processRegistrationsOfPersons();
+
+    this.setDefaultEventConfiguration();
+  }
+
+  private processRegistrationsOfPersons() {
     // For every person: set registration fields per event to 1 or 0 (and count per event)
     let idsToRemove = [];
     for (let p of this.wcif.persons) {
@@ -244,19 +251,16 @@ export class GroupService {
       }
       for (let e of this.wcif.events) {
         if (p.registration.eventIds.indexOf(e.id) > -1) {
-          p[e.id] = { competing: true, group: '1' };
+          p[e.id] = {competing: true, group: '1'};
           e.numberOfRegistrations++;
         } else {
-          p[e.id] = { competing: false, group: '' };
+          p[e.id] = {competing: false, group: ''};
         }
       }
     }
 
     // Remove registrations that are not accepted
     this.wcif.persons = this.wcif.persons.filter(p => idsToRemove.indexOf(p.registrantId) === -1);
-
-    // Set configuration for events
-    this.setEventConfiguration();
   }
 
   private determineStartTimeOfEvent(e) {
@@ -274,13 +278,13 @@ export class GroupService {
   }
 
   public importAssignmentsFromWcif(): void {
-    this.resetTheDefaultGroupOnesForAllCompetitors();
+    this.resetGroupsForAllCompetitors();
 
-    let allActivities: Activity[] = this.getAllActivitiesFromWcif();
+    let allActivities: Activity[] = ActivityHelper.getAllActivitiesFromWcif(this.wcif);
     this.wcif.persons.forEach(p => this.readPersonAssignmentsFromWcif(p, allActivities));
   }
 
-  private resetTheDefaultGroupOnesForAllCompetitors() {
+  private resetGroupsForAllCompetitors() {
     this.wcif.persons.forEach(p => {
       this.wcif.events.forEach(e => {
         p[e.id].group = '';
@@ -345,17 +349,6 @@ export class GroupService {
     p.assignments = p.assignments.sort((a, b) => a.assignmentCode.localeCompare(b.assignmentCode));
   }
 
-  private getAllActivitiesFromWcif() {
-    let allActivities: Activity[] = [];
-    this.wcif.schedule.venues.forEach(v => {
-      v.rooms.forEach(r => r.activities.forEach(a => {
-        allActivities.push(a);
-        a.childActivities.forEach(childActivity => allActivities.push(childActivity));
-      }));
-    });
-    return allActivities;
-  }
-
   importAssignmentsFromCsv(callback: (competitors: number) => void) {
     let file = document.getElementById('importCsv')['files'][0];
     if (file) {
@@ -389,7 +382,7 @@ export class GroupService {
     }
   }
 
-  public setEventConfiguration() {
+  public setDefaultEventConfiguration() {
     let defaults : Array<EventConfiguration> = [
       { id: '222', stages: 1, scramblers: 2, runners: 2, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
       { id: '333', stages: 1, scramblers: 2, runners: 2, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: false, scrambleGroups: 2 },

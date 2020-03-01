@@ -7,6 +7,7 @@ import { EventConfiguration } from '../common/classes';
 import { ScoreCardService } from '../common/scorecard';
 import {Helpers} from '../common/helpers';
 import {EventId} from '@wca/helpers';
+import {ActivityHelper} from '../common/activity';
 declare var $ :any;
 
 @Component({
@@ -41,11 +42,8 @@ export class AppComponent  {
         this.handleGetUser();
         this.handleGetCompetitions();
       }
-  }
 
-  get testMomentJs(): string {
-    return null;
-    // return 'hello world';
+    ActivityHelper.testMomentJsStuff();
   }
 
   handleLoginToWca() {
@@ -83,7 +81,7 @@ export class AppComponent  {
 
   handleTotalNumberOfTimersSet(value: number) {
     this.groupService.configuration.totalNumberOfTimers = Math.max(1, value);
-    this.groupService.setEventConfiguration();
+    this.groupService.setDefaultEventConfiguration();
   }
 
   handleNumberOfStagesSet(value: number, eventId: string) {
@@ -292,5 +290,9 @@ export class AppComponent  {
 
   version() {
     return environment.version;
+  }
+
+  testMode() {
+    return environment.testMode;
   }
 }
