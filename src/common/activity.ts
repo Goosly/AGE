@@ -1,6 +1,6 @@
 import {Activity, getEventName, Person} from '@wca/helpers';
 import * as moment from 'moment-timezone';
-import {activityCodeToName, parseActivityCode} from '@wca/helpers/lib/helpers/activity';
+import {activityCodeToName, parseActivityCode, ParsedActivityCode} from '@wca/helpers/lib/helpers/activity';
 import {Helpers} from './helpers';
 import {Wcif} from './classes';
 import {Assignment} from '@wca/helpers/lib/models/assignment';
@@ -45,7 +45,7 @@ export class ActivityHelper {
     let currentId = this.getHighestActivityId(wcif) + 1;
     wcif.schedule.venues.forEach(v => {
       v.rooms.forEach(r => r.activities.forEach(a => {
-        if (! a.activityCode.startsWith('other') && ! a.activityCode.includes('-a')) {
+        if (! a.activityCode.startsWith('other')) {
           let activityCode = parseActivityCode(a.activityCode);
           let event = Helpers.getEvent(activityCode.eventId, wcif);
           this.createChildActivitiesFor(a, event);
@@ -64,11 +64,14 @@ export class ActivityHelper {
     let childActivities = [];
     for (let stageIndex = 0; stageIndex < event.configuration.stages; stageIndex++) {
       for (let groupIndex = 0; groupIndex < numberOfGroups; groupIndex++) {
-        let activityCode = a.activityCode + '-g' + ((groupIndex + 1) * (stageIndex + 1));
+        let activityCode = parseActivityCode(a.activityCode);
+        activityCode.groupNumber = ((groupIndex + 1) * (stageIndex + 1));
+        let code = this.formatActivityCode(activityCode);
+
         let childActivity = {
           id: null,
-          name: activityCodeToName(activityCode),
-          activityCode: activityCode,
+          name: activityCodeToName(code),
+          activityCode: code,
           startTime: timesOfGroups[groupIndex],
           endTime: timesOfGroups[groupIndex + 1],
           childActivities: [],
@@ -77,6 +80,14 @@ export class ActivityHelper {
         a.childActivities.push(childActivity);
       }
     }
+  }
+
+  private static formatActivityCode(activityCode: ParsedActivityCode) {
+    let formattedActivityCode = activityCode.eventId + '-r' + activityCode.roundNumber + '-g' + activityCode.groupNumber;
+    if (!!activityCode.attemptNumber) {
+      formattedActivityCode += ('-a' + activityCode.attemptNumber);
+    }
+    return formattedActivityCode;
   }
 
   public static getAllActivitiesFromWcif(wcif): Activity[] {
@@ -117,7 +128,7 @@ export class ActivityHelper {
   static createAssignmentsInWcif(wcif: Wcif) {
     this.resetAssignmentsOfAllPersons(wcif);
 
-    let groupActivities = this.getAllGroupActivities(wcif);
+    let groupActivities = this.getAllGroupActivitiesForRoundsOne(wcif);
     groupActivities.forEach(activity => {
       let activityCode = parseActivityCode(activity.activityCode);
       let competitors = wcif.persons.filter(p => p[activityCode.eventId].group.split(';')[0] === ('' + activityCode.groupNumber));
@@ -137,9 +148,9 @@ export class ActivityHelper {
     });
   }
 
-  private static getAllGroupActivities(wcif: Wcif) {
+  private static getAllGroupActivitiesForRoundsOne(wcif: Wcif) {
     let activitiesFromWcif = this.getAllActivitiesFromWcif(wcif);
-    return activitiesFromWcif.filter(a => a.activityCode.includes('-g'));
+    return activitiesFromWcif.filter(a => a.activityCode.includes('-r1-g'));
   }
 
   private static createAssignmentFor(person: any, activity: Activity, assignmentCode: string) {

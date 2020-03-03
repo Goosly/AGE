@@ -86,7 +86,7 @@ export class ApiService {
   }
 
   doesNotContainAGEExtension(wcif): boolean {
-    return wcif.extensions.filter(e => e.id === 'AGE').length > 0;
+    return wcif.extensions.filter(e => e.id === 'AGE').length === 0;
   }
 
   private addAgeExtension(wcif: Wcif) {
