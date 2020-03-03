@@ -20,7 +20,6 @@
   <div *ngIf="competitionId && groupService.wcif && ! readyForExport">
     <p> Selected competition: {{ competitionId }}<br>
     {{ numberOfEvents }} events and {{ numberOfCompetitors }} competitors found!</p>
-    <button [hidden]="! testMode" (click)="apiService.patchWcifWithExtension(groupService.wcif)">PATCH WCIF</button>
 
     <!-- IMPORT -->
     <h3>Import groups</h3>
@@ -44,7 +43,7 @@
       </select>&nbsp;&larr;&nbsp;New options since version 1.0.005!<br><br>
 
       <div *ngIf="advancedStrategy">
-        We'll be using <input type="number" [(ngModel)]="groupService.totalNumberOfTimers" (ngModelChange)="handleTotalNumberOfTimersSet($event)" min="1" step="1" [disabled]="groupsGenerated"> timers in total<br><br>
+        We'll be using <input type="number" [(ngModel)]="groupService.configuration.totalNumberOfTimers" (ngModelChange)="handleTotalNumberOfTimersSet($event)" min="1" step="1" [disabled]="groupsGenerated"> timers in total<br><br>
         <label title='Select your json file that contains trusted scramblers and capable runners'>&#9432;</label>
         Select scramblers and runners <a ngHref='#here' (click)='exportService.staffExample()'>(click for an example)</a>: <input type="file" id="staff" accept=".json"/><br>
         <label title='Or allow everyone to scramble and run... NOT RECOMMENDED'>&#9432;</label>
@@ -171,7 +170,10 @@
     <h3>Export</h3>
     Want to go back to make more changes? <button (click)="handleBackToEdit()">Go back to editing</button><br>
 
-    <h4>General</h4>
+    <h4>Save to WCA</h4>
+    <button (click)="apiService.patchWcif(groupService.wcif)">Save</button>
+
+    <h4>Download files</h4>
     <p><button (click)="exportService.csvGroupAndTaskAssignments(this.groupService.wcif)">All group + task assignments (CSV)</button></p>
     <p><button (click)="exportService.pdfTableGroupAndTaskAssignments(this.groupService.wcif)">All group + task assignments (PDF)</button></p>
     <p><button (click)="exportService.pdfGroupOverview(this.groupService.wcif)">Overview per group with names of all competitors, judges, scramblers and runners (PDF)</button></p>

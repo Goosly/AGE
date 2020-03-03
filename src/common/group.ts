@@ -336,8 +336,8 @@ export class GroupService {
     if (!this.wcif.events.map(e => e.id).includes(activityCode[0])){
       throw new Error('Expected activity to be of some event, but wasn\'t: ' + activityCode[0]);
     }
-    if (activityCode[1] !== 'r1') {
-      throw new Error('Expected activity to be of round 1, but wasn\'t: ' + activityCode[1]);
+    if (! activityCode[1].startsWith('r')) {
+      throw new Error('Expected activity to be of a round, but wasn\'t: ' + activityCode[1]);
     }
     if (! RegExp('^[ag][0-9]+$').test(activityCode[2])){
       throw new Error('Expected activity to indicate a group, but wasn\'t: ' + activityCode[2]);

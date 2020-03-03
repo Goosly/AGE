@@ -72,9 +72,10 @@ export class ApiService {
       {headers: this.headerParams});
   }
 
-  patchWcifWithExtension(wcif: Wcif) {
+  patchWcif(wcif: Wcif) {
     this.addAgeExtension(wcif);
-    ActivityHelper.addChildActivitiesForEveryRoundOne(wcif);
+    ActivityHelper.addChildActivitiesForEveryRound(wcif);
+    ActivityHelper.createAssignmentsInWcif(wcif);
 
     // 'https://cors-anywhere.herokuapp.com/' +
     this.httpClient.patch(
