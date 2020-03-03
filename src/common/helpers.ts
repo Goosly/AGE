@@ -61,4 +61,8 @@ export class Helpers {
       return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
     });
   }
+
+  public static getEvent(eventId, wcif) {
+    return wcif.events.filter(e => e.id === eventId)[0];
+  }
 }

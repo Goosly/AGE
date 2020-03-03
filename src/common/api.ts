@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {environment} from '../environments/environment';
 import {LogglyService} from '../loggly/loggly.service';
 import {Wcif} from './classes';
+import {ActivityHelper} from './activity';
 
 @Injectable({
   providedIn: 'root'
@@ -73,6 +74,7 @@ export class ApiService {
 
   patchWcifWithExtension(wcif: Wcif) {
     this.addAgeExtension(wcif);
+    ActivityHelper.addChildActivitiesForEveryRoundOne(wcif);
 
     // 'https://cors-anywhere.herokuapp.com/' +
     this.httpClient.patch(
@@ -132,5 +134,4 @@ export class ApiService {
       },0);
     }
   }
-
 }

@@ -45,7 +45,7 @@ export class GroupService {
   }
 
   private generateBasicGrouping(eventId: EventId) { // Very simple: random groups
-    let event: any = this.wcif.events.filter(e => e.id === eventId)[0];
+    let event: any = Helpers.getEvent(eventId, this.wcif);
     let eventConfiguration: EventConfiguration = event.configuration;
     let i = 0;
     this.shuffleCompetitors();
@@ -60,7 +60,7 @@ export class GroupService {
   }
 
   private generateBasicBySpeedGrouping(eventId: EventId, reverse: boolean) { // Sort by speed, then loop and assign group 1 to first chunk, then group 2, etc.
-    let event: any = this.wcif.events.filter(e => e.id === eventId)[0];
+    let event: any = Helpers.getEvent(eventId, this.wcif);
     let eventConfiguration: EventConfiguration = event.configuration;
     let sizeOfGroup = this.wcif.persons.filter(p => p[eventId].competing).length / eventConfiguration.scrambleGroups;
     Helpers.sortCompetitorsBySpeedInEvent(this.wcif, eventId, reverse);
@@ -73,7 +73,7 @@ export class GroupService {
 
   private generateGroupingForEvent(eventId: EventId, staff) {
     // Make some variables
-    let event: any = this.wcif.events.filter(e => e.id === eventId)[0];
+    let event: any = Helpers.getEvent(eventId, this.wcif);
     let taskCounter = this.createTaskCounter(event.configuration); // Variable to keep track of assignments for all groups
     if (event.configuration.skip) {
       return;
@@ -411,7 +411,7 @@ export class GroupService {
   }
 
   public countCJRSForEvent(eventId: string, numberOfGroups?: number) {
-    let event: any = this.wcif.events.filter(e => e.id === eventId)[0];
+    let event: any = Helpers.getEvent(eventId, this.wcif);
     let configuration: EventConfiguration = event.configuration;
     if (! numberOfGroups) {
       numberOfGroups = event.configuration.scrambleGroups * event.configuration.stages;
