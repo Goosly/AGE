@@ -44,8 +44,6 @@ export class AppComponent  {
         this.handleGetUser();
         this.handleGetCompetitions();
       }
-
-    ActivityHelper.testMomentJsStuff();
   }
 
   handleLoginToWca() {
@@ -189,6 +187,7 @@ export class AppComponent  {
         this.wcifSaved = 'ERROR';
         this.wcifSaveError = error;
       });
+    this.apiService.logUserSavedFromWcif(this.userNameShort, this.groupService.wcif.id);
   }
 
   handleSortByEvent(event) {

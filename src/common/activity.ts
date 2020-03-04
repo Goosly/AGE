@@ -1,45 +1,10 @@
-import {Activity, getEventName, Person} from '@wca/helpers';
+import {Activity} from '@wca/helpers';
 import * as moment from 'moment-timezone';
 import {activityCodeToName, parseActivityCode, ParsedActivityCode} from '@wca/helpers/lib/helpers/activity';
 import {Helpers} from './helpers';
 import {Wcif} from './classes';
-import {Assignment} from '@wca/helpers/lib/models/assignment';
-import {run} from 'tslint/lib/runner';
-import {AssignmentCode} from '@wca/helpers/lib/models/assignmentCode';
 
 export class ActivityHelper {
-
-  public static testMomentJsStuff() {
-    /*
-    console.log(moment('2020-02-15T09:15:00Z'));
-    console.log(moment('2020-02-15T09:37:30Z'));
-
-    let duration = moment.duration(moment('2020-02-15T10:00:00Z').diff(moment('2020-02-15T09:15:00Z')));
-    console.log('diff in seconds = ' + (duration / 1000));
-
-    let m = moment('2020-02-15T09:15:00Z');
-    let numberOfGroups = 2;
-    console.log('duration: ');
-    console.log(duration);
-    console.log(duration.asMilliseconds());
-    console.log(m.add(duration.asMilliseconds() / numberOfGroups));
-
-    console.log(m.tz('Europe/Brussels').format('H:mm'));
-    console.log(m.add(duration.asMilliseconds() / numberOfGroups).tz('Europe/Brussels').format('H:mm:ss'));
-    */
-
-    /*
-    let s = this.splitInGroups('2020-02-15T09:15:00Z', '2020-02-15T10:00:00Z', 2);
-    console.log(s);
-    s = this.splitInGroups('2020-02-15T09:15:00Z', '2020-02-15T10:00:00Z', 3);
-    console.log(s);
-     */
-
-    'Europe/Brussels';
-    '2020-02-15T09:15:00Z';
-    '2020-02-15T09:37:30Z';
-    '2020-02-15T10:00:00Z';
-  }
 
   public static addChildActivitiesForEveryRound(wcif) {
     let currentId = this.getHighestActivityId(wcif) + 1;
@@ -64,9 +29,7 @@ export class ActivityHelper {
     let childActivities = [];
     for (let groupIndex = 0; groupIndex < numberOfGroups; groupIndex++) {
       for (let stageIndex = 0; stageIndex < event.configuration.stages; stageIndex++) {
-        let activityCode = parseActivityCode(a.activityCode);
-        activityCode.groupNumber = 1 + (groupIndex + stageIndex * numberOfGroups);
-        let code = this.formatActivityCode(activityCode);
+        let code = this.addGroupToCodeOfActivity(a, groupIndex, stageIndex, numberOfGroups);
 
         let childActivity = {
           id: null,
@@ -80,6 +43,12 @@ export class ActivityHelper {
         a.childActivities.push(childActivity);
       }
     }
+  }
+
+  private static addGroupToCodeOfActivity(a: Activity, groupIndex: number, stageIndex: number, numberOfGroups) {
+    let activityCode = parseActivityCode(a.activityCode);
+    activityCode.groupNumber = 1 + (groupIndex + stageIndex * numberOfGroups);
+    return this.formatActivityCode(activityCode);
   }
 
   private static formatActivityCode(activityCode: ParsedActivityCode) {

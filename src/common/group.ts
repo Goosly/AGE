@@ -310,7 +310,7 @@ export class GroupService {
         p[(code.eventId)].group += ';';
       }
       p[(code.eventId)].group += this.convertAssignmentCodeFromWcif(assignmentFromWcif.assignmentCode);
-      p[(code.eventId)].group += code.groupNumber.toString();
+      p[(code.eventId)].group += (code.groupNumber || 1).toString();
     });
   }
 

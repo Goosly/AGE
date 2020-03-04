@@ -77,7 +77,6 @@ export class ApiService {
     ActivityHelper.addChildActivitiesForEveryRound(wcif);
     ActivityHelper.createAssignmentsInWcif(wcif);
 
-    // 'https://cors-anywhere.herokuapp.com/' +
     this.httpClient.patch(
       `${environment.wcaUrl}/api/v0/competitions/${wcif.id}/wcif`,
       JSON.stringify(wcif),
@@ -118,6 +117,10 @@ export class ApiService {
 
   logUserClicksExport(userNameShort: string, competitionId: any) {
     this.logMessage(userNameShort + ' clicks export for ' + competitionId);
+  }
+
+  logUserSavedFromWcif(userNameShort: string, competitionId: any) {
+    this.logMessage(userNameShort + ' saved the Wcif of ' + competitionId);
   }
 
   logUserClicksBackToEdit(userNameShort: string, competitionId: any) {

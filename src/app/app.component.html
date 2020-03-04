@@ -40,7 +40,7 @@
         <option value='basicBySpeed'>Groups by speed, fast first (no staff assignments)</option>
         <option value='basicBySpeedReverse'>Groups by speed, fast last (no staff assignments)</option>
         <option value='advanced'>Groups with staffing for one group in every event one competes in</option>
-      </select>&nbsp;&larr;&nbsp;New options since version 1.0.005!<br><br>
+      </select><br><br>
 
       <div *ngIf="advancedStrategy">
         We'll be using <input type="number" [(ngModel)]="groupService.configuration.totalNumberOfTimers" (ngModelChange)="handleTotalNumberOfTimersSet($event)" min="1" step="1" [disabled]="groupsGenerated"> timers in total<br><br>
@@ -175,6 +175,7 @@
     <span *ngIf="wcifSaved === 'TRUE'"> &#10004; Successfully saved</span>
     <span *ngIf="wcifSaved === 'SAVING'"> Saving...</span>
     <span *ngIf="wcifSaved === 'ERROR'"> &#10005; Error while saving{{!! wcifSaveError?.error?.error ? (': ' + wcifSaveError?.error?.error) : ''}}</span>
+    <p>This will allow other tools, like <a href="https://mycomp.app/" target="_blank">myComp.app</a> and <a href="https://bestsiteever.ru/cutifier/" target="_blank">Cutifier</a> to read the groups and assignments.</p>
 
     <h4>Download files</h4>
     <p><button (click)="exportService.csvGroupAndTaskAssignments(this.groupService.wcif)">All group + task assignments (CSV)</button></p>
