@@ -3,6 +3,7 @@ import {EventConfiguration, GeneralConfiguration, StaffPerson, Wcif} from './cla
 import {Helpers} from './helpers';
 import {Activity, AssignmentCode, EventId, Person} from '@wca/helpers';
 import {ActivityHelper} from './activity';
+import {parseActivityCode} from '@wca/helpers/lib/helpers/activity';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,10 @@ export class GroupService {
   constructor() {}
 
   generateGrouping(eventId: EventId) {
+    if (Helpers.getEvent(eventId, this.wcif).configuration.skip) {
+      return;
+    }
+
     if (this.configuration.groupStrategy === 'basic') {
       this.generateBasicGrouping(eventId);
     } else if (this.configuration.groupStrategy === 'basicBySpeed') {
@@ -75,9 +80,6 @@ export class GroupService {
     // Make some variables
     let event: any = Helpers.getEvent(eventId, this.wcif);
     let taskCounter = this.createTaskCounter(event.configuration); // Variable to keep track of assignments for all groups
-    if (event.configuration.skip) {
-      return;
-    }
 
     this.markPersonsThatArePartOfTheStaff(staff);
 
@@ -299,16 +301,16 @@ export class GroupService {
       if (activity.length === 0) {
         return;
       }
-      let activityCode: string[] = activity[0].activityCode.split('-');
-      this.validateActivityCode(activityCode);
-      let eventId = activityCode[0];
-      let group: number = parseInt(activityCode[2].substring(1));
-
-      if (p[eventId].group.length !== 0) {
-        p[eventId].group += ';';
+      let code = parseActivityCode(activity[0].activityCode);
+      if (!! code.attemptNumber && code.attemptNumber !== 1) {
+        return;
       }
-      p[eventId].group += this.convertAssignmentCodeFromWcif(assignmentFromWcif.assignmentCode);
-      p[eventId].group += group.toString();
+
+      if (p[(code.eventId)].group.length !== 0) {
+        p[(code.eventId)].group += ';';
+      }
+      p[(code.eventId)].group += this.convertAssignmentCodeFromWcif(assignmentFromWcif.assignmentCode);
+      p[(code.eventId)].group += code.groupNumber.toString();
     });
   }
 
@@ -326,21 +328,6 @@ export class GroupService {
         return 'D';
       case 'staff-announcer':
         return 'A';
-    }
-  }
-
-  private validateActivityCode(activityCode: string[]) {
-    if (activityCode.length !== 3) {
-      throw new Error('Expected activity to have 3 parts, but wasn\'t: ' + activityCode.join('-'));
-    }
-    if (!this.wcif.events.map(e => e.id).includes(activityCode[0])){
-      throw new Error('Expected activity to be of some event, but wasn\'t: ' + activityCode[0]);
-    }
-    if (! activityCode[1].startsWith('r')) {
-      throw new Error('Expected activity to be of a round, but wasn\'t: ' + activityCode[1]);
-    }
-    if (! RegExp('^[ag][0-9]+$').test(activityCode[2])){
-      throw new Error('Expected activity to indicate a group, but wasn\'t: ' + activityCode[2]);
     }
   }
 

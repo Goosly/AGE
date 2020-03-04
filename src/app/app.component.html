@@ -171,7 +171,10 @@
     Want to go back to make more changes? <button (click)="handleBackToEdit()">Go back to editing</button><br>
 
     <h4>Save to WCA</h4>
-    <button (click)="apiService.patchWcif(groupService.wcif)">Save</button>
+    <button (click)="handleSaveGroupsAndAssignmentsToWcif()">Save groups & assignments</button>
+    <span *ngIf="wcifSaved === 'TRUE'"> &#10004; Successfully saved</span>
+    <span *ngIf="wcifSaved === 'SAVING'"> Saving...</span>
+    <span *ngIf="wcifSaved === 'ERROR'"> &#10005; Error while saving{{!! wcifSaveError?.error?.error ? (': ' + wcifSaveError?.error?.error) : ''}}</span>
 
     <h4>Download files</h4>
     <p><button (click)="exportService.csvGroupAndTaskAssignments(this.groupService.wcif)">All group + task assignments (CSV)</button></p>
@@ -180,7 +183,7 @@
     <p><button (click)="exportService.pdfPersonalSchedules(this.groupService.wcif, this.groupService.configuration.bordersOnNametags)">Personal schedules + nametags (PDF)</button>
         <input type="checkbox" [(ngModel)]="groupService.configuration.bordersOnNametags"><label>Show light borders for cutting and folding</label></p>
 
-    <h4>Scorecards</h4>
+    <h4>Download scorecards</h4>
     <p><button (click)="scoreCardsService.printScoreCardsForAllFirstRoundsExceptFMC(this.groupService.wcif)">Scorecards of all first rounds (PDF)</button> (Note: this may take a few seconds)</p>
     <p><button (click)="scoreCardsService.printFourEmptyScorecards(this.groupService.wcif)">Empty scorecards (PDF)</button></p>
     <!-- <a href="https://github.com/Goosly/GenerateScoreCards" target="_blank">See tool on my github</a> and use this file as input:

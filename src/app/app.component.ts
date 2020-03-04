@@ -29,6 +29,8 @@ export class AppComponent  {
   filter: string = '';
   groupCounter: Array<number> = [];
   competitorCounterFromCsv: number = 0;
+  wcifSaved: 'FALSE' | 'SAVING' | 'TRUE' | 'ERROR' = 'FALSE';
+  wcifSaveError: any;
   Math: any;
 
   constructor (
@@ -175,6 +177,18 @@ export class AppComponent  {
       this.competitorCounterFromCsv = competitorCounterFromCsv;
       this.groupsGenerated = true;
     });
+  }
+
+  handleSaveGroupsAndAssignmentsToWcif() {
+    this.wcifSaved = 'SAVING';
+    this.apiService.patchWcif(this.groupService.wcif,
+      () => {
+        this.wcifSaved = 'TRUE';
+      },
+      (error) => {
+        this.wcifSaved = 'ERROR';
+        this.wcifSaveError = error;
+      });
   }
 
   handleSortByEvent(event) {

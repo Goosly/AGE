@@ -72,7 +72,7 @@ export class ApiService {
       {headers: this.headerParams});
   }
 
-  patchWcif(wcif: Wcif) {
+  patchWcif(wcif: Wcif, successCallback: () => void, errorCallback: (error) => void) {
     this.addAgeExtension(wcif);
     ActivityHelper.addChildActivitiesForEveryRound(wcif);
     ActivityHelper.createAssignmentsInWcif(wcif);
@@ -82,7 +82,7 @@ export class ApiService {
       `${environment.wcaUrl}/api/v0/competitions/${wcif.id}/wcif`,
       JSON.stringify(wcif),
       {headers: this.headerParams})
-      .subscribe();
+      .subscribe(null, (error) => errorCallback(error), () => successCallback());
   }
 
   doesNotContainAGEExtension(wcif): boolean {
