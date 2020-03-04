@@ -65,7 +65,7 @@ export class ActivityHelper {
     for (let stageIndex = 0; stageIndex < event.configuration.stages; stageIndex++) {
       for (let groupIndex = 0; groupIndex < numberOfGroups; groupIndex++) {
         let activityCode = parseActivityCode(a.activityCode);
-        activityCode.groupNumber = ((groupIndex + 1) * (stageIndex + 1));
+        activityCode.groupNumber = 1 + (groupIndex + stageIndex * numberOfGroups);
         let code = this.formatActivityCode(activityCode);
 
         let childActivity = {

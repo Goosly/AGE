@@ -121,8 +121,8 @@
 <!-- EDIT COMPETITORS GROUPS -->
     <div *ngIf="groupsGenerated">
       <h3>Competitors & group/task assignments</h3>
-      Edit all groups and task assignments until you're happy, then click: <button (click)="handleExport()">I'm ready, let's export</button><br>
-      You can also sort the competitors by the assignments of an event<span *ngIf="! importStrategy">, or randomize a suggestion for the assignments of an entire event</span><br><br>
+      Edit all groups and task assignments until you're happy, then click: <button (click)="handleExport()">I'm ready, let's save & export</button><br>
+      You can also sort the competitors by the assignments of an event<span *ngIf="! importStrategy">, or re-generate a suggestion for the assignments of an entire event</span><br><br>
 
       Filter by name: <input type="text" class="filter" [(ngModel)]="filter" (ngModelChange)="handleFilterChanged($event)"/>
       <table>
@@ -170,13 +170,11 @@
     <h3>Export</h3>
     Want to go back to make more changes? <button (click)="handleBackToEdit()">Go back to editing</button><br>
 
-    <div *ngIf="groupService.wcif.id === 'BruggeOpen2020'">
-      <h4>Save to WCA</h4>
-      <button (click)="handleSaveGroupsAndAssignmentsToWcif()">Save groups & assignments</button>
-      <span *ngIf="wcifSaved === 'TRUE'"> &#10004; Successfully saved</span>
-      <span *ngIf="wcifSaved === 'SAVING'"> Saving...</span>
-      <span *ngIf="wcifSaved === 'ERROR'"> &#10005; Error while saving{{!! wcifSaveError?.error?.error ? (': ' + wcifSaveError?.error?.error) : ''}}</span>
-    </div>
+    <h4>Save to WCA</h4>
+    <button (click)="handleSaveGroupsAndAssignmentsToWcif()">Save groups & assignments</button>
+    <span *ngIf="wcifSaved === 'TRUE'"> &#10004; Successfully saved</span>
+    <span *ngIf="wcifSaved === 'SAVING'"> Saving...</span>
+    <span *ngIf="wcifSaved === 'ERROR'"> &#10005; Error while saving{{!! wcifSaveError?.error?.error ? (': ' + wcifSaveError?.error?.error) : ''}}</span>
 
     <h4>Download files</h4>
     <p><button (click)="exportService.csvGroupAndTaskAssignments(this.groupService.wcif)">All group + task assignments (CSV)</button></p>
