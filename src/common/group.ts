@@ -385,10 +385,10 @@ export class GroupService {
       { id: 'pyram', stages: 1, scramblers: 2, runners: 2, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
       { id: 'skewb', stages: 1, scramblers: 2, runners: 2, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
       { id: 'sq1', stages: 1, scramblers: 2, runners: 2, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
-      { id: '444bf', stages: 1, scramblers: 2, runners: 0, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: true, scrambleGroups: 2 },
-      { id: '555bf', stages: 1, scramblers: 2, runners: 0, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: true, scrambleGroups: 2 },
-      { id: '333mbf', stages: 1, scramblers: 2, runners: 0, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: true, scrambleGroups: 2 },
-      { id: '333fm', stages: 1, scramblers: 2, runners: 0, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: true, scrambleGroups: 2 },
+      { id: '444bf', stages: 1, scramblers: 2, runners: 0, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: true, scrambleGroups: 1 },
+      { id: '555bf', stages: 1, scramblers: 2, runners: 0, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: true, scrambleGroups: 1 },
+      { id: '333mbf', stages: 1, scramblers: 2, runners: 0, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: true, scrambleGroups: 1 },
+      { id: '333fm', stages: 1, scramblers: 2, runners: 0, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: true, scrambleGroups: 1 },
     ];
 
     for (let e of this.wcif.events) {
