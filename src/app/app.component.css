@@ -2,8 +2,8 @@ div {
   font-family: 'Roboto', sans-serif;
 }
 
-.center {
-    margin: auto;
+.content {
+  margin: auto;
 }
 
 input[type=number] {
@@ -69,7 +69,7 @@ input.notCompeting {
   color: darkred;
 }
 
-h1, h6 {
+h1, h6, a.headerLink {
   display: inline-block;
 }
 
