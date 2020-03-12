@@ -53,12 +53,12 @@ a {
   color: forestgreen;
 }
 
-.invalidAssignment {
-  border: 1px solid red;
-}
-
 input.competingButNoGroup {
   border: 2px solid red;
+}
+
+input.invalidAssignment {
+  border: 1px solid red !important;
 }
 
 input.notCompeting {

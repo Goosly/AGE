@@ -139,7 +139,7 @@
         <tr *ngIf="! importStrategy">
           <td></td>
           <td *ngFor="let event of groupService.wcif.events">
-            <button class="small"(click)="handleGenerateOneEvent(event.id)">{{basicBySpeedStrategy ? 'By speed' : 'Randomize'}}</button></td>
+            <button [disabled]="event.configuration.skip" class="small"(click)="handleGenerateOneEvent(event.id)">{{basicBySpeedStrategy ? 'By speed' : 'Randomize'}}</button></td>
         </tr>
 
         <tr>

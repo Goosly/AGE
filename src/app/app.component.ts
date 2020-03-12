@@ -216,19 +216,19 @@ export class AppComponent  {
       return false;
     }
 
-    let event: EventConfiguration = this.groupService.wcif.events.filter(e => e.id === eventId)[0].configuration;
+    let event: EventConfiguration = Helpers.getEvent(eventId, this.groupService.wcif).configuration;
     let max: number = event.scrambleGroups * event.stages;
     let parts = group.split(';');
     for (let i = 0; i < parts.length; i++) { // Loop over the assignments for this event (for example: 1;J3)
       if (! RegExp('^[SJR]?[0-9]+$').test(parts[i])) { // Every part must be (optionally S J or R followed by) a groupnumber
         return false;
       }
-      if (parseInt(parts[i].match(/[0-9]+/)[0]) > max) { // Groupnumber can't be higher than the amount of groups for this event
+      if (! event.skip && parseInt(parts[i].match(/[0-9]+/)[0]) > max) { // Groupnumber can't be higher than the amount of groups for this event
         return false;
       }
     }
 
-    if (this.hasDuplicates(this.mapPartsToParallelGroupNumber(parts, event))) {
+    if (! event.skip && this.hasDuplicates(this.mapPartsToParallelGroupNumber(parts, event))) {
       return false;
     }
 
