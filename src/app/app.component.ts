@@ -53,6 +53,7 @@ export class AppComponent  {
   private handleGetUser() {
     this.apiService.getUser().subscribe(user => {
       this.userNameShort = user.me.name.split(' ')[0];
+      this.groupService.userWcaId = user.me.wca_id;
       this.apiService.logUserLoggedIn(user);
     });
   }

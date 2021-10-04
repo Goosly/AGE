@@ -11,6 +11,7 @@ import {parseActivityCode} from '@wca/helpers/lib/helpers/activity';
 export class GroupService {
   wcif: Wcif;
   configuration: GeneralConfiguration = new GeneralConfiguration();
+  userWcaId: string;
 
   constructor() {}
 
@@ -143,6 +144,8 @@ export class GroupService {
       group = this.increment(group, event);
     });
 
+    Helpers.fillAllUsedTimersWithJudges(this.wcif, eventId, this.userWcaId);
+
     this.countCJRSForEvent(eventId);
     Helpers.sortCompetitorsByName(this.wcif);
   }
@@ -200,8 +203,13 @@ export class GroupService {
     return event.configuration.stages * event.configuration.scrambleGroups;
   }
 
-  private increment(group: number, event: any): number {
+  increment(group: number, event: any): number {
     return (group + 1) % this.numberOfGroups(event); // Go back to 0 on overflow
+  }
+
+  decrement(group: number, event: any): number {
+    let numberOfGroups = this.numberOfGroups(event);
+    return (group + numberOfGroups - 1) % numberOfGroups;
   }
 
   private isNotAssigned(p: any, assignedIds: Array<number>): boolean {
@@ -400,7 +408,6 @@ export class GroupService {
 
   public countCJRSForEvent(eventId: string, numberOfGroups?: number) {
     let event: any = Helpers.getEvent(eventId, this.wcif);
-    let configuration: EventConfiguration = event.configuration;
     if (! numberOfGroups) {
       numberOfGroups = event.configuration.scrambleGroups * event.configuration.stages;
     }
@@ -427,8 +434,7 @@ export class GroupService {
     }
 
     if (this.configuration.skipDelegatesAndOrganizers
-      && (person.roles.includes('delegate')
-        || person.roles.includes('organizer'))) {
+      && (person.roles.includes('delegate') || person.roles.includes('organizer'))) {
       return false;
     }
 

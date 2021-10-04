@@ -29,7 +29,7 @@ export class Helpers {
     let peopleCompetingInEvent = this.sortBySpeed(wcif, eventId).filter(p => p[eventId].competing);
     let slice = peopleCompetingInEvent.slice(0, Math.floor(Math.max(5, peopleCompetingInEvent.length / 10)));
     if (environment.testMode) {
-      console.log('top x of ' + eventId + ": " + slice.map(p => p.name).join(", "));
+      console.log('top ' + slice.length + ' of ' + eventId + ": " + slice.map(p => p.name).join(", "));
     }
     return slice;
   }
@@ -66,4 +66,9 @@ export class Helpers {
   public static getEvent(eventId, wcif) {
     return wcif.events.filter(e => e.id === eventId)[0];
   }
+
+  static fillAllUsedTimersWithJudges(wcif: Wcif, eventId: string, userWcaId: string) {
+    console.log('manu');
+  }
+
 }
