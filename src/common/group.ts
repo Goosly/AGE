@@ -26,13 +26,12 @@ export class GroupService {
     } else if (this.configuration.groupStrategy === 'basicBySpeedReverse') {
       this.generateBasicBySpeedGrouping(eventId, true);
     } else if (this.configuration.groupStrategy === 'advanced') {
-      this.generateAdvancedGrouping(eventId);
+      this.generateAdvancedGrouping(eventId, document.getElementById('staff')['files'][0]);
     }
   }
 
-  generateAdvancedGrouping(eventId: EventId) {
+  generateAdvancedGrouping(eventId: EventId, file: Blob) {
     let generateGroupingForEvent = (e, s) => this.generateGroupingForEvent(e, s);
-    let file = document.getElementById('staff')['files'][0];
     let staff = null;
     if (file) {
       let reader = new FileReader();
@@ -45,7 +44,7 @@ export class GroupService {
       generateGroupingForEvent(eventId, []);
     } else {
       alert("There are no scramblers and runners! Please select a json file or allow everyone to scramble and run (NOT RECOMMENDED).");
-      throw Error("No scramblers and runners");
+      console.error("No scramblers and runners");
     }
   }
 
@@ -55,7 +54,7 @@ export class GroupService {
     let i = 0;
     this.shuffleCompetitors();
     let competitors = this.wcif.persons.filter(p => p[eventId].competing);
-    this.moveTopFiveToPositionsForLastGroup(competitors, event);
+    this.moveTopCompetitorsToPositionsForLastGroup(competitors, event);
     competitors.forEach(p => {
       p[eventId].group = (i + 1) + '';
       i = (i + 1) % eventConfiguration.scrambleGroups;
@@ -101,7 +100,7 @@ export class GroupService {
 
     // 1. Find scramblers, divide them into groups
     potentialScramblers = this.sortScramblersByScramblingAssigned(potentialScramblers);
-    this.moveTopFiveToPositionsForLastGroup(potentialScramblers, event);
+    this.moveTopCompetitorsToPositionsForLastGroup(potentialScramblers, event);
     potentialScramblers.forEach(p => {
       if (taskCounter[group]['S']['max'] > taskCounter[group]['S']['count']) {
         // Still room for another scrambler, so let's assign group & task to him/her!
@@ -116,7 +115,7 @@ export class GroupService {
     group = 0;
     potentialRunners = potentialRunners.filter(p => this.isNotAssigned(p, assignedIds));
     potentialRunners = this.sortRunnersByRunningAssigned(potentialRunners);
-    this.moveTopFiveToPositionsForLastGroup(potentialRunners, event);
+    this.moveTopCompetitorsToPositionsForLastGroup(potentialRunners, event);
     potentialRunners.forEach(p => {
       if (taskCounter[group]['R']['max'] > taskCounter[group]['R']['count']) {
         // Still room for another runner, so let's assign group & task to him/her!
@@ -130,7 +129,7 @@ export class GroupService {
     // 3. Assign everyone else
     group = 0;
     allCompetitors = allCompetitors.filter(p => this.isNotAssigned(p, assignedIds));
-    this.moveTopFiveToPositionsForLastGroup(allCompetitors, event);
+    this.moveTopCompetitorsToPositionsForLastGroup(allCompetitors, event);
     allCompetitors.forEach(p => {
       if (! this.configuration.doNotAssignJudges && this.canJudge(p) && taskCounter[group]['J']['max'] > taskCounter[group]['J']['count']) {
         // Still room for another judge, so let's assign group & task to him/her!
@@ -148,28 +147,30 @@ export class GroupService {
     Helpers.sortCompetitorsByName(this.wcif);
   }
 
-  private moveTopFiveToPositionsForLastGroup(competitors: Array<any>, event: any) {
+  private moveTopCompetitorsToPositionsForLastGroup(competitors: Array<any>, event: any) {
+    // Not entirely sure anymore what the logic is in this method :|
     if (this.isScrambleDependentEvent(event)) {
-      let topFive = Helpers.getTopFiveBySpeedInEvent(this.wcif, event.id)
+      let topCompetitors = Helpers.getTopCompetitorsBySpeedInEvent(this.wcif, event.id)
         .filter(p => competitors.includes(p));
-      if (topFive.length <= competitors.length / event.configuration.scrambleGroups) {
-        for (let i = 0; i < topFive.length; i++) {
+      if (topCompetitors.length <= competitors.length / event.configuration.scrambleGroups) {
+        for (let i = 0; i < topCompetitors.length; i++) {
           let m = i % event.configuration.stages;
           let g = Math.trunc(i / event.configuration.stages);
           let position = (g+1) * this.numberOfGroups(event) - m - 1;
-          let positionOfTopFiveCompetitor = competitors.indexOf(topFive[i]);
-          if (position === -1 || positionOfTopFiveCompetitor === -1
-            || position >= competitors.length || positionOfTopFiveCompetitor >= competitors.length) {
+          let positionOfTopCompetitor = competitors.indexOf(topCompetitors[i]);
+          if (position === -1 || positionOfTopCompetitor === -1 || positionOfTopCompetitor >= competitors.length) {
             console.error('Unexpected error!');
-            alert('Unexpected error! Please check the console.');
           }
-          if (position !== positionOfTopFiveCompetitor) {
-            competitors[positionOfTopFiveCompetitor] = competitors[position];
-            competitors[position] = topFive[i];
+          if (position >= competitors.length) {
+            position = competitors.length - 1;
+          }
+          if (position !== positionOfTopCompetitor) {
+            competitors[positionOfTopCompetitor] = competitors[position];
+            competitors[position] = topCompetitors[i];
           }
         }
       } else {
-        console.debug('Not doing top five in last group for event: ' + event.id);
+        console.debug('Not doing top x in last group for event: ' + event.id);
         console.debug(competitors.length);
       }
     }

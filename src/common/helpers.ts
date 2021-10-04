@@ -25,10 +25,11 @@ export class Helpers {
     }
   }
 
-  public static getTopFiveBySpeedInEvent(wcif: Wcif, eventId: EventId): Person[] {
-    let slice = this.sortBySpeed(wcif, eventId).filter(p => p[eventId].competing).slice(0, 5);
+  public static getTopCompetitorsBySpeedInEvent(wcif: Wcif, eventId: EventId): Person[] {
+    let peopleCompetingInEvent = this.sortBySpeed(wcif, eventId).filter(p => p[eventId].competing);
+    let slice = peopleCompetingInEvent.slice(0, Math.floor(Math.max(5, peopleCompetingInEvent.length / 10)));
     if (environment.testMode) {
-      console.log('top five of ' + eventId + ": " + slice.map(p => p.name).join(", "));
+      console.log('top x of ' + eventId + ": " + slice.map(p => p.name).join(", "));
     }
     return slice;
   }
