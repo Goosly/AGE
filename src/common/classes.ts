@@ -1,11 +1,11 @@
-import {Schedule} from '@wca/helpers';
+import {Room} from '@wca/helpers/lib/models/room';
 
 export class Wcif {
-  persons: Array<any>;
-  events: Array<any>;
-  id: any;
-  schedule: Schedule;
-  extensions: any[];
+  persons?: Array<any>;
+  events?: Array<any>;
+  id?: any;
+  schedule?: Schedule;
+  extensions?: any[];
 }
 
 export class StaffPerson {
@@ -29,7 +29,22 @@ export class GeneralConfiguration {
   totalNumberOfTimers: number = 16;
   skipDelegatesAndOrganizers: boolean = true;
   doNotAssignJudges: boolean = false;
-  doNotAssignTasksToNewCompetitors = false;
+  doNotAssignTasksToNewCompetitors: boolean = false;
   everyoneCanScrambleAndRun: boolean = false;
   bordersOnNametags: boolean = true;
+}
+
+export interface Schedule {
+  startDate: string;
+  numberOfDays: number;
+  venues?: Venue[];
+}
+
+export interface Venue {
+  id: number;
+  name: string;
+  latitudeMicrodegrees: number;
+  longitudeMicrodegrees: number;
+  timezone: string;
+  rooms: Room[];
 }

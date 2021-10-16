@@ -145,8 +145,7 @@ export class GroupService {
     });
 
     Helpers.fillAllUsedTimersWithJudges(this.wcif, eventId, this.userWcaId);
-
-    this.countCJRSForEvent(eventId);
+    Helpers.countCJRSForEvent(this.wcif, eventId);
     Helpers.sortCompetitorsByName(this.wcif);
   }
 
@@ -406,28 +405,6 @@ export class GroupService {
     }
   }
 
-  public countCJRSForEvent(eventId: string, numberOfGroups?: number) {
-    let event: any = Helpers.getEvent(eventId, this.wcif);
-    if (! numberOfGroups) {
-      numberOfGroups = event.configuration.scrambleGroups * event.configuration.stages;
-    }
-
-    event.groupCounters = [];
-    let group: number = 1;
-    while (group <= numberOfGroups) {
-      let groupCounter: string = this.wcif.persons
-        .filter(p => p[eventId].group.split(';').indexOf(group.toString()) > -1).length + '|';
-      groupCounter += this.wcif.persons
-        .filter(p => p[eventId].group.split(';').indexOf('J' + group) > -1).length + '|';
-      groupCounter += this.wcif.persons
-        .filter(p => p[eventId].group.split(';').indexOf('R' + group) > -1).length + '|';
-      groupCounter += this.wcif.persons
-        .filter(p => p[eventId].group.split(';').indexOf('S' + group) > -1).length;
-      event.groupCounters.push(groupCounter);
-      group++;
-    }
-  }
-
   private canJudge(person): boolean {
     if (this.configuration.doNotAssignTasksToNewCompetitors && !person.wcaId) {
       return false;
@@ -519,4 +496,9 @@ export class GroupService {
     }
     return tasks;
   }
+
+  countCJRSForEvent(id: any, numberOfGroupsForEvent?: number) {
+    return Helpers.countCJRSForEvent(this.wcif, id, numberOfGroupsForEvent);
+  }
+
 }
