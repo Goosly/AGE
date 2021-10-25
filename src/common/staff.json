@@ -1,6 +1,6 @@
 [
 
-  {"This is an example:" : "The current board members are allowed to run & scramble everything, I can only scramble 2x2 and pyraminx. You should add reliable people attending your competition."},
+  {"This is an example:" : "The former board members are allowed to run & scramble everything, while I can only scramble 2x2 and pyraminx. You should add reliable people attending your competition."},
 
   {"name":"Alberto Pérez de Rada Fiol","wcaId":"2011FIOL01","isAllowedTo":["run","scrambleEverything"]},
   {"name":"Bob Burton","wcaId":"2003BURT01","isAllowedTo":["run","scrambleEverything"]},

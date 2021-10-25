@@ -67,34 +67,6 @@ export class Helpers {
     return wcif.events.filter(e => e.id === eventId)[0];
   }
 
-  static fillAllUsedTimersWithJudges(wcif: Wcif, eventId: string, userWcaId: string) {
-    if (userWcaId !== "2010VERE01") {
-      return;
-    }
-
-    let event: any = Helpers.getEvent(eventId, wcif);
-    if (event.configuration.scrambleGroups <= 2) {
-      return;
-    }
-
-    let numberOfGroups = event.configuration.scrambleGroups * event.configuration.stages;
-    let group: number = 1;
-    while (group <= numberOfGroups) {
-      let competitors: number = this.countCompetitors(wcif, eventId, group);
-      let judges: number = this.countJudges(wcif, eventId, group);
-
-      while (judges !== competitors) {
-
-        // todo add a judge somewhere
-
-        competitors = this.countCompetitors(wcif, eventId, group);
-        judges = this.countJudges(wcif, eventId, group);
-      }
-      group++;
-    }
-
-  }
-
   static countCJRSForEvent(wcif: Wcif, eventId: string, numberOfGroups?: number) {
     let event: any = Helpers.getEvent(eventId, wcif);
     if (!!numberOfGroups) {
@@ -113,24 +85,87 @@ export class Helpers {
     }
   }
 
-  private static countScramblers(wcif: Wcif, eventId: string, group: number) {
+  public static countScramblers(wcif: Wcif, eventId: string, group: number) {
     return wcif.persons
       .filter(p => p[eventId].group.split(';').indexOf('S' + group) > -1);
   }
 
-  private static countRunners(wcif: Wcif, eventId: string, group: number) {
+  public static countRunners(wcif: Wcif, eventId: string, group: number) {
     return wcif.persons
       .filter(p => p[eventId].group.split(';').indexOf('R' + group) > -1).length;
   }
 
-  private static countJudges(wcif: Wcif, eventId: string, group: number) {
+  public static countJudges(wcif: Wcif, eventId: string, group: number) {
     return wcif.persons
       .filter(p => p[eventId].group.split(';').indexOf('J' + group) > -1).length;
   }
 
-  private static countCompetitors(wcif: Wcif, eventId: string, group: number) {
+  public static countCompetitors(wcif: Wcif, eventId: string, group: number) {
     return wcif.persons
       .filter(p => p[eventId].group.split(';').indexOf(group.toString()) > -1).length;
+  }
+
+  public static sortScramblersByScramblingAssigned(wcif: Wcif, persons: any) {
+    return this.sortByAssignedTaskOfType(wcif, persons, 'S');
+  }
+
+  public static sortRunnersByRunningAssigned(wcif: Wcif, persons: any) {
+    return this.sortByAssignedTaskOfType(wcif, persons, 'R');
+  }
+
+  private static sortByAssignedTaskOfType(wcif: Wcif, persons: any, taskType: string) {
+    let allEventIds = this.allEventIds(wcif);
+    return persons.sort(function (a: Person, b: Person) {
+      var countA = this.countTasks(a, allEventIds, taskType);
+      var countB = this.countTasks(b, allEventIds, taskType);
+      return (countA < countB) ? -1 : (countA > countB) ? 1 : 0;
+    }.bind(this));
+  }
+
+  public static sortByCompetingToTaskRatio(wcif: Wcif, persons: any) {
+    let allEventIds = this.allEventIds(wcif);
+    return persons.sort(function (a: Person, b: Person) {
+      var countTaskA = this.countTasks(a, allEventIds);
+      var countCompetingA = allEventIds.filter(e => a[e].competing).length;
+      var countTaskB = this.countTasks(b, allEventIds);
+      var countCompetingB = allEventIds.filter(e => b[e].competing).length;
+      let countA = countTaskA / countCompetingA;
+      let countB = countTaskB / countCompetingB;
+      return (countA < countB) ? -1 : (countA > countB) ? 1 : 0;
+    }.bind(this));
+  }
+
+  private static countTasks(p: Person, allEventIds: string[], taskType?: string): number {
+    let tasksPerEvent = allEventIds.map(e => {
+      let assignments = p[e].group.split(';');
+      return assignments.filter(a => {
+        if (!!taskType) {
+          return a.startsWith(taskType);
+        }
+        return a.startsWith('J') || a.startsWith('R') || a.startsWith('S');
+      }).length;
+    });
+    return this.sum(tasksPerEvent);
+  }
+
+  private static sum(tasksPerEvent: number[]) {
+    let sum = 0;
+    for (let i = 0; i < tasksPerEvent.length; i++) {
+      sum += tasksPerEvent[i];
+    }
+    return sum;
+  }
+
+  private static allEventIds(wcif: Wcif): string[] {
+    return wcif.events.map(e => e.id);
+  }
+
+  public static notAssignedToAnythingYetInGroup(assignment: string, group: number): boolean {
+    return assignment.split(';').filter(a => Helpers.matchesGroup(a, group)).length === 0;
+  }
+
+  private static matchesGroup(assignment: string, group: number) {
+    return assignment.match(RegExp('^[SJR]?' + group + '$'));
   }
 
 }

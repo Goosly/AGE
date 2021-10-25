@@ -14109,7 +14109,7 @@ export class BelgianOpenWcif {
             },
             "cutoff": null,
             "advancementCondition": null,
-            "scrambleSetCount": 2,
+            "scrambleSetCount": 1,
             "results": [
 
             ],
@@ -14137,7 +14137,7 @@ export class BelgianOpenWcif {
             },
             "cutoff": null,
             "advancementCondition": null,
-            "scrambleSetCount": 2,
+            "scrambleSetCount": 1,
             "results": [
 
             ],

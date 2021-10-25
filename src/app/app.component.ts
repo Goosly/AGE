@@ -7,7 +7,7 @@ import { EventConfiguration } from '../common/classes';
 import { ScoreCardService } from '../common/scorecard';
 import {Helpers} from '../common/helpers';
 import {EventId} from '@wca/helpers';
-import {ActivityHelper} from '../common/activity';
+import {AnnuntiaWcif} from '../test/annuntia';
 declare var $ :any;
 
 @Component({
@@ -20,6 +20,7 @@ export class AppComponent  {
   // TODO replace this by one state?
   groupsGenerated: boolean = false;
   readyForExport: boolean = false;
+  loadingWcif: boolean = false;
 
   // Competitions managed by user
   competitionsToChooseFrom: Array<String> = null;
@@ -40,6 +41,7 @@ export class AppComponent  {
     public scoreCardsService: ScoreCardService
     ) {
       this.Math = Math;
+      this.groupService.document = document;
       if (this.apiService.oauthToken) {
         this.handleGetUser();
         this.handleGetCompetitions();
@@ -51,6 +53,12 @@ export class AppComponent  {
   }
 
   private handleGetUser() {
+    if (environment.offlineMode) {
+      this.userNameShort = 'Manu';
+      this.groupService.userWcaId = '2010VERE01';
+      return;
+    }
+
     this.apiService.getUser().subscribe(user => {
       this.userNameShort = user.me.name.split(' ')[0];
       this.groupService.userWcaId = user.me.wca_id;
@@ -59,6 +67,11 @@ export class AppComponent  {
   }
 
   private handleGetCompetitions() {
+    if (environment.offlineMode) {
+      this.competitionsToChooseFrom = ['OfflineComp'];
+      return;
+    }
+
     this.apiService.getCompetitions().subscribe(comps => {
       if (comps.length === 1) {
         this.handleCompetitionSelected(comps[0]['id']);
@@ -68,11 +81,18 @@ export class AppComponent  {
   }
 
   handleCompetitionSelected(competitionId: string) {
+    this.loadingWcif = true;
+    if (environment.offlineMode) {
+      this.groupService.wcif = AnnuntiaWcif.wcif;
+      this.groupService.processWcif();
+    }
+
     this.apiService.getWcif(competitionId).subscribe(wcif => {
       this.apiService.logUserFetchedWcifOf(this.userNameShort, competitionId);
       this.groupService.wcif = wcif;
       try {
         this.groupService.processWcif();
+        this.loadingWcif = false;
       } catch (error) {
         console.error(error);
         this.groupService.wcif = undefined;
@@ -100,7 +120,7 @@ export class AppComponent  {
       this.groupsGenerated = true;
     } catch (error) {
       console.error(error);
-      alert("Error while generating groups. Please check the console.");
+      alert(error);
     }
   };
 

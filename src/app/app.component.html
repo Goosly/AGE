@@ -11,11 +11,16 @@
 <!-- SELECT COMP -->
   <div *ngIf="apiService.oauthToken && ! competitionId">
     <p>Welcome{{!! userNameShort ? ', ' + userNameShort : ''}}!</p>
-    <p>Select a competition:</p>
-    <p *ngFor="let competitionId of competitionsToChooseFrom">
-      <button (click)="handleCompetitionSelected(competitionId)">{{competitionId}}</button>
-    </p>
-    <p *ngIf="!!competitionsToChooseFrom && competitionsToChooseFrom.length === 0">You don't have any competition available :-(</p>
+    <div *ngIf="!loadingWcif">
+      <p>Select a competition:</p>
+      <p *ngFor="let competitionId of competitionsToChooseFrom">
+        <button (click)="handleCompetitionSelected(competitionId)">{{competitionId}}</button>
+      </p>
+      <p *ngIf="!!competitionsToChooseFrom && competitionsToChooseFrom.length === 0">You don't have any competition available :-(</p>
+    </div>
+    <div *ngIf="loadingWcif">
+      <p><i class="fa fa-hourglass-half"></i> Loading...</p>
+    </div>
   </div>
 
 <!-- INFORMATION ABOUT COMP -->

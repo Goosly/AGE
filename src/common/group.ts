@@ -12,6 +12,7 @@ export class GroupService {
   wcif: Wcif;
   configuration: GeneralConfiguration = new GeneralConfiguration();
   userWcaId: string;
+  document: Document;
 
   constructor() {}
 
@@ -27,7 +28,7 @@ export class GroupService {
     } else if (this.configuration.groupStrategy === 'basicBySpeedReverse') {
       this.generateBasicBySpeedGrouping(eventId, true);
     } else if (this.configuration.groupStrategy === 'advanced') {
-      this.generateAdvancedGrouping(eventId, document.getElementById('staff')['files'][0]);
+      this.generateAdvancedGrouping(eventId, this.getStaffFile());
     }
   }
 
@@ -44,8 +45,7 @@ export class GroupService {
     } else if (this.configuration.everyoneCanScrambleAndRun) {
       generateGroupingForEvent(eventId, []);
     } else {
-      alert("There are no scramblers and runners! Please select a json file or allow everyone to scramble and run (NOT RECOMMENDED).");
-      console.error("No scramblers and runners");
+      throw new Error("There are no scramblers and runners! Please select a json file or allow everyone to scramble and run (NOT RECOMMENDED).");
     }
   }
 
@@ -100,7 +100,7 @@ export class GroupService {
     let assignedIds: Array<number> = [];
 
     // 1. Find scramblers, divide them into groups
-    potentialScramblers = this.sortScramblersByScramblingAssigned(potentialScramblers);
+    potentialScramblers = Helpers.sortScramblersByScramblingAssigned(this.wcif, potentialScramblers);
     this.moveTopCompetitorsToPositionsForLastGroup(potentialScramblers, event);
     potentialScramblers.forEach(p => {
       if (taskCounter[group]['S']['max'] > taskCounter[group]['S']['count']) {
@@ -115,7 +115,7 @@ export class GroupService {
     // 2. Find runners, divide them into groups
     group = 0;
     potentialRunners = potentialRunners.filter(p => this.isNotAssigned(p, assignedIds));
-    potentialRunners = this.sortRunnersByRunningAssigned(potentialRunners);
+    potentialRunners = Helpers.sortRunnersByRunningAssigned(this.wcif, potentialRunners);
     this.moveTopCompetitorsToPositionsForLastGroup(potentialRunners, event);
     potentialRunners.forEach(p => {
       if (taskCounter[group]['R']['max'] > taskCounter[group]['R']['count']) {
@@ -144,7 +144,7 @@ export class GroupService {
       group = this.increment(group, event);
     });
 
-    Helpers.fillAllUsedTimersWithJudges(this.wcif, eventId, this.userWcaId);
+    this.fillAllUsedTimersWithJudges(eventId);
     Helpers.countCJRSForEvent(this.wcif, eventId);
     Helpers.sortCompetitorsByName(this.wcif);
   }
@@ -161,7 +161,7 @@ export class GroupService {
           let position = (g+1) * this.numberOfGroups(event) - m - 1;
           let positionOfTopCompetitor = competitors.indexOf(topCompetitors[i]);
           if (position === -1 || positionOfTopCompetitor === -1 || positionOfTopCompetitor >= competitors.length) {
-            console.error('Unexpected error!');
+            throw new Error('Unexpected error!');
           }
           if (position >= competitors.length) {
             position = competitors.length - 1;
@@ -180,6 +180,46 @@ export class GroupService {
 
   private isScrambleDependentEvent(event: any) {
     return ['222', '333', '333bf', '333oh', 'clock', 'pyram', 'skewb', 'sq1', '444bf'].includes(event.id);
+  }
+
+  private fillAllUsedTimersWithJudges(eventId: string) {
+    if (this.userWcaId !== "2010VERE01") {
+      return;
+    }
+
+    let event: any = Helpers.getEvent(eventId, this.wcif);
+    if (event.configuration.scrambleGroups <= 2) {
+      return;
+    }
+
+    let numberOfGroups = event.configuration.scrambleGroups * event.configuration.stages;
+    let group: number = 1;
+    return; // todo wip
+    // @ts-ignore
+    while (group <= numberOfGroups) {
+      let competitors: number = Helpers.countCompetitors(this.wcif, eventId, group);
+      let judges: number = Helpers.countJudges(this.wcif, eventId, group);
+
+      if (judges < competitors) {
+        let potentialJudges = this.availableForAnExtraJudgingTask(eventId, group);
+
+        while (judges < competitors) {
+
+          let neededJudges: number = competitors - judges;
+          // todo check if neededJudges > potentialJudges.length
+
+          competitors = Helpers.countCompetitors(this.wcif, eventId, group);
+          judges = Helpers.countJudges(this.wcif, eventId, group);
+        }
+      }
+      group++;
+    }
+  }
+
+  private availableForAnExtraJudgingTask(eventId: string, group: number): any {
+    return this.wcif.persons.filter(p => p[eventId].competing
+      && this.canJudge(p)
+      && Helpers.notAssignedToAnythingYetInGroup(p[eventId].group, group));
   }
 
   private swapAssignments(a: Person, b: Person, event: any) {
@@ -440,26 +480,6 @@ export class GroupService {
     return false;
   }
 
-  private sortScramblersByScramblingAssigned(persons: any) {
-    return this.sortByAssignedTaskOfType(persons, 'S');
-  }
-
-  private sortRunnersByRunningAssigned(persons: any) {
-    return this.sortByAssignedTaskOfType(persons, 'R');
-  }
-
-  private sortByAssignedTaskOfType(persons: any, taskType: string) {
-    return persons.sort(function (a, b) {
-      var countA = this.allEventIds().filter(e => a[e].group.indexOf(taskType) > -1).length;
-      var countB = this.allEventIds().filter(e => b[e].group.indexOf(taskType) > -1).length;
-      return (countA < countB) ? -1 : (countA > countB) ? 1 : 0;
-    }.bind(this));
-  }
-
-  private allEventIds(): string[] {
-    return this.wcif.events.map(e => e.id);
-  }
-
   private shuffleCompetitors() {
     let i,j,x;
     for (i = this.wcif.persons.length - 1; i > 0; i--) {
@@ -499,6 +519,13 @@ export class GroupService {
 
   countCJRSForEvent(id: any, numberOfGroupsForEvent?: number) {
     return Helpers.countCJRSForEvent(this.wcif, id, numberOfGroupsForEvent);
+  }
+
+  private getStaffFile() {
+    if (!!this.document) {
+      return this.document.getElementById('staff')['files'][0];
+    }
+    return null;
   }
 
 }

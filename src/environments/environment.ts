@@ -8,5 +8,6 @@ export const environment = {
   wcaSecret : 'example-secret',
 
   version: 'local',
-  testMode: true
+  testMode: true,
+  offlineMode: false
 };

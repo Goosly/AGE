@@ -37,6 +37,11 @@ export class ApiService {
   }
 
   private getToken(): void {
+    if (environment.offlineMode) {
+      this.oauthToken = 'offline';
+      return;
+    }
+
     const hash = window.location.hash.slice(1, window.location.hash.length -1);
     const hashParams = new URLSearchParams(hash);
     if (hashParams.has('access_token')) {
