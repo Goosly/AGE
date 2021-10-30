@@ -60,6 +60,9 @@
         <input type="checkbox" [(ngModel)]="groupService.configuration.doNotAssignJudges" [disabled]="groupsGenerated"><label>Do not assign judges (only scramblers & runners)</label><br>
         <input type="checkbox" [(ngModel)]="groupService.configuration.doNotAssignTasksToNewCompetitors" [disabled]="groupsGenerated"><label>Do not assign new competitors to judging</label><br>
         <input type="checkbox" [(ngModel)]="groupService.configuration.skipDelegatesAndOrganizers" [disabled]="groupsGenerated"><label>Do not assign delegates and organizers to judging</label><br>
+        <input type="checkbox" (click)="toggleUseStages()" [disabled]="groupsGenerated"><label>Use stages (the default will be 2 stages)</label><br>
+        <input type="checkbox" [(ngModel)]="groupService.configuration.fixedSeating" [disabled]="groupsGenerated"><label>Use fixed seating (no waiting area)</label>
+        <label title='For events with more than 2 scramblegroups, AGE will try to provide a judge for every competitor'><i class="fa fa-info-circle"></i></label><br>
       </div>
     </div>
 
@@ -89,7 +92,7 @@
             <input type="number" [(ngModel)]="event.configuration.scrambleGroups" min="2" step="1" [disabled]="groupsGenerated" [hidden]="event.configuration.skip">
           </td>
         </tr>
-        <tr *ngIf="advancedStrategy">
+        <tr *ngIf="advancedStrategy && groupService.configuration.useMultipleStages">
           <td>Stages</td>
           <td *ngFor="let event of groupService.wcif.events">
             <input type="number" [(ngModel)]="event.configuration.stages" (ngModelChange)="handleNumberOfStagesSet($event, event.id)" min="1" step="1" [disabled]="groupsGenerated" [hidden]="event.configuration.skip">
@@ -192,7 +195,8 @@
         <input type="checkbox" [(ngModel)]="groupService.configuration.bordersOnNametags"><label>Show light borders for cutting and folding</label></p>
 
     <h4>Download scorecards</h4>
-    <p><button (click)="scoreCardsService.printScoreCardsForAllFirstRoundsExceptFMC(this.groupService.wcif)">Scorecards of all first rounds (PDF)</button> (Note: this may take a few seconds)</p>
+    <p><button (click)="scoreCardsService.printScoreCardsForAllFirstRoundsExceptFMC(this.groupService.wcif)">Scorecards of all first rounds (PDF)</button> (Note: this may take a few seconds)
+      <input type="checkbox" [(ngModel)]="groupService.configuration.printStationNumbersOnScoreCards"><label>Print station numbers in top right corner</label></p>
     <p><button (click)="scoreCardsService.printFourEmptyScorecards(this.groupService.wcif)">Empty scorecards (PDF)</button></p>
     <!-- <a href="https://github.com/Goosly/GenerateScoreCards" target="_blank">See tool on my github</a> and use this file as input:
     <p><button (click)="exportService.csvGroups(this.groupService.wcif)">Groups only (CSV)</button></p>

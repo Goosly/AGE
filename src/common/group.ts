@@ -144,7 +144,9 @@ export class GroupService {
       group = this.increment(group, event);
     });
 
-    this.fillAllUsedTimersWithJudges(eventId);
+    if (this.configuration.fixedSeating) {
+      this.fillAllUsedTimersWithJudges(eventId);
+    }
     Helpers.countCJRSForEvent(this.wcif, eventId);
     Helpers.sortCompetitorsByName(this.wcif);
   }
@@ -183,10 +185,6 @@ export class GroupService {
   }
 
   private fillAllUsedTimersWithJudges(eventId: string) {
-    if (this.userWcaId !== "2010VERE01") {
-      return;
-    }
-
     let event: any = Helpers.getEvent(eventId, this.wcif);
     if (event.configuration.scrambleGroups <= 2) {
       return;
@@ -194,32 +192,28 @@ export class GroupService {
 
     let numberOfGroups = event.configuration.scrambleGroups * event.configuration.stages;
     let group: number = 1;
-    return; // todo wip
-    // @ts-ignore
     while (group <= numberOfGroups) {
       let competitors: number = Helpers.countCompetitors(this.wcif, eventId, group);
       let judges: number = Helpers.countJudges(this.wcif, eventId, group);
 
       if (judges < competitors) {
-        let potentialJudges = this.availableForAnExtraJudgingTask(eventId, group);
+        let potentialJudges = this.availableForAnExtraJudgingTask(event, group);
+        let neededJudges: number = competitors - judges;
 
-        while (judges < competitors) {
-
-          let neededJudges: number = competitors - judges;
-          // todo check if neededJudges > potentialJudges.length
-
-          competitors = Helpers.countCompetitors(this.wcif, eventId, group);
-          judges = Helpers.countJudges(this.wcif, eventId, group);
+        for (let i = 0; i < neededJudges && i < potentialJudges.length; i++) {
+          Helpers.assignExtraJudge(potentialJudges[i], eventId, group);
+          judges++;
         }
       }
       group++;
     }
   }
 
-  private availableForAnExtraJudgingTask(eventId: string, group: number): any {
-    return this.wcif.persons.filter(p => p[eventId].competing
+  private availableForAnExtraJudgingTask(event: any, group: number): any[] {
+    let potentialJudges = this.wcif.persons.filter(p => p[event.id].competing
       && this.canJudge(p)
-      && Helpers.notAssignedToAnythingYetInGroup(p[eventId].group, group));
+      && Helpers.notAssignedToAnythingYetInGroup(p[event.id].group, event, group));
+    return Helpers.sortByCompetingToTaskRatio(this.wcif, potentialJudges);
   }
 
   private swapAssignments(a: Person, b: Person, event: any) {
@@ -451,7 +445,7 @@ export class GroupService {
     }
 
     if (this.configuration.skipDelegatesAndOrganizers
-      && (person.roles.includes('delegate') || person.roles.includes('organizer'))) {
+      && Helpers.isOrganizerOrDelegate(person)) {
       return false;
     }
 

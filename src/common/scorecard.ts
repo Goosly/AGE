@@ -24,13 +24,28 @@ export class ScoreCardService {
         scorecard.group = c[event.id].group.split(";")[0];
         scorecardsForEvent.push(scorecard);
       });
-      scorecardsForEvent.forEach((s, i) => s.scorecardNumber = (i + 1));
+      this.addScorecardNumberAndStationNumbers(scorecardsForEvent);
       this.addEmptyScoreCardsUntilPageIsFull(scorecardsForEvent, wcif);
       scorecards.push(...scorecardsForEvent);
     });
 
     Helpers.sortCompetitorsByName(wcif);
     pdfMake.createPdf(this.document(scorecards)).download('scorecards-' + wcif.id + '.pdf');
+  }
+
+  private addScorecardNumberAndStationNumbers(scorecardsForEvent: ScoreCardInfo[]) {
+    let stationCounter = 0;
+    let group = scorecardsForEvent[0].group;
+    scorecardsForEvent.forEach((s: ScoreCardInfo, i: number) => {
+      if (s.group === group) {
+        stationCounter++;
+      } else {
+        stationCounter = 1;
+        group++;
+      }
+      s.timerStationId = stationCounter;
+      s.scorecardNumber = (i + 1);
+    });
   }
 
   public printFourEmptyScorecards(wcif: Wcif) {
@@ -62,7 +77,8 @@ export class ScoreCardService {
       timeLimit: this.getTimeLimitOf(event.rounds[0]),
       cumulative: this.getCumulative(event.rounds[0]),
       cutoff: this.getCutoffOf(event.rounds[0]),
-      scorecardNumber: null
+      scorecardNumber: null,
+      timerStationId: null
     }
   }
 
@@ -105,7 +121,8 @@ export class ScoreCardService {
       timeLimit: null,
       cumulative: false,
       cutoff: null,
-      scorecardNumber: null
+      scorecardNumber: null,
+      timerStationId: null
     }
   }
 
@@ -176,7 +193,12 @@ export class ScoreCardService {
   private oneMo3ScoreCard(info: ScoreCardInfo): any[]  {
     return [
       [
-        {text: ! info.scorecardNumber ? '' : info.scorecardNumber, alignment: 'left', fontSize: 7},
+        {
+          columns: [
+            {text: ! info.scorecardNumber ? '' : info.scorecardNumber, alignment: 'left', fontSize: 6, color: 'grey'},
+            {text: ! info.timerStationId ? '' : 'Timer ' + info.timerStationId, alignment: 'right', fontSize: 9}
+          ]
+        },
         {text: info.competitionName, alignment: 'center', fontSize: 10}
       ],
       {text: info.eventName, alignment: 'center', fontSize: 18, bold: true},
@@ -221,7 +243,12 @@ export class ScoreCardService {
   private oneAvg5ScoreCard(info: ScoreCardInfo): any[]  {
     return [
       [
-        {text: ! info.scorecardNumber ? '' : info.scorecardNumber, alignment: 'left', fontSize: 7},
+        {
+          columns: [
+            {text: ! info.scorecardNumber ? '' : info.scorecardNumber, alignment: 'left', fontSize: 6, color: 'grey'},
+            {text: ! info.timerStationId ? '' : 'Timer ' + info.timerStationId, alignment: 'right', fontSize: 9}
+          ]
+        },
         {text: info.competitionName, alignment: 'center', fontSize: 10}
       ],
       {text: info.eventName, alignment: 'center', fontSize: 18, bold: true},
@@ -268,7 +295,12 @@ export class ScoreCardService {
   private oneMbldScoreCard(info: ScoreCardInfo): any[]  {
     return [
       [
-        {text: ! info.scorecardNumber ? '' : info.scorecardNumber, alignment: 'left', fontSize: 7},
+        {
+          columns: [
+            {text: ! info.scorecardNumber ? '' : info.scorecardNumber, alignment: 'left', fontSize: 6, color: 'grey'},
+            {text: ! info.timerStationId ? '' : 'Timer ' + info.timerStationId, alignment: 'right', fontSize: 9}
+          ]
+        },
         {text: info.competitionName, alignment: 'center', fontSize: 10}
       ],
       {text: info.eventName, alignment: 'center', fontSize: 18, bold: true},
@@ -314,5 +346,6 @@ export class ScoreCardInfo {
   cumulative: boolean;
   cutoff: string;
   scorecardNumber: number;
+  timerStationId: number;
 }
 

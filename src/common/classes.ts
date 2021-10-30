@@ -30,8 +30,11 @@ export class GeneralConfiguration {
   skipDelegatesAndOrganizers: boolean = true;
   doNotAssignJudges: boolean = false;
   doNotAssignTasksToNewCompetitors: boolean = false;
+  useMultipleStages: boolean = false;
+  fixedSeating: boolean = false;
   everyoneCanScrambleAndRun: boolean = false;
   bordersOnNametags: boolean = true;
+  printStationNumbersOnScoreCards: boolean = false;
 }
 
 export interface Schedule {

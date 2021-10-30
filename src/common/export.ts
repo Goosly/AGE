@@ -50,9 +50,9 @@ export class ExportService {
     wcif.events.forEach(e => {
       let label = getEventName(e.id);
       let format = this.formats.filter(f => f.id === e.round1.format)[0].label;
-      let limit: string = ! e.round1.timeLimit ? '' : this.centisToMinutesAndSeconds(e.round1.timeLimit.centiseconds);
+      let limit: string = ! e.round1.timeLimit ? '' : ExportService.centisToMinutesAndSeconds(e.round1.timeLimit.centiseconds);
       let cumulative: boolean = !! e.round1.timeLimit && e.round1.timeLimit.cumulativeRoundIds.length;
-      let cutoff: string = ! e.round1.cutoff ? '' : this.centisToMinutesAndSeconds(e.round1.cutoff.attemptResult);
+      let cutoff: string = ! e.round1.cutoff ? '' : ExportService.centisToMinutesAndSeconds(e.round1.cutoff.attemptResult);
 
       csv += (e.id + ',');
       csv += (label + ',');
@@ -67,7 +67,7 @@ export class ExportService {
     this.downloadFile(csv, filename);
   }
 
-  private centisToMinutesAndSeconds(centiseconds) {
+  private static centisToMinutesAndSeconds(centiseconds) {
     if (! centiseconds) {
       return '';
     }
@@ -426,7 +426,7 @@ export class ExportService {
     }
   }
 
-  csvForCubeComps(wcif: Wcif) {
+  csvForCubeComps(wcif: Wcif) { // Not used anymore
     let csv:string = 'Status,Name,Country,WCA ID,Birth Date,Gender,' + wcif.events.map(event => event.id).join(',') + ',Email,Guests,IP' + '\r\n';
     wcif.persons.forEach(p => {
       csv += ('a,');
@@ -449,7 +449,7 @@ export class ExportService {
   staffExample() {
     let content: string = '[\n' +
       '\n' +
-      '  {"This is an example:" : "The current board members are allowed to run & scramble everything, I can only scramble 2x2 and pyraminx. You should add reliable people attending your competition."},\n' +
+      '  {"This is an example:" : "The former board members are allowed to run & scramble everything, I can only scramble 2x2 and pyraminx. You should add reliable people attending your competition."},\n' +
       '\n' +
       '  {"name":"Alberto Pérez de Rada Fiol","wcaId":"2011FIOL01","isAllowedTo":["run","scrambleEverything"]},\n' +
       '  {"name":"Bob Burton","wcaId":"2003BURT01","isAllowedTo":["run","scrambleEverything"]},\n' +
@@ -486,7 +486,6 @@ export class ExportService {
     let blob = new Blob([data]);
     saveAs(blob, filename);
   }
-
 
   // TODO Alternative?
   private isoCountries = {

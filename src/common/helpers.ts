@@ -69,7 +69,7 @@ export class Helpers {
 
   static countCJRSForEvent(wcif: Wcif, eventId: string, numberOfGroups?: number) {
     let event: any = Helpers.getEvent(eventId, wcif);
-    if (!!numberOfGroups) {
+    if (!numberOfGroups) {
       numberOfGroups = event.configuration.scrambleGroups * event.configuration.stages;
     }
 
@@ -116,6 +116,12 @@ export class Helpers {
   private static sortByAssignedTaskOfType(wcif: Wcif, persons: any, taskType: string) {
     let allEventIds = this.allEventIds(wcif);
     return persons.sort(function (a: Person, b: Person) {
+      if (this.isOrganizerOrDelegate(b)) {
+        return -1;
+      }
+      if (this.isOrganizerOrDelegate(a)) {
+        return 1;
+      }
       var countA = this.countTasks(a, allEventIds, taskType);
       var countB = this.countTasks(b, allEventIds, taskType);
       return (countA < countB) ? -1 : (countA > countB) ? 1 : 0;
@@ -160,12 +166,33 @@ export class Helpers {
     return wcif.events.map(e => e.id);
   }
 
-  public static notAssignedToAnythingYetInGroup(assignment: string, group: number): boolean {
-    return assignment.split(';').filter(a => Helpers.matchesGroup(a, group)).length === 0;
+  public static notAssignedToAnythingYetInGroup(assignment: string, event: any, group: number): boolean {
+    return assignment.split(';').filter(a => Helpers.matchesGroup(a, event, group)).length === 0;
   }
 
-  private static matchesGroup(assignment: string, group: number) {
-    return assignment.match(RegExp('^[SJR]?' + group + '$'));
+  private static matchesGroup(assignment: string, event: any, group: number) {
+    let g = parseInt(assignment.match(/[0-9]+/)[0]);
+    let stages = event.configuration.stages;
+    return ((g-1) - ((g-1)%stages)) === ((group-1) - ((group-1)%stages));
+  }
+
+  public static isOrganizerOrDelegate(person) {
+    return person.roles.includes('delegate') || person.roles.includes('organizer');
+  }
+
+  public static assignExtraJudge(person: any, eventId: string, group: number) {
+    person[eventId].group += (';J' + group);
+    person[eventId].group = person[eventId].group.split(';').sort((a: string, b: string) => {
+      if (!a.match(/^[JRS]/)) {
+        return -1;
+      }
+      if (!b.match(/^[JRS]/)) {
+        return 1;
+      }
+      let groupA = parseInt(a.match(/[0-9]+/)[0]);
+      let groupB = parseInt(b.match(/[0-9]+/)[0]);
+      return (groupA < groupB) ? -1 : (groupA > groupB) ? 1 : 0;
+    }).join(';');
   }
 
 }

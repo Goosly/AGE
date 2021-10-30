@@ -106,9 +106,24 @@ export class AppComponent  {
   }
 
   handleNumberOfStagesSet(value: number, eventId: string) {
-    let event: EventConfiguration = this.groupService.wcif.events.filter(e => e.id === eventId)[0].configuration;
+    let event: EventConfiguration = Helpers.getEvent(eventId, this.groupService.wcif).configuration;
     event.stages = value;
     event.timers = event.totalTimers / event.stages;
+  }
+
+  toggleUseStages() {
+    this.groupService.configuration.useMultipleStages = !this.groupService.configuration.useMultipleStages;
+    if (this.groupService.configuration.useMultipleStages) {
+      this.groupService.wcif.events.forEach(e => {
+        e.configuration.stages = 2;
+        e.configuration.timers = e.configuration.totalTimers / e.configuration.stages;
+      });
+    } else {
+      this.groupService.wcif.events.forEach(e => {
+        e.configuration.stages = 1;
+        e.configuration.timers = e.configuration.totalTimers / e.configuration.stages;
+      });
+    }
   }
 
   handleGenerate() {
