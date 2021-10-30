@@ -8,5 +8,6 @@ export const environment = {
   wcaSecret : '305623ae24dd7c0789e811e7ae8b364f19e9109c976c0e5ba1c8add1a1773159',
 
   version: '1.1.004',
-  testMode: false
+  testMode: false,
+  offlineMode: false
 };
