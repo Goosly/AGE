@@ -140,7 +140,6 @@ export class AppComponent  {
   };
 
   private getGroupCounterBasedOnEvent(event) {
-    // This is weird, I'm not sure why this is an array. It should be a number. Probably needed for binding?
     return Array(Math.max(this.groupCounter.length, event.configuration.stages * event.configuration.scrambleGroups));
   }
 

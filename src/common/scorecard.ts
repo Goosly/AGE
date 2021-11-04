@@ -15,6 +15,7 @@ export class ScoreCardService {
     let scorecards: ScoreCardInfo[] = [];
     wcif.events.filter(e => e.id !== '333fm').forEach(event => {
       Helpers.sortCompetitorsByGroupInEvent(wcif, event.id);
+      event.countGroupsForScorecard = Helpers.countGroupsForEvent(wcif, event);
       let scorecardsForEvent: ScoreCardInfo[] = [];
       let competitorsOfEvent: Person[] = wcif.persons.filter(p => !! p[event.id].group && RegExp('^[0-9]+').test(p[event.id].group));
       competitorsOfEvent.forEach(c => {
@@ -37,7 +38,7 @@ export class ScoreCardService {
     let stationCounter = 0;
     let group = scorecardsForEvent[0].group;
     scorecardsForEvent.forEach((s: ScoreCardInfo, i: number) => {
-      if (s.group === group) {
+      if (s.group == group) {
         stationCounter++;
       } else {
         stationCounter = 1;
@@ -64,14 +65,14 @@ export class ScoreCardService {
     }
   }
 
-  private getScoreCardForFirstRoundOfEvent(wcif: any, event: Event): ScoreCardInfo {
+  private getScoreCardForFirstRoundOfEvent(wcif: any, event: any): ScoreCardInfo {
     return {
       eventId: event.id,
       competitionName: wcif.name,
       eventName: getEventName(event.id),
       round: 1,
       group: null,
-      totalGroups: event['configuration'].scrambleGroups * event['configuration'].stages,
+      totalGroups: event.countGroupsForScorecard,
       competitorId: null,
       competitorName: null,
       timeLimit: this.getTimeLimitOf(event.rounds[0]),

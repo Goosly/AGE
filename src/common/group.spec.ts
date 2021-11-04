@@ -190,6 +190,45 @@ describe('test', function() {
     assert.equal(wcif.persons[4].name, 'Foo2');
   });
 
+  it('test countGroupsForEvent', function() {
+    let wcif: Wcif = {
+      persons: [
+        {
+          name: 'Foo',
+          sq1: {competing: true, group: '3'},
+          '777': {competing: true, group: '1;S2'}
+        }, // 2/1
+        {
+          name: 'Foo2',
+          sq1: {competing: true, group: '1;R1;R2'},
+          '777': {competing: true, group: '1;R2'}
+        }, // 2/3
+        {
+          name: 'Foo3',
+          sq1: {competing: true, group: '1'},
+          '777': {competing: false, group: ''}
+        }, // 1/0
+        {
+          name: 'Bar',
+          sq1: {competing: true, group: '2;R3'},
+          '777': {competing: true, group: '2;J1'}
+        }, // 2/2
+        {
+          name: 'Bar2',
+          sq1: {competing: false, group: ''},
+          '777': {competing: true, group: '2'}
+        } // 1/0
+      ],
+      events: [
+        {id: 'sq1'},
+        {id: '777'}
+      ]
+    };
+
+    assert.equal(Helpers.countGroupsForEvent(wcif, Helpers.getEvent('777', wcif)), 2);
+    assert.equal(Helpers.countGroupsForEvent(wcif, Helpers.getEvent('sq1', wcif)), 3);
+  });
+
   it('test sortByCompetingToTaskRatio', function() {
     let wcif: Wcif = {
       persons: [

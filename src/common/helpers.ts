@@ -1,5 +1,5 @@
 import {Wcif} from './classes';
-import {EventId, Person} from '@wca/helpers';
+import {Event, EventId, Person} from '@wca/helpers';
 import {environment} from '../environments/environment';
 
 export class Helpers {
@@ -193,6 +193,11 @@ export class Helpers {
       let groupB = parseInt(b.match(/[0-9]+/)[0]);
       return (groupA < groupB) ? -1 : (groupA > groupB) ? 1 : 0;
     }).join(';');
+  }
+
+  static countGroupsForEvent(wcif: any, event: Event): number {
+    return Math.max(...(wcif.persons.filter(p => p[event.id].competing)
+      .map(p => parseInt(p[event.id].group.split(';')[0].match(/[0-9]+/)[0]))));
   }
 
 }
