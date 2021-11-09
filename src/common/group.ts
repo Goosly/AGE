@@ -326,6 +326,18 @@ export class GroupService {
 
     let allActivities: Activity[] = ActivityHelper.getAllActivitiesFromWcif(this.wcif);
     this.wcif.persons.forEach(p => this.readPersonAssignmentsFromWcif(p, allActivities));
+    this.calculateStagesOfAllEvents();
+  }
+
+  private calculateStagesOfAllEvents() {
+    this.wcif.events.forEach(event => {
+      let groups = Helpers.countGroupsForEvent(this.wcif, event);
+      if (groups > 0) {
+        event.configuration.stages = groups / event.configuration.scrambleGroups;
+      } else {
+        event.configuration.stages = 1;
+      }
+    });
   }
 
   private resetGroupsForAllCompetitors() {
@@ -403,6 +415,7 @@ export class GroupService {
           }
           importedCompetitorsCounter++;
         }
+        this.calculateStagesOfAllEvents();
         callback(importedCompetitorsCounter);
       }.bind(this);
     } else {

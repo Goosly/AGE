@@ -200,7 +200,7 @@ describe('test', function() {
         }, // 2/1
         {
           name: 'Foo2',
-          sq1: {competing: true, group: '1;R1;R2'},
+          sq1: {competing: true, group: '12;R1;R10'},
           '777': {competing: true, group: '1;R2'}
         }, // 2/3
         {
@@ -226,7 +226,7 @@ describe('test', function() {
     };
 
     assert.equal(Helpers.countGroupsForEvent(wcif, Helpers.getEvent('777', wcif)), 2);
-    assert.equal(Helpers.countGroupsForEvent(wcif, Helpers.getEvent('sq1', wcif)), 3);
+    assert.equal(Helpers.countGroupsForEvent(wcif, Helpers.getEvent('sq1', wcif)), 12);
   });
 
   it('test sortByCompetingToTaskRatio', function() {

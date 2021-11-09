@@ -146,30 +146,13 @@ export class AppComponent  {
   private countCJRSForAllEvents(wcif) {
     let maxGroup = 1;
     wcif.events.forEach(e => {
-      let numberOfGroupsForEvent = 1;
-      wcif.persons.forEach(p => {
-        const max = this.groupOfAssignment(p[e.id].group);
-        if (max > numberOfGroupsForEvent) {
-          numberOfGroupsForEvent = max;
-        }
-      });
+      let numberOfGroupsForEvent = Helpers.countGroupsForEvent(wcif, e);
       this.groupService.countCJRSForEvent(e.id, numberOfGroupsForEvent);
       if (numberOfGroupsForEvent > maxGroup) {
         maxGroup = numberOfGroupsForEvent;
       }
     });
     return new Array(maxGroup);
-  }
-
-  private groupOfAssignment(group: any): number {
-    if (! group || group === '') {
-      return -1;
-    }
-    const firstAssignment = group.split(';')[0];
-    if (RegExp('^[0-9]+$').test(firstAssignment)) {
-      return parseInt(firstAssignment);
-    }
-    return -1;
   }
 
   handleGenerateOneEvent(eventId: EventId) {

@@ -197,7 +197,10 @@ export class Helpers {
 
   static countGroupsForEvent(wcif: any, event: Event): number {
     return Math.max(...(wcif.persons.filter(p => p[event.id].competing)
-      .map(p => parseInt(p[event.id].group.split(';')[0].match(/[0-9]+/)[0]))));
+      .map(p => {
+        let assignments = p[event.id].group.split(';');
+        return !!assignments[0] ? parseInt(assignments[0].match(/[0-9]+/)[0]) : 0;
+      })));
   }
 
 }
