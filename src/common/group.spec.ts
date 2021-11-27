@@ -1,8 +1,9 @@
 import {GroupService} from './group';
 import {Helpers} from './helpers';
-import {Wcif} from './classes';
+import {StaffPerson, Wcif} from './classes';
 import {AnnuntiaWcif} from '../test/annuntia';
 import {BelgianOpenWcif} from '../test/belgian-open';
+import {ExportService} from './export';
 
 const assert = require('assert');
 
@@ -153,8 +154,8 @@ describe('test', function() {
         {
           name: 'Foo',
           sq1: {competing: true, group: '3'},
-          '777': {competing: true, group: '1;S2'}
-        }, // 2/1
+          '777': {competing: true, group: '1;S2;J3'}
+        }, // 2/2
         {
           name: 'Foo2',
           sq1: {competing: true, group: '1;R1;R2'},
@@ -182,12 +183,18 @@ describe('test', function() {
       ]
     };
 
-    Helpers.sortByCompetingToTaskRatio(wcif, wcif.persons);
+    Helpers.sortByCompetingToTaskRatio(wcif, 'sq1', wcif.persons);
     assert.equal(wcif.persons[0].name, 'Foo3');
     assert.equal(wcif.persons[1].name, 'Bar2');
     assert.equal(wcif.persons[2].name, 'Foo');
     assert.equal(wcif.persons[3].name, 'Bar');
     assert.equal(wcif.persons[4].name, 'Foo2');
+    Helpers.sortByCompetingToTaskRatio(wcif, '777', wcif.persons);
+    assert.equal(wcif.persons[0].name, 'Foo3');
+    assert.equal(wcif.persons[1].name, 'Bar2');
+    assert.equal(wcif.persons[2].name, 'Bar');
+    assert.equal(wcif.persons[3].name, 'Foo2');
+    assert.equal(wcif.persons[4].name, 'Foo');
   });
 
   it('test countGroupsForEvent', function() {
@@ -229,7 +236,7 @@ describe('test', function() {
     assert.equal(Helpers.countGroupsForEvent(wcif, Helpers.getEvent('sq1', wcif)), 12);
   });
 
-  it('test sortByCompetingToTaskRatio', function() {
+  it('test assignExtraJudge', function() {
     let wcif: Wcif = {
       persons: [
         {
@@ -321,7 +328,7 @@ describe('test', function() {
     });
 
     group.configuration.groupStrategy = 'advanced';
-    group.configuration.everyoneCanScrambleAndRun = true;
+    group.configuration.autoPickScramblersAndRunners = true;
 
     group.generateGrouping('333');
     Helpers.countCJRSForEvent(group.wcif, '333', 3);
@@ -363,4 +370,42 @@ describe('test', function() {
       }
     });
   });
+
+  it('test getContentForStaffExample for Annuntia', function() {
+    let exportService = new ExportService();
+    let staffExample = exportService.getContentForStaffExample(AnnuntiaWcif.wcif);
+    let lines = staffExample.split('\r\n');
+    assert.equal(lines[0], 'name,wcaId,run,222,333,444,555,666,777,333bf,333oh,clock,minx,pyram,skewb,sq1,444bf,555bf,333mbf');
+    assert.equal(lines[2], 'Adrien Schumacker,2016SCHU02,x,x,x,x,x,,x,x,x,,x,x,x,x,,,');
+    for (let i = 1; i < lines.length - 1; i++) {
+      let split = lines[i].split(',');
+      assert.equal(split.length, 19);
+      assert.equal(split.includes('x'), true);
+    }
+    assert.equal(lines[lines.length - 1], '');
+  });
+
+  it('test getStaff', function() {
+    let group: GroupService = new GroupService();
+
+    let csv = 'name,wcaId,run,222,333,444,555,666,777,333bf,333oh,clock,minx,pyram,skewb,sq1,444bf,555bf,333mbf\r\nAdrien Schumacker,2016SCHU02,x,x,x,x,x,,x,x,x,,x,x,x,x,,,\r\n';
+    let staff: StaffPerson[] = group.getStaff(csv);
+
+    assert.equal(staff[0].name, 'Adrien Schumacker');
+    assert.equal(staff[0].wcaId, '2016SCHU02');
+    assert.equal(staff[0].isAllowedTo.length, 12);
+    assert.equal(staff[0].isAllowedTo[0], 'run');
+    assert.equal(staff[0].isAllowedTo[1], '222');
+    assert.equal(staff[0].isAllowedTo[2], '333');
+    assert.equal(staff[0].isAllowedTo[3], '444');
+    assert.equal(staff[0].isAllowedTo[4], '555');
+    assert.equal(staff[0].isAllowedTo[5], '777');
+    assert.equal(staff[0].isAllowedTo[6], '333bf');
+    assert.equal(staff[0].isAllowedTo[7], '333oh');
+    assert.equal(staff[0].isAllowedTo[8], 'minx');
+    assert.equal(staff[0].isAllowedTo[9], 'pyram');
+    assert.equal(staff[0].isAllowedTo[10], 'skewb');
+    assert.equal(staff[0].isAllowedTo[11], 'sq1');
+  });
+
 });

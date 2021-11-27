@@ -34,7 +34,7 @@
       <button [disabled]="groupsGenerated" (click)="handleImportFromWcif()">Yes, import</button></p>
     <p>Import assignments from a CSV file <a ngHref='#here' (click)='exportService.csvGroupAndTaskAssignmentsExampleImport(groupService.wcif)'>(click for an example)</a>?
       <input type="file" id="importCsv" [disabled]="groupsGenerated" accept=".csv"/>
-      <button [disabled]="groupsGenerated" (click)="handleImportFromCsv()">Import CSV</button>
+      <button [disabled]="groupsGenerated" (click)="handleImportGroupsFromCsv()">Import CSV</button>
       <span *ngIf="groupsGenerated && importFromCsvStrategy"> &#10004; Imported {{competitorCounterFromCsv}} competitors</span></p>
   </div>
 
@@ -51,10 +51,10 @@
 
       <div *ngIf="advancedStrategy">
         We'll be using <input type="number" [(ngModel)]="groupService.configuration.totalNumberOfTimers" (ngModelChange)="handleTotalNumberOfTimersSet($event)" min="1" step="1" [disabled]="groupsGenerated"> timers in total<br><br>
-        <label title='Select your json file that contains trusted scramblers and capable runners'><i class="fa fa-info-circle"></i></label>
-        Select scramblers and runners <a ngHref='#here' (click)='exportService.staffExample()'>(click for an example)</a>: <input type="file" id="staff" accept=".json"/><br>
-        <label title='Or allow everyone to scramble and run... NOT RECOMMENDED'><i class="fa fa-info-circle"></i></label>
-        Alternatively: <input type="checkbox" [(ngModel)]="groupService.configuration.everyoneCanScrambleAndRun"><label>Everyone can scramble and run (NOT RECOMMENDED)</label>
+        <label title='Select your CSV file that contains trusted scramblers and capable runners'><i class="fa fa-info-circle"></i></label>
+        Select scramblers and runners <a ngHref='#here' (click)='exportService.staffExample(groupService.wcif)'>(click for an example)</a>: <input type="file" id="staff" [disabled]="groupsGenerated" accept=".csv"/><br>
+        <label title='Or let AGE pick scramblers and runners'><i class="fa fa-info-circle"></i></label>
+        Alternatively: <input type="checkbox" [(ngModel)]="groupService.configuration.autoPickScramblersAndRunners" [disabled]="groupsGenerated"><label>Let AGE pick scramblers and runners</label>
         <br><br>
 
         <input type="checkbox" [(ngModel)]="groupService.configuration.doNotAssignJudges" [disabled]="groupsGenerated"><label>Do not assign judges (only scramblers & runners)</label><br>

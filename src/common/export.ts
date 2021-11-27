@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
-import {EventConfiguration, Wcif} from './classes';
+import {EventConfiguration, StaffPerson, Wcif} from './classes';
 import {saveAs} from 'file-saver';
 import {getEventName, Person} from '@wca/helpers';
 import * as moment from 'moment-timezone';
+import {Helpers} from './helpers';
 
 declare var pdfMake: any;
 
@@ -446,32 +447,44 @@ export class ExportService {
     this.downloadFile(csv, filename);
   }
 
-  staffExample() {
-    let content: string = '[\n' +
-      '\n' +
-      '  {"This is an example:" : "The former board members are allowed to run & scramble everything, I can only scramble 2x2 and pyraminx. You should add reliable people attending your competition."},\n' +
-      '\n' +
-      '  {"name":"Alberto Pérez de Rada Fiol","wcaId":"2011FIOL01","isAllowedTo":["run","scrambleEverything"]},\n' +
-      '  {"name":"Bob Burton","wcaId":"2003BURT01","isAllowedTo":["run","scrambleEverything"]},\n' +
-      '  {"name":"Chris Wright","wcaId":"2011WRIG01","isAllowedTo":["run","scrambleEverything"]},\n' +
-      '  {"name":"Olivér Perge","wcaId":"2007PERG01","isAllowedTo":["run","scrambleEverything"]},\n' +
-      '\n' +
-      '  {"name":"Manu Vereecken","wcaId":"2010VERE01","isAllowedTo":["222","pyram"]}\n' +
-      '\n' +
-      ']\n';
-    let filename = 'staffExample.json';
+  staffExample(wcif: Wcif) {
+    let content = this.getContentForStaffExample(wcif);
+    let filename = 'staffExample.csv';
     this.downloadFile(content, filename);
   }
 
+  getContentForStaffExample(wcif: Wcif) {
+    let content: string = 'name,wcaId,run,222,333,444,555,666,777,333bf,333oh,clock,minx,pyram,skewb,sq1,444bf,555bf,333mbf\r\n';
+    let staff = Helpers.generateStaffBasedOnPersonalBests(wcif);
+    staff.forEach(s => {
+      content += s.name + ',';
+      content += s.wcaId + ',';
+      content += s.isAllowedTo.includes('run') ? 'x,' : ',';
+      ['222', '333', '444', '555', '666', '777', '333bf', '333oh', 'clock', 'minx', 'pyram', 'skewb', 'sq1', '444bf', '555bf', '333mbf'].forEach(eventId => {
+        content += s.isAllowedTo.includes(eventId) ? 'x,' : ',';
+      });
+      content = content.substring(0, content.length - 1);
+      content += '\r\n';
+    });
+    return content;
+  }
+
   csvGroupAndTaskAssignmentsExampleImport(wcif: Wcif) {
-    let csv:string = 'Name,' + wcif.events.map(event => event.id).join(',') + '\r\n';
-    let p: Person = wcif.persons[0];
-    csv += (p.name + ',');
-    csv += wcif.events.map(event => this.randomGroup()).join(',');
-    csv += '\r\n';
+    let csv: string = 'Name,' + wcif.events.map(event => event.id).join(',') + '\r\n';
+    Helpers.sortCompetitorsBySpeedInEvent(wcif, '333', false);
+    csv = this.addRandomGroupsForPerson(wcif.persons[0], csv, wcif);
+    csv = this.addRandomGroupsForPerson(wcif.persons[1], csv, wcif);
+    csv = this.addRandomGroupsForPerson(wcif.persons[2], csv, wcif);
 
     let filename = 'exampleImport-' + wcif.id + '.csv';
     this.downloadFile(csv, filename);
+  }
+
+  private addRandomGroupsForPerson(p: Person, csv: string, wcif: Wcif) {
+    csv += (p.name + ',');
+    csv += wcif.events.map(event => this.randomGroup()).join(',');
+    csv += '\r\n';
+    return csv;
   }
 
   private randomGroup(): string {

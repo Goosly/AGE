@@ -184,7 +184,7 @@ export class AppComponent  {
     this.groupsGenerated = true;
   }
 
-  handleImportFromCsv() {
+  handleImportGroupsFromCsv() {
     this.groupService.importAssignmentsFromCsv((competitorCounterFromCsv: number) => {
       this.groupCounter = this.countCJRSForAllEvents(this.groupService.wcif);
       this.apiService.logUserImportedFromCsv(this.userNameShort, this.groupService.wcif.id);
