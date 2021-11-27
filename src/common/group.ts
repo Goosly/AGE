@@ -127,10 +127,10 @@ export class GroupService {
     let potentialRunners: Array<any> = this.wcif.persons.filter(p => p[eventId].competing && this.canRun(p, staff));
 
     if (potentialScramblers.length < this.numberOfGroups(event) * event.configuration.scramblers) {
-      alert('Not enough scramblers for ' + eventId + '!\nMake sure you add plenty of reliable people in your json file');
+      alert('Not enough scramblers for ' + eventId + '!\nMake sure you add plenty of reliable people in your CSV file');
     }
     if (potentialRunners.length < this.numberOfGroups(event) * event.configuration.runners) {
-      alert('Not enough runners for ' + eventId + '!\nMake sure you add plenty of reliable people in your json file');
+      alert('Not enough runners for ' + eventId + '!\nMake sure you add plenty of reliable people in your CSV file');
     }
 
     let group: number = 0; // Group starts counting at 0, so always display as group+1
@@ -514,9 +514,6 @@ export class GroupService {
   }
 
   private canScramble(person, staff: StaffPerson[], event): boolean {
-    if (this.configuration.autoPickScramblersAndRunners) {
-      return !!person.wcaId && this.canJudge(person);
-    }
     let x = staff.filter(s => s.wcaId === person.wcaId);
     if (x.length === 1) {
       return x[0].isAllowedTo.indexOf('scrambleEverything') > -1 || x[0].isAllowedTo.indexOf(event) > -1;
@@ -525,9 +522,6 @@ export class GroupService {
   }
 
   private canRun(person, staff: StaffPerson[]): boolean {
-    if (this.configuration.autoPickScramblersAndRunners) {
-      return !!person.wcaId && this.canJudge(person);
-    }
     let x = staff.filter(s => s.wcaId === person.wcaId);
     if (x.length === 1) {
       return x[0].isAllowedTo.indexOf('run') > -1;
