@@ -34,19 +34,56 @@ export class GroupService {
 
   generateAdvancedGrouping(eventId: EventId, file: Blob) {
     let generateGroupingForEvent = (e, s) => this.generateGroupingForEvent(e, s);
-    let staff = null;
     if (file) {
       let reader = new FileReader();
       reader.readAsText(file);
       reader.onload = function(e) {
-        staff = JSON.parse(e.target['result']);
+        let staff: StaffPerson[] = this.getStaff(e.target['result']);
         generateGroupingForEvent(eventId, staff);
-      };
-    } else if (this.configuration.everyoneCanScrambleAndRun) {
-      generateGroupingForEvent(eventId, []);
+      }.bind(this);
+    } else if (this.configuration.autoPickScramblersAndRunners) {
+      generateGroupingForEvent(eventId, Helpers.generateStaffBasedOnPersonalBests(this.wcif));
     } else {
-      throw new Error("There are no scramblers and runners! Please select a json file or allow everyone to scramble and run (NOT RECOMMENDED).");
+      throw new Error("There are no scramblers and runners! Please select a CSV file or let AGE pick scramblers and runners");
     }
+  }
+
+  public getStaff(csvString): StaffPerson[] {
+    let lines: string[] = csvString.includes('\r\n') ? csvString.split('\r\n') : csvString.split('\n');
+    let separator = this.determineSeparator(csvString);
+    let headers = lines[0].split(separator);
+    this.validateHeaders(headers);
+    let persons = lines.splice(1);
+
+    let staff: StaffPerson[] = [];
+    for (let i = 0; i < persons.length; i++) {
+      if (persons[i] === null || persons[i] === undefined || persons[i] === "" || !persons[i].includes(separator)) {
+        continue;
+      }
+      let personToAdd = persons[i].split(separator);
+      let staffPerson: StaffPerson = new StaffPerson();
+      staffPerson.name = personToAdd[headers.indexOf('name')];
+      staffPerson.wcaId = personToAdd[headers.indexOf('wcaId')];
+      staffPerson.isAllowedTo = [];
+      ['run', '222', '333', '444', '555', '666', '777', '333bf', '333oh', 'clock', 'minx', 'pyram', 'skewb', 'sq1', '444bf', '555bf', '333mbf'].forEach(task => {
+        if (!!personToAdd[headers.indexOf(task)]) {
+          staffPerson.isAllowedTo.push(task);
+        }
+      });
+      staff.push(staffPerson);
+    }
+    return staff;
+  }
+
+  private validateHeaders(headers: string[]) {
+    let expectedHeaders: string[] = ['name', 'wcaId', 'run', '222', '333', '444', '555', '666', '777', '333bf', '333oh', 'clock', 'minx', 'pyram', 'skewb', 'sq1', '444bf', '555bf', '333mbf'];
+    expectedHeaders.forEach(expectedHeader => {
+      if (!headers.includes(expectedHeader)) {
+        let error: string = 'Expected header ' + expectedHeader + ' in the selected csv file, but it was not present.';
+        alert(error);
+        throw new Error(error);
+      }
+    });
   }
 
   private generateBasicGrouping(eventId: EventId) { // Very simple: random groups
@@ -76,7 +113,7 @@ export class GroupService {
     Helpers.sortCompetitorsByName(this.wcif);
   }
 
-  private generateGroupingForEvent(eventId: EventId, staff) {
+  private generateGroupingForEvent(eventId: EventId, staff: StaffPerson[]) {
     // Make some variables
     let event: any = Helpers.getEvent(eventId, this.wcif);
     let taskCounter = this.createTaskCounter(event.configuration); // Variable to keep track of assignments for all groups
@@ -213,7 +250,7 @@ export class GroupService {
     let potentialJudges = this.wcif.persons.filter(p => p[event.id].competing
       && this.canJudge(p)
       && Helpers.notAssignedToAnythingYetInGroup(p[event.id].group, event, group));
-    return Helpers.sortByCompetingToTaskRatio(this.wcif, potentialJudges);
+    return Helpers.sortByCompetingToTaskRatio(this.wcif, event.id, potentialJudges);
   }
 
   private swapAssignments(a: Person, b: Person, event: any) {
@@ -398,14 +435,15 @@ export class GroupService {
       reader.onload = function(e) {
         let csv: string = e.target['result'];
         let lines: string[] = csv.includes('\r\n') ? csv.split('\r\n') : csv.split('\n');
-        let headers = lines[0].split(',');
+        let separator = this.determineSeparator(csv);
+        let headers = lines[0].split(separator);
         let competitors = lines.splice(1);
         let importedCompetitorsCounter = 0;
         for (let i = 0; i < competitors.length; i++) {
-          if (competitors[i] === null || competitors[i] === undefined || competitors[i] === "") {
+          if (competitors[i] === null || competitors[i] === undefined || competitors[i] === "" || !competitors[i].includes(separator)) {
             continue;
           }
-          let competitorToImport = competitors[i].split(',');
+          let competitorToImport = competitors[i].split(separator);
           let matchingPersons = this.wcif.persons.filter(p => p.name === competitorToImport[0] || p.fullName === competitorToImport[0]);
           if (matchingPersons.length === 0) {
             continue;
@@ -422,6 +460,16 @@ export class GroupService {
       alert("Please select a CSV file to import first");
       throw Error("No CSV file to import");
     }
+  }
+
+  private determineSeparator(csv: string) {
+    if (csv.includes(',')) {
+      return ',';
+    }
+    if (csv.includes(';')) {
+      return ';';
+    }
+    throw new Error('Could not determine separator (, or ;) in CSV file');
   }
 
   public setDefaultEventConfiguration() {
@@ -465,8 +513,8 @@ export class GroupService {
     return true;
   }
 
-  private canScramble(person, staff, event): boolean {
-    if (this.configuration.everyoneCanScrambleAndRun) {
+  private canScramble(person, staff: StaffPerson[], event): boolean {
+    if (this.configuration.autoPickScramblersAndRunners) {
       return !!person.wcaId && this.canJudge(person);
     }
     let x = staff.filter(s => s.wcaId === person.wcaId);
@@ -476,8 +524,8 @@ export class GroupService {
     return false;
   }
 
-  private canRun(person, staff): boolean {
-    if (this.configuration.everyoneCanScrambleAndRun) {
+  private canRun(person, staff: StaffPerson[]): boolean {
+    if (this.configuration.autoPickScramblersAndRunners) {
       return !!person.wcaId && this.canJudge(person);
     }
     let x = staff.filter(s => s.wcaId === person.wcaId);

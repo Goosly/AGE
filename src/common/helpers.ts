@@ -1,4 +1,4 @@
-import {Wcif} from './classes';
+import {StaffPerson, Wcif} from './classes';
 import {Event, EventId, Person} from '@wca/helpers';
 import {environment} from '../environments/environment';
 
@@ -128,9 +128,15 @@ export class Helpers {
     }.bind(this));
   }
 
-  public static sortByCompetingToTaskRatio(wcif: Wcif, persons: any) {
+  public static sortByCompetingToTaskRatio(wcif: Wcif, eventId: string, persons: any[]) {
     let allEventIds = this.allEventIds(wcif);
     return persons.sort(function (a: Person, b: Person) {
+      var groupsOfAInEvent = a[eventId].group.split(';').length;
+      var groupsOfBInEvent = b[eventId].group.split(';').length;
+      if (groupsOfAInEvent != groupsOfBInEvent) {
+        return groupsOfAInEvent < groupsOfBInEvent ? -1 : 1;
+      }
+
       var countTaskA = this.countTasks(a, allEventIds);
       var countCompetingA = allEventIds.filter(e => a[e].competing).length;
       var countTaskB = this.countTasks(b, allEventIds);
@@ -201,6 +207,35 @@ export class Helpers {
         let assignments = p[event.id].group.split(';');
         return !!assignments[0] ? parseInt(assignments[0].match(/[0-9]+/)[0]) : 0;
       })));
+  }
+
+  static generateStaffBasedOnPersonalBests(wcif: Wcif) {
+    let staff: StaffPerson[] = this.getInitialStaff(wcif);
+    for (let e of wcif.events) {
+      Helpers.sortCompetitorsBySpeedInEvent(wcif, e.id, false);
+      wcif.persons.forEach((p, i, array) => {
+        if (i < array.length / 2 && !!p.wcaId) {
+          let staffPerson: StaffPerson = this.findInStaff(p, staff);
+          staffPerson.isAllowedTo.push(e.id);
+        }
+      });
+    }
+    return staff;
+  }
+
+  private static findInStaff(p, staff: StaffPerson[]) {
+    return staff.find(staffPerson => staffPerson.wcaId === p.wcaId);
+  }
+
+  private static getInitialStaff(wcif: Wcif) {
+    Helpers.sortCompetitorsByName(wcif);
+    return wcif.persons.filter(p => !!p.wcaId).map(p => {
+      let staffPerson: StaffPerson = new StaffPerson();
+      staffPerson.name = p.name;
+      staffPerson.wcaId = p.wcaId;
+      staffPerson.isAllowedTo = ['run'];
+      return staffPerson;
+    });
   }
 
 }
