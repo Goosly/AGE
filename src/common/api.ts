@@ -11,7 +11,7 @@ import {ActivityHelper} from './activity';
 })
 export class ApiService {
 
-  private readonly ONE_WEEK = 7;
+  private readonly FOUR_WEEKS = 28;
 
   public oauthToken;
   private headerParams: HttpHeaders;
@@ -62,7 +62,7 @@ export class ApiService {
     let url: string = `${environment.wcaUrl}/api/v0/competitions?managed_by_me=true`;
     if (! environment.testMode) {
       const startDate = new Date();
-      startDate.setDate(startDate.getDate() - this.ONE_WEEK);
+      startDate.setDate(startDate.getDate() - this.FOUR_WEEKS);
       url += `&start=${startDate.toISOString()}`;
     }
     return this.httpClient.get(url, {headers: this.headerParams});
