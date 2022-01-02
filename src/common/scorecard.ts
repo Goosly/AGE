@@ -112,7 +112,7 @@ export class ScoreCardService {
   private getEmptyScoreCard(wcif): ScoreCardInfo {
     return {
       eventId: ' ',
-      competitionName: wcif.id,
+      competitionName: wcif.name,
       eventName: ' ',
       round: null,
       group: null,
