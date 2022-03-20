@@ -9,10 +9,10 @@ const assert = require('assert');
 
 describe('test', function() {
   it('test decrement', function() {
-    let event = {
+    const event = {
       configuration: {stages: 2, scrambleGroups: 2}
     };
-    let group: GroupService = new GroupService();
+    const group: GroupService = new GroupService();
 
     assert.equal(group.decrement(3, event), 2);
     assert.equal(group.decrement(2, event), 1);
@@ -21,14 +21,14 @@ describe('test', function() {
   });
 
   it('test parseInt match', function() {
-    assert.equal(parseInt("2".match(/[0-9]+/)[0]), 2);
-    assert.equal(parseInt("J2".match(/[0-9]+/)[0]), 2);
-    assert.equal(parseInt("R10".match(/[0-9]+/)[0]), 10);
-    assert.equal(parseInt("S12".match(/[0-9]+/)[0]), 12);
+    assert.equal(parseInt('2'.match(/[0-9]+/)[0]), 2);
+    assert.equal(parseInt('J2'.match(/[0-9]+/)[0]), 2);
+    assert.equal(parseInt('R10'.match(/[0-9]+/)[0]), 10);
+    assert.equal(parseInt('S12'.match(/[0-9]+/)[0]), 12);
   });
 
   it('test sortCompetitorsBySpeedInEvent', function() {
-    let wcif: Wcif = {
+    const wcif: Wcif = {
       persons: [
         {name: 'Foo', personalBests: [{eventId: '333', worldRanking: 1}, {eventId: '444', worldRanking: 4}]},
         {name: 'Bar', personalBests: [{eventId: '333', worldRanking: 100}, {eventId: '444', worldRanking: 2}]}
@@ -45,7 +45,7 @@ describe('test', function() {
   });
 
   it('test sortCompetitorsByName', function() {
-    let wcif: Wcif = {
+    const wcif: Wcif = {
       persons: [
         {name: 'Foo'},
         {name: 'Foo2'},
@@ -62,7 +62,7 @@ describe('test', function() {
   });
 
   it('test getEvent', function() {
-    let wcif: Wcif = {
+    const wcif: Wcif = {
       events: [
         {id: '333'},
         {id: '333bf'},
@@ -108,7 +108,7 @@ describe('test', function() {
   });
 
   it('test sortCompetitorsByGroupInEvent', function() {
-    let wcif: Wcif = {
+    const wcif: Wcif = {
       persons: [
         {name: 'Foo', sq1: {group: '2'}},
         {name: 'Foo2', sq1: {group: '1;R1;R2'}},
@@ -127,7 +127,7 @@ describe('test', function() {
   });
 
   it('test sortRunnersByRunningAssigned', function() {
-    let wcif: Wcif = {
+    const wcif: Wcif = {
       persons: [
         {name: 'Foo', roles: [], sq1: {group: '3'}},
         {name: 'Foo2', roles: [], sq1: {group: '1;R1;R2'}},
@@ -149,7 +149,7 @@ describe('test', function() {
   });
 
   it('test sortByCompetingToTaskRatio', function() {
-    let wcif: Wcif = {
+    const wcif: Wcif = {
       persons: [
         {
           name: 'Foo',
@@ -198,7 +198,7 @@ describe('test', function() {
   });
 
   it('test countGroupsForEvent', function() {
-    let wcif: Wcif = {
+    const wcif: Wcif = {
       persons: [
         {
           name: 'Foo',
@@ -237,7 +237,7 @@ describe('test', function() {
   });
 
   it('test assignExtraJudge', function() {
-    let wcif: Wcif = {
+    const wcif: Wcif = {
       persons: [
         {
           name: 'Foo',
@@ -254,7 +254,7 @@ describe('test', function() {
   });
 
   it('test process and import wcif of Annuntia', function() {
-    let group: GroupService = new GroupService();
+    const group: GroupService = new GroupService();
     group.wcif = AnnuntiaWcif.wcif;
     group.processWcif();
     group.importAssignmentsFromWcif();
@@ -270,7 +270,7 @@ describe('test', function() {
   });
 
   it('test generate basic grouping of Belgian Open', function() {
-    let group: GroupService = new GroupService();
+    const group: GroupService = new GroupService();
     group.wcif = BelgianOpenWcif.wcif;
     group.processWcif();
     group.importAssignmentsFromWcif();
@@ -313,12 +313,12 @@ describe('test', function() {
   });
 
   it('test generate advanced grouping wcif of Annuntia', function() {
-    let group: GroupService = new GroupService();
+    const group: GroupService = new GroupService();
     group.wcif = AnnuntiaWcif.wcif;
     group.processWcif();
 
     group.wcif.persons.forEach(p => {
-      for (let e of group.wcif.events) {
+      for (const e of group.wcif.events) {
         if (p[e.id].competing) {
           assert.equal(p[e.id].group, '1');
         } else {
@@ -372,13 +372,13 @@ describe('test', function() {
   });
 
   it('test getContentForStaffExample for Annuntia', function() {
-    let exportService = new ExportService();
-    let staffExample = exportService.getContentForStaffExample(AnnuntiaWcif.wcif);
-    let lines = staffExample.split('\r\n');
+    const exportService = new ExportService();
+    const staffExample = exportService.getContentForStaffExample(AnnuntiaWcif.wcif);
+    const lines = staffExample.split('\r\n');
     assert.equal(lines[0], 'name,wcaId,run,222,333,444,555,666,777,333bf,333oh,clock,minx,pyram,skewb,sq1,444bf,555bf,333mbf');
     assert.equal(lines[2], 'Adrien Schumacker,2016SCHU02,x,x,x,x,x,,x,x,x,,x,x,x,x,,,');
     for (let i = 1; i < lines.length - 1; i++) {
-      let split = lines[i].split(',');
+      const split = lines[i].split(',');
       assert.equal(split.length, 19);
       assert.equal(split.includes('x'), true);
     }
@@ -386,10 +386,10 @@ describe('test', function() {
   });
 
   it('test getStaff', function() {
-    let group: GroupService = new GroupService();
+    const group: GroupService = new GroupService();
 
-    let csv = 'name,wcaId,run,222,333,444,555,666,777,333bf,333oh,clock,minx,pyram,skewb,sq1,444bf,555bf,333mbf\r\nAdrien Schumacker,2016SCHU02,x,x,x,x,x,,x,x,x,,x,x,x,x,,,\r\n';
-    let staff: StaffPerson[] = group.getStaff(csv);
+    const csv = 'name,wcaId,run,222,333,444,555,666,777,333bf,333oh,clock,minx,pyram,skewb,sq1,444bf,555bf,333mbf\r\nAdrien Schumacker,2016SCHU02,x,x,x,x,x,,x,x,x,,x,x,x,x,,,\r\n';
+    const staff: StaffPerson[] = group.getStaff(csv);
 
     assert.equal(staff[0].name, 'Adrien Schumacker');
     assert.equal(staff[0].wcaId, '2016SCHU02');
