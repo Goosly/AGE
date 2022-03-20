@@ -1,6 +1,6 @@
 import {GroupService} from './group';
 import {Helpers} from './helpers';
-import {StaffPerson, Wcif} from './classes';
+import {Assignment, StaffPerson, Wcif} from './classes';
 import {AnnuntiaWcif} from '../test/annuntia';
 import {BelgianOpenWcif} from '../test/belgian-open';
 import {ExportService} from './export';
@@ -331,6 +331,7 @@ describe('test', function() {
     group.configuration.autoPickScramblersAndRunners = true;
 
     group.generateGrouping('333');
+
     Helpers.countCJRSForEvent(group.wcif, '333', 3);
     assert.equal(Helpers.getEvent('333', group.wcif).numberOfRegistrations, 90);
     assert.equal(Helpers.getEvent('333', group.wcif).groupCounters.length, 3);
@@ -351,8 +352,23 @@ describe('test', function() {
       e.configuration.stages = 2;
       e.configuration.timers = group.configuration.totalNumberOfTimers / 2;
     });
+  });
+
+  it('test generate advanced grouping wcif of Annuntia with fixed seating', function() {
+    const group: GroupService = new GroupService();
+    group.wcif = AnnuntiaWcif.wcif;
+    group.processWcif();
+
+    group.configuration.groupStrategy = 'advanced';
+    group.configuration.autoPickScramblersAndRunners = true;
+    group.configuration.fixedSeating = true;
+    group.wcif.events.forEach(e => {
+      e.configuration.stages = 2;
+      e.configuration.timers = group.configuration.totalNumberOfTimers / 2;
+    });
 
     group.generateGrouping('333');
+
     Helpers.countCJRSForEvent(group.wcif, '333', 6);
     assert.equal(Helpers.getEvent('333', group.wcif).groupCounters.length, 6);
     assert.equal(Helpers.getEvent('333', group.wcif).groupCounters[0], '15|15|2|2');
@@ -369,6 +385,57 @@ describe('test', function() {
         assert.equal(p['333'].group, '');
       }
     });
+  });
+
+  it('test generate advanced grouping wcif of Annuntia: new competitors compete first, then judge', function() {
+    const group: GroupService = new GroupService();
+    group.wcif = AnnuntiaWcif.wcif;
+    group.processWcif();
+
+    group.configuration.groupStrategy = 'advanced';
+    group.configuration.autoPickScramblersAndRunners = true;
+    group.wcif.events.forEach(e => {
+      e.configuration.stages = 2;
+      e.configuration.timers = group.configuration.totalNumberOfTimers / 2;
+    });
+
+    group.wcif.events.forEach(e => group.generateGrouping(e.id));
+
+    group.wcif.persons.forEach(p => {
+      if (!p.wcaId) {
+        const event = Helpers.findFirstEventOfPerson(group.wcif, p);
+        assert.equal(Helpers.competesBeforeJudging(p, event.id), true);
+      }
+    });
+  });
+
+  it('test Assignment', function() {
+    const assignment: Assignment = new Assignment();
+    assignment.compete = 2;
+    assignment.judge = [4, 5];
+    assignment.scramble = [1];
+    assignment.run = [3];
+
+    assert.equal(assignment.competing(), true);
+    assert.equal(assignment.toString(), '2;S1;R3;J4;J5');
+
+    assignment.compete = null;
+    assert.equal(assignment.competing(), false);
+    assert.equal(assignment.toString(), 'S1;R3;J4;J5');
+  });
+
+  it('test findFirstEventOfPerson', function() {
+    const group: GroupService = new GroupService();
+    group.wcif = AnnuntiaWcif.wcif;
+    group.processWcif();
+    Helpers.sortCompetitorsByName(group.wcif);
+
+    assert.equal(Helpers.findFirstEventOfPerson(group.wcif, group.wcif.persons[0]).id, '333');
+    assert.equal(Helpers.findFirstEventOfPerson(group.wcif, group.wcif.persons[1]).id, '333oh');
+    assert.equal(Helpers.findFirstEventOfPerson(group.wcif, group.wcif.persons[2]).id, '333');
+    assert.equal(Helpers.findFirstEventOfPerson(group.wcif, group.wcif.persons[3]).id, '333oh');
+    assert.equal(Helpers.findFirstEventOfPerson(group.wcif, group.wcif.persons[4]).id, 'sq1');
+    assert.equal(Helpers.findFirstEventOfPerson(group.wcif, group.wcif.persons[5]).id, 'sq1');
   });
 
   it('test getContentForStaffExample for Annuntia', function() {
@@ -406,6 +473,33 @@ describe('test', function() {
     assert.equal(staff[0].isAllowedTo[9], 'pyram');
     assert.equal(staff[0].isAllowedTo[10], 'skewb');
     assert.equal(staff[0].isAllowedTo[11], 'sq1');
+  });
+
+  it('test competesBeforeJudging', function() {
+    const wcif: Wcif = {
+      persons: [
+        {name: 'Foo', sq1: {group: '1;J2'}},
+        {name: 'Foo2', sq1: {group: '2;R1;J3'}},
+        {name: 'Foo3', sq1: {group: '4;S1;S2;S3;J5'}},
+        {name: 'Bar', sq1: {group: '5;J1;S2;R6'}},
+        {name: 'Bar2', sq1: {group: '3;J2'}}
+      ]
+    };
+
+    assert.equal(Helpers.competesBeforeJudging(wcif.persons[0], 'sq1'), true);
+    assert.equal(Helpers.competesBeforeJudging(wcif.persons[1], 'sq1'), true);
+    assert.equal(Helpers.competesBeforeJudging(wcif.persons[2], 'sq1'), true);
+    assert.equal(Helpers.competesBeforeJudging(wcif.persons[3], 'sq1'), false);
+    assert.equal(Helpers.competesBeforeJudging(wcif.persons[4], 'sq1'), false);
+  });
+
+  it('test similarTasksAs', function() {
+    assert.equal(Assignment.fromString('1;J2').similarTasksAs('1;J2'), true);
+    assert.equal(Assignment.fromString('1;J2').similarTasksAs('2;J1'), true);
+    assert.equal(Assignment.fromString('1;R2').similarTasksAs('2;R1'), true);
+
+    assert.equal(Assignment.fromString('1;J2').similarTasksAs('2;R1'), false);
+    assert.equal(Assignment.fromString('1;S2').similarTasksAs('2;R1'), false);
   });
 
 });

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {EventConfiguration, GeneralConfiguration, StaffPerson, Wcif} from './classes';
+import {Assignment, EventConfiguration, GeneralConfiguration, StaffPerson, Wcif} from './classes';
 import {Helpers} from './helpers';
 import {Activity, AssignmentCode, EventId, Person} from '@wca/helpers';
 import {ActivityHelper} from './activity';
@@ -184,6 +184,8 @@ export class GroupService {
     if (this.configuration.fixedSeating) {
       this.fillAllUsedTimersWithJudges(eventId);
     }
+    this.swapNewCompetitorsAssignmentsSoTheyAlwaysCompeteFirstBeforeJudging();
+
     Helpers.countCJRSForEvent(this.wcif, eventId);
     Helpers.sortCompetitorsByName(this.wcif);
   }
@@ -575,6 +577,22 @@ export class GroupService {
       return this.document.getElementById('staff')['files'][0];
     }
     return null;
+  }
+
+  private swapNewCompetitorsAssignmentsSoTheyAlwaysCompeteFirstBeforeJudging() {
+    this.wcif.persons.forEach(p => {
+      if (!p.wcaId) {
+        const event = Helpers.findFirstEventOfPerson(this.wcif, p);
+        if (event !== null && !Helpers.competesBeforeJudging(p, event.id)) {
+          const potentialSwaps = this.wcif.persons.filter(potentialSwap => !!potentialSwap.wcaId
+            && Helpers.competesBeforeJudging(potentialSwap, event.id)
+            && Assignment.fromString(p[event.id].group).similarTasksAs(potentialSwap[event.id].group));
+          if (potentialSwaps.length > 0) {
+            this.swapAssignments(p, potentialSwaps[0], event);
+          }
+        }
+      }
+    });
   }
 
 }
