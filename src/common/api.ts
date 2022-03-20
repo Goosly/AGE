@@ -15,7 +15,7 @@ export class ApiService {
 
   public oauthToken;
   private headerParams: HttpHeaders;
-  private logglyService:LogglyService;
+  private logglyService: LogglyService;
 
   constructor(private httpClient: HttpClient) {
     this.getToken();
@@ -42,7 +42,7 @@ export class ApiService {
       return;
     }
 
-    const hash = window.location.hash.slice(1, window.location.hash.length -1);
+    const hash = window.location.hash.slice(1, window.location.hash.length - 1);
     const hashParams = new URLSearchParams(hash);
     if (hashParams.has('access_token')) {
       this.oauthToken = hashParams.get('access_token');
@@ -54,13 +54,13 @@ export class ApiService {
   }
 
   getUser(): Observable<any> {
-    let url: string = `${environment.wcaUrl}/api/v0/me`;
+    const url = `${environment.wcaUrl}/api/v0/me`;
     return this.httpClient.get(url, {headers: this.headerParams});
   }
 
   getCompetitions(): Observable<any> {
-    let url: string = `${environment.wcaUrl}/api/v0/competitions?managed_by_me=true`;
-    if (! environment.testMode) {
+    let url = `${environment.wcaUrl}/api/v0/competitions?managed_by_me=true`;
+    if (!environment.testMode) {
       const startDate = new Date();
       startDate.setDate(startDate.getDate() - this.FOUR_WEEKS);
       url += `&start=${startDate.toISOString()}`;
@@ -133,14 +133,14 @@ export class ApiService {
   }
 
   private logMessage(message: string) {
-    if (! environment.testMode) {
+    if (!environment.testMode) {
       setTimeout(() => {
         try {
           this.logglyService.push(message);
         } catch (e) {
           console.error(e);
         }
-      },0);
+      }, 0);
     }
   }
 }

@@ -23,37 +23,37 @@ export class ExportService {
   constructor() {}
 
   csvGroupAndTaskAssignments(wcif: Wcif) {
-    let csv:string = 'Name,' + wcif.events.map(event => event.id).join(',') + '\r\n';
+    let csv: string = 'Name,' + wcif.events.map(event => event.id).join(',') + '\r\n';
     wcif.persons.forEach(p => {
       csv += (p.name + ',');
       csv += wcif.events.map(event => p[event.id].group).join(',');
       csv += '\r\n';
     });
 
-    let filename = 'groupAndTaskAssignments-' + wcif.id + '.csv';
+    const filename = 'groupAndTaskAssignments-' + wcif.id + '.csv';
     this.downloadFile(csv, filename);
   }
 
   csvGroups(wcif: Wcif) {
-    let csv:string = 'Name,' + wcif.events.map(event => event.id).join(',') + ',\r\n';
+    let csv: string = 'Name,' + wcif.events.map(event => event.id).join(',') + ',\r\n';
     wcif.persons.forEach(p => {
       csv += (p.name + ',');
       csv += wcif.events.map(event => p[event.id].group.split(';')[0]).join(',');
       csv += ',\r\n';
     });
 
-    let filename = 'groups-' + wcif.id + '.csv';
+    const filename = 'groups-' + wcif.id + '.csv';
     this.downloadFile(csv, filename);
   }
 
   csvEvents(wcif: Wcif) {
-    let csv: string = 'event,label,format,limit,cumulative,cutoff,\r\n';
+    let csv = 'event,label,format,limit,cumulative,cutoff,\r\n';
     wcif.events.forEach(e => {
-      let label = getEventName(e.id);
-      let format = this.formats.filter(f => f.id === e.round1.format)[0].label;
-      let limit: string = ! e.round1.timeLimit ? '' : ExportService.centisToMinutesAndSeconds(e.round1.timeLimit.centiseconds);
-      let cumulative: boolean = !! e.round1.timeLimit && e.round1.timeLimit.cumulativeRoundIds.length;
-      let cutoff: string = ! e.round1.cutoff ? '' : ExportService.centisToMinutesAndSeconds(e.round1.cutoff.attemptResult);
+      const label = getEventName(e.id);
+      const format = this.formats.filter(f => f.id === e.round1.format)[0].label;
+      const limit: string = ! e.round1.timeLimit ? '' : ExportService.centisToMinutesAndSeconds(e.round1.timeLimit.centiseconds);
+      const cumulative: boolean = !! e.round1.timeLimit && e.round1.timeLimit.cumulativeRoundIds.length;
+      const cutoff: string = ! e.round1.cutoff ? '' : ExportService.centisToMinutesAndSeconds(e.round1.cutoff.attemptResult);
 
       csv += (e.id + ',');
       csv += (label + ',');
@@ -64,7 +64,7 @@ export class ExportService {
       csv += '\r\n';
     });
 
-    let filename = 'events-' + wcif.id + '.csv';
+    const filename = 'events-' + wcif.id + '.csv';
     this.downloadFile(csv, filename);
   }
 
@@ -72,13 +72,13 @@ export class ExportService {
     if (! centiseconds) {
       return '';
     }
-    var minutes = Math.floor(centiseconds / 6000);
-    var seconds = Math.floor((centiseconds % 6000) / 100);
-    return minutes + ":" + (seconds < 10 ? '0' : '') + seconds + (centiseconds % 100 === 0 ? '' : ('.' + centiseconds % 100));
+    const minutes = Math.floor(centiseconds / 6000);
+    const seconds = Math.floor((centiseconds % 6000) / 100);
+    return minutes + ':' + (seconds < 10 ? '0' : '') + seconds + (centiseconds % 100 === 0 ? '' : ('.' + centiseconds % 100));
   }
 
   pdfGroupOverview(wcif: Wcif) {
-    let document = {
+    const document = {
       content: [
       ],
       styles: {
@@ -99,20 +99,20 @@ export class ExportService {
     };
 
     wcif.events.forEach(event => {
-      let configuration: EventConfiguration = event.configuration;
+      const configuration: EventConfiguration = event.configuration;
       if (configuration.skip) {
         return;
       }
-      let groups: number = configuration.scrambleGroups * configuration.stages;
+      const groups: number = configuration.scrambleGroups * configuration.stages;
       for (let i = 1; i <= groups; i++) {
         // For every group, collect all competitors, judges, scramblers and runners
-        let competitors = wcif.persons.filter(p => p[event.id].group.split(';')[0] === ('' + i));
-        let judges = wcif.persons.filter(p => p[event.id].group.split(';').includes('J' + i));
-        let scramblers = wcif.persons.filter(p => p[event.id].group.split(';').includes('S' + i));
-        let runners = wcif.persons.filter(p => p[event.id].group.split(';').includes('R' + i));
+        const competitors = wcif.persons.filter(p => p[event.id].group.split(';')[0] === ('' + i));
+        const judges = wcif.persons.filter(p => p[event.id].group.split(';').includes('J' + i));
+        const scramblers = wcif.persons.filter(p => p[event.id].group.split(';').includes('S' + i));
+        const runners = wcif.persons.filter(p => p[event.id].group.split(';').includes('R' + i));
 
         // Write information to pdf
-        let headerLine: string = ' - group ' + i +  ' has ' + competitors.length + ' competitors, ' + judges.length + ' judges, '
+        const headerLine: string = ' - group ' + i +  ' has ' + competitors.length + ' competitors, ' + judges.length + ' judges, '
             + scramblers.length + ' scramblers and ' + runners.length + ' runners\n';
         document.content.push(
           {
@@ -135,12 +135,12 @@ export class ExportService {
       document.content.push('\n\n');
     });
 
-    let filename = 'namesPerGroupOverview-' + wcif.id + '.pdf';
+    const filename = 'namesPerGroupOverview-' + wcif.id + '.pdf';
     pdfMake.createPdf(document).download(filename);
   }
 
   pdfTableGroupAndTaskAssignments(wcif: Wcif) {
-    let document = {
+    const document = {
       pageOrientation: 'landscape',
       content: [
         {
@@ -181,19 +181,19 @@ export class ExportService {
       document.content[0].table.body[0].push(event.id);
     });
     wcif.persons.forEach(p => {
-      let array = [p.name];
+      const array = [p.name];
       wcif.events.forEach(event => {
         array.push(p[event.id].group);
       });
       document.content[0].table.body.push(array);
     });
 
-    let filename = 'tableOverview-' + wcif.id + '.pdf';
+    const filename = 'tableOverview-' + wcif.id + '.pdf';
     pdfMake.createPdf(document).download(filename);
   }
 
   pdfPersonalSchedules(wcif: Wcif, bordersOnNametags: boolean) {
-    var document = {
+    const document = {
       content: [
       ],
       styles: {
@@ -234,7 +234,7 @@ export class ExportService {
     };
 
     wcif.persons.forEach(p => {
-      let nametag = this.getOneNametagToFill(bordersOnNametags);
+      const nametag = this.getOneNametagToFill(bordersOnNametags);
 
       // Set name, wcaId and country on nametag
       nametag.table.body[0][1].table.body[0][0].text = p.name;
@@ -243,8 +243,8 @@ export class ExportService {
       nametag.table.body[0][1].table.body[3][0].text = this.getCountryName(p.countryIso2);
 
       // Add all events + group
-      let i: number = 0;
-      let j: number = 0;
+      let i = 0;
+      let j = 0;
       wcif.events.forEach(event => {
         if (p[event.id].group !== '') {
           nametag.table.body[0][0].table.body[0][i].table.body[j][0].text = this.formatStartTimeOf(event, wcif.schedule.venues[0].timezone);
@@ -272,7 +272,7 @@ export class ExportService {
 
     document.content[0].style = 'firstNametag';
 
-    let filename = 'personalSchedules-' + wcif.id + '.pdf';
+    const filename = 'personalSchedules-' + wcif.id + '.pdf';
     pdfMake.createPdf(document).download(filename);
   }
 
@@ -339,7 +339,7 @@ export class ExportService {
                   ]
                 ]
               },
-              //layout: 'noBorders' // To disable borders around personal schedule
+              // layout: 'noBorders' // To disable borders around personal schedule
             }
             ,
             {
@@ -384,7 +384,7 @@ export class ExportService {
   }
 
   private getDataUrlOf(eventId: string): string {
-    switch(eventId) {
+    switch (eventId) {
       case '222' :
         return 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADoAAAA5CAIAAADoTa/RAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACYSURBVGhD7di9DYAgEEBhdAamYP+eLZiCBegkEaO14RWXvK/xJ5G84hrvGGOkOM51DSJY7jsMvffW2n3/Qykl57weHvvPnLm3Wut69cv8fB30sf1MZ5dkLslckrkkc0nmkswlmUsylxQsN9ivpWsRkrkkc0nuyD7ckYViLslckrkkc0nmkswlmUsylxQs1x0ZydklhcpN6QK9V6hxrd/f5AAAAABJRU5ErkJggg==';
       case '333' :
@@ -428,7 +428,7 @@ export class ExportService {
   }
 
   csvForCubeComps(wcif: Wcif) { // Not used anymore
-    let csv:string = 'Status,Name,Country,WCA ID,Birth Date,Gender,' + wcif.events.map(event => event.id).join(',') + ',Email,Guests,IP' + '\r\n';
+    let csv: string = 'Status,Name,Country,WCA ID,Birth Date,Gender,' + wcif.events.map(event => event.id).join(',') + ',Email,Guests,IP' + '\r\n';
     wcif.persons.forEach(p => {
       csv += ('a,');
       csv += (p.fullName + ',');
@@ -443,19 +443,19 @@ export class ExportService {
       csv += '\r\n';
     });
 
-    let filename = 'cubeComps-' + wcif.id + '.csv';
+    const filename = 'cubeComps-' + wcif.id + '.csv';
     this.downloadFile(csv, filename);
   }
 
   staffExample(wcif: Wcif) {
-    let content = this.getContentForStaffExample(wcif);
-    let filename = 'staffExample.csv';
+    const content = this.getContentForStaffExample(wcif);
+    const filename = 'staffExample.csv';
     this.downloadFile(content, filename);
   }
 
   getContentForStaffExample(wcif: Wcif) {
-    let content: string = 'name,wcaId,run,222,333,444,555,666,777,333bf,333oh,clock,minx,pyram,skewb,sq1,444bf,555bf,333mbf\r\n';
-    let staff = Helpers.generateStaffBasedOnPersonalBests(wcif);
+    let content = 'name,wcaId,run,222,333,444,555,666,777,333bf,333oh,clock,minx,pyram,skewb,sq1,444bf,555bf,333mbf\r\n';
+    const staff = Helpers.generateStaffBasedOnPersonalBests(wcif);
     staff.forEach(s => {
       content += s.name + ',';
       content += s.wcaId + ',';
@@ -476,7 +476,7 @@ export class ExportService {
     csv = this.addRandomGroupsForPerson(wcif.persons[1], csv, wcif);
     csv = this.addRandomGroupsForPerson(wcif.persons[2], csv, wcif);
 
-    let filename = 'exampleImport-' + wcif.id + '.csv';
+    const filename = 'exampleImport-' + wcif.id + '.csv';
     this.downloadFile(csv, filename);
   }
 
@@ -495,8 +495,8 @@ export class ExportService {
     }
   }
 
-  private downloadFile(data: string, filename: string){
-    let blob = new Blob([data]);
+  private downloadFile(data: string, filename: string) {
+    const blob = new Blob([data]);
     saveAs(blob, filename);
   }
 

@@ -12,17 +12,17 @@ export class ScoreCardService {
   private readonly SCORE_CARD_RESULT_WIDTH = 145;
 
   public printScoreCardsForAllFirstRoundsExceptFMC(wcif: Wcif) {
-    let scorecards: ScoreCardInfo[] = [];
+    const scorecards: ScoreCardInfo[] = [];
     wcif.events.filter(e => e.id !== '333fm').forEach(event => {
       Helpers.sortCompetitorsByGroupInEvent(wcif, event.id);
       event.countGroupsForScorecard = Helpers.countGroupsForEvent(wcif, event);
-      let scorecardsForEvent: ScoreCardInfo[] = [];
-      let competitorsOfEvent: Person[] = wcif.persons.filter(p => !! p[event.id].group && RegExp('^[0-9]+').test(p[event.id].group));
+      const scorecardsForEvent: ScoreCardInfo[] = [];
+      const competitorsOfEvent: Person[] = wcif.persons.filter(p => !! p[event.id].group && RegExp('^[0-9]+').test(p[event.id].group));
       competitorsOfEvent.forEach(c => {
-        let scorecard: ScoreCardInfo = this.getScoreCardForFirstRoundOfEvent(wcif, event);
+        const scorecard: ScoreCardInfo = this.getScoreCardForFirstRoundOfEvent(wcif, event);
         scorecard.competitorName = c.name;
         scorecard.competitorId = c.registrantId;
-        scorecard.group = c[event.id].group.split(";")[0];
+        scorecard.group = c[event.id].group.split(';')[0];
         scorecardsForEvent.push(scorecard);
       });
       this.addScorecardNumberAndStationNumbers(scorecardsForEvent);
@@ -50,7 +50,7 @@ export class ScoreCardService {
   }
 
   public printFourEmptyScorecards(wcif: Wcif) {
-    let scorecards: ScoreCardInfo[] = [
+    const scorecards: ScoreCardInfo[] = [
       this.getEmptyScoreCard(wcif),
       this.getEmptyScoreCard(wcif),
       this.getEmptyScoreCard(wcif),
@@ -80,7 +80,7 @@ export class ScoreCardService {
       cutoff: this.getCutoffOf(event.rounds[0]),
       scorecardNumber: null,
       timerStationId: null
-    }
+    };
   }
 
   private getTimeLimitOf(round: Round): string {
@@ -95,7 +95,7 @@ export class ScoreCardService {
     if (round === null || round.timeLimit === null || round.timeLimit.cumulativeRoundIds === null) {
       return false;
     } else {
-      return round.timeLimit.cumulativeRoundIds.length > 0
+      return round.timeLimit.cumulativeRoundIds.length > 0;
     }
   }
 
@@ -124,11 +124,11 @@ export class ScoreCardService {
       cutoff: null,
       scorecardNumber: null,
       timerStationId: null
-    }
+    };
   }
 
   private document(scorecards): any {
-    let document = {
+    const document = {
       content: [
 
       ],
@@ -139,7 +139,7 @@ export class ScoreCardService {
       }
     };
     for (let i = 0; i < scorecards.length; i += 4) {
-      let onePage = [
+      const onePage = [
         [
           {stack: this.getScoreCardTemplate(scorecards[i]), border: [false, false, false, false]},
           {text: '', border: [false, false, false, false]},
@@ -159,7 +159,7 @@ export class ScoreCardService {
           {stack: this.getScoreCardTemplate(scorecards[i + 3]), border: [false, false, false, false]}
         ]
       ];
-      let page = {
+      const page = {
         table: {
           heights: [384, 22, 364],
           widths: [260, 2, 8, 260],
@@ -173,7 +173,7 @@ export class ScoreCardService {
             return '#d3d3d3';
           }
         },
-        margin: [-20,-10],
+        margin: [-20, -10],
         pageBreak: 'after'
       };
       document.content.push(page);
@@ -211,34 +211,34 @@ export class ScoreCardService {
           body: [[
             {text: (info.competitorId === null ? ' ' : info.competitorId), fontSize: 16, alignment: 'center'},
             {text: info.competitorName, fontSize: 16, alignment: 'center'}]]
-        },margin: [0, 5]},
+        }, margin: [0, 5]},
       {text: info.cumulative ? 'Also write down the time for a DNF!' : '', bold: true, alignment: 'center'},
       {table : {
           widths: [5, 16, this.SCORE_CARD_RESULT_WIDTH, 20, 20],
           body: [[
-            {text:''},
-            {text:'S', alignment: 'center'},
+            {text: ''},
+            {text: 'S', alignment: 'center'},
             {text:
                 info.cumulative ? 'Result\n(Cumulative limit: ' + info.timeLimit + ')' :
                   (info.timeLimit !== null ? 'Result (DNF if ≥ ' + info.timeLimit + ')' : ''),
               alignment: 'center', fontSize: info.cumulative ? 10 : 12 },
-            {text:'J', alignment: 'center'},
-            {text:'C', alignment: 'center'}],
-            [{text:'1', margin: [0, 7]}, '', '', '', '']]
-        },margin: [0, 2]},
-      {text: info.cutoff !== null ? '-------------- Continue if 1 < ' + info.cutoff +' --------------' : '', alignment: 'center', fontSize: 10},
+            {text: 'J', alignment: 'center'},
+            {text: 'C', alignment: 'center'}],
+            [{text: '1', margin: [0, 7]}, '', '', '', '']]
+        }, margin: [0, 2]},
+      {text: info.cutoff !== null ? '-------------- Continue if 1 < ' + info.cutoff + ' --------------' : '', alignment: 'center', fontSize: 10},
       {table : {
           widths: [5, 16, this.SCORE_CARD_RESULT_WIDTH, 20, 20],
           body: [
-            [{text:'2', margin: [0, 7]}, '', '', '', ''],
-            [{text:'3', margin: [0, 7]}, '', '', '', '']]
-        },margin: [0, 2]},
+            [{text: '2', margin: [0, 7]}, '', '', '', ''],
+            [{text: '3', margin: [0, 7]}, '', '', '', '']]
+        }, margin: [0, 2]},
       {text: '-------------- Extra or provisional --------------', alignment: 'center', fontSize: 10},
       {table : {
           widths: [5, 16, this.SCORE_CARD_RESULT_WIDTH, 20, 20],
-          body: [[{text:'E', margin: [0, 5]}, '', '', '', '']]
-        },margin: [0, 2]}
-    ]
+          body: [[{text: 'E', margin: [0, 5]}, '', '', '', '']]
+        }, margin: [0, 2]}
+    ];
   }
 
   private oneAvg5ScoreCard(info: ScoreCardInfo): any[]  {
@@ -261,36 +261,36 @@ export class ScoreCardService {
           body: [[
             {text: (info.competitorId === null ? ' ' : info.competitorId), fontSize: 16, alignment: 'center'},
             {text: info.competitorName, fontSize: 16, alignment: 'center'}]]
-        },margin: [0, 5]},
+        }, margin: [0, 5]},
       {text: info.cumulative ? 'Also write down the time for a DNF!' : '', bold: true, alignment: 'center'},
       {table : {
           widths: [5, 16, (this.SCORE_CARD_RESULT_WIDTH), 20, 20],
           body: [[
-            {text:''},
-            {text:'S', alignment: 'center'},
+            {text: ''},
+            {text: 'S', alignment: 'center'},
             {text:
                 info.cumulative ? 'Result\n(Cumulative limit: ' + info.timeLimit + ')' :
                   (info.timeLimit !== null ? 'Result (DNF if ≥ ' + info.timeLimit + ')' : ''),
               alignment: 'center', fontSize: info.cumulative ? 10 : 12 },
-            {text:'J', alignment: 'center'},
-            {text:'C', alignment: 'center'}],
-            [{text:'1', margin: [0, 7]}, '', '', '', ''],
-            [{text:'2', margin: [0, 7]}, '', '', '', '']]
-        },margin: [0, 2]},
-      {text: info.cutoff !== null ? '-------------- Continue if 1 or 2 < ' + info.cutoff +' --------------' : '', alignment: 'center', fontSize: 10},
+            {text: 'J', alignment: 'center'},
+            {text: 'C', alignment: 'center'}],
+            [{text: '1', margin: [0, 7]}, '', '', '', ''],
+            [{text: '2', margin: [0, 7]}, '', '', '', '']]
+        }, margin: [0, 2]},
+      {text: info.cutoff !== null ? '-------------- Continue if 1 or 2 < ' + info.cutoff + ' --------------' : '', alignment: 'center', fontSize: 10},
       {table : {
           widths: [5, 16, this.SCORE_CARD_RESULT_WIDTH, 20, 20],
           body: [
-            [{text:'3', margin: [0, 7]}, '', '', '', ''],
-            [{text:'4', margin: [0, 7]}, '', '', '', ''],
-            [{text:'5', margin: [0, 7]}, '', '', '', '']]
-        },margin: [0, 2]},
+            [{text: '3', margin: [0, 7]}, '', '', '', ''],
+            [{text: '4', margin: [0, 7]}, '', '', '', ''],
+            [{text: '5', margin: [0, 7]}, '', '', '', '']]
+        }, margin: [0, 2]},
       {text: '-------------- Extra or provisional --------------', alignment: 'center', fontSize: 10},
       {table : {
           widths: [5, 16, this.SCORE_CARD_RESULT_WIDTH, 20, 20],
-          body: [[{text:'E', margin: [0, 5]}, '', '', '', '']]
-        },margin: [0, 2]}
-    ]
+          body: [[{text: 'E', margin: [0, 5]}, '', '', '', '']]
+        }, margin: [0, 2]}
+    ];
   }
 
   private oneMbldScoreCard(info: ScoreCardInfo): any[]  {
@@ -313,24 +313,24 @@ export class ScoreCardService {
           body: [[
             {text: (info.competitorId === null ? ' ' : info.competitorId), fontSize: 16, alignment: 'center'},
             {text: info.competitorName, fontSize: 16, alignment: 'center'}]]
-        },margin: [0, 5]},
+        }, margin: [0, 5]},
       {text: 'Count and write down the number of cubes before the attempt starts', bold: true, alignment: 'center'},
       {table : {
           widths: [5, 16, this.SCORE_CARD_RESULT_WIDTH, 20, 20],
           body: [[
-            {text:''},
-            {text:'S', alignment: 'center'},
+            {text: ''},
+            {text: 'S', alignment: 'center'},
             {text: 'Result', alignment: 'center'},
-            {text:'J', alignment: 'center'},
-            {text:'C', alignment: 'center'}],
-            [{text:'1', margin: [0, 7]}, '',
-              {text:'_______ / _______\n\nTime:', margin: [0, 7]}, '', ''],
-            [{text:'2', margin: [0, 7]}, '',
-              {text:'_______ / _______\n\nTime:', margin: [0, 7]}, '', ''],
-            [{text:'3', margin: [0, 7]}, '',
-              {text:'_______ / _______\n\nTime:', margin: [0, 7]}, '', '']]
-        },margin: [0, 2]}
-    ]
+            {text: 'J', alignment: 'center'},
+            {text: 'C', alignment: 'center'}],
+            [{text: '1', margin: [0, 7]}, '',
+              {text: '_______ / _______\n\nTime:', margin: [0, 7]}, '', ''],
+            [{text: '2', margin: [0, 7]}, '',
+              {text: '_______ / _______\n\nTime:', margin: [0, 7]}, '', ''],
+            [{text: '3', margin: [0, 7]}, '',
+              {text: '_______ / _______\n\nTime:', margin: [0, 7]}, '', '']]
+        }, margin: [0, 2]}
+    ];
   }
 }
 

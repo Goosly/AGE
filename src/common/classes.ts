@@ -28,15 +28,15 @@ export class EventConfiguration {
 
 export class GeneralConfiguration {
   groupStrategy: 'basic' | 'basicBySpeed' | 'basicBySpeedReverse' | 'advanced' | 'assignmentsFromWcif' | 'fromCsv' = 'basic';
-  totalNumberOfTimers: number = 16;
-  skipDelegatesAndOrganizers: boolean = true;
-  doNotAssignJudges: boolean = false;
-  doNotAssignTasksToNewCompetitors: boolean = false;
-  useMultipleStages: boolean = false;
-  fixedSeating: boolean = false;
-  autoPickScramblersAndRunners: boolean = false;
-  bordersOnNametags: boolean = true;
-  printStationNumbersOnScoreCards: boolean = false;
+  totalNumberOfTimers = 16;
+  skipDelegatesAndOrganizers = true;
+  doNotAssignJudges = false;
+  doNotAssignTasksToNewCompetitors = false;
+  useMultipleStages = false;
+  fixedSeating = false;
+  autoPickScramblersAndRunners = false;
+  bordersOnNametags = true;
+  printStationNumbersOnScoreCards = false;
 }
 
 export interface Schedule {

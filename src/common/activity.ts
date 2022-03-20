@@ -11,8 +11,8 @@ export class ActivityHelper {
     wcif.schedule.venues.forEach(v => {
       v.rooms.forEach(r => r.activities.forEach(a => {
         if (! a.activityCode.startsWith('other')) {
-          let activityCode = parseActivityCode(a.activityCode);
-          let event = Helpers.getEvent(activityCode.eventId, wcif);
+          const activityCode = parseActivityCode(a.activityCode);
+          const event = Helpers.getEvent(activityCode.eventId, wcif);
           this.createChildActivitiesFor(a, event);
           currentId = this.assignIdsToChildActivities(a.childActivities, currentId);
         }
@@ -23,15 +23,15 @@ export class ActivityHelper {
   private static createChildActivitiesFor(a: Activity, event): void {
     a.childActivities = [];
 
-    let numberOfGroups = event.configuration.scrambleGroups;
-    let timesOfGroups = this.splitInGroups(a.startTime, a.endTime, numberOfGroups);
+    const numberOfGroups = event.configuration.scrambleGroups;
+    const timesOfGroups = this.splitInGroups(a.startTime, a.endTime, numberOfGroups);
 
-    let childActivities = [];
+    const childActivities = [];
     for (let groupIndex = 0; groupIndex < numberOfGroups; groupIndex++) {
       for (let stageIndex = 0; stageIndex < event.configuration.stages; stageIndex++) {
-        let code = this.addGroupToCodeOfActivity(a, groupIndex, stageIndex, numberOfGroups);
+        const code = this.addGroupToCodeOfActivity(a, groupIndex, stageIndex, numberOfGroups);
 
-        let childActivity = {
+        const childActivity = {
           id: null,
           name: activityCodeToName(code),
           activityCode: code,
@@ -46,7 +46,7 @@ export class ActivityHelper {
   }
 
   private static addGroupToCodeOfActivity(a: Activity, groupIndex: number, stageIndex: number, numberOfGroups) {
-    let activityCode = parseActivityCode(a.activityCode);
+    const activityCode = parseActivityCode(a.activityCode);
     activityCode.groupNumber = 1 + (groupIndex + stageIndex * numberOfGroups);
     return this.formatActivityCode(activityCode);
   }
@@ -60,7 +60,7 @@ export class ActivityHelper {
   }
 
   public static getAllActivitiesFromWcif(wcif): Activity[] {
-    let allActivities: Activity[] = [];
+    const allActivities: Activity[] = [];
     wcif.schedule.venues.forEach(v => {
       v.rooms.forEach(r => r.activities.forEach(a => {
         allActivities.push(a);
@@ -71,18 +71,18 @@ export class ActivityHelper {
   }
 
   private static getHighestActivityId(wcif) {
-    let activities = this.getAllActivitiesFromWcif(wcif);
+    const activities = this.getAllActivitiesFromWcif(wcif);
     return Math.max(...activities.map(a => a.id));
   }
 
   private static splitInGroups(startTime: string, endTime: string, numberOfGroups: number): string[] {
-    let startMoment = moment(startTime);
-    let endMoment = moment(endTime);
-    let durationOfOneGroupAsMilliseconds = moment.duration(endMoment.diff(startMoment)).asMilliseconds() / numberOfGroups;
+    const startMoment = moment(startTime);
+    const endMoment = moment(endTime);
+    const durationOfOneGroupAsMilliseconds = moment.duration(endMoment.diff(startMoment)).asMilliseconds() / numberOfGroups;
 
-    let allTimes = [startTime];
+    const allTimes = [startTime];
     for (let i = 1; i < numberOfGroups; i++) {
-      let endOfGroup = moment(startMoment).add(durationOfOneGroupAsMilliseconds * i);
+      const endOfGroup = moment(startMoment).add(durationOfOneGroupAsMilliseconds * i);
       allTimes.push(endOfGroup.tz('UTC').format());
     }
     allTimes.push(endTime);
@@ -97,16 +97,16 @@ export class ActivityHelper {
   static createAssignmentsInWcif(wcif: Wcif) {
     this.resetAssignmentsOfAllPersons(wcif);
 
-    let groupActivities = this.getAllGroupActivitiesForRoundsOne(wcif);
+    const groupActivities = this.getAllGroupActivitiesForRoundsOne(wcif);
     groupActivities.forEach(activity => {
-      let activityCode = parseActivityCode(activity.activityCode);
-      let competitors = wcif.persons.filter(p => p[activityCode.eventId].group.split(';')[0] === ('' + activityCode.groupNumber));
+      const activityCode = parseActivityCode(activity.activityCode);
+      const competitors = wcif.persons.filter(p => p[activityCode.eventId].group.split(';')[0] === ('' + activityCode.groupNumber));
       competitors.forEach(competitor => this.createAssignmentFor(competitor, activity, 'competitor'));
-      let judges = wcif.persons.filter(p => p[activityCode.eventId].group.split(';').includes('J' + activityCode.groupNumber));
+      const judges = wcif.persons.filter(p => p[activityCode.eventId].group.split(';').includes('J' + activityCode.groupNumber));
       judges.forEach(judge => this.createAssignmentFor(judge, activity, 'staff-judge'));
-      let scramblers = wcif.persons.filter(p => p[activityCode.eventId].group.split(';').includes('S' + activityCode.groupNumber));
+      const scramblers = wcif.persons.filter(p => p[activityCode.eventId].group.split(';').includes('S' + activityCode.groupNumber));
       scramblers.forEach(scrambler => this.createAssignmentFor(scrambler, activity, 'staff-scrambler'));
-      let runners = wcif.persons.filter(p => p[activityCode.eventId].group.split(';').includes('R' + activityCode.groupNumber));
+      const runners = wcif.persons.filter(p => p[activityCode.eventId].group.split(';').includes('R' + activityCode.groupNumber));
       runners.forEach(runner => this.createAssignmentFor(runner, activity, 'staff-runner'));
     });
   }
@@ -118,7 +118,7 @@ export class ActivityHelper {
   }
 
   private static getAllGroupActivitiesForRoundsOne(wcif: Wcif) {
-    let activitiesFromWcif = this.getAllActivitiesFromWcif(wcif);
+    const activitiesFromWcif = this.getAllActivitiesFromWcif(wcif);
     return activitiesFromWcif.filter(a => a.activityCode.includes('-r1-g'));
   }
 

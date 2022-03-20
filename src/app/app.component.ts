@@ -8,7 +8,7 @@ import { ScoreCardService } from '../common/scorecard';
 import {Helpers} from '../common/helpers';
 import {EventId} from '@wca/helpers';
 import {AnnuntiaWcif} from '../test/annuntia';
-declare var $ :any;
+declare var $: any;
 
 @Component({
   selector: 'my-app',
@@ -18,18 +18,18 @@ declare var $ :any;
 export class AppComponent  {
   // Keep track of app flow
   // TODO replace this by one state?
-  groupsGenerated: boolean = false;
-  readyForExport: boolean = false;
-  loadingWcif: boolean = false;
+  groupsGenerated = false;
+  readyForExport = false;
+  loadingWcif = false;
 
   // Competitions managed by user
   competitionsToChooseFrom: Array<String> = null;
 
   // Fields for binding
   userNameShort: string;
-  filter: string = '';
+  filter = '';
   groupCounter: Array<number> = [];
-  competitorCounterFromCsv: number = 0;
+  competitorCounterFromCsv = 0;
   wcifSaved: 'FALSE' | 'SAVING' | 'TRUE' | 'ERROR' = 'FALSE';
   wcifSaveError: any;
   Math: any;
@@ -106,7 +106,7 @@ export class AppComponent  {
   }
 
   handleNumberOfStagesSet(value: number, eventId: string) {
-    let event: EventConfiguration = Helpers.getEvent(eventId, this.groupService.wcif).configuration;
+    const event: EventConfiguration = Helpers.getEvent(eventId, this.groupService.wcif).configuration;
     event.stages = value;
     event.timers = event.totalTimers / event.stages;
   }
@@ -137,7 +137,7 @@ export class AppComponent  {
       console.error(error);
       alert(error);
     }
-  };
+  }
 
   private getGroupCounterBasedOnEvent(event) {
     return Array(Math.max(this.groupCounter.length, event.configuration.stages * event.configuration.scrambleGroups));
@@ -146,7 +146,7 @@ export class AppComponent  {
   private countCJRSForAllEvents(wcif) {
     let maxGroup = 1;
     wcif.events.forEach(e => {
-      let numberOfGroupsForEvent = Helpers.countGroupsForEvent(wcif, e);
+      const numberOfGroupsForEvent = Helpers.countGroupsForEvent(wcif, e);
       this.groupService.countCJRSForEvent(e.id, numberOfGroupsForEvent);
       if (numberOfGroupsForEvent > maxGroup) {
         maxGroup = numberOfGroupsForEvent;
@@ -227,16 +227,16 @@ export class AppComponent  {
   }
 
   isValidAssignment(group: string, eventId: EventId): boolean {
-    if (group === null || group === "") { // Empty is OK
+    if (group === null || group === '') { // Empty is OK
       return true;
     }
     if (! RegExp('^[0-9SJR;]+$').test(group)) { // Anything else than numbers, SJR and ; is not OK
       return false;
     }
 
-    let event: EventConfiguration = Helpers.getEvent(eventId, this.groupService.wcif).configuration;
-    let max: number = event.scrambleGroups * event.stages;
-    let parts = group.split(';');
+    const event: EventConfiguration = Helpers.getEvent(eventId, this.groupService.wcif).configuration;
+    const max: number = event.scrambleGroups * event.stages;
+    const parts = group.split(';');
     for (let i = 0; i < parts.length; i++) { // Loop over the assignments for this event (for example: 1;J3)
       if (! RegExp('^[SJR]?[0-9]+$').test(parts[i])) { // Every part must be (optionally S J or R followed by) a groupnumber
         return false;
@@ -323,7 +323,4 @@ export class AppComponent  {
     return environment.version;
   }
 
-  testMode() {
-    return environment.testMode;
-  }
 }
