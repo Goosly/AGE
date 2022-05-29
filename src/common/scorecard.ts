@@ -2,12 +2,16 @@ import {Injectable} from '@angular/core';
 import {formatCentiseconds, Event, getEventName, Round, Person} from '@wca/helpers';
 import {Helpers} from './helpers';
 import {Wcif} from './classes';
+import {GroupService} from './group';
 declare var pdfMake: any;
 
 @Injectable({
   providedIn: 'root'
 })
 export class ScoreCardService {
+
+  constructor (
+    public groupService: GroupService) {}
 
   private readonly SCORE_CARD_RESULT_WIDTH = 145;
 
@@ -44,7 +48,7 @@ export class ScoreCardService {
         stationCounter = 1;
         group++;
       }
-      s.timerStationId = stationCounter;
+      s.timerStationId = this.groupService.configuration.printStationNumbersOnScoreCards ? stationCounter : null;
       s.scorecardNumber = (i + 1);
     });
   }
