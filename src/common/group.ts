@@ -396,7 +396,8 @@ export class GroupService {
         return;
       }
       const code = parseActivityCode(activity[0].activityCode);
-      if (!! code.attemptNumber && code.attemptNumber !== 1) {
+      if ((!!code.attemptNumber && code.attemptNumber !== 1)
+        || code.roundNumber !== 1) {
         return;
       }
 
