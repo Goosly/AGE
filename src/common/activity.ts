@@ -20,16 +20,19 @@ export class ActivityHelper {
     });
   }
 
-  private static createChildActivitiesFor(a: Activity, event): void {
-    a.childActivities = [];
+  private static createChildActivitiesFor(activity: Activity, event): void {
+    if (this.hasChildActivities(activity)) {
+      return;
+    }
+
+    activity.childActivities = [];
 
     const numberOfGroups = event.configuration.scrambleGroups;
-    const timesOfGroups = this.splitInGroups(a.startTime, a.endTime, numberOfGroups);
+    const timesOfGroups = this.splitInGroups(activity.startTime, activity.endTime, numberOfGroups);
 
-    const childActivities = [];
     for (let groupIndex = 0; groupIndex < numberOfGroups; groupIndex++) {
       for (let stageIndex = 0; stageIndex < event.configuration.stages; stageIndex++) {
-        const code = this.addGroupToCodeOfActivity(a, groupIndex, stageIndex, numberOfGroups);
+        const code = this.addGroupToCodeOfActivity(activity, groupIndex, stageIndex, numberOfGroups);
 
         const childActivity = {
           id: null,
@@ -40,9 +43,13 @@ export class ActivityHelper {
           childActivities: [],
           scrambleSetId: null
         };
-        a.childActivities.push(childActivity);
+        activity.childActivities.push(childActivity);
       }
     }
+  }
+
+  private static hasChildActivities(a: Activity) {
+    return !!a.childActivities && !!a.childActivities.length;
   }
 
   private static addGroupToCodeOfActivity(a: Activity, groupIndex: number, stageIndex: number, numberOfGroups) {
