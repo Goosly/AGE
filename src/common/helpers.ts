@@ -183,7 +183,9 @@ export class Helpers {
   }
 
   public static isOrganizerOrDelegate(person) {
-    return person.roles.includes('delegate') || person.roles.includes('organizer');
+    return person.roles.includes('delegate')
+      || person.roles.includes('trainee-delegate')
+      || person.roles.includes('organizer');
   }
 
   public static assignExtraJudge(person: any, eventId: string, group: number) {
