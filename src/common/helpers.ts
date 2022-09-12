@@ -14,8 +14,15 @@ export class Helpers {
       if (textB === '') {
         return -1;
       }
+      if (this.startsWithANumber(textA) && this.startsWithANumber(textB)) {
+        return (parseInt(textA) < parseInt(textB)) ? -1 : (parseInt(textA) > parseInt(textB)) ? 1 : 0;
+      }
       return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
-    });
+    }.bind(this));
+  }
+
+  static startsWithANumber(s: string) {
+    return new RegExp('[0-9]+').test(s);
   }
 
   static sortCompetitorsBySpeedInEvent(wcif: Wcif, eventId: EventId, reverse: boolean) {

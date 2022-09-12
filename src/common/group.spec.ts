@@ -110,10 +110,10 @@ describe('test', function() {
   it('test sortCompetitorsByGroupInEvent', function() {
     const wcif: Wcif = {
       persons: [
-        {name: 'Foo', sq1: {group: '2'}},
-        {name: 'Foo2', sq1: {group: '1;R1;R2'}},
+        {name: 'Foo', sq1: {group: '12'}},
+        {name: 'Foo2', sq1: {group: '3;R1;R2'}},
         {name: 'Foo3', sq1: {group: '1'}},
-        {name: 'Bar', sq1: {group: '2;R3'}},
+        {name: 'Bar', sq1: {group: '12;R3'}},
         {name: 'Bar2', sq1: {group: '1'}}
       ]
     };
