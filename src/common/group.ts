@@ -181,7 +181,7 @@ export class GroupService {
       group = this.increment(group, event);
     });
 
-    if (this.configuration.fixedSeating) {
+    if (this.configuration.fixedSeating && !this.configuration.doNotAssignJudges) {
       this.fillAllUsedTimersWithJudges(eventId);
     }
     this.swapNewCompetitorsAssignmentsSoTheyAlwaysCompeteFirstBeforeJudging();
