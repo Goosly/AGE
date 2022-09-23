@@ -249,7 +249,7 @@ export class Helpers {
 
   public static findFirstEventOfPerson(wcif: Wcif, p: Person) {
     for (const event of wcif.events) {
-      if (p[event.id].competing) {
+      if (event.id !== '333fm' && p[event.id].competing) {
         return event;
       }
     }
