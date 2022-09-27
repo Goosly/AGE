@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {EventConfiguration, StaffPerson, Wcif} from './classes';
+import {EventConfiguration, Wcif} from './classes';
 import {saveAs} from 'file-saver';
 import {getEventName, Person} from '@wca/helpers';
 import * as moment from 'moment-timezone';
@@ -425,6 +425,58 @@ export class ExportService {
         console.warn('This event doesn\'t exist? ' + eventId);
         return '';
     }
+  }
+
+  pdfRegistrationLists(wcif: Wcif) {
+    let filename = 'registrationList-returning-' + wcif.id + '.pdf';
+    pdfMake.createPdf(this.pdfRegistrationList(wcif, true)).download(filename);
+
+    filename = 'registrationList-new-' + wcif.id + '.pdf';
+    pdfMake.createPdf(this.pdfRegistrationList(wcif, false)).download(filename);
+  }
+
+  pdfRegistrationList(wcif: Wcif, returningCompetitors: boolean): any {
+    const document = {
+      content: [
+        {text: 'Registration List - ' + (returningCompetitors ? 'returning competitors' : 'new competitors'), style: 'header'},
+        {text: wcif.name, style: 'header'},
+        '\n',
+        {
+          style: 'table',
+          table: {
+            body: [
+            ]
+          },
+          layout: 'noBorders'
+        },
+      ],
+      styles: {
+        header: {
+          bold: true,
+          alignment: 'center',
+          fontSize: 18,
+        },
+        table: {
+          margin: [0, 5, 0, 15]
+        },
+      },
+      defaultStyle: {
+        fontSize: 12,
+        columnGap: 15
+      }
+    };
+
+    Helpers.sortCompetitorsByName(wcif);
+    wcif.persons.filter(p => returningCompetitors ? !!p.wcaId : !p.wcaId ).forEach(p => {
+      document.content[3].table.body.push([
+        p.name,
+        !p.wcaId ? ' ' : p.wcaId,
+        p.birthdate,
+        this.getCountryName(p.countryIso2),
+      ]);
+    });
+
+    return document;
   }
 
   csvForCubeComps(wcif: Wcif) { // Not used anymore

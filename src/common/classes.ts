@@ -1,10 +1,10 @@
 import {Room} from '@wca/helpers/lib/models/room';
-import {isDefined} from '@angular/compiler/src/util';
 
 export class Wcif {
   persons?: Array<any>;
   events?: Array<any>;
   id?: any;
+  name?: string;
   schedule?: Schedule;
   extensions?: any[];
 }
