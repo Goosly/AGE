@@ -34,49 +34,6 @@ export class ExportService {
     this.downloadFile(csv, filename);
   }
 
-  csvGroups(wcif: Wcif) {
-    let csv: string = 'Name,' + wcif.events.map(event => event.id).join(',') + ',\r\n';
-    wcif.persons.forEach(p => {
-      csv += (p.name + ',');
-      csv += wcif.events.map(event => p[event.id].group.split(';')[0]).join(',');
-      csv += ',\r\n';
-    });
-
-    const filename = 'groups-' + wcif.id + '.csv';
-    this.downloadFile(csv, filename);
-  }
-
-  csvEvents(wcif: Wcif) {
-    let csv = 'event,label,format,limit,cumulative,cutoff,\r\n';
-    wcif.events.forEach(e => {
-      const label = getEventName(e.id);
-      const format = this.formats.filter(f => f.id === e.round1.format)[0].label;
-      const limit: string = ! e.round1.timeLimit ? '' : ExportService.centisToMinutesAndSeconds(e.round1.timeLimit.centiseconds);
-      const cumulative: boolean = !! e.round1.timeLimit && e.round1.timeLimit.cumulativeRoundIds.length;
-      const cutoff: string = ! e.round1.cutoff ? '' : ExportService.centisToMinutesAndSeconds(e.round1.cutoff.attemptResult);
-
-      csv += (e.id + ',');
-      csv += (label + ',');
-      csv += (format + ',');
-      csv += (limit + ',');
-      csv += ((cumulative ? 'yes' : 'no') + ',');
-      csv += (cutoff + ',');
-      csv += '\r\n';
-    });
-
-    const filename = 'events-' + wcif.id + '.csv';
-    this.downloadFile(csv, filename);
-  }
-
-  private static centisToMinutesAndSeconds(centiseconds) {
-    if (! centiseconds) {
-      return '';
-    }
-    const minutes = Math.floor(centiseconds / 6000);
-    const seconds = Math.floor((centiseconds % 6000) / 100);
-    return minutes + ':' + (seconds < 10 ? '0' : '') + seconds + (centiseconds % 100 === 0 ? '' : ('.' + centiseconds % 100));
-  }
-
   pdfGroupOverview(wcif: Wcif) {
     const document = {
       content: [
@@ -477,26 +434,6 @@ export class ExportService {
     });
 
     return document;
-  }
-
-  csvForCubeComps(wcif: Wcif) { // Not used anymore
-    let csv: string = 'Status,Name,Country,WCA ID,Birth Date,Gender,' + wcif.events.map(event => event.id).join(',') + ',Email,Guests,IP' + '\r\n';
-    wcif.persons.forEach(p => {
-      csv += ('a,');
-      csv += (p.fullName + ',');
-      csv += (this.getCountryName(p.countryIso2) + ',');
-      csv += ((p.wcaId === null ? '' : p.wcaId) + ',');
-      csv += (p.birthdate + ',');
-      csv += (p.gender + ',');
-      csv += (wcif.events.map(event => (p[event.id].competing ? '1' : '0')).join(',') + ',');
-      csv += (p.email + ',');
-      csv += (p.guests + ',');
-      csv += ('"",');
-      csv += '\r\n';
-    });
-
-    const filename = 'cubeComps-' + wcif.id + '.csv';
-    this.downloadFile(csv, filename);
   }
 
   staffExample(wcif: Wcif) {
