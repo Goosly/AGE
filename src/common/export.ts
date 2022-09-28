@@ -416,6 +416,9 @@ export class ExportService {
         table: {
           margin: [0, 5, 0, 15]
         },
+        comment: {
+          color: 'grey'
+        }
       },
       defaultStyle: {
         fontSize: 12,
@@ -425,11 +428,12 @@ export class ExportService {
 
     Helpers.sortCompetitorsByName(wcif);
     wcif.persons.filter(p => returningCompetitors ? !!p.wcaId : !p.wcaId ).forEach(p => {
-      document.content[3].table.body.push([
+      document.content[3]['table'].body.push([
         p.name,
         !p.wcaId ? ' ' : p.wcaId,
         p.birthdate,
         this.getCountryName(p.countryIso2),
+        { text: returningCompetitors ? ' ' : '_________________________________', style: 'comment'},
       ]);
     });
 
