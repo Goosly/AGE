@@ -39,7 +39,7 @@
     "@types/jquery": "^3.3.31",
     "@types/node": "~8.9.4",
     "angular-font-awesome": "^3.1.2",
-    "codelyzer": "^5.0.1",
+    "codelyzer": "^6.0.1",
     "font-awesome": "^4.7.0",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
