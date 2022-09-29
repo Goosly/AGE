@@ -41,7 +41,8 @@ export class ActivityHelper {
           startTime: timesOfGroups[groupIndex],
           endTime: timesOfGroups[groupIndex + 1],
           childActivities: [],
-          scrambleSetId: null
+          scrambleSetId: null,
+          extensions: null,
         };
         activity.childActivities.push(childActivity);
       }
