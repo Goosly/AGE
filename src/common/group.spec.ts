@@ -5,8 +5,6 @@ import {AnnuntiaWcif} from '../test/annuntia';
 import {BelgianOpenWcif} from '../test/belgian-open';
 import {ExportService} from './export';
 
-const assert = require('assert');
-
 describe('test', function() {
   it('test decrement', function() {
     const event = {
@@ -14,17 +12,17 @@ describe('test', function() {
     };
     const group: GroupService = new GroupService();
 
-    assert.equal(group.decrement(3, event), 2);
-    assert.equal(group.decrement(2, event), 1);
-    assert.equal(group.decrement(1, event), 0);
-    assert.equal(group.decrement(0, event), 3);
+    expect(group.decrement(3, event)).toBe(2);
+    expect(group.decrement(2, event)).toBe(1);
+    expect(group.decrement(1, event)).toBe(0);
+    expect(group.decrement(0, event)).toBe(3);
   });
 
   it('test parseInt match', function() {
-    assert.equal(parseInt('2'.match(/[0-9]+/)[0]), 2);
-    assert.equal(parseInt('J2'.match(/[0-9]+/)[0]), 2);
-    assert.equal(parseInt('R10'.match(/[0-9]+/)[0]), 10);
-    assert.equal(parseInt('S12'.match(/[0-9]+/)[0]), 12);
+    expect(parseInt('2'.match(/[0-9]+/)[0])).toBe(2);
+    expect(parseInt('J2'.match(/[0-9]+/)[0])).toBe(2);
+    expect(parseInt('R10'.match(/[0-9]+/)[0])).toBe(10);
+    expect(parseInt('S12'.match(/[0-9]+/)[0])).toBe(12);
   });
 
   it('test sortCompetitorsBySpeedInEvent', function() {
@@ -36,12 +34,12 @@ describe('test', function() {
     };
 
     Helpers.sortCompetitorsBySpeedInEvent(wcif, '333', false);
-    assert.equal(wcif.persons[0].name, 'Foo');
-    assert.equal(wcif.persons[1].name, 'Bar');
+    expect(wcif.persons[0].name).toBe('Foo');
+    expect(wcif.persons[1].name).toBe('Bar');
 
     Helpers.sortCompetitorsBySpeedInEvent(wcif, '444', false);
-    assert.equal(wcif.persons[0].name, 'Bar');
-    assert.equal(wcif.persons[1].name, 'Foo');
+    expect(wcif.persons[0].name).toBe('Bar');
+    expect(wcif.persons[1].name).toBe('Foo');
   });
 
   it('test sortCompetitorsByName', function() {
@@ -55,10 +53,10 @@ describe('test', function() {
     };
 
     Helpers.sortCompetitorsByName(wcif);
-    assert.equal(wcif.persons[0].name, 'Bar');
-    assert.equal(wcif.persons[1].name, 'Bar2');
-    assert.equal(wcif.persons[2].name, 'Foo');
-    assert.equal(wcif.persons[3].name, 'Foo2');
+    expect(wcif.persons[0].name).toBe('Bar');
+    expect(wcif.persons[1].name).toBe('Bar2');
+    expect(wcif.persons[2].name).toBe('Foo');
+    expect(wcif.persons[3].name).toBe('Foo2');
   });
 
   it('test getEvent', function() {
@@ -71,40 +69,40 @@ describe('test', function() {
       ]
     };
 
-    assert.equal(Helpers.getEvent('333', wcif), wcif.events[0]);
-    assert.equal(Helpers.getEvent('333bf', wcif), wcif.events[1]);
-    assert.equal(Helpers.getEvent('444', wcif), wcif.events[2]);
-    assert.equal(Helpers.getEvent('pyra', wcif), wcif.events[3]);
+    expect(Helpers.getEvent('333', wcif)).toBe( wcif.events[0]);
+    expect(Helpers.getEvent('333bf', wcif)).toBe( wcif.events[1]);
+    expect(Helpers.getEvent('444', wcif)).toBe( wcif.events[2]);
+    expect(Helpers.getEvent('pyra', wcif)).toBe( wcif.events[3]);
   });
 
   it('test notAssignedToAnythingYetInGroup', function() {
-    assert.equal(Helpers.notAssignedToAnythingYetInGroup('1', {configuration: {stages: 1}}, 3), true);
-    assert.equal(Helpers.notAssignedToAnythingYetInGroup('J1', {configuration: {stages: 1}}, 3), true);
-    assert.equal(Helpers.notAssignedToAnythingYetInGroup('R1', {configuration: {stages: 1}}, 3), true);
-    assert.equal(Helpers.notAssignedToAnythingYetInGroup('S1', {configuration: {stages: 1}}, 3), true);
-    assert.equal(Helpers.notAssignedToAnythingYetInGroup('3', {configuration: {stages: 1}}, 3), false);
-    assert.equal(Helpers.notAssignedToAnythingYetInGroup('J3', {configuration: {stages: 1}}, 3), false);
-    assert.equal(Helpers.notAssignedToAnythingYetInGroup('R3', {configuration: {stages: 1}}, 3), false);
-    assert.equal(Helpers.notAssignedToAnythingYetInGroup('S3', {configuration: {stages: 1}}, 3), false);
+    expect(Helpers.notAssignedToAnythingYetInGroup('1', {configuration: {stages: 1}}, 3)).toBe( true);
+    expect(Helpers.notAssignedToAnythingYetInGroup('J1', {configuration: {stages: 1}}, 3)).toBe( true);
+    expect(Helpers.notAssignedToAnythingYetInGroup('R1', {configuration: {stages: 1}}, 3)).toBe( true);
+    expect(Helpers.notAssignedToAnythingYetInGroup('S1', {configuration: {stages: 1}}, 3)).toBe( true);
+    expect(Helpers.notAssignedToAnythingYetInGroup('3', {configuration: {stages: 1}}, 3)).toBe( false);
+    expect(Helpers.notAssignedToAnythingYetInGroup('J3', {configuration: {stages: 1}}, 3)).toBe( false);
+    expect(Helpers.notAssignedToAnythingYetInGroup('R3', {configuration: {stages: 1}}, 3)).toBe( false);
+    expect(Helpers.notAssignedToAnythingYetInGroup('S3', {configuration: {stages: 1}}, 3)).toBe( false);
 
-    assert.equal(Helpers.notAssignedToAnythingYetInGroup('1;R2;J4', {configuration: {stages: 1}}, 1), false);
-    assert.equal(Helpers.notAssignedToAnythingYetInGroup('1;R2;J4', {configuration: {stages: 1}}, 2), false);
-    assert.equal(Helpers.notAssignedToAnythingYetInGroup('1;R2;J4', {configuration: {stages: 1}}, 3), true);
-    assert.equal(Helpers.notAssignedToAnythingYetInGroup('1;R2;J4', {configuration: {stages: 1}}, 4), false);
+    expect(Helpers.notAssignedToAnythingYetInGroup('1;R2;J4', {configuration: {stages: 1}}, 1)).toBe( false);
+    expect(Helpers.notAssignedToAnythingYetInGroup('1;R2;J4', {configuration: {stages: 1}}, 2)).toBe( false);
+    expect(Helpers.notAssignedToAnythingYetInGroup('1;R2;J4', {configuration: {stages: 1}}, 3)).toBe( true);
+    expect(Helpers.notAssignedToAnythingYetInGroup('1;R2;J4', {configuration: {stages: 1}}, 4)).toBe( false);
 
-    assert.equal(Helpers.notAssignedToAnythingYetInGroup('1;J4', {configuration: {stages: 2}}, 1), false);
-    assert.equal(Helpers.notAssignedToAnythingYetInGroup('1;J4', {configuration: {stages: 2}}, 2), false);
-    assert.equal(Helpers.notAssignedToAnythingYetInGroup('1;J4', {configuration: {stages: 2}}, 3), false);
-    assert.equal(Helpers.notAssignedToAnythingYetInGroup('1;J4', {configuration: {stages: 2}}, 4), false);
-    assert.equal(Helpers.notAssignedToAnythingYetInGroup('1;J4', {configuration: {stages: 2}}, 5), true);
-    assert.equal(Helpers.notAssignedToAnythingYetInGroup('1;J4', {configuration: {stages: 2}}, 6), true);
+    expect(Helpers.notAssignedToAnythingYetInGroup('1;J4', {configuration: {stages: 2}}, 1)).toBe( false);
+    expect(Helpers.notAssignedToAnythingYetInGroup('1;J4', {configuration: {stages: 2}}, 2)).toBe( false);
+    expect(Helpers.notAssignedToAnythingYetInGroup('1;J4', {configuration: {stages: 2}}, 3)).toBe( false);
+    expect(Helpers.notAssignedToAnythingYetInGroup('1;J4', {configuration: {stages: 2}}, 4)).toBe( false);
+    expect(Helpers.notAssignedToAnythingYetInGroup('1;J4', {configuration: {stages: 2}}, 5)).toBe( true);
+    expect(Helpers.notAssignedToAnythingYetInGroup('1;J4', {configuration: {stages: 2}}, 6)).toBe( true);
 
-    assert.equal(Helpers.notAssignedToAnythingYetInGroup('1;J4', {configuration: {stages: 3}}, 1), false);
-    assert.equal(Helpers.notAssignedToAnythingYetInGroup('1;J4', {configuration: {stages: 3}}, 2), false);
-    assert.equal(Helpers.notAssignedToAnythingYetInGroup('1;J4', {configuration: {stages: 3}}, 3), false);
-    assert.equal(Helpers.notAssignedToAnythingYetInGroup('1;J4', {configuration: {stages: 3}}, 4), false);
-    assert.equal(Helpers.notAssignedToAnythingYetInGroup('1;J4', {configuration: {stages: 3}}, 5), false);
-    assert.equal(Helpers.notAssignedToAnythingYetInGroup('1;J4', {configuration: {stages: 3}}, 6), false);
+    expect(Helpers.notAssignedToAnythingYetInGroup('1;J4', {configuration: {stages: 3}}, 1)).toBe( false);
+    expect(Helpers.notAssignedToAnythingYetInGroup('1;J4', {configuration: {stages: 3}}, 2)).toBe( false);
+    expect(Helpers.notAssignedToAnythingYetInGroup('1;J4', {configuration: {stages: 3}}, 3)).toBe( false);
+    expect(Helpers.notAssignedToAnythingYetInGroup('1;J4', {configuration: {stages: 3}}, 4)).toBe( false);
+    expect(Helpers.notAssignedToAnythingYetInGroup('1;J4', {configuration: {stages: 3}}, 5)).toBe( false);
+    expect(Helpers.notAssignedToAnythingYetInGroup('1;J4', {configuration: {stages: 3}}, 6)).toBe( false);
   });
 
   it('test sortCompetitorsByGroupInEvent', function() {
@@ -119,11 +117,11 @@ describe('test', function() {
     };
 
     Helpers.sortCompetitorsByGroupInEvent(wcif, 'sq1');
-    assert.equal(wcif.persons[0].name, 'Foo3');
-    assert.equal(wcif.persons[1].name, 'Bar2');
-    assert.equal(wcif.persons[2].name, 'Foo2');
-    assert.equal(wcif.persons[3].name, 'Foo');
-    assert.equal(wcif.persons[4].name, 'Bar');
+    expect(wcif.persons[0].name).toBe( 'Foo3');
+    expect(wcif.persons[1].name).toBe( 'Bar2');
+    expect(wcif.persons[2].name).toBe( 'Foo2');
+    expect(wcif.persons[3].name).toBe( 'Foo');
+    expect(wcif.persons[4].name).toBe( 'Bar');
   });
 
   it('test sortRunnersByRunningAssigned', function() {
@@ -141,11 +139,11 @@ describe('test', function() {
     };
 
     Helpers.sortRunnersByRunningAssigned(wcif, wcif.persons);
-    assert.equal(wcif.persons[0].name, 'Foo');
-    assert.equal(wcif.persons[1].name, 'Bar2');
-    assert.equal(wcif.persons[2].name, 'Bar');
-    assert.equal(wcif.persons[3].name, 'Foo2');
-    assert.equal(wcif.persons[4].name, 'Foo3');
+    expect(wcif.persons[0].name).toBe( 'Foo');
+    expect(wcif.persons[1].name).toBe( 'Bar2');
+    expect(wcif.persons[2].name).toBe( 'Bar');
+    expect(wcif.persons[3].name).toBe( 'Foo2');
+    expect(wcif.persons[4].name).toBe( 'Foo3');
   });
 
   it('test sortByCompetingToTaskRatio', function() {
@@ -184,17 +182,17 @@ describe('test', function() {
     };
 
     Helpers.sortByCompetingToTaskRatio(wcif, 'sq1', wcif.persons);
-    assert.equal(wcif.persons[0].name, 'Foo3');
-    assert.equal(wcif.persons[1].name, 'Bar2');
-    assert.equal(wcif.persons[2].name, 'Foo');
-    assert.equal(wcif.persons[3].name, 'Bar');
-    assert.equal(wcif.persons[4].name, 'Foo2');
+    expect(wcif.persons[0].name).toBe( 'Foo3');
+    expect(wcif.persons[1].name).toBe( 'Bar2');
+    expect(wcif.persons[2].name).toBe( 'Foo');
+    expect(wcif.persons[3].name).toBe( 'Bar');
+    expect(wcif.persons[4].name).toBe( 'Foo2');
     Helpers.sortByCompetingToTaskRatio(wcif, '777', wcif.persons);
-    assert.equal(wcif.persons[0].name, 'Foo3');
-    assert.equal(wcif.persons[1].name, 'Bar2');
-    assert.equal(wcif.persons[2].name, 'Bar');
-    assert.equal(wcif.persons[3].name, 'Foo2');
-    assert.equal(wcif.persons[4].name, 'Foo');
+    expect(wcif.persons[0].name).toBe( 'Foo3');
+    expect(wcif.persons[1].name).toBe( 'Bar2');
+    expect(wcif.persons[2].name).toBe( 'Bar');
+    expect(wcif.persons[3].name).toBe( 'Foo2');
+    expect(wcif.persons[4].name).toBe( 'Foo');
   });
 
   it('test countGroupsForEvent', function() {
@@ -232,8 +230,8 @@ describe('test', function() {
       ]
     };
 
-    assert.equal(Helpers.countGroupsForEvent(wcif, Helpers.getEvent('777', wcif)), 2);
-    assert.equal(Helpers.countGroupsForEvent(wcif, Helpers.getEvent('sq1', wcif)), 12);
+    expect(Helpers.countGroupsForEvent(wcif, Helpers.getEvent('777', wcif))).toBe( 2);
+    expect(Helpers.countGroupsForEvent(wcif, Helpers.getEvent('sq1', wcif))).toBe( 12);
   });
 
   it('test assignExtraJudge', function() {
@@ -250,7 +248,7 @@ describe('test', function() {
     };
 
     Helpers.assignExtraJudge(wcif.persons[0], '777', 1);
-    assert.equal(wcif.persons[0]['777'].group, '2;J1;S3');
+    expect(wcif.persons[0]['777'].group).toBe( '2;J1;S3');
   });
 
   it('test process and import wcif of Annuntia', function() {
@@ -260,13 +258,13 @@ describe('test', function() {
     group.importAssignmentsFromWcif();
 
     Helpers.countCJRSForEvent(group.wcif, '333', 3);
-    assert.equal(Helpers.getEvent('333', group.wcif).numberOfRegistrations, 90);
-    assert.equal(Helpers.getEvent('333', group.wcif).groupCounters.length, 3);
-    assert.equal(Helpers.getEvent('333', group.wcif).groupCounters[0], '31|16|2|3');
-    assert.equal(Helpers.getEvent('333', group.wcif).groupCounters[1], '29|16|2|3');
-    assert.equal(Helpers.getEvent('333', group.wcif).groupCounters[2], '30|15|2|3');
-    assert.equal(group.wcif.persons[0]['333'].competing, true);
-    assert.equal(group.wcif.persons[0]['333'].group, '3;R1');
+    expect(Helpers.getEvent('333', group.wcif).numberOfRegistrations).toBe( 90);
+    expect(Helpers.getEvent('333', group.wcif).groupCounters.length).toBe( 3);
+    expect(Helpers.getEvent('333', group.wcif).groupCounters[0]).toBe( '31|16|2|3');
+    expect(Helpers.getEvent('333', group.wcif).groupCounters[1]).toBe( '29|16|2|3');
+    expect(Helpers.getEvent('333', group.wcif).groupCounters[2]).toBe( '30|15|2|3');
+    expect(group.wcif.persons[0]['333'].competing).toBe( true);
+    expect(group.wcif.persons[0]['333'].group).toBe( '3;R1');
   });
 
   it('test generate basic grouping of Belgian Open', function() {
@@ -276,28 +274,28 @@ describe('test', function() {
     group.importAssignmentsFromWcif();
 
     Helpers.countCJRSForEvent(group.wcif, '333', 3);
-    assert.equal(Helpers.getEvent('333', group.wcif).numberOfRegistrations, 94);
-    assert.equal(Helpers.getEvent('333', group.wcif).groupCounters.length, 3);
-    assert.equal(Helpers.getEvent('333', group.wcif).groupCounters[0], '0|0|0|0');
-    assert.equal(Helpers.getEvent('333', group.wcif).groupCounters[1], '0|0|0|0');
-    assert.equal(Helpers.getEvent('333', group.wcif).groupCounters[2], '0|0|0|0');
-    assert.equal(group.wcif.persons[0]['333'].competing, true);
-    assert.equal(group.wcif.persons[0]['333'].group, '');
+    expect(Helpers.getEvent('333', group.wcif).numberOfRegistrations).toBe( 94);
+    expect(Helpers.getEvent('333', group.wcif).groupCounters.length).toBe( 3);
+    expect(Helpers.getEvent('333', group.wcif).groupCounters[0]).toBe( '0|0|0|0');
+    expect(Helpers.getEvent('333', group.wcif).groupCounters[1]).toBe( '0|0|0|0');
+    expect(Helpers.getEvent('333', group.wcif).groupCounters[2]).toBe( '0|0|0|0');
+    expect(group.wcif.persons[0]['333'].competing).toBe( true);
+    expect(group.wcif.persons[0]['333'].group).toBe( '');
 
     group.generateGrouping('333');
     group.generateGrouping('444');
     group.wcif.persons.forEach(p => {
       if (p['333'].competing) {
-        assert.equal(p['333'].group >= '1', true);
-        assert.equal(p['333'].group <= '3', true);
+        expect(p['333'].group >= '1').toBe( true);
+        expect(p['333'].group <= '3').toBe( true);
       } else {
-        assert.equal(p['333'].group, '');
+        expect(p['333'].group).toBe( '');
       }
       if (p['444'].competing) {
-        assert.equal(p['444'].group >= '1', true);
-        assert.equal(p['444'].group <= '2', true);
+        expect(p['444'].group >= '1').toBe( true);
+        expect(p['444'].group <= '2').toBe( true);
       } else {
-        assert.equal(p['444'].group, '');
+        expect(p['444'].group).toBe( '');
       }
     });
 
@@ -305,9 +303,9 @@ describe('test', function() {
     group.generateGrouping('444bf');
     group.wcif.persons.forEach(p => {
       if (p['444bf'].competing) {
-        assert.equal(p['444bf'].group, '1');
+        expect(p['444bf'].group).toBe( '1');
       } else {
-        assert.equal(p['444bf'].group, '');
+        expect(p['444bf'].group).toBe( '');
       }
     });
   });
@@ -320,9 +318,9 @@ describe('test', function() {
     group.wcif.persons.forEach(p => {
       for (const e of group.wcif.events) {
         if (p[e.id].competing) {
-          assert.equal(p[e.id].group, '1');
+          expect(p[e.id].group).toBe( '1');
         } else {
-          assert.equal(p[e.id].group, '');
+          expect(p[e.id].group).toBe( '');
         }
       }
     });
@@ -333,17 +331,17 @@ describe('test', function() {
     group.generateGrouping('333');
 
     Helpers.countCJRSForEvent(group.wcif, '333', 3);
-    assert.equal(Helpers.getEvent('333', group.wcif).numberOfRegistrations, 90);
-    assert.equal(Helpers.getEvent('333', group.wcif).groupCounters.length, 3);
-    assert.equal(Helpers.getEvent('333', group.wcif).groupCounters[0], '30|16|2|2');
-    assert.equal(Helpers.getEvent('333', group.wcif).groupCounters[1], '30|16|2|2');
-    assert.equal(Helpers.getEvent('333', group.wcif).groupCounters[2], '30|16|2|2');
+    expect(Helpers.getEvent('333', group.wcif).numberOfRegistrations).toBe( 90);
+    expect(Helpers.getEvent('333', group.wcif).groupCounters.length).toBe( 3);
+    expect(Helpers.getEvent('333', group.wcif).groupCounters[0]).toBe( '30|16|2|2');
+    expect(Helpers.getEvent('333', group.wcif).groupCounters[1]).toBe( '30|16|2|2');
+    expect(Helpers.getEvent('333', group.wcif).groupCounters[2]).toBe( '30|16|2|2');
     group.wcif.persons.forEach(p => {
       if (p['333'].competing) {
-        assert.equal(p['333'].group >= '1', true);
-        assert.equal(p['333'].group < '4', true); // Example: '3;R2' is smaller than '4'
+        expect(p['333'].group >= '1').toBe( true);
+        expect(p['333'].group < '4').toBe( true); // Example: '3;R2' is smaller than '4'
       } else {
-        assert.equal(p['333'].group, '');
+        expect(p['333'].group).toBe( '');
       }
     });
 
@@ -370,19 +368,19 @@ describe('test', function() {
     group.generateGrouping('333');
 
     Helpers.countCJRSForEvent(group.wcif, '333', 6);
-    assert.equal(Helpers.getEvent('333', group.wcif).groupCounters.length, 6);
-    assert.equal(Helpers.getEvent('333', group.wcif).groupCounters[0], '15|15|2|2');
-    assert.equal(Helpers.getEvent('333', group.wcif).groupCounters[1], '15|15|2|2');
-    assert.equal(Helpers.getEvent('333', group.wcif).groupCounters[2], '15|15|2|2');
-    assert.equal(Helpers.getEvent('333', group.wcif).groupCounters[3], '15|15|2|2');
-    assert.equal(Helpers.getEvent('333', group.wcif).groupCounters[4], '15|15|2|2');
-    assert.equal(Helpers.getEvent('333', group.wcif).groupCounters[5], '15|15|2|2');
+    expect(Helpers.getEvent('333', group.wcif).groupCounters.length).toBe( 6);
+    expect(Helpers.getEvent('333', group.wcif).groupCounters[0]).toBe( '15|15|2|2');
+    expect(Helpers.getEvent('333', group.wcif).groupCounters[1]).toBe( '15|15|2|2');
+    expect(Helpers.getEvent('333', group.wcif).groupCounters[2]).toBe( '15|15|2|2');
+    expect(Helpers.getEvent('333', group.wcif).groupCounters[3]).toBe( '15|15|2|2');
+    expect(Helpers.getEvent('333', group.wcif).groupCounters[4]).toBe( '15|15|2|2');
+    expect(Helpers.getEvent('333', group.wcif).groupCounters[5]).toBe( '15|15|2|2');
     group.wcif.persons.forEach(p => {
       if (p['333'].competing) {
-        assert.equal(p['333'].group >= '1', true);
-        assert.equal(p['333'].group < '7', true); // Example: '6;R2' is smaller than '7'
+        expect(p['333'].group >= '1').toBe( true);
+        expect(p['333'].group < '7').toBe( true); // Example: '6;R2' is smaller than '7'
       } else {
-        assert.equal(p['333'].group, '');
+        expect(p['333'].group).toBe( '');
       }
     });
   });
@@ -404,7 +402,7 @@ describe('test', function() {
     group.wcif.persons.forEach(p => {
       if (!p.wcaId) {
         const event = Helpers.findFirstEventOfPerson(group.wcif, p);
-        assert.equal(Helpers.competesBeforeJudging(p, event.id), true);
+        expect(Helpers.competesBeforeJudging(p, event.id)).toBe( true);
       }
     });
   });
@@ -416,12 +414,12 @@ describe('test', function() {
     assignment.scramble = [1];
     assignment.run = [3];
 
-    assert.equal(assignment.competing(), true);
-    assert.equal(assignment.toString(), '2;S1;R3;J4;J5');
+    expect(assignment.competing()).toBe( true);
+    expect(assignment.toString()).toBe( '2;S1;R3;J4;J5');
 
     assignment.compete = null;
-    assert.equal(assignment.competing(), false);
-    assert.equal(assignment.toString(), 'S1;R3;J4;J5');
+    expect(assignment.competing()).toBe( false);
+    expect(assignment.toString()).toBe( 'S1;R3;J4;J5');
   });
 
   it('test findFirstEventOfPerson', function() {
@@ -430,26 +428,26 @@ describe('test', function() {
     group.processWcif();
     Helpers.sortCompetitorsByName(group.wcif);
 
-    assert.equal(Helpers.findFirstEventOfPerson(group.wcif, group.wcif.persons[0]).id, '333');
-    assert.equal(Helpers.findFirstEventOfPerson(group.wcif, group.wcif.persons[1]).id, '333oh');
-    assert.equal(Helpers.findFirstEventOfPerson(group.wcif, group.wcif.persons[2]).id, '333');
-    assert.equal(Helpers.findFirstEventOfPerson(group.wcif, group.wcif.persons[3]).id, '333oh');
-    assert.equal(Helpers.findFirstEventOfPerson(group.wcif, group.wcif.persons[4]).id, 'sq1');
-    assert.equal(Helpers.findFirstEventOfPerson(group.wcif, group.wcif.persons[5]).id, 'sq1');
+    expect(Helpers.findFirstEventOfPerson(group.wcif, group.wcif.persons[0]).id).toBe( '333');
+    expect(Helpers.findFirstEventOfPerson(group.wcif, group.wcif.persons[1]).id).toBe( '333oh');
+    expect(Helpers.findFirstEventOfPerson(group.wcif, group.wcif.persons[2]).id).toBe( '333');
+    expect(Helpers.findFirstEventOfPerson(group.wcif, group.wcif.persons[3]).id).toBe( '333oh');
+    expect(Helpers.findFirstEventOfPerson(group.wcif, group.wcif.persons[4]).id).toBe( 'sq1');
+    expect(Helpers.findFirstEventOfPerson(group.wcif, group.wcif.persons[5]).id).toBe( 'sq1');
   });
 
   it('test getContentForStaffExample for Annuntia', function() {
     const exportService = new ExportService();
     const staffExample = exportService.getContentForStaffExample(AnnuntiaWcif.wcif);
     const lines = staffExample.split('\r\n');
-    assert.equal(lines[0], 'name,wcaId,run,222,333,444,555,666,777,333bf,333oh,clock,minx,pyram,skewb,sq1,444bf,555bf,333mbf');
-    assert.equal(lines[2], 'Adrien Schumacker,2016SCHU02,x,x,x,x,x,,x,x,x,,x,x,x,x,,,');
+    expect(lines[0]).toBe('name,wcaId,run,222,333,444,555,666,777,333bf,333oh,clock,minx,pyram,skewb,sq1,444bf,555bf,333mbf');
+    expect(lines[2]).toBe('Adrien Schumacker,2016SCHU02,x,x,x,x,x,,x,x,x,,x,x,x,x,,,');
     for (let i = 1; i < lines.length - 1; i++) {
       const split = lines[i].split(',');
-      assert.equal(split.length, 19);
-      assert.equal(split.includes('x'), true);
+      expect(split.length).toBe( 19);
+      expect(split.includes('x')).toBe( true);
     }
-    assert.equal(lines[lines.length - 1], '');
+    expect(lines[lines.length - 1]).toBe( '');
   });
 
   it('test getStaff', function() {
@@ -458,21 +456,21 @@ describe('test', function() {
     const csv = 'name,wcaId,run,222,333,444,555,666,777,333bf,333oh,clock,minx,pyram,skewb,sq1,444bf,555bf,333mbf\r\nAdrien Schumacker,2016SCHU02,x,x,x,x,x,,x,x,x,,x,x,x,x,,,\r\n';
     const staff: StaffPerson[] = group.getStaff(csv);
 
-    assert.equal(staff[0].name, 'Adrien Schumacker');
-    assert.equal(staff[0].wcaId, '2016SCHU02');
-    assert.equal(staff[0].isAllowedTo.length, 12);
-    assert.equal(staff[0].isAllowedTo[0], 'run');
-    assert.equal(staff[0].isAllowedTo[1], '222');
-    assert.equal(staff[0].isAllowedTo[2], '333');
-    assert.equal(staff[0].isAllowedTo[3], '444');
-    assert.equal(staff[0].isAllowedTo[4], '555');
-    assert.equal(staff[0].isAllowedTo[5], '777');
-    assert.equal(staff[0].isAllowedTo[6], '333bf');
-    assert.equal(staff[0].isAllowedTo[7], '333oh');
-    assert.equal(staff[0].isAllowedTo[8], 'minx');
-    assert.equal(staff[0].isAllowedTo[9], 'pyram');
-    assert.equal(staff[0].isAllowedTo[10], 'skewb');
-    assert.equal(staff[0].isAllowedTo[11], 'sq1');
+    expect(staff[0].name).toBe( 'Adrien Schumacker');
+    expect(staff[0].wcaId).toBe( '2016SCHU02');
+    expect(staff[0].isAllowedTo.length).toBe( 12);
+    expect(staff[0].isAllowedTo[0]).toBe( 'run');
+    expect(staff[0].isAllowedTo[1]).toBe( '222');
+    expect(staff[0].isAllowedTo[2]).toBe( '333');
+    expect(staff[0].isAllowedTo[3]).toBe( '444');
+    expect(staff[0].isAllowedTo[4]).toBe( '555');
+    expect(staff[0].isAllowedTo[5]).toBe( '777');
+    expect(staff[0].isAllowedTo[6]).toBe( '333bf');
+    expect(staff[0].isAllowedTo[7]).toBe( '333oh');
+    expect(staff[0].isAllowedTo[8]).toBe( 'minx');
+    expect(staff[0].isAllowedTo[9]).toBe( 'pyram');
+    expect(staff[0].isAllowedTo[10]).toBe( 'skewb');
+    expect(staff[0].isAllowedTo[11]).toBe( 'sq1');
   });
 
   it('test competesBeforeJudging', function() {
@@ -486,20 +484,20 @@ describe('test', function() {
       ]
     };
 
-    assert.equal(Helpers.competesBeforeJudging(wcif.persons[0], 'sq1'), true);
-    assert.equal(Helpers.competesBeforeJudging(wcif.persons[1], 'sq1'), true);
-    assert.equal(Helpers.competesBeforeJudging(wcif.persons[2], 'sq1'), true);
-    assert.equal(Helpers.competesBeforeJudging(wcif.persons[3], 'sq1'), false);
-    assert.equal(Helpers.competesBeforeJudging(wcif.persons[4], 'sq1'), false);
+    expect(Helpers.competesBeforeJudging(wcif.persons[0], 'sq1')).toBe( true);
+    expect(Helpers.competesBeforeJudging(wcif.persons[1], 'sq1')).toBe( true);
+    expect(Helpers.competesBeforeJudging(wcif.persons[2], 'sq1')).toBe( true);
+    expect(Helpers.competesBeforeJudging(wcif.persons[3], 'sq1')).toBe( false);
+    expect(Helpers.competesBeforeJudging(wcif.persons[4], 'sq1')).toBe( false);
   });
 
   it('test similarTasksAs', function() {
-    assert.equal(Assignment.fromString('1;J2').similarTasksAs('1;J2'), true);
-    assert.equal(Assignment.fromString('1;J2').similarTasksAs('2;J1'), true);
-    assert.equal(Assignment.fromString('1;R2').similarTasksAs('2;R1'), true);
+    expect(Assignment.fromString('1;J2').similarTasksAs('1;J2')).toBe( true);
+    expect(Assignment.fromString('1;J2').similarTasksAs('2;J1')).toBe( true);
+    expect(Assignment.fromString('1;R2').similarTasksAs('2;R1')).toBe( true);
 
-    assert.equal(Assignment.fromString('1;J2').similarTasksAs('2;R1'), false);
-    assert.equal(Assignment.fromString('1;S2').similarTasksAs('2;R1'), false);
+    expect(Assignment.fromString('1;J2').similarTasksAs('2;R1')).toBe( false);
+    expect(Assignment.fromString('1;S2').similarTasksAs('2;R1')).toBe( false);
   });
 
 });

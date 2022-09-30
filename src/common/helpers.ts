@@ -35,9 +35,9 @@ export class Helpers {
   static getTopCompetitorsBySpeedInEvent(wcif: Wcif, eventId: EventId): Person[] {
     const peopleCompetingInEvent = this.sortBySpeed(wcif, eventId).filter(p => p[eventId].competing);
     const slice = peopleCompetingInEvent.slice(0, Math.floor(Math.max(5, peopleCompetingInEvent.length / 10)));
-    if (environment.testMode) {
-      console.log('top ' + slice.length + ' of ' + eventId + ': ' + slice.map(p => p.name).join(', '));
-    }
+    // if (environment.testMode) {
+    //   console.log('top ' + slice.length + ' of ' + eventId + ': ' + slice.map(p => p.name).join(', '));
+    // }
     return slice;
   }
 
