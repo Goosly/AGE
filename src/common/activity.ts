@@ -21,18 +21,19 @@ export class ActivityHelper {
   }
 
   private static createChildActivitiesFor(activity: Activity, event): void {
-    if (this.hasChildActivities(activity)) {
+    if (this.hasExpectedNumberOfChildActivities(activity, event)) {
       return;
     }
 
     activity.childActivities = [];
 
     const numberOfGroups = event.configuration.scrambleGroups;
+    const numberOfStages = event.configuration.stages;
     const timesOfGroups = this.splitInGroups(activity.startTime, activity.endTime, numberOfGroups);
 
     for (let groupIndex = 0; groupIndex < numberOfGroups; groupIndex++) {
-      for (let stageIndex = 0; stageIndex < event.configuration.stages; stageIndex++) {
-        const code = this.addGroupToCodeOfActivity(activity, groupIndex, stageIndex, numberOfGroups);
+      for (let stageIndex = 0; stageIndex < numberOfStages; stageIndex++) {
+        const code = this.addGroupToCodeOfActivity(activity, groupIndex, stageIndex, numberOfStages);
 
         const childActivity = {
           id: null,
@@ -49,13 +50,14 @@ export class ActivityHelper {
     }
   }
 
-  private static hasChildActivities(a: Activity) {
-    return !!a.childActivities && !!a.childActivities.length;
+  private static hasExpectedNumberOfChildActivities(activity: Activity, event) {
+    return !!activity.childActivities && !!activity.childActivities.length
+      && activity.childActivities.length === event.configuration.scrambleGroups * event.configuration.stages;
   }
 
-  private static addGroupToCodeOfActivity(a: Activity, groupIndex: number, stageIndex: number, numberOfGroups) {
+  private static addGroupToCodeOfActivity(a: Activity, groupIndex: number, stageIndex: number, numberOfStages: number) {
     const activityCode = parseActivityCode(a.activityCode);
-    activityCode.groupNumber = 1 + (groupIndex + stageIndex * numberOfGroups);
+    activityCode.groupNumber = 1 + (stageIndex + groupIndex * numberOfStages);
     return this.formatActivityCode(activityCode);
   }
 
