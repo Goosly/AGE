@@ -260,4 +260,23 @@ export class Helpers {
     return Assignment.fromString(p[eventId].group).competesBeforeJudging();
   }
 
+  public static getStageName(wcif: Wcif, event: any, group: number): string {
+    const numberOfRooms: number = wcif.schedule.venues.map(venue => venue.rooms.length).reduce((a, b) => a + b, 0);
+    if (numberOfRooms < 2) {
+      return null;
+    }
+
+    const activityToSearch = event.id + '-r1-g' + group;
+    for (const venue of wcif.schedule.venues) {
+      for (const room of venue.rooms) {
+        for (const activity of room.activities) {
+          if (activity.childActivities.map(ca => ca.activityCode).includes(activityToSearch)) {
+            return room.name;
+          }
+        }
+      }
+    }
+    return null;
+  }
+
 }

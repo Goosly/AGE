@@ -500,4 +500,18 @@ describe('test', function() {
     expect(Assignment.fromString('1;S2').similarTasksAs('2;R1')).toBe( false);
   });
 
+  it('test getStageName', function() {
+    const group: GroupService = new GroupService();
+    group.wcif = AnnuntiaWcif.wcif;
+    group.processWcif();
+
+    group.wcif.schedule.venues[0].rooms.push({activities: [], color: '', extensions: [], id: 0, name: 'Second room'});
+
+    expect(Helpers.getStageName(group.wcif, Helpers.getEvent('333', group.wcif), 1)).toBe( 'Main room');
+    expect(Helpers.getStageName(group.wcif, Helpers.getEvent('333', group.wcif), 2)).toBe( 'Main room');
+    expect(Helpers.getStageName(group.wcif, Helpers.getEvent('333', group.wcif), 3)).toBe( 'Main room');
+    expect(Helpers.getStageName(group.wcif, Helpers.getEvent('sq1', group.wcif), 1)).toBe( 'Main room');
+    expect(Helpers.getStageName(group.wcif, Helpers.getEvent('sq1', group.wcif), 15)).toBeNull();
+  });
+
 });

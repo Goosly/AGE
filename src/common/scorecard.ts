@@ -27,6 +27,7 @@ export class ScoreCardService {
         scorecard.competitorName = c.name;
         scorecard.competitorId = c.registrantId;
         scorecard.group = c[event.id].group.split(';')[0];
+        scorecard.stageName = Helpers.getStageName(wcif, event, scorecard.group);
         scorecardsForEvent.push(scorecard);
       });
       this.addScorecardNumberAndStationNumbers(scorecardsForEvent);
@@ -201,15 +202,18 @@ export class ScoreCardService {
         {
           columns: [
             {text: ! info.scorecardNumber ? '' : info.scorecardNumber, alignment: 'left', fontSize: 6, color: 'grey'},
-            {text: ! info.timerStationId ? '' : 'Timer ' + info.timerStationId, alignment: 'right', fontSize: 9}
+            {text: ! info.timerStationId ? '' : 'Timer ' + info.timerStationId, alignment: 'right', fontSize: 14}
           ]
         },
         {text: info.competitionName, alignment: 'center', fontSize: 10}
       ],
       {text: info.eventName, alignment: 'center', fontSize: 18, bold: true},
-      {text: 'Round ' + (info.round === null ? '    ' : info.round)
+      {
+        text: 'Round ' + (info.round === null ? '    ' : info.round)
           + ' | Group ' + (info.group === null ? '    ' : info.group)
-          + ' of ' + (info.totalGroups === null ? '    ' : info.totalGroups), alignment: 'center', fontSize: 10},
+          + ' of ' + (info.totalGroups === null ? '    ' : info.totalGroups)
+          + (info.stageName ? ' | ' + info.stageName : ''), alignment: 'center', fontSize: 10
+      },
       {table : {
           widths: [30, this.SCORE_CARD_RESULT_WIDTH + 58],
           body: [[
@@ -251,15 +255,18 @@ export class ScoreCardService {
         {
           columns: [
             {text: ! info.scorecardNumber ? '' : info.scorecardNumber, alignment: 'left', fontSize: 6, color: 'grey'},
-            {text: ! info.timerStationId ? '' : 'Timer ' + info.timerStationId, alignment: 'right', fontSize: 9}
+            {text: ! info.timerStationId ? '' : 'Timer ' + info.timerStationId, alignment: 'right', fontSize: 14}
           ]
         },
         {text: info.competitionName, alignment: 'center', fontSize: 10}
       ],
       {text: info.eventName, alignment: 'center', fontSize: 18, bold: true},
-      {text: 'Round ' + (info.round === null ? '    ' : info.round)
+      {
+        text: 'Round ' + (info.round === null ? '    ' : info.round)
           + ' | Group ' + (info.group === null ? '    ' : info.group)
-          + ' of ' + (info.totalGroups === null ? '    ' : info.totalGroups), alignment: 'center', fontSize: 10},
+          + ' of ' + (info.totalGroups === null ? '    ' : info.totalGroups)
+          + (info.stageName ? ' | ' + info.stageName : ''), alignment: 'center', fontSize: 10
+      },
       {table : {
           widths: [30, this.SCORE_CARD_RESULT_WIDTH + 58],
           body: [[
@@ -303,15 +310,18 @@ export class ScoreCardService {
         {
           columns: [
             {text: ! info.scorecardNumber ? '' : info.scorecardNumber, alignment: 'left', fontSize: 6, color: 'grey'},
-            {text: ! info.timerStationId ? '' : 'Timer ' + info.timerStationId, alignment: 'right', fontSize: 9}
+            {text: ! info.timerStationId ? '' : 'Timer ' + info.timerStationId, alignment: 'right', fontSize: 14}
           ]
         },
         {text: info.competitionName, alignment: 'center', fontSize: 10}
       ],
       {text: info.eventName, alignment: 'center', fontSize: 18, bold: true},
-      {text: 'Round ' + (info.round === null ? '    ' : info.round)
+      {
+        text: 'Round ' + (info.round === null ? '    ' : info.round)
           + ' | Group ' + (info.group === null ? '    ' : info.group)
-          + ' of ' + (info.totalGroups === null ? '    ' : info.totalGroups), alignment: 'center', fontSize: 10},
+          + ' of ' + (info.totalGroups === null ? '    ' : info.totalGroups)
+          + (info.stageName ? ' | ' + info.stageName : ''), alignment: 'center', fontSize: 10
+      },
       {table : {
           widths: [30, this.SCORE_CARD_RESULT_WIDTH + 58],
           body: [[
@@ -352,5 +362,6 @@ export class ScoreCardInfo {
   cutoff: string;
   scorecardNumber: number;
   timerStationId: number;
+  stageName?: string;
 }
 
