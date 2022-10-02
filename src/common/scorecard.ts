@@ -15,7 +15,7 @@ export class ScoreCardService {
 
   private readonly SCORE_CARD_RESULT_WIDTH = 145;
 
-  public printScoreCardsForAllFirstRoundsExceptFMC(wcif: Wcif) {
+  public printScoreCardsForAllFirstRoundsExceptFMC(wcif: Wcif, printOnA6: boolean) {
     const scorecards: ScoreCardInfo[] = [];
     wcif.events.filter(e => e.id !== '333fm').forEach(event => {
       Helpers.sortCompetitorsByGroupInEvent(wcif, event.id);
@@ -31,12 +31,18 @@ export class ScoreCardService {
         scorecardsForEvent.push(scorecard);
       });
       this.addScorecardNumberAndStationNumbers(scorecardsForEvent);
-      this.addEmptyScoreCardsUntilPageIsFull(scorecardsForEvent, wcif);
+      if (!printOnA6) {
+        this.addEmptyScoreCardsUntilPageIsFull(scorecardsForEvent, wcif);
+      }
       scorecards.push(...scorecardsForEvent);
     });
 
     Helpers.sortCompetitorsByName(wcif);
-    pdfMake.createPdf(this.document(scorecards)).download('scorecards-' + wcif.id + '.pdf');
+    if (printOnA6) {
+      pdfMake.createPdf(this.onA6(scorecards)).download('scorecards-' + wcif.id + '.pdf');
+    } else {
+      pdfMake.createPdf(this.onA4(scorecards)).download('scorecards-' + wcif.id + '.pdf');
+    }
   }
 
   private addScorecardNumberAndStationNumbers(scorecardsForEvent: ScoreCardInfo[]) {
@@ -61,7 +67,14 @@ export class ScoreCardService {
       this.getEmptyScoreCard(wcif),
       this.getEmptyScoreCard(wcif)
     ];
-    pdfMake.createPdf(this.document(scorecards)).download('emptyScorecards-' + wcif.id + '.pdf');
+    pdfMake.createPdf(this.onA4(scorecards)).download('emptyScorecards-' + wcif.id + '.pdf');
+  }
+
+  public printOneEmptyScorecardOnA6(wcif: Wcif) {
+    const scorecards: ScoreCardInfo[] = [
+      this.getEmptyScoreCard(wcif)
+    ];
+    pdfMake.createPdf(this.onA6(scorecards)).download('emptyScorecards-' + wcif.id + '.pdf');
   }
 
   private addEmptyScoreCardsUntilPageIsFull(scorecards: ScoreCardInfo[], wcif: any) {
@@ -132,7 +145,31 @@ export class ScoreCardService {
     };
   }
 
-  private document(scorecards): any {
+  private onA6(scorecards): any {
+    const document = {
+      pageSize: 'A6',
+      content: [
+
+      ],
+      styles: {
+      },
+      defaultStyle: {
+        fontSize: 12
+      }
+    };
+    for (let i = 0; i < scorecards.length; i++) {
+      const page = {
+        stack: this.getScoreCardTemplate(scorecards[i]), border: [false, false, false, false],
+        margin: [-15, -10],
+        pageBreak: 'after'
+      };
+      document.content.push(page);
+    }
+    document.content[document.content.length - 1].pageBreak = null;
+    return document;
+  }
+
+  private onA4(scorecards): any {
     const document = {
       content: [
 

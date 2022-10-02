@@ -198,8 +198,10 @@
         <input type="checkbox" [(ngModel)]="groupService.configuration.bordersOnNametags"><label>Show light borders for cutting and folding</label></p>
 
     <h4>Download scorecards</h4>
-    <p><button (click)="scoreCardsService.printScoreCardsForAllFirstRoundsExceptFMC(this.groupService.wcif)">Scorecards of all first rounds (PDF)</button> (Note: this may take a few seconds)
-      <input type="checkbox" [(ngModel)]="groupService.configuration.printStationNumbersOnScoreCards"><label>Print station numbers in top right corner</label></p>
-    <p><button (click)="scoreCardsService.printFourEmptyScorecards(this.groupService.wcif)">Empty scorecards (PDF)</button></p>
+    <p><input type="checkbox" [(ngModel)]="groupService.configuration.printStationNumbersOnScoreCards"><label>Print station numbers in top right corner</label></p>
+    <p><button (click)="scoreCardsService.printScoreCardsForAllFirstRoundsExceptFMC(this.groupService.wcif, false)">Scorecards of all first rounds on A4, 4 per page (PDF)</button> (Note: this may take a few seconds)</p>
+    <p><button (click)="scoreCardsService.printScoreCardsForAllFirstRoundsExceptFMC(this.groupService.wcif, true)">Scorecards of all first rounds on A6 (PDF)</button>&nbsp;<i class="fa fa-arrow-right"></i> New! </p>
+    <p><button (click)="scoreCardsService.printFourEmptyScorecards(this.groupService.wcif)">4 Empty scorecards on A4 (PDF)</button></p>
+    <p><button (click)="scoreCardsService.printOneEmptyScorecardOnA6(this.groupService.wcif)">1 Empty scorecard on A6 (PDF)</button>&nbsp;<i class="fa fa-arrow-right"></i> New! </p>
   </div>
 </div>
