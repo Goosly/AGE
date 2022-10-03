@@ -43,7 +43,7 @@ export class ActivityHelper {
           endTime: timesOfGroups[groupIndex + 1],
           childActivities: [],
           scrambleSetId: null,
-          extensions: null,
+          extensions: [],
         };
         activity.childActivities.push(childActivity);
       }
