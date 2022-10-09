@@ -29,6 +29,7 @@ export class EventConfiguration {
 export class GeneralConfiguration {
   groupStrategy: 'basic' | 'basicBySpeed' | 'basicBySpeedReverse' | 'advanced' | 'assignmentsFromWcif' | 'fromCsv' = 'basic';
   totalNumberOfTimers = 16;
+  rooms: RoomConfiguration[];
   skipDelegatesAndOrganizers = true;
   doNotAssignJudges = false;
   doNotAssignTasksToNewCompetitors = false;
@@ -37,6 +38,16 @@ export class GeneralConfiguration {
   autoPickScramblersAndRunners = false;
   bordersOnNametags = true;
   printStationNumbersOnScoreCards = false;
+  printColorsOnTableOverview = false;
+  printColorsOnPersonalSchedules = false;
+}
+
+export interface RoomConfiguration {
+  id: number;
+  name: string;
+  color: string;
+  stationNumberFrom: number;
+  // stationNumberTo: number;
 }
 
 export interface Schedule {

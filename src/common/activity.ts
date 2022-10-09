@@ -2,7 +2,7 @@ import {Activity} from '@wca/helpers';
 import * as moment from 'moment-timezone';
 import {activityCodeToName, parseActivityCode, ParsedActivityCode} from '@wca/helpers/lib/helpers/activity';
 import {Helpers} from './helpers';
-import {Wcif} from './classes';
+import {GeneralConfiguration, Wcif} from './classes';
 
 export class ActivityHelper {
 
@@ -52,7 +52,8 @@ export class ActivityHelper {
 
   private static hasExpectedNumberOfChildActivities(activity: Activity, event) {
     return !!activity.childActivities && !!activity.childActivities.length
-      && activity.childActivities.length === event.configuration.scrambleGroups * event.configuration.stages;
+      && (activity.childActivities.length === event.configuration.scrambleGroups ||
+        activity.childActivities.length === event.configuration.scrambleGroups * event.configuration.stages);
   }
 
   private static addGroupToCodeOfActivity(a: Activity, groupIndex: number, stageIndex: number, numberOfStages: number) {
@@ -104,21 +105,36 @@ export class ActivityHelper {
     return currentId;
   }
 
-  static createAssignmentsInWcif(wcif: Wcif) {
+  static createAssignmentsInWcif(wcif: Wcif, configuration: GeneralConfiguration) {
+    Helpers.sortCompetitorsByRegistrantId(wcif);
     this.resetAssignmentsOfAllPersons(wcif);
 
-    const groupActivities = this.getAllGroupActivitiesForRoundsOne(wcif);
-    groupActivities.forEach(activity => {
-      const activityCode = parseActivityCode(activity.activityCode);
-      const competitors = wcif.persons.filter(p => p[activityCode.eventId].group.split(';')[0] === ('' + activityCode.groupNumber));
-      competitors.forEach(competitor => this.createAssignmentFor(competitor, activity, 'competitor'));
-      const judges = wcif.persons.filter(p => p[activityCode.eventId].group.split(';').includes('J' + activityCode.groupNumber));
-      judges.forEach(judge => this.createAssignmentFor(judge, activity, 'staff-judge'));
-      const scramblers = wcif.persons.filter(p => p[activityCode.eventId].group.split(';').includes('S' + activityCode.groupNumber));
-      scramblers.forEach(scrambler => this.createAssignmentFor(scrambler, activity, 'staff-scrambler'));
-      const runners = wcif.persons.filter(p => p[activityCode.eventId].group.split(';').includes('R' + activityCode.groupNumber));
-      runners.forEach(runner => this.createAssignmentFor(runner, activity, 'staff-runner'));
-    });
+    for (const venue of wcif.schedule.venues) {
+      for (const room of venue.rooms) {
+        for (const activity of room.activities) {
+          for (const childActivity of activity.childActivities.filter(a => a.activityCode.includes('-r1-g'))) {
+            const stationNumberFrom = configuration.rooms.filter(r => r.id === room.id)?.[0]?.stationNumberFrom || 1;
+
+            const activityCode = parseActivityCode(childActivity.activityCode);
+            const competitors = wcif.persons.filter(p => p[activityCode.eventId].group.split(';')[0] === ('' + activityCode.groupNumber));
+            competitors.forEach((competitor, index) => {
+              this.createAssignmentFor(competitor, childActivity, 'competitor', stationNumberFrom + index);
+
+              // TODO Refactor: this must be done whenever stationNumbers of stages change!
+              competitor[activityCode.eventId].stationNumber = stationNumberFrom + index;
+              competitor[activityCode.eventId].stageColor = room.color;
+            });
+            const judges = wcif.persons.filter(p => p[activityCode.eventId].group.split(';').includes('J' + activityCode.groupNumber));
+            judges.forEach(judge => this.createAssignmentFor(judge, childActivity, 'staff-judge', null));
+            const scramblers = wcif.persons.filter(p => p[activityCode.eventId].group.split(';').includes('S' + activityCode.groupNumber));
+            scramblers.forEach(scrambler => this.createAssignmentFor(scrambler, childActivity, 'staff-scrambler', null));
+            const runners = wcif.persons.filter(p => p[activityCode.eventId].group.split(';').includes('R' + activityCode.groupNumber));
+            runners.forEach(runner => this.createAssignmentFor(runner, childActivity, 'staff-runner', null));
+          }
+        }
+      }
+    }
+    Helpers.sortCompetitorsByName(wcif);
   }
 
   private static resetAssignmentsOfAllPersons(wcif: Wcif) {
@@ -127,15 +143,10 @@ export class ActivityHelper {
     });
   }
 
-  private static getAllGroupActivitiesForRoundsOne(wcif: Wcif) {
-    const activitiesFromWcif = this.getAllActivitiesFromWcif(wcif);
-    return activitiesFromWcif.filter(a => a.activityCode.includes('-r1-g'));
-  }
-
-  private static createAssignmentFor(person: any, activity: Activity, assignmentCode: string) {
+  private static createAssignmentFor(person: any, activity: Activity, assignmentCode: string, stationNumber: number) {
     person.assignments.push({
       activityId: activity.id,
-      stationNumber: null,
+      stationNumber: stationNumber,
       assignmentCode: assignmentCode
     });
   }

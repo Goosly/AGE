@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, Subject} from 'rxjs';
 import {environment} from '../environments/environment';
 import {LogglyService} from '../loggly/loggly.service';
-import {Wcif} from './classes';
+import {GeneralConfiguration, Wcif} from './classes';
 import {ActivityHelper} from './activity';
 import {AustralianNationalsWcif} from '../test/australian-nationals';
 import { of } from 'rxjs';
@@ -72,17 +72,17 @@ export class ApiService {
   }
 
   getWcif(competitionId): Observable<any> {
-    if (environment.testMode) {
-      return of(AustralianNationalsWcif.wcif).pipe(delay(100));
-    }
+    // if (environment.testMode) {
+    //   return of(AustralianNationalsWcif.wcif);
+    // }
     return this.httpClient.get(`${environment.wcaUrl}/api/v0/competitions/${competitionId}/wcif`,
       {headers: this.headerParams});
   }
 
-  patchWcif(wcif: Wcif, successCallback: () => void, errorCallback: (error) => void) {
+  patchWcif(wcif: Wcif, configuration: GeneralConfiguration, successCallback: () => void, errorCallback: (error) => void) {
     this.addAgeExtension(wcif);
     ActivityHelper.addChildActivitiesForEveryRound(wcif);
-    ActivityHelper.createAssignmentsInWcif(wcif);
+    ActivityHelper.createAssignmentsInWcif(wcif, configuration);
 
     this.httpClient.patch(
       `${environment.wcaUrl}/api/v0/competitions/${wcif.id}/wcif`,

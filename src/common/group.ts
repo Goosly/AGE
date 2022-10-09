@@ -320,6 +320,8 @@ export class GroupService {
     this.processRegistrationsOfPersons();
 
     this.setDefaultEventConfiguration();
+
+    this.processRooms();
   }
 
   private processRegistrationsOfPersons() {
@@ -596,5 +598,31 @@ export class GroupService {
       }
     });
   }
+
+  private processRooms() {
+    this.configuration.rooms = Helpers.getAllRooms(this.wcif).map(room => ({
+      id: room.id,
+      name: room.name,
+      color: room.color,
+      stationNumberFrom: 1,
+      stationNumberTo: room.extensions?.filter(e => e.id === 'groupifier.RoomConfig')?.[0]?.data?.['stations'] || 1000,
+    }));
+  }
+
+  // splitRoom(index: number) {
+  //   this.configuration.printColorsOnTableOverview = true;
+  //   this.configuration.printColorsOnPersonalSchedules = true;
+  //
+  //   const room = this.configuration.rooms[index];
+  //   const split = room.stationNumberFrom + Math.floor((room.stationNumberTo - room.stationNumberFrom) / 2);
+  //   this.configuration.rooms.splice(index, 0, {
+  //     id: room.id,
+  //     name: room.name,
+  //     color: room.color,
+  //     stationNumberFrom: split + 1,
+  //     stationNumberTo: room.stationNumberTo,
+  //   });
+  //   room.stationNumberTo = split;
+  // }
 
 }

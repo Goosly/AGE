@@ -1,6 +1,7 @@
 import {Assignment, StaffPerson, Wcif} from './classes';
 import {Event, EventId, Person} from '@wca/helpers';
 import {environment} from '../environments/environment';
+import {Room} from '@wca/helpers/lib/models/room';
 
 export class Helpers {
 
@@ -67,6 +68,12 @@ export class Helpers {
       const textA = a.name.toUpperCase();
       const textB = b.name.toUpperCase();
       return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+    });
+  }
+
+  static sortCompetitorsByRegistrantId(wcif: Wcif) {
+    wcif.persons = wcif.persons.sort(function(a, b) {
+      return (a.registrantId < b.registrantId) ? -1 : (a.registrantId > b.registrantId) ? 1 : 0;
     });
   }
 
@@ -261,7 +268,7 @@ export class Helpers {
   }
 
   public static getStageName(wcif: Wcif, event: any, group: number): string {
-    const numberOfRooms: number = wcif.schedule.venues.map(venue => venue.rooms.length).reduce((a, b) => a + b, 0);
+    const numberOfRooms: number = this.getNumberOfRooms(wcif);
     if (numberOfRooms < 2) {
       return null;
     }
@@ -277,6 +284,14 @@ export class Helpers {
       }
     }
     return null;
+  }
+
+  private static getNumberOfRooms(wcif: Wcif) {
+    return wcif.schedule.venues.map(venue => venue.rooms.length).reduce((a, b) => a + b, 0);
+  }
+
+  public static getAllRooms(wcif: Wcif): Room[] {
+    return wcif?.schedule.venues.map(venue => venue.rooms).flat();
   }
 
 }

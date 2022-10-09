@@ -73,7 +73,7 @@ export class AppComponent  {
     }
 
     this.apiService.getCompetitions().subscribe(comps => {
-      if (comps.length === 1) {
+      if (comps.length === 1 || environment.testMode) {
         this.handleCompetitionSelected(comps[0]['id']);
       }
       this.competitionsToChooseFrom = comps.map(c => c['id']);
@@ -106,7 +106,7 @@ export class AppComponent  {
   }
 
   handleNumberOfStagesSet(value: number, eventId: string) {
-    const event: EventConfiguration = Helpers.getEvent(eventId, this.groupService.wcif).configuration;
+    const event: EventConfiguration = Helpers.getEvent(eventId, this.wcif()).configuration;
     event.stages = value;
     event.timers = event.totalTimers / event.stages;
   }
@@ -114,12 +114,12 @@ export class AppComponent  {
   toggleUseStages() {
     this.groupService.configuration.useMultipleStages = !this.groupService.configuration.useMultipleStages;
     if (this.groupService.configuration.useMultipleStages) {
-      this.groupService.wcif.events.forEach(e => {
+      this.wcif().events.forEach(e => {
         e.configuration.stages = 2;
         e.configuration.timers = e.configuration.totalTimers / e.configuration.stages;
       });
     } else {
-      this.groupService.wcif.events.forEach(e => {
+      this.wcif().events.forEach(e => {
         e.configuration.stages = 1;
         e.configuration.timers = e.configuration.totalTimers / e.configuration.stages;
       });
@@ -128,7 +128,7 @@ export class AppComponent  {
 
   handleGenerate() {
     try {
-      this.groupService.wcif.events.forEach(event => {
+      this.wcif().events.forEach(event => {
         this.groupService.generateGrouping(event.id);
         this.groupCounter = this.getGroupCounterBasedOnEvent(event);
       });
@@ -157,18 +157,18 @@ export class AppComponent  {
 
   handleGenerateOneEvent(eventId: EventId) {
     this.groupService.generateGrouping(eventId);
-    Helpers.sortCompetitorsByGroupInEvent(this.groupService.wcif, eventId);
+    Helpers.sortCompetitorsByGroupInEvent(this.wcif(), eventId);
   }
 
   handleExport() {
-    Helpers.sortCompetitorsByName(this.groupService.wcif);
+    Helpers.sortCompetitorsByName(this.wcif());
     this.readyForExport = true;
-      this.apiService.logUserClicksExport(this.userNameShort, this.groupService.wcif.id);
+    this.apiService.logUserClicksExport(this.userNameShort, this.wcif().id);
   }
 
   handleBackToEdit() {
     this.readyForExport = false;
-    this.apiService.logUserClicksBackToEdit(this.userNameShort, this.groupService.wcif.id);
+    this.apiService.logUserClicksBackToEdit(this.userNameShort, this.wcif().id);
   }
 
   handleFilterChanged(value: string) {
@@ -177,19 +177,19 @@ export class AppComponent  {
 
   handleImportFromWcif() {
     this.groupService.importAssignmentsFromWcif();
-    this.groupCounter = this.countCJRSForAllEvents(this.groupService.wcif);
-    this.apiService.logUserImportedFromWcif(this.userNameShort, this.groupService.wcif.id);
+    this.groupCounter = this.countCJRSForAllEvents(this.wcif());
+    this.apiService.logUserImportedFromWcif(this.userNameShort, this.wcif().id);
     this.groupService.configuration.groupStrategy = 'assignmentsFromWcif';
-    Helpers.sortCompetitorsByName(this.groupService.wcif);
+    Helpers.sortCompetitorsByName(this.wcif());
     this.groupsGenerated = true;
   }
 
   handleImportGroupsFromCsv() {
     this.groupService.importAssignmentsFromCsv((competitorCounterFromCsv: number) => {
-      this.groupCounter = this.countCJRSForAllEvents(this.groupService.wcif);
-      this.apiService.logUserImportedFromCsv(this.userNameShort, this.groupService.wcif.id);
+      this.groupCounter = this.countCJRSForAllEvents(this.wcif());
+      this.apiService.logUserImportedFromCsv(this.userNameShort, this.wcif().id);
       this.groupService.configuration.groupStrategy = 'fromCsv';
-      Helpers.sortCompetitorsByName(this.groupService.wcif);
+      Helpers.sortCompetitorsByName(this.wcif());
       this.competitorCounterFromCsv = competitorCounterFromCsv;
       this.groupsGenerated = true;
     });
@@ -197,7 +197,7 @@ export class AppComponent  {
 
   handleSaveGroupsAndAssignmentsToWcif() {
     this.wcifSaved = 'SAVING';
-    this.apiService.patchWcif(this.groupService.wcif,
+    this.apiService.patchWcif(this.wcif(), this.groupService.configuration,
       () => {
         this.wcifSaved = 'TRUE';
       },
@@ -205,15 +205,15 @@ export class AppComponent  {
         this.wcifSaved = 'ERROR';
         this.wcifSaveError = error;
       });
-    this.apiService.logUserSavedFromWcif(this.userNameShort, this.groupService.wcif.id);
+    this.apiService.logUserSavedFromWcif(this.userNameShort, this.wcif().id);
   }
 
   handleSortByEvent(event) {
-    Helpers.sortCompetitorsByGroupInEvent(this.groupService.wcif, event.id);
+    Helpers.sortCompetitorsByGroupInEvent(this.wcif(), event.id);
   }
 
   handleSortCompetitorsByName() {
-    Helpers.sortCompetitorsByName(this.groupService.wcif);
+    Helpers.sortCompetitorsByName(this.wcif());
   }
 
   handleBlurEvent(target, group: string, eventId: EventId) {
@@ -234,7 +234,7 @@ export class AppComponent  {
       return false;
     }
 
-    const event: EventConfiguration = Helpers.getEvent(eventId, this.groupService.wcif).configuration;
+    const event: EventConfiguration = Helpers.getEvent(eventId, this.wcif()).configuration;
     const max: number = event.scrambleGroups * event.stages;
     const parts = group.split(';');
     for (let i = 0; i < parts.length; i++) { // Loop over the assignments for this event (for example: 1;J3)
@@ -270,20 +270,20 @@ export class AppComponent  {
   }
 
   get competitionId() {
-    return ! this.groupService.wcif ? null : this.groupService.wcif.id;
+    return ! this.wcif() ? null : this.wcif().id;
   }
 
   get numberOfEvents() {
-    return ! this.groupService.wcif ? null : this.groupService.wcif.events.length;
+    return ! this.wcif() ? null : this.wcif().events.length;
   }
 
   get numberOfCompetitors() {
-    return ! this.groupService.wcif ? null : this.groupService.wcif.persons.length;
+    return ! this.wcif() ? null : this.wcif().persons.length;
   }
 
   get competitorsToShow() {
-    return this.filter === '' ? this.groupService.wcif.persons
-      : this.groupService.wcif.persons.filter(p => p.name.toUpperCase().indexOf(this.filter.toUpperCase()) > -1);
+    return this.filter === '' ? this.wcif().persons
+      : this.wcif().persons.filter(p => p.name.toUpperCase().indexOf(this.filter.toUpperCase()) > -1);
   }
 
   get advancedStrategy(): boolean {
@@ -308,16 +308,24 @@ export class AppComponent  {
     // Not sure how to check... Probably every person should have at least one assignment?
     // Play safe for whatever weird scenario: at least half of the persons should have at least one assignment
     let countPersonsWithAssignments = 0;
-    this.groupService.wcif.persons.forEach(p => {
+    this.wcif().persons.forEach(p => {
       if (p.assignments.length > 0) {
         countPersonsWithAssignments++;
       }
     });
-    return countPersonsWithAssignments * 2 > this.groupService.wcif.persons.length;
+    return countPersonsWithAssignments * 2 > this.wcif().persons.length;
   }
 
   version() {
     return environment.version;
+  }
+
+  get getRooms() {
+    return this.groupService.configuration.rooms;
+  }
+
+  private wcif() {
+    return this.groupService.wcif;
   }
 
 }
