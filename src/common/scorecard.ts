@@ -28,6 +28,7 @@ export class ScoreCardService {
         scorecard.competitorId = c.registrantId;
         scorecard.group = c[event.id].group.split(';')[0];
         scorecard.stageName = Helpers.getStageName(wcif, event, scorecard.group);
+        scorecard.timerStationId = c[event.id].stationNumber;
         scorecardsForEvent.push(scorecard);
       });
       this.addScorecardNumberAndStationNumbers(scorecardsForEvent);
@@ -46,7 +47,7 @@ export class ScoreCardService {
   }
 
   private addScorecardNumberAndStationNumbers(scorecardsForEvent: ScoreCardInfo[]) {
-    let stationCounter = 0;
+    let stationCounter = 0; // TODO Refactor: StationNumbers should have been already set
     let group = scorecardsForEvent[0].group;
     scorecardsForEvent.forEach((s: ScoreCardInfo, i: number) => {
       if (s.group == group) {
@@ -55,7 +56,14 @@ export class ScoreCardService {
         stationCounter = 1;
         group++;
       }
-      s.timerStationId = this.groupService.configuration.printStationNumbersOnScoreCards ? stationCounter : null;
+      if (this.groupService.configuration.printStationNumbersOnScoreCards) {
+        if (!s.timerStationId) { // TODO Refactor and get rid of this
+          s.timerStationId = stationCounter;
+        }
+      } else {
+        s.timerStationId = null;
+      }
+
       s.scorecardNumber = (i + 1);
     });
   }

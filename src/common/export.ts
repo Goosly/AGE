@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {EventConfiguration, Wcif} from './classes';
+import {EventConfiguration, GeneralConfiguration, Wcif} from './classes';
 import {saveAs} from 'file-saver';
 import {getEventName, Person} from '@wca/helpers';
 import * as moment from 'moment-timezone';
@@ -96,7 +96,7 @@ export class ExportService {
     pdfMake.createPdf(document).download(filename);
   }
 
-  pdfTableGroupAndTaskAssignments(wcif: Wcif) {
+  pdfTableGroupAndTaskAssignments(wcif: Wcif, configuration: GeneralConfiguration) {
     const document = {
       pageOrientation: 'landscape',
       content: [
@@ -115,7 +115,7 @@ export class ExportService {
       ],
       styles: {
         tableOverview: {
-          lineHeight: 0.7
+          lineHeight: 1
         }
       },
       defaultStyle: {
@@ -140,7 +140,11 @@ export class ExportService {
     wcif.persons.forEach(p => {
       const array = [p.name];
       wcif.events.forEach(event => {
-        array.push(p[event.id].group);
+        if (configuration.printColorsOnTableOverview && !!p[event.id].stageColor) {
+          array.push({text: p[event.id].group, background: p[event.id].stageColor, color: 'white'});
+        } else {
+          array.push(p[event.id].group);
+        }
       });
       document.content[0].table.body.push(array);
     });
@@ -149,7 +153,7 @@ export class ExportService {
     pdfMake.createPdf(document).download(filename);
   }
 
-  pdfPersonalSchedules(wcif: Wcif, bordersOnNametags: boolean) {
+  pdfPersonalSchedules(wcif: Wcif, configuration: GeneralConfiguration) {
     const document = {
       content: [
       ],
@@ -164,7 +168,7 @@ export class ExportService {
         },
         tableExample: {
           margin: [0, 0, 0, 0],
-          lineHeight: 0.7
+          lineHeight: 1
         },
         name: {
           fontSize: 18,
@@ -186,12 +190,12 @@ export class ExportService {
         }
       },
       defaultStyle: {
-        fontSize: 10,
+        fontSize: 8,
       }
     };
 
     wcif.persons.forEach(p => {
-      const nametag = this.getOneNametagToFill(bordersOnNametags);
+      const nametag = this.getOneNametagToFill(configuration.bordersOnNametags);
 
       // Set name, wcaId and country on nametag
       nametag.table.body[0][1].table.body[0][0].text = p.name;
@@ -205,8 +209,10 @@ export class ExportService {
       wcif.events.forEach(event => {
         if (p[event.id].group !== '') {
           nametag.table.body[0][0].table.body[0][i].table.body[j][0].text = this.formatStartTimeOf(event, wcif.schedule.venues[0].timezone);
-          nametag.table.body[0][0].table.body[0][i].table.body[j][1] = this.getIconOf(event.id, 10);
-          nametag.table.body[0][0].table.body[0][i].table.body[j][2] = p[event.id].group;
+          nametag.table.body[0][0].table.body[0][i].table.body[j][1] = this.getIconOf(event.id);
+          nametag.table.body[0][0].table.body[0][i].table.body[j][2] =
+            configuration.printColorsOnPersonalSchedules && !!p[event.id].stageColor ?
+              {text: p[event.id].group, background: p[event.id].stageColor, color: 'white'} : p[event.id].group;
 
           j++;
           if (j > 5) {
@@ -333,10 +339,11 @@ export class ExportService {
     };
   }
 
-  private getIconOf(eventId: string, width: number): any {
+  private getIconOf(eventId: string): any {
     return {
       image: this.getDataUrlOf(eventId),
-      width: width
+      width: 10,
+      // margin: [0, -2]
     };
   }
 

@@ -1,4 +1,6 @@
 <div class="content">
+<mat-drawer-container class="example-container" autosize>
+
   <h1>Advanced Group Editor (AGE)</h1>&nbsp;<h6>{{version()}}</h6>&nbsp;
   <a class="headerLink" href="https://github.com/Goosly/AGE/wiki" target="_blank"><i class="fa fa-book"></i> Wiki</a>&nbsp;
   <a class="headerLink" href="https://github.com/Goosly/AGE" target="_blank"><i class="fa fa-github"></i> Github</a>
@@ -183,18 +185,22 @@
     Want to go back to make more changes? <button (click)="handleBackToEdit()">Go back to editing</button><br>
 
     <h4>Save to WCA</h4>
-    <button (click)="handleSaveGroupsAndAssignmentsToWcif()">Save groups & assignments</button>
-    <span *ngIf="wcifSaved === 'TRUE'"> &#10004; Successfully saved</span>
-    <span *ngIf="wcifSaved === 'SAVING'"> Saving...</span>
-    <span *ngIf="wcifSaved === 'ERROR'"> &#10005; Error while saving{{!! wcifSaveError?.error?.error ? (': ' + wcifSaveError?.error?.error) : ''}}</span>
-    <p>This will allow other tools, like <a href="https://mycomp.app/" target="_blank">myComp.app</a> and <a href="https://bestsiteever.ru/cutifier/" target="_blank">Cutifier</a> to read the groups and assignments.</p>
+    <p><button (click)="drawer.toggle()">Edit station numbers</button>&nbsp;<i class="fa fa-arrow-right"></i> New! (And experimental <i class="fa fa-smile-o"></i>)</p>
+    <p>
+      <button (click)="handleSaveGroupsAndAssignmentsToWcif()">Save groups & assignments</button>
+      <span *ngIf="wcifSaved === 'FALSE'">&nbsp;Note: this may take up to 20 seconds for large competitions</span>
+      <span *ngIf="wcifSaved === 'TRUE'"> &#10004; Successfully saved</span>
+      <span *ngIf="wcifSaved === 'SAVING'"> Saving...</span>
+      <span *ngIf="wcifSaved === 'ERROR'"> &#10005; Error while saving{{!! wcifSaveError?.error?.error ? (': ' + wcifSaveError?.error?.error) : ''}}</span>
+    </p>
+    <p>This will allow other tools, like <a href="https://www.competitiongroups.com/" target="_blank">competitiongroups</a> and <a href="https://bestsiteever.ru/cutifier/" target="_blank">Cutifier</a> to read the groups and assignments.</p>
 
     <h4>Download files</h4>
     <p><button (click)="exportService.pdfRegistrationLists(groupService.wcif)">Registration lists (2 PDFs)</button>&nbsp;<i class="fa fa-arrow-right"></i> New! </p>
     <p><button (click)="exportService.csvGroupAndTaskAssignments(this.groupService.wcif)">All group + task assignments (CSV)</button></p>
-    <p><button (click)="exportService.pdfTableGroupAndTaskAssignments(this.groupService.wcif)">All group + task assignments (PDF)</button></p>
+    <p><button (click)="exportService.pdfTableGroupAndTaskAssignments(this.groupService.wcif, this.groupService.configuration)">All group + task assignments (PDF)</button></p>
     <p><button (click)="exportService.pdfGroupOverview(this.groupService.wcif)">Overview per group with names of all competitors, judges, scramblers and runners (PDF)</button></p>
-    <p><button (click)="exportService.pdfPersonalSchedules(this.groupService.wcif, this.groupService.configuration.bordersOnNametags)">Personal schedules + nametags (PDF)</button>
+    <p><button (click)="exportService.pdfPersonalSchedules(this.groupService.wcif, this.groupService.configuration)">Personal schedules + nametags (PDF)</button>
         <input type="checkbox" [(ngModel)]="groupService.configuration.bordersOnNametags"><label>Show light borders for cutting and folding</label></p>
 
     <h4>Download scorecards</h4>
@@ -204,4 +210,25 @@
     <p><button (click)="scoreCardsService.printFourEmptyScorecards(this.groupService.wcif)">4 Empty scorecards on A4 (PDF)</button></p>
     <p><button (click)="scoreCardsService.printOneEmptyScorecardOnA6(this.groupService.wcif)">1 Empty scorecard on A6 (PDF)</button>&nbsp;<i class="fa fa-arrow-right"></i> New! </p>
   </div>
+
+  <mat-drawer #drawer class="example-sidenav" mode="over">
+    <h2>Configuration of rooms</h2>
+
+    <h3>Note: if you make any changes here, then save everything to the WCIF before printing anything!</h3>
+
+    <div *ngFor="let room of getRooms; index as i">
+      <div style="margin-bottom: 0.5rem">
+<!--        <input type="text" matInput [(ngModel)]="room.name" style="margin-right: 0.5rem">-->
+        <input type="color" matInput [(ngModel)]="room.color" style="margin-right: 0.5rem" disabled="true">
+        <span style="margin-right: 0.5rem">{{room.name}}</span>
+        Station numbers start from: <input type="number" matInput [(ngModel)]="room.stationNumberFrom" style="margin-right: 0.5rem">
+<!--        <input type="number" matInput [(ngModel)]="room.stationNumberTo" style="margin-right: 0.5rem">-->
+<!--        <button (click)="groupService.splitRoom(i)">Split this room into 2 stages</button>-->
+      </div>
+    </div>
+
+    <input type="checkbox" [(ngModel)]="groupService.configuration.printColorsOnTableOverview"><label>Include stage colors on table overview</label><br>
+    <input type="checkbox" [(ngModel)]="groupService.configuration.printColorsOnPersonalSchedules"><label>Include stage colors on personal schedules</label><br>
+  </mat-drawer>
+</mat-drawer-container>
 </div>
