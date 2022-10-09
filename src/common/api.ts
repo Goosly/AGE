@@ -1,10 +1,13 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {environment} from '../environments/environment';
 import {LogglyService} from '../loggly/loggly.service';
 import {Wcif} from './classes';
 import {ActivityHelper} from './activity';
+import {AustralianNationalsWcif} from '../test/australian-nationals';
+import { of } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -69,10 +72,9 @@ export class ApiService {
   }
 
   getWcif(competitionId): Observable<any> {
-    // if (environment.testMode) {
-    //   return this.httpClient.get(`https://www.worldcubeassociation.org/api/v0/competitions/SeraingOpen2021/wcif/public`,
-    //     {headers: this.headerParams});
-    // }
+    if (environment.testMode) {
+      return of(AustralianNationalsWcif.wcif).pipe(delay(100));
+    }
     return this.httpClient.get(`${environment.wcaUrl}/api/v0/competitions/${competitionId}/wcif`,
       {headers: this.headerParams});
   }
