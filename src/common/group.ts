@@ -605,7 +605,7 @@ export class GroupService {
       name: room.name,
       color: room.color,
       stationNumberFrom: 1,
-      stationNumberTo: room.extensions?.filter(e => e.id === 'groupifier.RoomConfig')?.[0]?.data?.['stations'] || 1000,
+      // stationNumberTo: room.extensions?.filter(e => e.id === 'groupifier.RoomConfig')?.[0]?.data?.['stations'] || 1000,
     }));
   }
 
