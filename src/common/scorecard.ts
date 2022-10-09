@@ -57,7 +57,7 @@ export class ScoreCardService {
         group++;
       }
       if (this.groupService.configuration.printStationNumbersOnScoreCards) {
-        if (!!s.timerStationId) { // TODO Refactor and get rid of this
+        if (!s.timerStationId) { // TODO Refactor and get rid of this
           s.timerStationId = stationCounter;
         }
       } else {
