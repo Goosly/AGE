@@ -71,12 +71,6 @@ export class Helpers {
     });
   }
 
-  static sortCompetitorsByRegistrantId(wcif: Wcif) {
-    wcif.persons = wcif.persons.sort(function(a, b) {
-      return (a.registrantId < b.registrantId) ? -1 : (a.registrantId > b.registrantId) ? 1 : 0;
-    });
-  }
-
   static getEvent(eventId: string, wcif: Wcif) {
     return wcif.events.filter(e => e.id === eventId)[0];
   }

@@ -106,7 +106,7 @@ export class ActivityHelper {
   }
 
   static createAssignmentsInWcif(wcif: Wcif, configuration: GeneralConfiguration) {
-    Helpers.sortCompetitorsByRegistrantId(wcif);
+    // TODO Write a test for this method
     this.resetAssignmentsOfAllPersons(wcif);
 
     for (const venue of wcif.schedule.venues) {
@@ -134,7 +134,6 @@ export class ActivityHelper {
         }
       }
     }
-    Helpers.sortCompetitorsByName(wcif);
   }
 
   private static resetAssignmentsOfAllPersons(wcif: Wcif) {
