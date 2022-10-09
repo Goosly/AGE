@@ -117,11 +117,11 @@ describe('test', function() {
     };
 
     Helpers.sortCompetitorsByGroupInEvent(wcif, 'sq1');
-    expect(wcif.persons[0].name).toBe( 'Foo3');
-    expect(wcif.persons[1].name).toBe( 'Bar2');
+    expect(wcif.persons[0].name).toBe( 'Bar2');
+    expect(wcif.persons[1].name).toBe( 'Foo3');
     expect(wcif.persons[2].name).toBe( 'Foo2');
-    expect(wcif.persons[3].name).toBe( 'Foo');
-    expect(wcif.persons[4].name).toBe( 'Bar');
+    expect(wcif.persons[3].name).toBe( 'Bar');
+    expect(wcif.persons[4].name).toBe( 'Foo');
   });
 
   it('test sortRunnersByRunningAssigned', function() {

@@ -1,14 +1,13 @@
 import {Assignment, StaffPerson, Wcif} from './classes';
 import {Event, EventId, Person} from '@wca/helpers';
-import {environment} from '../environments/environment';
 import {Room} from '@wca/helpers/lib/models/room';
 
 export class Helpers {
 
   static sortCompetitorsByGroupInEvent(wcif: Wcif, eventId: string) {
     wcif.persons = wcif.persons.sort(function(a, b) {
-      const textA = a[eventId].group;
-      const textB = b[eventId].group;
+      let textA = a[eventId].group;
+      let textB = b[eventId].group;
       if (textA === '') {
         return 1;
       }
@@ -16,8 +15,15 @@ export class Helpers {
         return -1;
       }
       if (this.startsWithANumber(textA) && this.startsWithANumber(textB)) {
-        return (parseInt(textA) < parseInt(textB)) ? -1 : (parseInt(textA) > parseInt(textB)) ? 1 : 0;
+        if (parseInt(textA) < parseInt(textB)) {
+          return -1;
+        }
+        if (parseInt(textA) > parseInt(textB)) {
+          return 1;
+        }
       }
+      textA = a.name.toUpperCase();
+      textB = b.name.toUpperCase();
       return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
     }.bind(this));
   }
