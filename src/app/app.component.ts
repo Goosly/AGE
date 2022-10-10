@@ -8,6 +8,8 @@ import { ScoreCardService } from '../common/scorecard';
 import {Helpers} from '../common/helpers';
 import {EventId} from '@wca/helpers';
 import {AnnuntiaWcif} from '../test/annuntia';
+import {ConfirmSaveWcifDialogComponent} from './dialog/confirm-save-wcif-dialog.component';
+import {MatDialog} from '@angular/material/dialog';
 declare var $: any;
 
 @Component({
@@ -38,7 +40,8 @@ export class AppComponent  {
     public apiService: ApiService,
     public groupService: GroupService,
     public exportService: ExportService,
-    public scoreCardsService: ScoreCardService
+    public scoreCardsService: ScoreCardService,
+    public dialog: MatDialog
     ) {
       this.Math = Math;
       this.groupService.document = document;
@@ -328,4 +331,13 @@ export class AppComponent  {
     return this.groupService.wcif;
   }
 
+  openConfirmSaveWcif() {
+    const dialogRef = this.dialog.open(ConfirmSaveWcifDialogComponent, {
+      width: '300px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.handleSaveGroupsAndAssignmentsToWcif();
+    });
+  }
 }

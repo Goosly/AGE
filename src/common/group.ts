@@ -406,6 +406,9 @@ export class GroupService {
       if (p[(code.eventId)].group.length !== 0) {
         p[(code.eventId)].group += ';';
       }
+      if (assignmentFromWcif.assignmentCode === 'competitor') {
+        p[(code.eventId)].stationNumber = assignmentFromWcif.stationNumber;
+      }
       p[(code.eventId)].group += this.convertAssignmentCodeFromWcif(assignmentFromWcif.assignmentCode);
       p[(code.eventId)].group += (code.groupNumber || 1).toString();
     });

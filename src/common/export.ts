@@ -438,8 +438,8 @@ export class ExportService {
       document.content[3]['table'].body.push([
         p.name,
         !p.wcaId ? ' ' : p.wcaId,
-        p.birthdate,
-        this.getCountryName(p.countryIso2),
+        p.birthdate || ' ',
+        this.getCountryName(p.countryIso2) || ' ',
         { text: returningCompetitors ? ' ' : '_________________________________', style: 'comment'},
       ]);
     });

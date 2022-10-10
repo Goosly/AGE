@@ -205,16 +205,14 @@
 
     <h4>Download scorecards</h4>
     <p><input type="checkbox" [(ngModel)]="groupService.configuration.printStationNumbersOnScoreCards"><label>Print station numbers in top right corner</label></p>
-    <p><button (click)="scoreCardsService.printScoreCardsForAllFirstRoundsExceptFMC(this.groupService.wcif, false)">Scorecards of all first rounds on A4, 4 per page (PDF)</button> (Note: this may take a few seconds)</p>
+    <p><button (click)="scoreCardsService.printScoreCardsForAllFirstRoundsExceptFMC(this.groupService.wcif, false)">Scorecards of all first rounds on A4, 4 per page (PDF)</button> (Note: this may take a few seconds for small competitions, and up to 20 seconds for large ones)</p>
     <p><button (click)="scoreCardsService.printScoreCardsForAllFirstRoundsExceptFMC(this.groupService.wcif, true)">Scorecards of all first rounds on A6 (PDF)</button>&nbsp;<i class="fa fa-arrow-right"></i> New! </p>
     <p><button (click)="scoreCardsService.printFourEmptyScorecards(this.groupService.wcif)">4 Empty scorecards on A4 (PDF)</button></p>
     <p><button (click)="scoreCardsService.printOneEmptyScorecardOnA6(this.groupService.wcif)">1 Empty scorecard on A6 (PDF)</button>&nbsp;<i class="fa fa-arrow-right"></i> New! </p>
   </div>
 
-  <mat-drawer #drawer class="example-sidenav" mode="over">
+  <mat-drawer #drawer class="example-sidenav" mode="over" disableClose>
     <h2>Configuration of rooms</h2>
-
-    <h3>Note: if you make any changes here, then save everything to the WCIF before printing anything!</h3>
 
     <div *ngFor="let room of getRooms; index as i">
       <div style="margin-bottom: 0.5rem">
@@ -229,6 +227,8 @@
 
     <input type="checkbox" [(ngModel)]="groupService.configuration.printColorsOnTableOverview"><label>Include stage colors on table overview</label><br>
     <input type="checkbox" [(ngModel)]="groupService.configuration.printColorsOnPersonalSchedules"><label>Include stage colors on personal schedules</label><br>
+
+    <button (click)="drawer.toggle(); openConfirmSaveWcif()">Confirm</button>
   </mat-drawer>
 </mat-drawer-container>
 </div>
