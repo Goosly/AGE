@@ -58,7 +58,7 @@ export class ActivityHelper {
 
   private static addGroupToCodeOfActivity(a: Activity, groupIndex: number, stageIndex: number, numberOfStages: number) {
     const activityCode = parseActivityCode(a.activityCode);
-    activityCode.groupNumber = 1 + (stageIndex + groupIndex * numberOfStages);
+    activityCode.groupNumber = 1 + Math.round(stageIndex + groupIndex * numberOfStages);
     return this.formatActivityCode(activityCode);
   }
 
