@@ -72,9 +72,9 @@ export class ApiService {
   }
 
   getWcif(competitionId): Observable<any> {
-    if (environment.testMode) {
-      return of(AustralianNationalsWcif.wcif);
-    }
+    // if (environment.testMode) {
+    //   return of(AustralianNationalsWcif.wcif);
+    // }
     return this.httpClient.get(`${environment.wcaUrl}/api/v0/competitions/${competitionId}/wcif`,
       {headers: this.headerParams});
   }

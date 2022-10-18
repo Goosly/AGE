@@ -22,6 +22,12 @@ export class Helpers {
           return 1;
         }
       }
+      if (this.startsWithANumber(textA) && !this.startsWithANumber(textB)) {
+        return -1;
+      }
+      if (!this.startsWithANumber(textA) && this.startsWithANumber(textB)) {
+        return 1;
+      }
       textA = a.name.toUpperCase();
       textB = b.name.toUpperCase();
       return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
@@ -29,7 +35,7 @@ export class Helpers {
   }
 
   static startsWithANumber(s: string) {
-    return new RegExp('[0-9]+').test(s);
+    return new RegExp('^[0-9]+').test(s);
   }
 
   static sortCompetitorsBySpeedInEvent(wcif: Wcif, eventId: EventId, reverse: boolean) {

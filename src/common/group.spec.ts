@@ -124,6 +124,16 @@ describe('test', function() {
     expect(wcif.persons[4].name).toBe( 'Foo');
   });
 
+  it('test startsWithANumber', function() {
+    expect(Helpers.startsWithANumber('2')).toBeTruthy();
+    expect(Helpers.startsWithANumber('2;R1')).toBeTruthy();
+    expect(Helpers.startsWithANumber('1;R2;S3')).toBeTruthy();
+
+    expect(Helpers.startsWithANumber('J2')).toBeFalsy();
+    expect(Helpers.startsWithANumber('J1;R2')).toBeFalsy();
+    expect(Helpers.startsWithANumber('')).toBeFalsy();
+  });
+
   it('test sortRunnersByRunningAssigned', function() {
     const wcif: Wcif = {
       persons: [
