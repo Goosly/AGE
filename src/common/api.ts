@@ -84,6 +84,39 @@ export class ApiService {
     ActivityHelper.addChildActivitiesForEveryRound(wcif);
     ActivityHelper.createAssignmentsInWcif(wcif, configuration);
 
+    // TODO Refactor this 3x patch approach
+    const wcifWithExtensions = {
+      id: wcif.id,
+      extensions: wcif.extensions,
+    };
+    this.patch(wcifWithExtensions, errorCallback, () => {
+      const wcifWithSchedule = {
+        id: wcif.id,
+        schedule: wcif.schedule,
+      };
+      this.patch(wcifWithSchedule, errorCallback, () => {
+        const persons = wcif.persons.map(p => ({
+          assignments: p.assignments,
+          name: p.name,
+          registrantId: p.registrantId,
+          wcaId: p.wcaId,
+          wcaUserId: p.wcaUserId,
+        }));
+
+        const chunkSize = 50;
+        for (let i = 0; i < persons.length; i += chunkSize) {
+          const chunk = persons.slice(i, i + chunkSize);
+          const wcifWithPersons = {
+            id: wcif.id,
+            persons: chunk,
+          };
+          this.patch(wcifWithPersons, errorCallback, successCallback);
+        }
+      });
+    });
+  }
+
+  private patch(wcif: any, errorCallback: (error) => void, successCallback: () => void) {
     this.httpClient.patch(
       `${environment.wcaUrl}/api/v0/competitions/${wcif.id}/wcif`,
       JSON.stringify(wcif),
