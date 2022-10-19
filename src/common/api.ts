@@ -8,6 +8,7 @@ import {ActivityHelper} from './activity';
 import {AustralianNationalsWcif} from '../test/australian-nationals';
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
+import {UkChamps} from '../test/uk-champs';
 
 @Injectable({
   providedIn: 'root'
@@ -82,38 +83,47 @@ export class ApiService {
   patchWcif(wcif: Wcif, configuration: GeneralConfiguration, successCallback: () => void, errorCallback: (error) => void) {
     this.addAgeExtension(wcif);
     ActivityHelper.addChildActivitiesForEveryRound(wcif);
+
+    if (wcif.id === 'KewbzUKChampionship2022') {
+      wcif.schedule = UkChamps.schedule;
+    }
+
     ActivityHelper.createAssignmentsInWcif(wcif, configuration);
 
-    // TODO Refactor this 3x patch approach
-    const wcifWithExtensions = {
-      id: wcif.id,
-      extensions: wcif.extensions,
-    };
-    this.patch(wcifWithExtensions, errorCallback, () => {
-      const wcifWithSchedule = {
+    if (wcif.id === 'KewbzUKChampionship2022') {
+      // TODO Refactor this 3x patch approach
+      const wcifWithExtensions = {
         id: wcif.id,
-        schedule: wcif.schedule,
+        extensions: wcif.extensions,
       };
-      this.patch(wcifWithSchedule, errorCallback, () => {
-        const persons = wcif.persons.map(p => ({
-          assignments: p.assignments,
-          name: p.name,
-          registrantId: p.registrantId,
-          wcaId: p.wcaId,
-          wcaUserId: p.wcaUserId,
-        }));
+      this.patch(wcifWithExtensions, errorCallback, () => {
+        const wcifWithSchedule = {
+          id: wcif.id,
+          schedule: UkChamps.schedule,
+        };
+        this.patch(wcifWithSchedule, errorCallback, () => {
+          const persons = wcif.persons.map(p => ({
+            assignments: p.assignments,
+            name: p.name,
+            registrantId: p.registrantId,
+            wcaId: p.wcaId,
+            wcaUserId: p.wcaUserId,
+          }));
 
-        const chunkSize = 50;
-        for (let i = 0; i < persons.length; i += chunkSize) {
-          const chunk = persons.slice(i, i + chunkSize);
-          const wcifWithPersons = {
-            id: wcif.id,
-            persons: chunk,
-          };
-          this.patch(wcifWithPersons, errorCallback, successCallback);
-        }
+          const chunkSize = 50;
+          for (let i = 0; i < persons.length; i += chunkSize) {
+            const chunk = persons.slice(i, i + chunkSize);
+            const wcifWithPersons = {
+              id: wcif.id,
+              persons: chunk,
+            };
+            this.patch(wcifWithPersons, errorCallback, successCallback);
+          }
+        });
       });
-    });
+    } else {
+      this.patch(wcif, errorCallback, successCallback);
+    }
   }
 
   private patch(wcif: any, errorCallback: (error) => void, successCallback: () => void) {

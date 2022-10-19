@@ -13,15 +13,15 @@ export class ActivityHelper {
         if (! a.activityCode.startsWith('other')) {
           const activityCode = parseActivityCode(a.activityCode);
           const event = Helpers.getEvent(activityCode.eventId, wcif);
-          this.createChildActivitiesFor(a, event);
+          this.createChildActivitiesFor(wcif, a, event);
           currentId = this.assignIdsToChildActivities(a.childActivities, currentId);
         }
       }));
     });
   }
 
-  private static createChildActivitiesFor(activity: Activity, event): void {
-    if (this.hasExpectedNumberOfChildActivities(activity, event)) {
+  private static createChildActivitiesFor(wcif, activity: Activity, event): void {
+    if (this.hasExpectedNumberOfChildActivities(wcif, activity, event)) {
       return;
     }
 
@@ -50,7 +50,10 @@ export class ActivityHelper {
     }
   }
 
-  private static hasExpectedNumberOfChildActivities(activity: Activity, event) {
+  private static hasExpectedNumberOfChildActivities(wcif, activity: Activity, event) {
+    if (wcif.id === 'KewbzUKChampionship2022') {
+      return true;
+    }
     return !!activity.childActivities && !!activity.childActivities.length
       && (activity.childActivities.length === event.configuration.scrambleGroups ||
         activity.childActivities.length === event.configuration.scrambleGroups * event.configuration.stages);
