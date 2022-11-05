@@ -451,7 +451,7 @@ describe('test', function() {
     const staffExample = exportService.getContentForStaffExample(AnnuntiaWcif.wcif);
     const lines = staffExample.split('\r\n');
     expect(lines[0]).toBe('name,wcaId,run,222,333,444,555,666,777,333bf,333oh,clock,minx,pyram,skewb,sq1,444bf,555bf,333mbf');
-    expect(lines[2]).toBe('Adrien Schumacker,2016SCHU02,x,x,x,x,x,,x,x,x,,x,x,x,x,,,');
+    expect(lines[2]).toBe('Adrien Schumacker,2016SCHU02,x,x,x,x,x,,x,,x,,,x,,x,,,');
     for (let i = 1; i < lines.length - 1; i++) {
       const split = lines[i].split(',');
       expect(split.length).toBe( 19);
