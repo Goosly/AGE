@@ -235,8 +235,8 @@ export class Helpers {
     const staff: StaffPerson[] = this.getInitialStaff(wcif);
     for (const e of wcif.events) {
       Helpers.sortCompetitorsBySpeedInEvent(wcif, e.id, false);
-      wcif.persons.forEach((p, i, array) => {
-        if (i < array.length / 4 && !!p.wcaId) {
+      wcif.persons.filter(p => p[e.id].competing).forEach((p, i, array) => {
+        if (i < array.length / 3 && !!p.wcaId) {
           const staffPerson: StaffPerson = this.findInStaff(p, staff);
           staffPerson.isAllowedTo.push(e.id);
         }
