@@ -185,7 +185,7 @@
     Want to go back to make more changes? <button (click)="handleBackToEdit()">Go back to editing</button><br>
 
     <h4>Save to WCA</h4>
-    <p><button (click)="drawer.toggle()">Edit station numbers</button>&nbsp;<i class="fa fa-arrow-right"></i> New! (And experimental <i class="fa fa-smile-o"></i>)</p>
+<!--    <p><button (click)="drawer.toggle()">Edit station numbers</button>&nbsp;<i class="fa fa-arrow-right"></i> New! (And experimental <i class="fa fa-smile-o"></i>)</p>-->
     <p>
       <button (click)="handleSaveGroupsAndAssignmentsToWcif()">Save groups & assignments</button>
       <span *ngIf="wcifSaved === 'FALSE'">&nbsp;Note: this may take up to 20 seconds for large competitions</span>
@@ -196,7 +196,7 @@
     <p>This will allow other tools, like <a href="https://www.competitiongroups.com/" target="_blank">competitiongroups</a> and <a href="https://bestsiteever.ru/cutifier/" target="_blank">Cutifier</a> to read the groups and assignments.</p>
 
     <h4>Download files</h4>
-    <p><button (click)="exportService.pdfRegistrationLists(groupService.wcif)">Registration lists (2 PDFs)</button>&nbsp;<i class="fa fa-arrow-right"></i> New! </p>
+    <p><button (click)="exportService.pdfRegistrationLists(groupService.wcif)">Registration lists (2 PDFs)</button></p>
     <p><button (click)="exportService.csvGroupAndTaskAssignments(this.groupService.wcif)">All group + task assignments (CSV)</button></p>
     <p><button (click)="exportService.pdfTableGroupAndTaskAssignments(this.groupService.wcif, this.groupService.configuration)">All group + task assignments (PDF)</button></p>
     <p><button (click)="exportService.pdfGroupOverview(this.groupService.wcif)">Overview per group with names of all competitors, judges, scramblers and runners (PDF)</button></p>
