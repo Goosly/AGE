@@ -1,14 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable, Subject} from 'rxjs';
+import {Observable} from 'rxjs';
 import {environment} from '../environments/environment';
 import {LogglyService} from '../loggly/loggly.service';
 import {GeneralConfiguration, Wcif} from './classes';
 import {ActivityHelper} from './activity';
-import {AustralianNationalsWcif} from '../test/australian-nationals';
-import { of } from 'rxjs';
-import { delay } from 'rxjs/operators';
-import {UkChamps} from '../test/uk-champs';
 
 @Injectable({
   providedIn: 'root'
@@ -84,46 +80,22 @@ export class ApiService {
     this.addAgeExtension(wcif);
     ActivityHelper.addChildActivitiesForEveryRound(wcif);
 
-    if (wcif.id === 'KewbzUKChampionship2022') {
-      wcif.schedule = UkChamps.schedule;
-    }
-
     ActivityHelper.createAssignmentsInWcif(wcif, configuration);
 
-    if (wcif.id === 'KewbzUKChampionship2022') {
-      // TODO Refactor this 3x patch approach
-      const wcifWithExtensions = {
-        id: wcif.id,
-        extensions: wcif.extensions,
-      };
-      this.patch(wcifWithExtensions, errorCallback, () => {
-        const wcifWithSchedule = {
-          id: wcif.id,
-          schedule: UkChamps.schedule,
-        };
-        this.patch(wcifWithSchedule, errorCallback, () => {
-          const persons = wcif.persons.map(p => ({
-            assignments: p.assignments,
-            name: p.name,
-            registrantId: p.registrantId,
-            wcaId: p.wcaId,
-            wcaUserId: p.wcaUserId,
-          }));
+    const persons = wcif.persons.map(p => ({
+      assignments: p.assignments,
+      name: p.name,
+      registrantId: p.registrantId,
+      wcaId: p.wcaId,
+      wcaUserId: p.wcaUserId,
+    }));
+    const wcifToSend = {
+      id: wcif.id,
+      schedule: wcif.schedule,
+      persons: persons,
+    };
 
-          const chunkSize = 50;
-          for (let i = 0; i < persons.length; i += chunkSize) {
-            const chunk = persons.slice(i, i + chunkSize);
-            const wcifWithPersons = {
-              id: wcif.id,
-              persons: chunk,
-            };
-            this.patch(wcifWithPersons, errorCallback, successCallback);
-          }
-        });
-      });
-    } else {
-      this.patch(wcif, errorCallback, successCallback);
-    }
+    this.patch(wcifToSend, errorCallback, successCallback);
   }
 
   private patch(wcif: any, errorCallback: (error) => void, successCallback: () => void) {

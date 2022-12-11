@@ -51,9 +51,6 @@ export class ActivityHelper {
   }
 
   private static hasExpectedNumberOfChildActivities(wcif, activity: Activity, event) {
-    if (wcif.id === 'KewbzUKChampionship2022') {
-      return true;
-    }
     return !!activity.childActivities && !!activity.childActivities.length
       && (activity.childActivities.length === event.configuration.scrambleGroups ||
         activity.childActivities.length === event.configuration.scrambleGroups * event.configuration.stages);
