@@ -145,6 +145,10 @@ export class ApiService {
     this.logMessage(userNameShort + ' saved the Wcif of ' + competitionId);
   }
 
+  logUserGotErrorFromSavingWcif(userNameShort: string, competitionId: any, error: string) {
+    this.logMessage(userNameShort + ' got an error saving the wcif of ' + competitionId + ': ' + error);
+  }
+
   logUserClicksBackToEdit(userNameShort: string, competitionId: any) {
     this.logMessage(userNameShort + ' goes back to editing for ' + competitionId);
   }

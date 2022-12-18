@@ -205,6 +205,7 @@ export class AppComponent  {
         this.wcifSaved = 'TRUE';
       },
       (error) => {
+        this.apiService.logUserGotErrorFromSavingWcif(this.userNameShort, this.wcif().id, error);
         this.wcifSaved = 'ERROR';
         this.wcifSaveError = error;
       });
