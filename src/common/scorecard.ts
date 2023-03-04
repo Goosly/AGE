@@ -40,9 +40,9 @@ export class ScoreCardService {
 
     Helpers.sortCompetitorsByName(wcif);
     if (printOnA6) {
-      pdfMake.createPdf(this.onA6(scorecards)).download('scorecards-' + wcif.id + '.pdf');
+      pdfMake.createPdf(this.onA6(scorecards)).download('A6-scorecards-' + wcif.id + '.pdf');
     } else {
-      pdfMake.createPdf(this.onA4(scorecards)).download('scorecards-' + wcif.id + '.pdf');
+      pdfMake.createPdf(this.onA4(scorecards)).download('A4-scorecards-' + wcif.id + '.pdf');
     }
   }
 
