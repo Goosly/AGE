@@ -439,6 +439,7 @@ export class ExportService {
         p.name,
         !p.wcaId ? ' ' : p.wcaId,
         p.birthdate || ' ',
+        p.gender || ' ',
         this.getCountryName(p.countryIso2) || ' ',
         { text: returningCompetitors ? ' ' : '_________________________________', style: 'comment'},
       ]);
