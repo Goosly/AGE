@@ -194,7 +194,7 @@ export class ScoreCardService {
           {stack: this.getScoreCardTemplate(scorecards[i]), border: [false, false, false, false]},
           {text: '', border: [false, false, false, false]},
           {text: '', border: [true, false, false, false]},
-        {stack: this.getScoreCardTemplate(scorecards[i + 1]), border: [false, false, false, false]}
+          {stack: this.getScoreCardTemplate(scorecards[i + 1]), border: [false, false, false, false]}
         ],
         [
           {text: '', border: [false, true, false, false]},
@@ -265,7 +265,7 @@ export class ScoreCardService {
             {text: (info.competitorId === null ? ' ' : info.competitorId), fontSize: 16, alignment: 'center'},
             {text: info.competitorName, fontSize: 16, alignment: 'center'}]]
         }, margin: [0, 5]},
-      {text: info.cumulative ? 'Also write down the time for a DNF!' : '', bold: true, alignment: 'center'},
+      {text: info.cumulative ? 'Also write down the time for a DNF!' : '', bold: true, alignment: 'center', fontSize: 10},
       {table : {
           widths: [5, 16, this.SCORE_CARD_RESULT_WIDTH, 20, 20],
           body: [[
@@ -299,26 +299,26 @@ export class ScoreCardService {
       [
         {
           columns: [
-            {text: ! info.scorecardNumber ? '' : info.scorecardNumber, alignment: 'left', fontSize: 6, color: 'grey'},
-            {text: ! info.timerStationId ? '' : 'Timer ' + info.timerStationId, alignment: 'right', fontSize: 14}
+            {text: ! info.scorecardNumber ? '' : info.scorecardNumber, alignment: 'left', fontSize: 6, color: 'grey', lineHeight: 0.70},
+            {text: ! info.timerStationId ? '' : 'Timer ' + info.timerStationId, alignment: 'right', fontSize: 14, lineHeight: 0.70}
           ]
         },
-        {text: info.competitionName, alignment: 'center', fontSize: 10}
+        {text: info.competitionName, alignment: 'center', fontSize: 10, lineHeight: 0.90}
       ],
-      {text: info.eventName, alignment: 'center', fontSize: 18, bold: true},
+      {text: info.eventName, alignment: 'center', fontSize: 18, bold: true, lineHeight: 0.90},
       {
         text: 'Round ' + (info.round === null ? '    ' : info.round)
           + ' | Group ' + (info.group === null ? '    ' : info.group)
           + ' of ' + (info.totalGroups === null ? '    ' : info.totalGroups)
-          + (info.stageName ? ' | ' + info.stageName : ''), alignment: 'center', fontSize: 10
+          + (info.stageName ? ' | ' + info.stageName : ''), alignment: 'center', fontSize: 10, lineHeight: 0.80
       },
       {table : {
           widths: [30, this.SCORE_CARD_RESULT_WIDTH + 58],
           body: [[
-            {text: (info.competitorId === null ? ' ' : info.competitorId), fontSize: 16, alignment: 'center'},
-            {text: info.competitorName, fontSize: 16, alignment: 'center'}]]
+            {text: (info.competitorId === null ? ' ' : info.competitorId), lineHeight: 0.90, fontSize: 16, alignment: 'center'},
+            {text: info.competitorName, lineHeight: 0.90, fontSize: info.competitorName.length > 22 ? 12 : 16, alignment: 'center'}]]
         }, margin: [0, 5]},
-      {text: info.cumulative ? 'Also write down the time for a DNF!' : '', bold: true, alignment: 'center'},
+      {text: info.cumulative ? 'Also write down the time for a DNF!' : '', bold: true, alignment: 'center', fontSize: 10, lineHeight: 0.90},
       {table : {
           widths: [5, 16, (this.SCORE_CARD_RESULT_WIDTH), 20, 20],
           body: [[
@@ -333,7 +333,8 @@ export class ScoreCardService {
             [{text: '1', margin: [0, 7]}, '', '', '', ''],
             [{text: '2', margin: [0, 7]}, '', '', '', '']]
         }, margin: [0, 2]},
-      {text: info.cutoff !== null ? '-------------- Continue if 1 or 2 < ' + info.cutoff + ' --------------' : '', alignment: 'center', fontSize: 10},
+      {text: info.cutoff !== null ? '-------------- Continue if 1 or 2 < ' + info.cutoff + ' --------------' : '',
+        alignment: 'center', fontSize: 10, lineHeight: 0.80},
       {table : {
           widths: [5, 16, this.SCORE_CARD_RESULT_WIDTH, 20, 20],
           body: [
@@ -341,10 +342,11 @@ export class ScoreCardService {
             [{text: '4', margin: [0, 7]}, '', '', '', ''],
             [{text: '5', margin: [0, 7]}, '', '', '', '']]
         }, margin: [0, 2]},
-      {text: '-------------- Extra or provisional --------------', alignment: 'center', fontSize: 10},
+      {text: '-------------- Extra or provisional --------------',
+        alignment: 'center', fontSize: 10, lineHeight: 0.80},
       {table : {
           widths: [5, 16, this.SCORE_CARD_RESULT_WIDTH, 20, 20],
-          body: [[{text: 'E', margin: [0, 5]}, '', '', '', '']]
+          body: [[{text: 'E', margin: [0, 4]}, '', '', '', '']]
         }, margin: [0, 2]}
     ];
   }
