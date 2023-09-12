@@ -331,7 +331,7 @@ export class GroupService {
       p.fullName = p.name;
       p.name = p.name.split('(')[0]; // Remove local name
 
-      if (!p.registration || p.registration.status !== 'accepted') {
+      if (!p.registration || p.registration.status !== 'accepted' || !p.registration.isCompeting) {
         idsToRemove.push(p.registrantId);
         continue;
       }
