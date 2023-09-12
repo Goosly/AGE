@@ -25,7 +25,7 @@ export class AnnuntiaWcif {
               'minx',
               'sq1'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2018RAMS05/1574260748.jpeg',
@@ -211,7 +211,7 @@ export class AnnuntiaWcif {
               '222',
               '333'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -271,7 +271,7 @@ export class AnnuntiaWcif {
               'pyram',
               'skewb'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2019SCHO11/1575658781.jpg',
@@ -461,7 +461,7 @@ export class AnnuntiaWcif {
               'skewb',
               'sq1'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -730,7 +730,7 @@ export class AnnuntiaWcif {
               '333',
               'pyram'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -776,7 +776,7 @@ export class AnnuntiaWcif {
               '444',
               'pyram'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -838,7 +838,7 @@ export class AnnuntiaWcif {
               'pyram',
               'skewb'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -987,7 +987,7 @@ export class AnnuntiaWcif {
               'pyram',
               'skewb'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -1245,7 +1245,7 @@ export class AnnuntiaWcif {
               '333',
               '444'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -1298,7 +1298,7 @@ export class AnnuntiaWcif {
               '555',
               'minx'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -1454,7 +1454,7 @@ export class AnnuntiaWcif {
               'skewb',
               'sq1'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -1863,7 +1863,7 @@ export class AnnuntiaWcif {
               'skewb',
               'sq1'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -2238,7 +2238,7 @@ export class AnnuntiaWcif {
               'pyram',
               'skewb'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -2313,7 +2313,7 @@ export class AnnuntiaWcif {
               '333',
               '444'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -2368,7 +2368,7 @@ export class AnnuntiaWcif {
               'minx',
               'skewb'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2011BROE01/1495271340.png',
@@ -2656,7 +2656,7 @@ export class AnnuntiaWcif {
               '333',
               '444'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -2707,7 +2707,7 @@ export class AnnuntiaWcif {
               'skewb',
               'sq1'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -2892,7 +2892,7 @@ export class AnnuntiaWcif {
               '555',
               'skewb'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2010VERE01/1502542268.jpg',
@@ -3181,7 +3181,7 @@ export class AnnuntiaWcif {
               '333',
               '444'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2011VERV01/1542742503.jpg',
@@ -3404,7 +3404,7 @@ export class AnnuntiaWcif {
               'skewb',
               'sq1'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -3607,7 +3607,7 @@ export class AnnuntiaWcif {
               'skewb',
               'sq1'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -3851,7 +3851,7 @@ export class AnnuntiaWcif {
               '333',
               'pyram'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2019FRIE03/1566142769.png',
@@ -3980,7 +3980,7 @@ export class AnnuntiaWcif {
               'skewb',
               'sq1'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -4165,7 +4165,7 @@ export class AnnuntiaWcif {
               '444',
               '555'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2018ZOUX03/1571536065.jpg',
@@ -4346,7 +4346,7 @@ export class AnnuntiaWcif {
               'minx',
               'skewb'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -4520,7 +4520,7 @@ export class AnnuntiaWcif {
               'pyram',
               'skewb'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2017MEYN01/1572209655.jpg',
@@ -4737,7 +4737,7 @@ export class AnnuntiaWcif {
               '222',
               '333'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -4791,7 +4791,7 @@ export class AnnuntiaWcif {
               'skewb',
               'sq1'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2019PRIN01/1572694437.jpg',
@@ -4964,7 +4964,7 @@ export class AnnuntiaWcif {
               'skewb',
               'sq1'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2016REET01/1557583247.jpeg',
@@ -5287,7 +5287,7 @@ export class AnnuntiaWcif {
               'pyram',
               'skewb'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2019LIUP04/1572990669.jpg',
@@ -5499,7 +5499,7 @@ export class AnnuntiaWcif {
               '333bf',
               '333fm'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -5606,7 +5606,7 @@ export class AnnuntiaWcif {
               '333',
               'pyram'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -5711,7 +5711,7 @@ export class AnnuntiaWcif {
               'pyram',
               'skewb'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -5854,7 +5854,7 @@ export class AnnuntiaWcif {
               '555',
               'pyram'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -5948,7 +5948,7 @@ export class AnnuntiaWcif {
               '555',
               'minx'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -6027,7 +6027,7 @@ export class AnnuntiaWcif {
               '222',
               '333'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -6081,7 +6081,7 @@ export class AnnuntiaWcif {
               'skewb',
               'sq1'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -6415,7 +6415,7 @@ export class AnnuntiaWcif {
               '444',
               'pyram'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -6474,7 +6474,7 @@ export class AnnuntiaWcif {
               'pyram',
               'skewb'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2018LEWI10/1542557399.jpeg',
@@ -6653,7 +6653,7 @@ export class AnnuntiaWcif {
               '333',
               '777'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -6713,7 +6713,7 @@ export class AnnuntiaWcif {
               'pyram',
               'sq1'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -6981,7 +6981,7 @@ export class AnnuntiaWcif {
               'skewb',
               'sq1'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2017DIKY01/1545152114.jpg',
@@ -7191,7 +7191,7 @@ export class AnnuntiaWcif {
               '444',
               'pyram'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2012MAMP01/1478122935.png',
@@ -7357,7 +7357,7 @@ export class AnnuntiaWcif {
               '555',
               '777'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2010CHAN20/1486086349.jpg',
@@ -7697,7 +7697,7 @@ export class AnnuntiaWcif {
               'minx',
               'pyram'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -7959,7 +7959,7 @@ export class AnnuntiaWcif {
             'eventIds': [
               '333'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -8003,7 +8003,7 @@ export class AnnuntiaWcif {
               'minx',
               'skewb'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2014RONG01/1547077817.jpg',
@@ -8333,7 +8333,7 @@ export class AnnuntiaWcif {
               '222',
               '333'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -8374,7 +8374,7 @@ export class AnnuntiaWcif {
               'pyram',
               'skewb'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -8555,7 +8555,7 @@ export class AnnuntiaWcif {
               'pyram',
               'skewb'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2019MARK03/1556790991.jpg',
@@ -8794,7 +8794,7 @@ export class AnnuntiaWcif {
               'pyram',
               'skewb'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2010RONK01/1523281522.jpg',
@@ -9109,7 +9109,7 @@ export class AnnuntiaWcif {
               'pyram',
               'skewb'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -9363,7 +9363,7 @@ export class AnnuntiaWcif {
               '777',
               'minx'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2017ONUS01/1541244999.jpg',
@@ -9652,7 +9652,7 @@ export class AnnuntiaWcif {
               'pyram',
               'skewb'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2015MOEN01/1580232739.jpg',
@@ -9902,7 +9902,7 @@ export class AnnuntiaWcif {
               'skewb',
               'sq1'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2014STEI03/1527407820.jpg',
@@ -10228,7 +10228,7 @@ export class AnnuntiaWcif {
               '333',
               'pyram'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2007OEYM01/1554755927.jpg',
@@ -10412,7 +10412,7 @@ export class AnnuntiaWcif {
               '333',
               '444'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2003DENN01/1441150538.jpg',
@@ -10692,7 +10692,7 @@ export class AnnuntiaWcif {
               'skewb',
               'sq1'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2019ROOI02/1578402252.jpg',
@@ -10862,7 +10862,7 @@ export class AnnuntiaWcif {
               'skewb',
               'sq1'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2012PATE01/1509382187.jpg',
@@ -11223,7 +11223,7 @@ export class AnnuntiaWcif {
               '333',
               '444'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -11321,7 +11321,7 @@ export class AnnuntiaWcif {
               'pyram',
               'skewb'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2016SCHU02/1576835875.jpeg',
@@ -11629,7 +11629,7 @@ export class AnnuntiaWcif {
               'skewb',
               'sq1'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2015WITM01/1538599833.jpg',
@@ -11971,7 +11971,7 @@ export class AnnuntiaWcif {
               'pyram',
               'skewb'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2014VORL01/1575528834.jpeg',
@@ -12260,7 +12260,7 @@ export class AnnuntiaWcif {
               'pyram',
               'skewb'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2017JANS05/1534187761.jpg',
@@ -12566,7 +12566,7 @@ export class AnnuntiaWcif {
               'skewb',
               'sq1'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2016LUIJ01/1566127455.jpg',
@@ -12813,7 +12813,7 @@ export class AnnuntiaWcif {
               'pyram',
               'skewb'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2017VANS02/1545594160.JPG',
@@ -13023,7 +13023,7 @@ export class AnnuntiaWcif {
               '333',
               'pyram'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -13143,7 +13143,7 @@ export class AnnuntiaWcif {
               '333',
               '444'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -13196,7 +13196,7 @@ export class AnnuntiaWcif {
               'pyram',
               'skewb'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -13343,7 +13343,7 @@ export class AnnuntiaWcif {
               '333',
               '333oh'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -13409,7 +13409,7 @@ export class AnnuntiaWcif {
               '444',
               'skewb'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -13541,7 +13541,7 @@ export class AnnuntiaWcif {
               '777',
               'minx'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2015STAU01/1533274803.png',
@@ -13826,7 +13826,7 @@ export class AnnuntiaWcif {
               'skewb',
               'sq1'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2012MAUR01/1468333678.JPG',
@@ -14187,7 +14187,7 @@ export class AnnuntiaWcif {
               'pyram',
               'skewb'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -14358,7 +14358,7 @@ export class AnnuntiaWcif {
               '444',
               'pyram'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -14476,7 +14476,7 @@ export class AnnuntiaWcif {
               '222',
               'pyram'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -14527,7 +14527,7 @@ export class AnnuntiaWcif {
               '444',
               'pyram'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -14689,7 +14689,7 @@ export class AnnuntiaWcif {
               '333',
               'pyram'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -14745,7 +14745,7 @@ export class AnnuntiaWcif {
               'pyram',
               'skewb'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -14820,7 +14820,7 @@ export class AnnuntiaWcif {
               '333',
               '333oh'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2017STRU01/1500304057.jpg',
@@ -14956,7 +14956,7 @@ export class AnnuntiaWcif {
               'pyram',
               'skewb'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -15161,7 +15161,7 @@ export class AnnuntiaWcif {
             'eventIds': [
               '333'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -15225,7 +15225,7 @@ export class AnnuntiaWcif {
               'pyram',
               'skewb'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -15493,7 +15493,7 @@ export class AnnuntiaWcif {
               'pyram',
               'sq1'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -15672,7 +15672,7 @@ export class AnnuntiaWcif {
               'skewb',
               'sq1'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2017DAVI21/1506545210.JPG',
@@ -15985,7 +15985,7 @@ export class AnnuntiaWcif {
               'pyram',
               'skewb'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2019FAUX01/1561228134.JPG',
@@ -16129,7 +16129,7 @@ export class AnnuntiaWcif {
               'pyram',
               'skewb'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2018THOM07/1572688427.jpg',
@@ -16325,7 +16325,7 @@ export class AnnuntiaWcif {
               'skewb',
               'sq1'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2016VOSO01/1546775502.jpg',
@@ -16705,7 +16705,7 @@ export class AnnuntiaWcif {
               '444',
               'pyram'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -16802,7 +16802,7 @@ export class AnnuntiaWcif {
               'skewb',
               'sq1'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -17016,7 +17016,7 @@ export class AnnuntiaWcif {
               '555',
               '777'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -17183,7 +17183,7 @@ export class AnnuntiaWcif {
             'eventIds': [
               '333'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -17225,7 +17225,7 @@ export class AnnuntiaWcif {
               '555',
               '777'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2017MARI20/1557943155.jpg',
@@ -17433,7 +17433,7 @@ export class AnnuntiaWcif {
               '555',
               '777'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/uploads/user/avatar/2017WALL02/1561317753.jpeg',
@@ -17684,7 +17684,7 @@ export class AnnuntiaWcif {
               '333',
               'pyram'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -17818,7 +17818,7 @@ export class AnnuntiaWcif {
               'skewb',
               'sq1'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',
@@ -18081,7 +18081,7 @@ export class AnnuntiaWcif {
               '333',
               'pyram'
             ],
-            'status': 'accepted'
+            'status': 'accepted', 'isCompeting': true
           },
           'avatar': {
             'url': 'https://www.worldcubeassociation.org/assets/missing_avatar_thumb-f0ea801c804765a22892b57636af829edbef25260a65d90aaffbd7873bde74fc.png',

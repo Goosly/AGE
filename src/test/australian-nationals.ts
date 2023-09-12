@@ -33,7 +33,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2016JARM01/1664538477.jpeg",
@@ -480,7 +480,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2014PRID01/1651581622.PNG",
@@ -890,7 +890,7 @@ export class AustralianNationalsWcif {
           "eventIds": [
             "333"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2019JARM01/1559549947.jpg",
@@ -952,7 +952,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2020MOCO01/1636420961.jpeg",
@@ -1422,7 +1422,7 @@ export class AustralianNationalsWcif {
             "333oh",
             "555"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2011HOLL04/1643627318.jpg",
@@ -1702,7 +1702,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2021LONG02/1611013502.jpeg",
@@ -2049,7 +2049,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -2414,7 +2414,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2022SAND02/1645146983.jpg",
@@ -2690,7 +2690,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -3039,7 +3039,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -3379,7 +3379,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2012ZHAN08/1502090796.jpg",
@@ -3780,7 +3780,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -3991,7 +3991,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2021ROBE04/1637750808.jpg",
@@ -4332,7 +4332,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -4621,7 +4621,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -4766,7 +4766,7 @@ export class AustralianNationalsWcif {
             "333",
             "444"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2020JOHN02/1607834744.jpg",
@@ -4863,7 +4863,7 @@ export class AustralianNationalsWcif {
             "222",
             "333"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -4932,7 +4932,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -5096,7 +5096,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2019DELL01/1553590465.jpeg",
@@ -5411,7 +5411,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2019LOMA01/1644027338.jpeg",
@@ -5587,7 +5587,7 @@ export class AustralianNationalsWcif {
             "333",
             "333bf"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2021SAMB01/1664502197.jpg",
@@ -5744,7 +5744,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2021PEAR01/1657792027.jpeg",
@@ -6017,7 +6017,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -6476,7 +6476,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -6715,7 +6715,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2016MILL22/1616851599.jpg",
@@ -7055,7 +7055,7 @@ export class AustralianNationalsWcif {
             "555",
             "minx"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2015HOLD01/1650696568.jpg",
@@ -7306,7 +7306,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -7443,7 +7443,7 @@ export class AustralianNationalsWcif {
             "444",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -7548,7 +7548,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2021FOST01/1656281291.jpg",
@@ -7978,7 +7978,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2017MCNE01/1646906917.jpg",
@@ -8274,7 +8274,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -8649,7 +8649,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -9051,7 +9051,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2016HOBB01/1649852360.jpg",
@@ -9395,7 +9395,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -9630,7 +9630,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2019KLEV01/1643185808.jpg",
@@ -9978,7 +9978,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -10223,7 +10223,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2016EPST02/1650799473.jpg",
@@ -10633,7 +10633,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2021YEPU01/1650081144.png",
@@ -10958,7 +10958,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -11216,7 +11216,7 @@ export class AustralianNationalsWcif {
             "222",
             "333"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -11323,7 +11323,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2022JACO01/1664676268.jpeg",
@@ -11551,7 +11551,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2022BURN01/1644396678.jpeg",
@@ -11692,7 +11692,7 @@ export class AustralianNationalsWcif {
             "333",
             "444"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2011TARA01/1565346385.jpeg",
@@ -11878,7 +11878,7 @@ export class AustralianNationalsWcif {
             "minx",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -12100,7 +12100,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2021TRIP01/1661732429.png",
@@ -12574,7 +12574,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2017OORA01/1665241235.JPG",
@@ -12922,7 +12922,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -13425,7 +13425,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2021BALA02/1647308901.jpg",
@@ -13559,7 +13559,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2016CHAR01/1610366301.png",
@@ -14024,7 +14024,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -14432,7 +14432,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -14711,7 +14711,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2021BLAK01/1655175085.jpg",
@@ -15089,7 +15089,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2020FOOT02/1665225183.jpeg",
@@ -15463,7 +15463,7 @@ export class AustralianNationalsWcif {
           "eventIds": [
             "333"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -15541,7 +15541,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2018SPIL01/1569290280.jpeg",
@@ -16006,7 +16006,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2018PROW01/1642637159.png",
@@ -16322,7 +16322,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2018SOOA01/1566338207.jpg",
@@ -16622,7 +16622,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2022CUIA01/1664164089.jpeg",
@@ -16986,7 +16986,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -17128,7 +17128,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -17339,7 +17339,7 @@ export class AustralianNationalsWcif {
             "444",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -17495,7 +17495,7 @@ export class AustralianNationalsWcif {
             "444",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -17641,7 +17641,7 @@ export class AustralianNationalsWcif {
             "222",
             "333"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -17711,7 +17711,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -17938,7 +17938,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2019VALD04/1605537151.JPG",
@@ -18349,7 +18349,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -18589,7 +18589,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2020BOCK01/1644670917.jpeg",
@@ -18922,7 +18922,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -19342,7 +19342,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2016DEXT01/1650800510.png",
@@ -19849,7 +19849,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2021MATA01/1631087850.jpeg",
@@ -20165,7 +20165,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2009ZEMD01/1526273746.jpg",
@@ -20662,7 +20662,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2022CHEO01/1653035483.jpeg",
@@ -20816,7 +20816,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2021BLAN01/1643548174.png",
@@ -21024,7 +21024,7 @@ export class AustralianNationalsWcif {
             "minx",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -21181,7 +21181,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2019SMIT36/1665106790.jpg",
@@ -21652,7 +21652,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -21765,7 +21765,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -22087,7 +22087,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -22217,7 +22217,7 @@ export class AustralianNationalsWcif {
             "444",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -22410,7 +22410,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -22720,7 +22720,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -23029,7 +23029,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2018TING05/1539936663.jpg",
@@ -23454,7 +23454,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -23837,7 +23837,7 @@ export class AustralianNationalsWcif {
             "333",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -23944,7 +23944,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -24167,7 +24167,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2019YEEO01/1651047438.jpg",
@@ -24510,7 +24510,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -24757,7 +24757,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -24973,7 +24973,7 @@ export class AustralianNationalsWcif {
             "444",
             "444bf"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2018TAHO01/1632860910.jpeg",
@@ -25113,7 +25113,7 @@ export class AustralianNationalsWcif {
             "555",
             "minx"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -25308,7 +25308,7 @@ export class AustralianNationalsWcif {
             "minx",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2010STOL01/1542535314.jpg",
@@ -25733,7 +25733,7 @@ export class AustralianNationalsWcif {
             "333",
             "333oh"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -25775,7 +25775,7 @@ export class AustralianNationalsWcif {
             "minx",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2019OONA02/1563171088.jpg",
@@ -25950,7 +25950,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2019OONA01/1578790162.JPG",
@@ -26293,7 +26293,7 @@ export class AustralianNationalsWcif {
             "444",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -26447,7 +26447,7 @@ export class AustralianNationalsWcif {
             "333oh",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -26535,7 +26535,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -26649,7 +26649,7 @@ export class AustralianNationalsWcif {
             "222",
             "333"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -26752,7 +26752,7 @@ export class AustralianNationalsWcif {
             "333",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -26873,7 +26873,7 @@ export class AustralianNationalsWcif {
             "444",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -27033,7 +27033,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2019NOBL01/1583198901.png",
@@ -27378,7 +27378,7 @@ export class AustralianNationalsWcif {
             "clock",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -27491,7 +27491,7 @@ export class AustralianNationalsWcif {
             "777",
             "minx"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2016KENN01/1570688350.jpg",
@@ -27810,7 +27810,7 @@ export class AustralianNationalsWcif {
           "eventIds": [
             "333"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -27846,7 +27846,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2018CHOW04/1640850610.png",
@@ -28124,7 +28124,7 @@ export class AustralianNationalsWcif {
           "eventIds": [
             "333"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -28181,7 +28181,7 @@ export class AustralianNationalsWcif {
             "333",
             "444"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -28317,7 +28317,7 @@ export class AustralianNationalsWcif {
             "222",
             "333"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -28415,7 +28415,7 @@ export class AustralianNationalsWcif {
             "333",
             "444"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -28563,7 +28563,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -28758,7 +28758,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -28953,7 +28953,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -29251,7 +29251,7 @@ export class AustralianNationalsWcif {
             "444",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2016PHAM06/1502349756.JPG",
@@ -29457,7 +29457,7 @@ export class AustralianNationalsWcif {
             "333",
             "444"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -29597,7 +29597,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2017WILL05/1664802158.jpg",
@@ -29996,7 +29996,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -30235,7 +30235,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -30401,7 +30401,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -30795,7 +30795,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2021NARA03/1660985751.jpg",
@@ -31155,7 +31155,7 @@ export class AustralianNationalsWcif {
             "222",
             "333"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -31255,7 +31255,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -31433,7 +31433,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -31600,7 +31600,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2020WILL09/1605651830.jpeg",
@@ -31862,7 +31862,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2018SATO01/1555375030.jpg",
@@ -32310,7 +32310,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -32639,7 +32639,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -32805,7 +32805,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2021ALID01/1620627688.jpg",
@@ -33010,7 +33010,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -33255,7 +33255,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2019ALLE03/1572164663.jpg",
@@ -33593,7 +33593,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -33737,7 +33737,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -34113,7 +34113,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -34264,7 +34264,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -34357,7 +34357,7 @@ export class AustralianNationalsWcif {
             "222",
             "333"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -34444,7 +34444,7 @@ export class AustralianNationalsWcif {
             "222",
             "333"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -34547,7 +34547,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -34787,7 +34787,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2018DAIN02/1652536330.jpg",
@@ -35157,7 +35157,7 @@ export class AustralianNationalsWcif {
             "444",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -35291,7 +35291,7 @@ export class AustralianNationalsWcif {
             "333",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2016DEXT02/1659630422.jpg",
@@ -35416,7 +35416,7 @@ export class AustralianNationalsWcif {
             "333oh",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -35567,7 +35567,7 @@ export class AustralianNationalsWcif {
             "222",
             "clock"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -35670,7 +35670,7 @@ export class AustralianNationalsWcif {
             "333",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -35812,7 +35812,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2019EGGI02/1658731354.jpg",
@@ -36290,7 +36290,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2020ZHUR02/1609892975.JPG",
@@ -36501,7 +36501,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -36840,7 +36840,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2020SIBU02/1642127553.jpeg",
@@ -37183,7 +37183,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -37321,7 +37321,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -37527,7 +37527,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -37723,7 +37723,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2018FLOW01/1659427757.jpeg",
@@ -38009,7 +38009,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -38115,7 +38115,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2019SIER04/1580291282.jpg",
@@ -38575,7 +38575,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -38810,7 +38810,7 @@ export class AustralianNationalsWcif {
             "444",
             "minx"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -38962,7 +38962,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2018COOK04/1552988822.png",
@@ -39190,7 +39190,7 @@ export class AustralianNationalsWcif {
           "eventIds": [
             "333"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -39256,7 +39256,7 @@ export class AustralianNationalsWcif {
             "222",
             "333"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2020COOP01/1663297674.jpg",
@@ -39348,7 +39348,7 @@ export class AustralianNationalsWcif {
             "minx",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -39599,7 +39599,7 @@ export class AustralianNationalsWcif {
             "555",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -39761,7 +39761,7 @@ export class AustralianNationalsWcif {
             "333",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -39850,7 +39850,7 @@ export class AustralianNationalsWcif {
             "333",
             "444"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -39969,7 +39969,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2019CHAU12/1650796323.jpeg",
@@ -40381,7 +40381,7 @@ export class AustralianNationalsWcif {
             "333",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -40482,7 +40482,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -40674,7 +40674,7 @@ export class AustralianNationalsWcif {
             "444",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -40806,7 +40806,7 @@ export class AustralianNationalsWcif {
             "333",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -40925,7 +40925,7 @@ export class AustralianNationalsWcif {
             "333",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -41044,7 +41044,7 @@ export class AustralianNationalsWcif {
             "333",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -41180,7 +41180,7 @@ export class AustralianNationalsWcif {
             "444",
             "555"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -41300,7 +41300,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2022LABR01/1647776402.jpeg",
@@ -41502,7 +41502,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -41622,7 +41622,7 @@ export class AustralianNationalsWcif {
             "444",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -41780,7 +41780,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -41925,7 +41925,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2021SONG02/1655093881.jpeg",
@@ -42168,7 +42168,7 @@ export class AustralianNationalsWcif {
             "333",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -42301,7 +42301,7 @@ export class AustralianNationalsWcif {
           "eventIds": [
             "333"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2022ALIM04/1660824159.jpg",
@@ -42369,7 +42369,7 @@ export class AustralianNationalsWcif {
             "333oh",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -42463,7 +42463,7 @@ export class AustralianNationalsWcif {
             "333",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -42557,7 +42557,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -42778,7 +42778,7 @@ export class AustralianNationalsWcif {
             "333",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -42850,7 +42850,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -43128,7 +43128,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -43336,7 +43336,7 @@ export class AustralianNationalsWcif {
             "333",
             "444"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -43451,7 +43451,7 @@ export class AustralianNationalsWcif {
             "333oh",
             "444"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -43538,7 +43538,7 @@ export class AustralianNationalsWcif {
             "444",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -43629,7 +43629,7 @@ export class AustralianNationalsWcif {
             "777",
             "minx"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2017ERSH01/1504047443.jpg",
@@ -43958,7 +43958,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2017ERSH02/1503961830.jpg",
@@ -44317,7 +44317,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2017MCLE03/1658652550.jpg",
@@ -44714,7 +44714,7 @@ export class AustralianNationalsWcif {
             "222",
             "333"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -44749,7 +44749,7 @@ export class AustralianNationalsWcif {
             "333",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -44837,7 +44837,7 @@ export class AustralianNationalsWcif {
             "222",
             "333"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -44906,7 +44906,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -45016,7 +45016,7 @@ export class AustralianNationalsWcif {
             "333",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -45107,7 +45107,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -45225,7 +45225,7 @@ export class AustralianNationalsWcif {
             "555",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -45398,7 +45398,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -45520,7 +45520,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -45695,7 +45695,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -45872,7 +45872,7 @@ export class AustralianNationalsWcif {
             "333",
             "minx"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -45944,7 +45944,7 @@ export class AustralianNationalsWcif {
             "333",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -46042,7 +46042,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2021SEUF01/1662441299.jpg",
@@ -46399,7 +46399,7 @@ export class AustralianNationalsWcif {
           "eventIds": [
             "333"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -46448,7 +46448,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2022NOOR02/1664948688.jpg",
@@ -46617,7 +46617,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -46731,7 +46731,7 @@ export class AustralianNationalsWcif {
             "222",
             "333"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -46798,7 +46798,7 @@ export class AustralianNationalsWcif {
             "222",
             "333"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -46867,7 +46867,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -47036,7 +47036,7 @@ export class AustralianNationalsWcif {
             "444",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2022CAAL01/1664975598.jpeg",
@@ -47134,7 +47134,7 @@ export class AustralianNationalsWcif {
             "222",
             "333"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -47202,7 +47202,7 @@ export class AustralianNationalsWcif {
             "333",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2022LADY01/1664766038.jpg",
@@ -47322,7 +47322,7 @@ export class AustralianNationalsWcif {
             "444",
             "777"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -47413,7 +47413,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -47611,7 +47611,7 @@ export class AustralianNationalsWcif {
             "333",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -47734,7 +47734,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2017ALMO03/1533569284.jpeg",
@@ -47968,7 +47968,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -48124,7 +48124,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -48237,7 +48237,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2021NGUY11/1645754831.jpg",
@@ -48413,7 +48413,7 @@ export class AustralianNationalsWcif {
           "eventIds": [
             "333"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -48470,7 +48470,7 @@ export class AustralianNationalsWcif {
             "333",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -48606,7 +48606,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2016JONE04/1664856421.jpeg",
@@ -49114,7 +49114,7 @@ export class AustralianNationalsWcif {
             "555",
             "minx"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2022LEON11/1662517861.jpg",
@@ -49316,7 +49316,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -49497,7 +49497,7 @@ export class AustralianNationalsWcif {
             "minx",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -49635,7 +49635,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2022VALE13/1664886589.png",
@@ -49781,7 +49781,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -49890,7 +49890,7 @@ export class AustralianNationalsWcif {
             "222",
             "333"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -49961,7 +49961,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -50136,7 +50136,7 @@ export class AustralianNationalsWcif {
             "333",
             "444"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -50220,7 +50220,7 @@ export class AustralianNationalsWcif {
           "eventIds": [
             "333"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -50269,7 +50269,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -50450,7 +50450,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2017HUGH04/1656595547.jpg",
@@ -50906,7 +50906,7 @@ export class AustralianNationalsWcif {
             "222",
             "333"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -50997,7 +50997,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -51134,7 +51134,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -51241,7 +51241,7 @@ export class AustralianNationalsWcif {
           "eventIds": [
             "333"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -51289,7 +51289,7 @@ export class AustralianNationalsWcif {
             "444",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -51411,7 +51411,7 @@ export class AustralianNationalsWcif {
           "eventIds": [
             "333"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -51470,7 +51470,7 @@ export class AustralianNationalsWcif {
             "444",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2022NGUY35/1662541986.jpg",
@@ -51599,7 +51599,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -51738,7 +51738,7 @@ export class AustralianNationalsWcif {
           "eventIds": [
             "222"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -51785,7 +51785,7 @@ export class AustralianNationalsWcif {
             "333",
             "444"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -51897,7 +51897,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -52166,7 +52166,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2021COOK03/1647954396.jpg",
@@ -52453,7 +52453,7 @@ export class AustralianNationalsWcif {
             "333",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -52542,7 +52542,7 @@ export class AustralianNationalsWcif {
             "333",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -52630,7 +52630,7 @@ export class AustralianNationalsWcif {
             "222",
             "333"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -52735,7 +52735,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -52982,7 +52982,7 @@ export class AustralianNationalsWcif {
             "333",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -53106,7 +53106,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -53312,7 +53312,7 @@ export class AustralianNationalsWcif {
             "333",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -53402,7 +53402,7 @@ export class AustralianNationalsWcif {
             "444",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2022SMIT12/1656730407.jpeg",
@@ -53542,7 +53542,7 @@ export class AustralianNationalsWcif {
             "333",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -53658,7 +53658,7 @@ export class AustralianNationalsWcif {
             "333",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2022RANS01/1665013725.jpeg",
@@ -53746,7 +53746,7 @@ export class AustralianNationalsWcif {
             "333",
             "444"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2019EGGI03/1620802520.jpg",
@@ -53856,7 +53856,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -54005,7 +54005,7 @@ export class AustralianNationalsWcif {
             "222",
             "333"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -54074,7 +54074,7 @@ export class AustralianNationalsWcif {
             "444",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -54214,7 +54214,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2022BUDG02/1665285357.jpg",
@@ -54373,7 +54373,7 @@ export class AustralianNationalsWcif {
             "777",
             "minx"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2010MAAL01/1495197025.jpg",
@@ -54672,7 +54672,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -54793,7 +54793,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2021LUMC01/1651919034.jpg",
@@ -54941,7 +54941,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -55160,7 +55160,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -55321,7 +55321,7 @@ export class AustralianNationalsWcif {
           "eventIds": [
             "333"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -55368,7 +55368,7 @@ export class AustralianNationalsWcif {
             "333",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -55455,7 +55455,7 @@ export class AustralianNationalsWcif {
           "eventIds": [
             "333"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -55501,7 +55501,7 @@ export class AustralianNationalsWcif {
             "222",
             "333"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2022WAUG02/1664886884.JPG",
@@ -55606,7 +55606,7 @@ export class AustralianNationalsWcif {
             "333",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -55674,7 +55674,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -55804,7 +55804,7 @@ export class AustralianNationalsWcif {
             "333oh",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -55893,7 +55893,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -56014,7 +56014,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -56123,7 +56123,7 @@ export class AustralianNationalsWcif {
             "222",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -56190,7 +56190,7 @@ export class AustralianNationalsWcif {
             "222",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -56265,7 +56265,7 @@ export class AustralianNationalsWcif {
             "pyram",
             "skewb"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -56430,7 +56430,7 @@ export class AustralianNationalsWcif {
             "333",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",
@@ -56519,7 +56519,7 @@ export class AustralianNationalsWcif {
             "clock",
             "pyram"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://avatars.worldcubeassociation.org/uploads/user/avatar/2016BREW04/1481938408.jpg",
@@ -56665,7 +56665,7 @@ export class AustralianNationalsWcif {
             "skewb",
             "sq1"
           ],
-          "status": "accepted"
+          "status": "accepted", "isCompeting": true
         },
         "avatar": {
           "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-d77f478a307a91a9d4a083ad197012a391d5410f6dd26cb0b0e3118a5de71438.png",

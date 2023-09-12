@@ -23,7 +23,7 @@ export class PbqBelgiumWcif {
               "444bf",
               "555bf"
             ],
-            "status": "accepted"
+            "status": "accepted", "isCompeting": true
           },
           "avatar": {
             "url": "https://www.worldcubeassociation.org/uploads/user/avatar/2016VOSO01/1546775502.jpg",
@@ -318,7 +318,7 @@ export class PbqBelgiumWcif {
               "444bf",
               "555bf"
             ],
-            "status": "accepted"
+            "status": "accepted", "isCompeting": true
           },
           "avatar": {
             "url": "https://www.worldcubeassociation.org/uploads/user/avatar/2012GOOD02/1600008867.jpg",
@@ -619,7 +619,7 @@ export class PbqBelgiumWcif {
               "333fm",
               "444bf"
             ],
-            "status": "accepted"
+            "status": "accepted", "isCompeting": true
           },
           "avatar": {
             "url": "https://www.worldcubeassociation.org/uploads/user/avatar/2008AURO01/1630621356.jpg",
@@ -951,7 +951,7 @@ export class PbqBelgiumWcif {
               "333bf",
               "444bf"
             ],
-            "status": "accepted"
+            "status": "accepted", "isCompeting": true
           },
           "avatar": {
             "url": "https://www.worldcubeassociation.org/uploads/user/avatar/2010VERE01/1502542268.jpg",
@@ -1214,7 +1214,7 @@ export class PbqBelgiumWcif {
               "444bf",
               "555bf"
             ],
-            "status": "accepted"
+            "status": "accepted", "isCompeting": true
           },
           "avatar": {
             "url": "https://www.worldcubeassociation.org/uploads/user/avatar/2016CARL02/1474673156.jpg",
@@ -1505,7 +1505,7 @@ export class PbqBelgiumWcif {
             "eventIds": [
               "333fm"
             ],
-            "status": "accepted"
+            "status": "accepted", "isCompeting": true
           },
           "avatar": {
             "url": "https://www.worldcubeassociation.org/uploads/user/avatar/2016SCHU02/1576835875.jpeg",
@@ -1728,7 +1728,7 @@ export class PbqBelgiumWcif {
               "444bf",
               "555bf"
             ],
-            "status": "accepted"
+            "status": "accepted", "isCompeting": true
           },
           "avatar": {
             "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-12654dd6f1aa6d458e80d02d6eed8b1fbea050a04beeb88047cb805a4bfe8ee0.png",
@@ -2071,7 +2071,7 @@ export class PbqBelgiumWcif {
               "444bf",
               "555bf"
             ],
-            "status": "accepted"
+            "status": "accepted", "isCompeting": true
           },
           "avatar": {
             "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-12654dd6f1aa6d458e80d02d6eed8b1fbea050a04beeb88047cb805a4bfe8ee0.png",
@@ -2364,7 +2364,7 @@ export class PbqBelgiumWcif {
               "333fm",
               "333mbf"
             ],
-            "status": "accepted"
+            "status": "accepted", "isCompeting": true
           },
           "avatar": {
             "url": "https://www.worldcubeassociation.org/uploads/user/avatar/2015JORG01/1559657899.JPG",
@@ -2618,7 +2618,7 @@ export class PbqBelgiumWcif {
               "333mbf",
               "444bf"
             ],
-            "status": "accepted"
+            "status": "accepted", "isCompeting": true
           },
           "avatar": {
             "url": "https://www.worldcubeassociation.org/uploads/user/avatar/2017MARI20/1557943155.jpg",
@@ -2777,7 +2777,7 @@ export class PbqBelgiumWcif {
               "444bf",
               "555bf"
             ],
-            "status": "accepted"
+            "status": "accepted", "isCompeting": true
           },
           "avatar": {
             "url": "https://www.worldcubeassociation.org/uploads/user/avatar/2017MALO02/1581792874.jpeg",
@@ -3021,7 +3021,7 @@ export class PbqBelgiumWcif {
               "333bf",
               "333fm"
             ],
-            "status": "accepted"
+            "status": "accepted", "isCompeting": true
           },
           "avatar": {
             "url": "https://www.worldcubeassociation.org/assets/missing_avatar_thumb-12654dd6f1aa6d458e80d02d6eed8b1fbea050a04beeb88047cb805a4bfe8ee0.png",
