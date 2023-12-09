@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
-import {formatCentiseconds, Event, getEventName, Round, Person} from '@wca/helpers';
+import {formatCentiseconds, getEventName, Person, Round} from '@wca/helpers';
 import {Helpers} from './helpers';
 import {Wcif} from './classes';
 import {GroupService} from './group';
+
 declare var pdfMake: any;
 
 @Injectable({
@@ -22,14 +23,8 @@ export class ScoreCardService {
       event.countGroupsForScorecard = Helpers.countGroupsForEvent(wcif, event);
       const scorecardsForEvent: ScoreCardInfo[] = [];
       const competitorsOfEvent: Person[] = wcif.persons.filter(p => !! p[event.id].group && RegExp('^[0-9]+').test(p[event.id].group));
-      competitorsOfEvent.forEach(c => {
-        const scorecard: ScoreCardInfo = this.getScoreCardForFirstRoundOfEvent(wcif, event);
-        scorecard.competitorName = c.name;
-        scorecard.competitorId = c.registrantId;
-        scorecard.group = c[event.id].group.split(';')[0];
-        scorecard.stageName = Helpers.getStageName(wcif, event, scorecard.group);
-        scorecard.timerStationId = c[event.id].stationNumber;
-        scorecardsForEvent.push(scorecard);
+      competitorsOfEvent.forEach(competitor => {
+        scorecardsForEvent.push(this.mapCompetitorToScorecard(competitor, wcif, event));
       });
       this.addScorecardNumberAndStationNumbers(scorecardsForEvent);
       if (!printOnA6) {
@@ -44,6 +39,16 @@ export class ScoreCardService {
     } else {
       pdfMake.createPdf(this.onA4(scorecards)).download('A4-scorecards-' + wcif.id + '.pdf');
     }
+  }
+
+  private mapCompetitorToScorecard(person: Person, wcif: Wcif, event) {
+    const scorecard: ScoreCardInfo = this.getScoreCardForFirstRoundOfEvent(wcif, event);
+    scorecard.competitorName = person.name;
+    scorecard.competitorId = person.registrantId;
+    scorecard.group = person[event.id].group.split(';')[0];
+    scorecard.stageName = Helpers.getStageName(wcif, event, scorecard.group);
+    scorecard.timerStationId = person[event.id].stationNumber;
+    return scorecard;
   }
 
   private addScorecardNumberAndStationNumbers(scorecardsForEvent: ScoreCardInfo[]) {
