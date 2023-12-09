@@ -31,6 +31,16 @@
             ]
           },
           "configurations": {
+            "development": {
+              "optimization": false,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "namedChunks": true,
+              "extractLicenses": false,
+              "vendorChunk": true,
+              "buildOptimizer": false,
+              "budgets": []
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -50,11 +60,15 @@
           }
         },
         "serve": {
+          "defaultConfiguration": "development",
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "demo:build"
           },
           "configurations": {
+            "development": {
+              "browserTarget": "demo:build:development"
+            },
             "production": {
               "browserTarget": "demo:build:production"
             }
