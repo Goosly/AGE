@@ -4,6 +4,7 @@ import {Helpers} from './helpers';
 import {Activity, AssignmentCode, EventId, Person} from '@wca/helpers';
 import {ActivityHelper} from './activity';
 import {parseActivityCode} from '@wca/helpers/lib/helpers/activity';
+import * as moment from 'moment-timezone';
 
 @Injectable({
   providedIn: 'root'
@@ -330,6 +331,7 @@ export class GroupService {
     for (const p of this.wcif.persons) {
       p.fullName = p.name;
       p.name = p.name.split('(')[0]; // Remove local name
+      p.age = moment().diff(moment(p.birthdate, 'YYYY-MM-DD'), 'years') as string || '';
 
       if (!p.registration || p.registration.status !== 'accepted' || !p.registration.isCompeting) {
         idsToRemove.push(p.registrantId);

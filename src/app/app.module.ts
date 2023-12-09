@@ -9,9 +9,19 @@ import {MatInputModule} from '@angular/material/input';
 import {ConfirmSaveWcifDialogComponent} from './dialog/confirm-save-wcif-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
-  imports: [BrowserModule, FormsModule, HttpClientModule, BrowserAnimationsModule, MatSidenavModule, MatInputModule, MatDialogModule, MatButtonModule],
+  imports: [BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatSidenavModule,
+    MatInputModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatTooltipModule, MatIconModule],
   declarations: [ AppComponent, ConfirmSaveWcifDialogComponent ],
   bootstrap:    [ AppComponent ]
 })

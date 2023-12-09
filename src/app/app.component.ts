@@ -10,6 +10,7 @@ import {EventId} from '@wca/helpers';
 import {AnnuntiaWcif} from '../test/annuntia';
 import {ConfirmSaveWcifDialogComponent} from './dialog/confirm-save-wcif-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
+
 declare var $: any;
 
 @Component({

@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {environment} from '../environments/environment';
 import {LogglyService} from '../loggly/loggly.service';
 import {GeneralConfiguration, Wcif} from './classes';
 import {ActivityHelper} from './activity';
+import {AnnuntiaWcif} from '../test/annuntia';
 
 @Injectable({
   providedIn: 'root'
@@ -69,9 +70,9 @@ export class ApiService {
   }
 
   getWcif(competitionId): Observable<any> {
-    // if (environment.testMode) {
-    //   return of(AustralianNationalsWcif.wcif);
-    // }
+    if (environment.testMode) {
+      return of(AnnuntiaWcif.wcif);
+    }
     return this.httpClient.get(`${environment.wcaUrl}/api/v0/competitions/${competitionId}/wcif`,
       {headers: this.headerParams});
   }

@@ -236,13 +236,20 @@ export class Helpers {
     for (const e of wcif.events) {
       Helpers.sortCompetitorsBySpeedInEvent(wcif, e.id, false);
       wcif.persons.filter(p => p[e.id]?.competing).forEach((p, i, array) => {
-        if (i < array.length / 3 && !!p.wcaId) {
+        if (i < array.length * this.topPercentageAllowedToScramble(e.id) && !!p.wcaId) {
           const staffPerson: StaffPerson = this.findInStaff(p, staff);
           staffPerson.isAllowedTo.push(e.id);
         }
       });
     }
     return staff;
+  }
+
+  private static topPercentageAllowedToScramble(eventId: string): number {
+    if (['sq1', 'clock', 'minx'].includes(eventId)) { // Presumably it's better to use MORE scramblers rather than FEWER fast scramblers
+      return 1 / 3;
+    }
+    return 1 / 4;
   }
 
   private static findInStaff(p, staff: StaffPerson[]) {
@@ -255,7 +262,7 @@ export class Helpers {
       const staffPerson: StaffPerson = new StaffPerson();
       staffPerson.name = p.name;
       staffPerson.wcaId = p.wcaId;
-      staffPerson.isAllowedTo = ['run'];
+      staffPerson.isAllowedTo = !p.age || p.age > 12 ? ['run'] : [];
       return staffPerson;
     });
   }
@@ -299,5 +306,4 @@ export class Helpers {
   public static getAllRooms(wcif: Wcif): Room[] {
     return wcif?.schedule.venues.map(venue => venue.rooms).flat();
   }
-
 }

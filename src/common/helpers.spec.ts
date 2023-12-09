@@ -324,8 +324,8 @@ describe('test', function() {
     group.processWcif();
     const staff: StaffPerson[] = Helpers.generateStaffBasedOnPersonalBests(group.wcif);
 
-    expect(group.wcif.persons.filter(p => p['555'].competing).length).toBe( 50);
-    expect(staff.filter(s => s.isAllowedTo.includes('555')).length).toBe( 17);
+    expect(group.wcif.persons.filter(p => p['555'].competing).length).toBe(50);
+    expect(staff.filter(s => s.isAllowedTo.includes('555')).length).toBe(13);
   });
 
 });

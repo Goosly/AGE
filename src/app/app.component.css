@@ -19,7 +19,7 @@ input[type=number] {
 }
 
 button {
-  background-color: #4ddbff;
+  background-color: #1596bc;
   border: none;
   color: white;
   padding: 6px 10px;
@@ -27,6 +27,7 @@ button {
   text-decoration: none;
   display: inline-block;
   font-size: 12px;
+  border-radius: 8px;
 }
 
 .small {
@@ -42,7 +43,21 @@ th {
 }
 
 a {
-  color: #4ddbff;
+  color: #1596bc;
+}
+
+.blue-icon {
+  color: #4dd6ef;
+  font-size: 20px;
+  height: 20px;
+  width: 20px;
+  vertical-align: middle;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+::ng-deep .tooltip {
+  font-size: 14px;
 }
 
 .newCompetitor {
@@ -76,4 +91,12 @@ h1, h6, a.headerLink {
 h1 {
   margin-top: 10px;
   margin-bottom: 0px;
+}
+
+.material-symbols-outlined {
+ font-variation-settings:
+   'FILL' 0,
+   'wght' 400,
+   'GRAD' 0,
+   'opsz' 24
 }
