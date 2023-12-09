@@ -217,6 +217,10 @@ export class AppComponent  {
     Helpers.sortCompetitorsByGroupInEvent(this.wcif(), event.id);
   }
 
+  handleSortBySpeedInEvent(event) {
+    Helpers.sortCompetitorsBySpeedInEvent(this.wcif(), event.id, false);
+  }
+
   handleSortCompetitorsByName() {
     Helpers.sortCompetitorsByName(this.wcif());
   }

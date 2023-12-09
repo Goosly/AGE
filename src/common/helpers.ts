@@ -4,6 +4,8 @@ import {Room} from '@wca/helpers/lib/models/room';
 
 export class Helpers {
 
+  private static readonly _minimumAgeRequiredToRun = 14;
+
   static sortCompetitorsByGroupInEvent(wcif: Wcif, eventId: string) {
     wcif.persons = wcif.persons.sort(function(a, b) {
       let textA = a[eventId].group;
@@ -262,7 +264,7 @@ export class Helpers {
       const staffPerson: StaffPerson = new StaffPerson();
       staffPerson.name = p.name;
       staffPerson.wcaId = p.wcaId;
-      staffPerson.isAllowedTo = !p.age || p.age > 12 ? ['run'] : [];
+      staffPerson.isAllowedTo = !p.age || p.age >= this._minimumAgeRequiredToRun ? ['run'] : [];
       return staffPerson;
     });
   }

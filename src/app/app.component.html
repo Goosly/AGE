@@ -202,14 +202,20 @@
           <td></td>
           <td></td>
           <td><button (click)="handleSortCompetitorsByName()">Sort by name</button></td>
-          <td *ngFor="let event of groupService.wcif.events"><button (click)="handleSortByEvent(event)">Sort</button></td>
+          <td *ngFor="let event of groupService.wcif.events"><button class="small" (click)="handleSortByEvent(event)">Sort by group</button></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td *ngFor="let event of groupService.wcif.events"><button class="small" (click)="handleSortBySpeedInEvent(event)">Sort by speed</button></td>
         </tr>
         <tr *ngIf="! importStrategy">
           <td></td>
           <td></td>
           <td></td>
           <td *ngFor="let event of groupService.wcif.events">
-            <button [disabled]="event.configuration.skip" class="small"(click)="handleGenerateOneEvent(event.id)">{{basicBySpeedStrategy ? 'By speed' : 'Randomize'}}</button></td>
+            <button [disabled]="event.configuration.skip" class="small" (click)="handleGenerateOneEvent(event.id)">{{basicBySpeedStrategy ? 'By speed' : 'Randomize'}}</button></td>
         </tr>
 
         <tr>
@@ -227,7 +233,7 @@
                         matTooltipClass="tooltip"
                         #tooltip="matTooltip"
                         [matTooltipPosition]="'right'"
-                        matTooltip="C|J|R|S is short for Competitors|Judges|Runners|Scramblers. The numbers will be updated when you make a change to the assignments."></mat-icon>
+                        matTooltip="C|J|R|S is short for Competitors| Judges| Runners| Scramblers. The numbers will be updated when you make a change to the assignments."></mat-icon>
           C|J|R|S Group {{i + 1}}</td>
           <td *ngFor="let event of groupService.wcif.events">{{ event.configuration.skip || ! event.groupCounters || event.groupCounters.length === 0 ? '' : event.groupCounters[i] }}</td>
         </tr>
