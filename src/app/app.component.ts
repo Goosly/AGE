@@ -9,7 +9,7 @@ import {Helpers} from '../common/helpers';
 import {EventId} from '@wca/helpers';
 import {AnnuntiaWcif} from '../test/annuntia';
 import {ConfirmSaveWcifDialogComponent} from './dialog/confirm-save-wcif-dialog.component';
-import {MatDialog} from '@angular/material/dialog';
+import {MatLegacyDialog as MatDialog} from '@angular/material/legacy-dialog';
 
 declare var $: any;
 
