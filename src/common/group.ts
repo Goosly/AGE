@@ -214,8 +214,7 @@ export class GroupService {
           }
         }
       } else {
-        console.debug('Not doing top x in last group for event: ' + event.id);
-        console.debug(competitors.length);
+        console.debug('Skip moving top x to last group for event because the group is too small: ' + event.id);
       }
     }
   }
