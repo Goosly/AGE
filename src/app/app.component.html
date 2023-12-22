@@ -57,21 +57,11 @@
       <div *ngIf="advancedStrategy">
         We'll be using <input type="number" [(ngModel)]="groupService.configuration.totalNumberOfTimers" (ngModelChange)="handleTotalNumberOfTimersSet($event)" min="1" step="1" [disabled]="groupsGenerated"> timers in total<br><br>
 
-        <mat-icon fontIcon="info"
-                  class="blue-icon"
-                  matTooltipClass="tooltip"
-                  #tooltip="matTooltip"
-                  [matTooltipPosition]="'right'"
-                  matTooltip="Select your CSV file that contains trusted scramblers and capable runners"></mat-icon>
+        <age-info-icon info="Select your CSV file that contains trusted scramblers and capable runners"></age-info-icon>
 
         Select scramblers and runners <a ngHref='#here' (click)='exportService.staffExample(groupService.wcif)'>(click for an example)</a>: <input type="file" id="staff" [disabled]="groupsGenerated" accept=".csv"/><br>
 
-        <mat-icon fontIcon="info"
-                  class="blue-icon"
-                  matTooltipClass="tooltip"
-                  #tooltip="matTooltip"
-                  [matTooltipPosition]="'right'"
-                  matTooltip="Or let AGE pick scramblers and runners"></mat-icon>
+        <age-info-icon info="Or let AGE pick scramblers and runners"></age-info-icon>
 
         Alternatively: <input type="checkbox" [(ngModel)]="groupService.configuration.autoPickScramblersAndRunners" [disabled]="groupsGenerated"><label>Let AGE pick scramblers and runners</label>
         <br><br>
@@ -82,13 +72,7 @@
         <input type="checkbox" (click)="toggleUseStages()" [disabled]="groupsGenerated"><label>Use stages (the default will be 2 stages)</label><br>
         <input type="checkbox" [(ngModel)]="groupService.configuration.fixedSeating" [disabled]="groupsGenerated"><label>Use fixed seating (no waiting area)</label>
 
-        <mat-icon fontIcon="info"
-                  class="blue-icon"
-                  matTooltipClass="tooltip"
-                  #tooltip="matTooltip"
-                  [matTooltipPosition]="'right'"
-                  matTooltip="For events with more than 2 scramblegroups, AGE will try to provide a judge for every competitor"></mat-icon>
-
+        <age-info-icon info="For events with more than 2 scramblegroups, AGE will try to provide a judge for every competitor"></age-info-icon>
       </div>
     </div>
 
@@ -107,12 +91,8 @@
         </tr>
 
         <tr>
-          <td><mat-icon fontIcon="info"
-                        class="blue-icon"
-                        matTooltipClass="tooltip"
-                        #tooltip="matTooltip"
-                        [matTooltipPosition]="'right'"
-                        matTooltip="Do not generate groups for this event. You'll have to assign groups and tasks yourself."></mat-icon>Skip event</td>
+          <td><age-info-icon info="Do not generate groups for this event. You'll have to assign groups and tasks yourself."></age-info-icon>
+            Skip event</td>
           <td *ngFor="let event of groupService.wcif.events">
             <input type="checkbox" [(ngModel)]="event.configuration.skip" [disabled]="groupsGenerated">
           </td>
@@ -130,50 +110,30 @@
           </td>
         </tr>
         <tr *ngIf="advancedStrategy">
-          <td><mat-icon fontIcon="info"
-                        class="blue-icon"
-                        matTooltipClass="tooltip"
-                        #tooltip="matTooltip"
-                        [matTooltipPosition]="'right'"
-                        matTooltip="Number of groups is scramblegroups multiplied by stages"></mat-icon>Number of groups</td>
+          <td><age-info-icon info="Number of groups is scramblegroups multiplied by stages"></age-info-icon>
+            Number of groups</td>
           <td *ngFor="let event of groupService.wcif.events"><div [hidden]="event.configuration.skip">{{event.configuration.scrambleGroups * event.configuration.stages}}</div></td>
         </tr>
         <tr>
-          <td><mat-icon fontIcon="info"
-                        class="blue-icon"
-                        matTooltipClass="tooltip"
-                        #tooltip="matTooltip"
-                        [matTooltipPosition]="'right'"
-                        matTooltip="Number of competitors divided by number of groups"></mat-icon>Average competitors</td>
+          <td><age-info-icon info="Number of competitors divided by number of groups"></age-info-icon>
+            Average competitors</td>
           <td *ngFor="let event of groupService.wcif.events"><div [hidden]="event.configuration.skip">{{Math.round(event.numberOfRegistrations / (event.configuration.scrambleGroups * event.configuration.stages) * 10) / 10}}</div></td>
         </tr>
         <tr *ngIf="advancedStrategy">
-          <td><mat-icon fontIcon="info"
-                        class="blue-icon"
-                        matTooltipClass="tooltip"
-                        #tooltip="matTooltip"
-                        [matTooltipPosition]="'right'"
-                        matTooltip="Total number of timers divided by number of stages. This will be the maximum number of assigned judges per group."></mat-icon>(J) Timers per stage</td>
+          <td><age-info-icon info="Total number of timers divided by number of stages. This will be the maximum number of assigned judges per group."></age-info-icon>
+            (J) Timers per stage</td>
           <td *ngFor="let event of groupService.wcif.events"><div [hidden]="event.configuration.skip">{{Math.round(event.configuration.timers * 10) / 10}}</div></td>
         </tr>
         <tr *ngIf="advancedStrategy">
-          <td><mat-icon fontIcon="info"
-                        class="blue-icon"
-                        matTooltipClass="tooltip"
-                        #tooltip="matTooltip"
-                        [matTooltipPosition]="'right'"
-                        matTooltip="Amount of runners you want per group"></mat-icon>(R) Runners</td>
+          <td><age-info-icon info="Amount of runners you want per group"></age-info-icon>
+            (R) Runners</td>
           <td *ngFor="let event of groupService.wcif.events">
             <input type="number" [(ngModel)]="event.configuration.runners" min="0" step="1" [disabled]="groupsGenerated" [hidden]="event.configuration.skip">
           </td>
         </tr>
         <tr *ngIf="advancedStrategy">
-          <td><mat-icon fontIcon="info"
-                      class="blue-icon"
-                        matTooltipClass="tooltip"
-                      #tooltip="matTooltip"
-                      [matTooltipPosition]="'right'"
-                      matTooltip="Amount of scramblers you want per group"></mat-icon>(S) Scramblers</td>
+          <td><age-info-icon info="Amount of scramblers you want per group"></age-info-icon>
+            (S) Scramblers</td>
           <td *ngFor="let event of groupService.wcif.events">
             <input type="number" [(ngModel)]="event.configuration.scramblers" min="1" step="1" [disabled]="groupsGenerated" [hidden]="event.configuration.skip">
           </td>
@@ -228,13 +188,8 @@
         <tr *ngFor="let group of groupCounter; let i = index" [attr.data-index]="i">
           <td></td>
           <td></td>
-          <td><mat-icon fontIcon="info"
-                        class="blue-icon"
-                        matTooltipClass="tooltip"
-                        #tooltip="matTooltip"
-                        [matTooltipPosition]="'right'"
-                        matTooltip="C|J|R|S is short for Competitors| Judges| Runners| Scramblers. The numbers will be updated when you make a change to the assignments."></mat-icon>
-          C|J|R|S Group {{i + 1}}</td>
+          <td><age-info-icon info="C|J|R|S is short for Competitors| Judges| Runners| Scramblers. The numbers will be updated when you make a change to the assignments."></age-info-icon>
+            C|J|R|S Group {{i + 1}}</td>
           <td *ngFor="let event of groupService.wcif.events">{{ event.configuration.skip || ! event.groupCounters || event.groupCounters.length === 0 ? '' : event.groupCounters[i] }}</td>
         </tr>
 

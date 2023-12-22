@@ -11,6 +11,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {InfoIconComponent} from './info-icon/info-icon.component';
 
 @NgModule({
   imports: [BrowserModule,
@@ -23,7 +24,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatButtonModule,
     MatTooltipModule,
     MatIconModule],
-  declarations: [ AppComponent, ConfirmSaveWcifDialogComponent ],
+  declarations: [ AppComponent, ConfirmSaveWcifDialogComponent, InfoIconComponent ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }
