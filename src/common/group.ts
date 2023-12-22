@@ -331,7 +331,7 @@ export class GroupService {
     for (const p of this.wcif.persons) {
       p.fullName = p.name;
       p.name = p.name.split('(')[0]; // Remove local name
-      p.age = moment().diff(moment(p.birthdate, 'YYYY-MM-DD'), 'years') as string || '';
+      p.age = this.getAge(p);
 
       if (!p.registration || p.registration.status !== 'accepted' || !p.registration.isCompeting) {
         idsToRemove.push(p.registrantId);
@@ -349,6 +349,10 @@ export class GroupService {
 
     // Remove registrations that are not accepted
     this.wcif.persons = this.wcif.persons.filter(p => idsToRemove.indexOf(p.registrantId) === -1);
+  }
+
+  private getAge(p) {
+    return moment().diff(moment(p.birthdate, 'YYYY-MM-DD'), 'years') as unknown as string || '';
   }
 
   private determineStartTimeOfEvent(e) {
