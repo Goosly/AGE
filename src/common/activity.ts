@@ -6,15 +6,17 @@ import {GeneralConfiguration, Wcif} from './classes';
 
 export class ActivityHelper {
 
-  public static addChildActivitiesForEveryRound(wcif) {
+  public static addChildActivitiesForFirstRounds(wcif) {
     let currentId = this.getHighestActivityId(wcif) + 1;
     wcif.schedule.venues.forEach(v => {
       v.rooms.forEach(r => r.activities.forEach(a => {
         if (! a.activityCode.startsWith('other')) {
           const activityCode = parseActivityCode(a.activityCode);
-          const event = Helpers.getEvent(activityCode.eventId, wcif);
-          this.createChildActivitiesFor(wcif, a, event);
-          currentId = this.assignIdsToChildActivities(a.childActivities, currentId);
+          if (activityCode.roundNumber === 1) {
+            const event = Helpers.getEvent(activityCode.eventId, wcif);
+            this.createChildActivitiesFor(wcif, a, event);
+            currentId = this.assignIdsToChildActivities(a.childActivities, currentId);
+          }
         }
       }));
     });

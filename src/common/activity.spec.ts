@@ -5,7 +5,7 @@ import {Helpers} from './helpers';
 
 describe('test', function() {
 
-  it('test addChildActivitiesForEveryRound with stages', function() {
+  it('test addChildActivitiesForFirstRounds with stages', function() {
     const group: GroupService = new GroupService();
     group.wcif = AnnuntiaWcif.wcif;
     group.processWcif();
@@ -15,7 +15,7 @@ describe('test', function() {
     const event = Helpers.getEvent('333', group.wcif);
     event.configuration.stages = 3;
 
-    ActivityHelper.addChildActivitiesForEveryRound(group.wcif);
+    ActivityHelper.addChildActivitiesForFirstRounds(group.wcif);
 
     expect(activity.activityCode).toBe('333-r1');
     expect(activity.childActivities.length).toBe(9);
@@ -49,6 +49,12 @@ describe('test', function() {
     expect(activity.childActivities[7].endTime).toBe('2020-02-16T10:30:00Z');
     expect(activity.childActivities[8].startTime).toBe('2020-02-16T10:05:00Z');
     expect(activity.childActivities[8].endTime).toBe('2020-02-16T10:30:00Z');
+
+    group.wcif.schedule.venues[0].rooms[0].activities
+      .filter(a => !a.activityCode.endsWith('-r1') && !a.activityCode.startsWith('other'))
+      .forEach(a => {
+        expect(a.childActivities.length).toBeLessThanOrEqual(2);
+      });
   });
 
 });

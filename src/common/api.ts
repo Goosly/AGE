@@ -79,7 +79,7 @@ export class ApiService {
 
   patchWcif(wcif: Wcif, configuration: GeneralConfiguration, successCallback: () => void, errorCallback: (error) => void) {
     this.addAgeExtension(wcif);
-    ActivityHelper.addChildActivitiesForEveryRound(wcif);
+    ActivityHelper.addChildActivitiesForFirstRounds(wcif);
 
     ActivityHelper.createAssignmentsInWcif(wcif, configuration);
 
