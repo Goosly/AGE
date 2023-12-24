@@ -19029,15 +19029,6 @@ export class AnnuntiaWcif {
                         'name': '3x3x3 Cube, Round 2, Group 1',
                         'activityCode': '333-r2-g1',
                         'startTime': '2020-02-16T13:00:00Z',
-                        'endTime': '2020-02-16T13:25:00Z',
-                        'childActivities': [],
-                        'extensions': []
-                      },
-                      {
-                        'id': 36,
-                        'name': '3x3x3 Cube, Round 2, Group 2',
-                        'activityCode': '333-r2-g2',
-                        'startTime': '2020-02-16T13:25:00Z',
                         'endTime': '2020-02-16T13:50:00Z',
                         'childActivities': [],
                         'extensions': []
@@ -19171,15 +19162,6 @@ export class AnnuntiaWcif {
                         'name': '2x2x2 Cube, Round 2, Group 1',
                         'activityCode': '222-r2-g1',
                         'startTime': '2020-02-16T14:20:00Z',
-                        'endTime': '2020-02-16T14:40:00Z',
-                        'childActivities': [],
-                        'extensions': []
-                      },
-                      {
-                        'id': 42,
-                        'name': '2x2x2 Cube, Round 2, Group 2',
-                        'activityCode': '222-r2-g2',
-                        'startTime': '2020-02-16T14:40:00Z',
                         'endTime': '2020-02-16T15:00:00Z',
                         'childActivities': [],
                         'extensions': []
@@ -19291,15 +19273,6 @@ export class AnnuntiaWcif {
                         'name': 'Skewb, Round 2, Group 1',
                         'activityCode': 'skewb-r2-g1',
                         'startTime': '2020-02-15T14:45:00Z',
-                        'endTime': '2020-02-15T15:00:00Z',
-                        'childActivities': [],
-                        'extensions': []
-                      },
-                      {
-                        'id': 64,
-                        'name': 'Skewb, Round 2, Group 2',
-                        'activityCode': 'skewb-r2-g2',
-                        'startTime': '2020-02-15T15:00:00Z',
                         'endTime': '2020-02-15T15:15:00Z',
                         'childActivities': [],
                         'extensions': []

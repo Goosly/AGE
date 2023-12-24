@@ -51,9 +51,14 @@ describe('test', function() {
     expect(activity.childActivities[8].endTime).toBe('2020-02-16T10:30:00Z');
 
     group.wcif.schedule.venues[0].rooms[0].activities
-      .filter(a => !a.activityCode.endsWith('-r1') && !a.activityCode.startsWith('other'))
-      .forEach(a => {
-        expect(a.childActivities.length).toBeLessThanOrEqual(2);
+      .filter(activity => !activity.activityCode.includes('-r1') && !activity.activityCode.startsWith('other'))
+      .forEach(activity => {
+        expect(activity.childActivities.length).toBeLessThanOrEqual(2);
+        activity.childActivities.forEach(child => {
+          expect(child.startTime).toEqual(activity.startTime);
+          expect(child.endTime).toEqual(activity.endTime);
+          expect(child.name.startsWith(activity.name)).toBeTruthy();
+        });
       });
   });
 
