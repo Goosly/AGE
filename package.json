@@ -27,7 +27,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build -c=production",
+    "build-prod": "ng build -c=production",
     "test": "jest"
   },
   "devDependencies": {

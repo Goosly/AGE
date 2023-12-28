@@ -1,3 +1,3 @@
-ng build --prod --base-href "https://goosly.github.io/AGE/"
+npm run build-prod
 
 ngh --dir=dist/demo
