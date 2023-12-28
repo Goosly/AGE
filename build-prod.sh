@@ -1,6 +1,6 @@
 rm -r dist/*
 
-ng build -c=production
+npm run build
 mv dist/demo/* dist/
 
 git push origin --delete gh-pages
