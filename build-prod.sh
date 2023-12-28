@@ -1,12 +1,3 @@
-rm -r dist/*
+ng build --prod --base-href "https://goosly.github.io/AGE/"
 
-npm run build
-mv dist/demo/* dist/
-
-git push origin --delete gh-pages
-
-git add *
-git commit -m "build"
-git push
-
-git subtree push --prefix dist origin gh-pages
+ngh --dir=dist/demo
