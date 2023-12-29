@@ -246,142 +246,142 @@ export class ScoreCardService {
     return this.oneAvg5ScoreCard(info);
   }
 
-  private oneMo3ScoreCard(info: ScoreCardInfo): any[]  {
+  private oneMo3ScoreCard(info: ScoreCardInfo): any[] {
     return [
       [
-        {
-          columns: [
-            {text: ! info.scorecardNumber ? '' : info.scorecardNumber, alignment: 'left', fontSize: 6, color: 'grey'},
-            {text: ! info.timerStationId ? '' : 'Timer ' + info.timerStationId, alignment: 'right', fontSize: 14}
-          ]
-        },
-        {text: info.competitionName, alignment: 'center', fontSize: 10}
+        this.timerStationIdAndScorecardNumber(info),
+        {text: info.competitionName, alignment: 'center', fontSize: 10, lineHeight: 0.90}
       ],
       {text: info.eventName, alignment: 'center', fontSize: 18, bold: true},
+      this.roundAndGroupInfo(info),
       {
-        text: 'Round ' + (info.round === null ? '    ' : info.round)
-          + ' | Group ' + (info.group === null ? '    ' : info.group)
-          + ' of ' + (info.totalGroups === null ? '    ' : info.totalGroups)
-          + (info.stageName ? ' | ' + info.stageName : ''), alignment: 'center', fontSize: 10
-      },
-      {table : {
+        table: {
           widths: [30, this.SCORE_CARD_RESULT_WIDTH + 58],
           body: [[
             {text: (info.competitorId === null ? ' ' : info.competitorId), fontSize: 16, alignment: 'center'},
             {text: info.competitorName, fontSize: 16, alignment: 'center'}]]
-        }, margin: [0, 5]},
+        }, margin: [0, 5]
+      },
       {text: info.cumulative ? 'Also write down the time for a DNF!' : '', bold: true, alignment: 'center', fontSize: 10},
-      {table : {
+      {
+        table: {
           widths: [5, 16, this.SCORE_CARD_RESULT_WIDTH, 20, 20],
           body: [[
             {text: ''},
             {text: 'S', alignment: 'center'},
-            {text:
+            {
+              text:
                 info.cumulative ? 'Result\n(Cumulative limit: ' + info.timeLimit + ')' :
                   (info.timeLimit !== null ? 'Result (DNF if ≥ ' + info.timeLimit + ')' : ''),
-              alignment: 'center', fontSize: info.cumulative ? 10 : 12 },
+              alignment: 'center', fontSize: info.cumulative ? 10 : 12
+            },
             {text: 'J', alignment: 'center'},
             {text: 'C', alignment: 'center'}],
             [{text: '1', margin: [0, 7]}, '', '', '', '']]
-        }, margin: [0, 2]},
-      {text: info.cutoff !== null ? '-------------- Continue if 1 < ' + info.cutoff + ' --------------' : '', alignment: 'center', fontSize: 10},
-      {table : {
+        }, margin: [0, 2]
+      },
+      {
+        text: info.cutoff !== null ? '-------------- Continue if 1 < ' + info.cutoff
+          + ' --------------' : '', alignment: 'center', fontSize: 10
+      },
+      {
+        table: {
           widths: [5, 16, this.SCORE_CARD_RESULT_WIDTH, 20, 20],
           body: [
             [{text: '2', margin: [0, 7]}, '', '', '', ''],
             [{text: '3', margin: [0, 7]}, '', '', '', '']]
-        }, margin: [0, 2]},
+        }, margin: [0, 2]
+      },
       {text: '-------------- Extra or provisional --------------', alignment: 'center', fontSize: 10},
-      {table : {
+      {
+        table: {
           widths: [5, 16, this.SCORE_CARD_RESULT_WIDTH, 20, 20],
           body: [[{text: 'E', margin: [0, 5]}, '', '', '', '']]
-        }, margin: [0, 2]}
+        }, margin: [0, 2]
+      }
     ];
   }
 
-  private oneAvg5ScoreCard(info: ScoreCardInfo): any[]  {
+  private oneAvg5ScoreCard(info: ScoreCardInfo): any[] {
     return [
       [
-        {
-          columns: [
-            {text: ! info.scorecardNumber ? '' : info.scorecardNumber, alignment: 'left', fontSize: 6, color: 'grey', lineHeight: 0.70},
-            {text: ! info.timerStationId ? '' : 'Timer ' + info.timerStationId, alignment: 'right', fontSize: 14, lineHeight: 0.70}
-          ]
-        },
+        this.timerStationIdAndScorecardNumber(info),
         {text: info.competitionName, alignment: 'center', fontSize: 10, lineHeight: 0.90}
       ],
       {text: info.eventName, alignment: 'center', fontSize: 18, bold: true, lineHeight: 0.90},
+      this.roundAndGroupInfo(info),
       {
-        text: 'Round ' + (info.round === null ? '    ' : info.round)
-          + ' | Group ' + (info.group === null ? '    ' : info.group)
-          + ' of ' + (info.totalGroups === null ? '    ' : info.totalGroups)
-          + (info.stageName ? ' | ' + info.stageName : ''), alignment: 'center', fontSize: 10, lineHeight: 0.80
-      },
-      {table : {
+        table: {
           widths: [30, this.SCORE_CARD_RESULT_WIDTH + 58],
           body: [[
             {text: (info.competitorId === null ? ' ' : info.competitorId), lineHeight: 0.90, fontSize: 16, alignment: 'center'},
             {text: info.competitorName, lineHeight: 0.90, fontSize: info.competitorName.length > 22 ? 12 : 16, alignment: 'center'}]]
-        }, margin: [0, 5]},
+        }, margin: [0, 5]
+      },
       {text: info.cumulative ? 'Also write down the time for a DNF!' : '', bold: true, alignment: 'center', fontSize: 10, lineHeight: 0.90},
-      {table : {
+      {
+        table: {
           widths: [5, 16, (this.SCORE_CARD_RESULT_WIDTH), 20, 20],
           body: [[
             {text: ''},
             {text: 'S', alignment: 'center'},
-            {text:
+            {
+              text:
                 info.cumulative ? 'Result\n(Cumulative limit: ' + info.timeLimit + ')' :
                   (info.timeLimit !== null ? 'Result (DNF if ≥ ' + info.timeLimit + ')' : ''),
-              alignment: 'center', fontSize: info.cumulative ? 10 : 12 },
+              alignment: 'center', fontSize: info.cumulative ? 10 : 12
+            },
             {text: 'J', alignment: 'center'},
             {text: 'C', alignment: 'center'}],
             [{text: '1', margin: [0, 7]}, '', '', '', ''],
             [{text: '2', margin: [0, 7]}, '', '', '', '']]
-        }, margin: [0, 2]},
-      {text: info.cutoff !== null ? '-------------- Continue if 1 or 2 < ' + info.cutoff + ' --------------' : '',
-        alignment: 'center', fontSize: 10, lineHeight: 0.80},
-      {table : {
+        }, margin: [0, 2]
+      },
+      {
+        text: info.cutoff !== null ? '-------------- Continue if 1 or 2 < ' + info.cutoff + ' --------------' : '',
+        alignment: 'center', fontSize: 10, lineHeight: 0.80
+      },
+      {
+        table: {
           widths: [5, 16, this.SCORE_CARD_RESULT_WIDTH, 20, 20],
           body: [
             [{text: '3', margin: [0, 7]}, '', '', '', ''],
             [{text: '4', margin: [0, 7]}, '', '', '', ''],
             [{text: '5', margin: [0, 7]}, '', '', '', '']]
-        }, margin: [0, 2]},
-      {text: '-------------- Extra or provisional --------------',
-        alignment: 'center', fontSize: 10, lineHeight: 0.80},
-      {table : {
+        }, margin: [0, 2]
+      },
+      {
+        text: '-------------- Extra or provisional --------------',
+        alignment: 'center', fontSize: 10, lineHeight: 0.80
+      },
+      {
+        table: {
           widths: [5, 16, this.SCORE_CARD_RESULT_WIDTH, 20, 20],
           body: [[{text: 'E', margin: [0, 4]}, '', '', '', '']]
-        }, margin: [0, 2]}
+        }, margin: [0, 2]
+      }
     ];
   }
 
-  private oneMbldScoreCard(info: ScoreCardInfo): any[]  {
+  private oneMbldScoreCard(info: ScoreCardInfo): any[] {
     return [
       [
-        {
-          columns: [
-            {text: ! info.scorecardNumber ? '' : info.scorecardNumber, alignment: 'left', fontSize: 6, color: 'grey'},
-            {text: ! info.timerStationId ? '' : 'Timer ' + info.timerStationId, alignment: 'right', fontSize: 14}
-          ]
-        },
-        {text: info.competitionName, alignment: 'center', fontSize: 10}
+        this.timerStationIdAndScorecardNumber(info),
+        {text: info.competitionName, alignment: 'center', fontSize: 10, lineHeight: 0.90}
       ],
       {text: info.eventName, alignment: 'center', fontSize: 18, bold: true},
+      this.roundAndGroupInfo(info),
       {
-        text: 'Round ' + (info.round === null ? '    ' : info.round)
-          + ' | Group ' + (info.group === null ? '    ' : info.group)
-          + ' of ' + (info.totalGroups === null ? '    ' : info.totalGroups)
-          + (info.stageName ? ' | ' + info.stageName : ''), alignment: 'center', fontSize: 10
-      },
-      {table : {
+        table: {
           widths: [30, this.SCORE_CARD_RESULT_WIDTH + 58],
           body: [[
             {text: (info.competitorId === null ? ' ' : info.competitorId), fontSize: 16, alignment: 'center'},
             {text: info.competitorName, fontSize: 16, alignment: 'center'}]]
-        }, margin: [0, 5]},
+        }, margin: [0, 5]
+      },
       {text: 'Count and write down the number of cubes before the attempt starts', bold: true, alignment: 'center'},
-      {table : {
+      {
+        table: {
           widths: [5, 16, this.SCORE_CARD_RESULT_WIDTH, 20, 20],
           body: [[
             {text: ''},
@@ -395,8 +395,27 @@ export class ScoreCardService {
               {text: '_______ / _______\n\nTime:', margin: [0, 7]}, '', ''],
             [{text: '3', margin: [0, 7]}, '',
               {text: '_______ / _______\n\nTime:', margin: [0, 7]}, '', '']]
-        }, margin: [0, 2]}
+        }, margin: [0, 2]
+      }
     ];
+  }
+
+  private timerStationIdAndScorecardNumber(info: ScoreCardInfo) {
+    return {
+      columns: [
+        {text: !info.scorecardNumber ? '' : info.scorecardNumber, alignment: 'left', fontSize: 6, color: 'grey', lineHeight: 0.70},
+        {text: !info.timerStationId ? '' : 'Timer ' + info.timerStationId, alignment: 'right', fontSize: 14, lineHeight: 0.70}
+      ]
+    };
+  }
+
+  private roundAndGroupInfo(info: ScoreCardInfo) {
+    return {
+      text: 'Round ' + (info.round === null ? '    ' : info.round)
+        + ' | Group ' + (info.group === null ? '    ' : info.group)
+        + ' of ' + (info.totalGroups === null ? '    ' : info.totalGroups)
+        + (info.stageName ? ' | ' + info.stageName : ''), alignment: 'center', fontSize: 10
+    };
   }
 }
 
