@@ -30,7 +30,50 @@ export class GroupService {
       this.generateBasicBySpeedGrouping(eventId, true);
     } else if (this.configuration.groupStrategy === 'advanced') {
       this.generateAdvancedGrouping(eventId, this.getStaffFile());
+    } else if (this.configuration.groupStrategy === 'advancedBySpeed') {
+      this.generateAdvancedBySpeedGrouping(eventId);
     }
+  }
+
+  private generateAdvancedBySpeedGrouping(eventId: EventId) {
+    // todo wip
+    const event: any = Helpers.getEvent(eventId, this.wcif);
+    Helpers.sortCompetitorsBySpeedInEvent(this.wcif, eventId, true);
+
+    const allCompetitors: Array<any> = this.wcif.persons.filter(p => p[eventId].competing);
+    let i = 0;
+    while (i < allCompetitors.length / 6) {
+      const c = allCompetitors[i];
+      c[eventId].group = '1;J3';
+      i++;
+    }
+    while (i < allCompetitors.length / 6 * 2) {
+      const c = allCompetitors[i];
+      c[eventId].group = '2;J4';
+      i++;
+    }
+    while (i < allCompetitors.length / 6 * 3) {
+      const c = allCompetitors[i];
+      c[eventId].group = '3;J5';
+      i++;
+    }
+    while (i < allCompetitors.length / 6 * 4) {
+      const c = allCompetitors[i];
+      c[eventId].group = '4;J6';
+      i++;
+    }
+    while (i < allCompetitors.length / 6 * 5) {
+      const c = allCompetitors[i];
+      c[eventId].group = '5;J1';
+      i++;
+    }
+    while (i < allCompetitors.length / 6 * 6) {
+      const c = allCompetitors[i];
+      c[eventId].group = '6;J2';
+      i++;
+    }
+
+    Helpers.countCJRSForEvent(this.wcif, eventId);
   }
 
   generateAdvancedGrouping(eventId: EventId, file: Blob) {

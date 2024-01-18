@@ -296,7 +296,8 @@ export class AppComponent  {
   }
 
   get advancedStrategy(): boolean {
-    return this.groupService.configuration.groupStrategy === 'advanced';
+    return this.groupService.configuration.groupStrategy === 'advanced'
+      || this.groupService.configuration.groupStrategy === 'advancedBySpeed';
   }
 
   get basicBySpeedStrategy(): boolean {

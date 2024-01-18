@@ -27,7 +27,7 @@ export class EventConfiguration {
 }
 
 export class GeneralConfiguration {
-  groupStrategy: 'basic' | 'basicBySpeed' | 'basicBySpeedReverse' | 'advanced' | 'assignmentsFromWcif' | 'fromCsv' = 'basic';
+  groupStrategy: 'basic' | 'basicBySpeed' | 'basicBySpeedReverse' | 'advancedBySpeed' | 'advanced' | 'assignmentsFromWcif' | 'fromCsv' = 'basic';
   totalNumberOfTimers = 16;
   rooms: RoomConfiguration[];
   skipDelegatesAndOrganizers = true;
@@ -47,7 +47,6 @@ export interface RoomConfiguration {
   name: string;
   color: string;
   stationNumberFrom: number;
-  // stationNumberTo: number;
 }
 
 export interface Schedule {
