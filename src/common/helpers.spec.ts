@@ -1,5 +1,4 @@
 import {AnnuntiaWcif} from '../test/annuntia';
-import {ActivityHelper} from './activity';
 import {GroupService} from './group';
 import {Helpers} from './helpers';
 import {StaffPerson, Wcif} from './classes';

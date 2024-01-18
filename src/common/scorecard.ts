@@ -16,17 +16,30 @@ export class ScoreCardService {
 
   private readonly SCORE_CARD_RESULT_WIDTH = 145;
 
+  public printScoreCardsInStacks(wcif: Wcif) {
+    let scorecards: ScoreCardInfo[] = [];
+    wcif.events.filter(e => e.id !== '333fm').forEach(event => {
+      Helpers.sortCompetitorsByGroupInEvent(wcif, event.id);
+      event.countGroupsForScorecard = Helpers.countGroupsForEvent(wcif, event);
+      const scorecardsForEvent: ScoreCardInfo[] = this.competitorsOfEvent(wcif, event)
+        .map(competitor => this.mapCompetitorToScorecard(competitor, wcif, event));
+      scorecards.push(...scorecardsForEvent);
+    });
+    scorecards = this.reorderScorecardsInStacks(scorecards, wcif);
+
+    Helpers.sortCompetitorsByName(wcif);
+    pdfMake.createPdf(this.onA4(scorecards)).download('A4-stacked-scorecards-' + wcif.id + '.pdf');
+  }
+
   public printScoreCardsForAllFirstRoundsExceptFMC(wcif: Wcif, printOnA6: boolean) {
     const scorecards: ScoreCardInfo[] = [];
     wcif.events.filter(e => e.id !== '333fm').forEach(event => {
       Helpers.sortCompetitorsByGroupInEvent(wcif, event.id);
       event.countGroupsForScorecard = Helpers.countGroupsForEvent(wcif, event);
-      const scorecardsForEvent: ScoreCardInfo[] = [];
-      const competitorsOfEvent: Person[] = wcif.persons.filter(p => !! p[event.id].group && RegExp('^[0-9]+').test(p[event.id].group));
-      competitorsOfEvent.forEach(competitor => {
-        scorecardsForEvent.push(this.mapCompetitorToScorecard(competitor, wcif, event));
-      });
-      this.addScorecardNumberAndStationNumbers(scorecardsForEvent);
+      const scorecardsForEvent: ScoreCardInfo[] = this.competitorsOfEvent(wcif, event)
+        .map(competitor => this.mapCompetitorToScorecard(competitor, wcif, event));
+      this.addScorecardNumbers(scorecardsForEvent);
+      this.addStationNumbersFromWcifOrGenerate(scorecardsForEvent);
       if (!printOnA6) {
         this.addEmptyScoreCardsUntilPageIsFull(scorecardsForEvent, wcif);
       }
@@ -34,11 +47,19 @@ export class ScoreCardService {
     });
 
     Helpers.sortCompetitorsByName(wcif);
+    this.downloadPdf(scorecards, wcif, printOnA6);
+  }
+
+  private downloadPdf(scorecards: ScoreCardInfo[], wcif: Wcif, printOnA6: boolean) {
     if (printOnA6) {
       pdfMake.createPdf(this.onA6(scorecards)).download('A6-scorecards-' + wcif.id + '.pdf');
     } else {
       pdfMake.createPdf(this.onA4(scorecards)).download('A4-scorecards-' + wcif.id + '.pdf');
     }
+  }
+
+  private competitorsOfEvent(wcif: Wcif, event) {
+    return wcif.persons.filter(p => !!p[event.id].group && RegExp('^[0-9]+').test(p[event.id].group));
   }
 
   private mapCompetitorToScorecard(person: Person, wcif: Wcif, event) {
@@ -51,26 +72,31 @@ export class ScoreCardService {
     return scorecard;
   }
 
-  private addScorecardNumberAndStationNumbers(scorecardsForEvent: ScoreCardInfo[]) {
-    let stationCounter = 0; // TODO Refactor: StationNumbers should have been already set
-    let group = scorecardsForEvent[0].group;
-    scorecardsForEvent.forEach((s: ScoreCardInfo, i: number) => {
-      if (s.group == group) {
+  private addScorecardNumbers(scorecards: ScoreCardInfo[]) {
+    scorecards.forEach((s: ScoreCardInfo, i: number) => {
+      s.scorecardNumber = (i + 1);
+    });
+  }
+
+  private addStationNumbersFromWcifOrGenerate(scorecards: ScoreCardInfo[]) {
+    let stationCounter = 0;
+    let group = scorecards[0].group;
+    for (let i = 0; i < scorecards.length; i++) {
+      const scorecard: ScoreCardInfo = scorecards[i];
+      if (scorecard.group == group) {
         stationCounter++;
       } else {
         stationCounter = 1;
-        group++;
+        group = scorecard.group;
       }
-      if (this.groupService.configuration.printStationNumbersOnScoreCards) {
-        if (!s.timerStationId) { // TODO Refactor and get rid of this
-          s.timerStationId = stationCounter;
+      if (this.printStationNumbers()) {
+        if (!scorecard.timerStationId) { // Might already be set from Wcif data
+          scorecard.timerStationId = stationCounter;
         }
       } else {
-        s.timerStationId = null;
+        scorecard.timerStationId = null;
       }
-
-      s.scorecardNumber = (i + 1);
-    });
+    }
   }
 
   public printFourEmptyScorecards(wcif: Wcif) {
@@ -403,10 +429,16 @@ export class ScoreCardService {
   private timerStationIdAndScorecardNumber(info: ScoreCardInfo) {
     return {
       columns: [
-        {text: !info.scorecardNumber ? '' : info.scorecardNumber, alignment: 'left', fontSize: 6, color: 'grey', lineHeight: 0.70},
-        {text: !info.timerStationId ? '' : 'Timer ' + info.timerStationId, alignment: 'right', fontSize: 14, lineHeight: 0.70}
+        {text: !info.scorecardNumber ? '' : info.scorecardNumber,
+          alignment: 'left', fontSize: 6, color: 'grey', lineHeight: 0.70},
+        {text: !this.printStationNumbers() || !info.timerStationId ? '' : 'Timer ' + info.timerStationId,
+          alignment: 'right', fontSize: 14, lineHeight: 0.70}
       ]
     };
+  }
+
+  private printStationNumbers() {
+    return this.groupService.configuration.printStationNumbersOnScoreCards;
   }
 
   private roundAndGroupInfo(info: ScoreCardInfo) {
@@ -417,6 +449,41 @@ export class ScoreCardService {
         + (info.stageName ? ' | ' + info.stageName : ''), alignment: 'center', fontSize: 10
     };
   }
+
+  private reorderScorecardsInStacks(scorecards: ScoreCardInfo[], wcif: Wcif): ScoreCardInfo[] {
+    const copyScorecards = this.copyAndAddScorecardsUntilPageIsFull(scorecards, wcif);
+
+    const stackedScorecards = new Array<ScoreCardInfo>(copyScorecards.length);
+    for (let i = 0; i < copyScorecards.length; i++) {
+      const indexToPlace = this.getIndexToPlace(i, copyScorecards.length);
+      stackedScorecards[indexToPlace] = copyScorecards[i];
+      stackedScorecards[indexToPlace].scorecardNumber = i + 1;
+    }
+
+    return stackedScorecards;
+  }
+
+  private copyAndAddScorecardsUntilPageIsFull(scorecards: ScoreCardInfo[], wcif: Wcif) {
+    const copyScorecards = [];
+    for (let i = 0; i < scorecards.length; i++) {
+      copyScorecards.push({...scorecards[i]});
+    }
+    this.addEmptyScoreCardsUntilPageIsFull(copyScorecards, wcif);
+    return copyScorecards;
+  }
+
+  getIndexToPlace(i: number, length: number) {
+    if (i < length * 0.25) {
+      return i * 4;
+    } else if (i < length * 0.5) {
+      return (i * 4 + 1) % length;
+    } else if (i < length * 0.75) {
+      return (i * 4 + 2) % length;
+    } else {
+      return (i * 4 + 3) % length;
+    }
+  }
+
 }
 
 export class ScoreCardInfo {
