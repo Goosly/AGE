@@ -6,6 +6,7 @@ import {LogglyService} from '../loggly/loggly.service';
 import {GeneralConfiguration, Wcif} from './classes';
 import {ActivityHelper} from './activity';
 import {AnnuntiaWcif} from '../test/annuntia';
+import {ZottegemWcif} from '../test/zottegem';
 
 @Injectable({
   providedIn: 'root'
@@ -71,7 +72,7 @@ export class ApiService {
 
   getWcif(competitionId): Observable<any> {
     if (environment.testMode) {
-      return of(AnnuntiaWcif.wcif);
+      return of(ZottegemWcif.wcif);
     }
     return this.httpClient.get(`${environment.wcaUrl}/api/v0/competitions/${competitionId}/wcif`,
       {headers: this.headerParams});
