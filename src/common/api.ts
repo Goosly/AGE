@@ -13,7 +13,7 @@ import {ZottegemWcif} from '../test/zottegem';
 })
 export class ApiService {
 
-  private readonly FOUR_WEEKS = 28;
+  private readonly TWO_WEEKS = 14;
 
   public oauthToken;
   private headerParams: HttpHeaders;
@@ -62,11 +62,9 @@ export class ApiService {
 
   getCompetitions(): Observable<any> {
     let url = `${environment.wcaUrl}/api/v0/competitions?managed_by_me=true`;
-    if (!environment.testMode) {
-      const startDate = new Date();
-      startDate.setDate(startDate.getDate() - this.FOUR_WEEKS);
-      url += `&start=${startDate.toISOString()}`;
-    }
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() - this.TWO_WEEKS);
+    url += `&start=${startDate.toISOString()}&sort=start_date&per_page=1000`;
     return this.httpClient.get(url, {headers: this.headerParams});
   }
 
