@@ -77,10 +77,13 @@ export class AppComponent  {
     }
 
     this.apiService.getCompetitions().subscribe(comps => {
-      if (comps.length === 1 || environment.testMode) {
+      if (environment.testMode) {
+        this.handleCompetitionSelected('testMode2024');
+      }
+      if (comps.length === 1) {
         this.handleCompetitionSelected(comps[0]['id']);
       }
-      this.competitionsToChooseFrom = comps.map(c => c['id']);
+      this.competitionsToChooseFrom = comps.map(comp => comp['id']);
     });
   }
 
