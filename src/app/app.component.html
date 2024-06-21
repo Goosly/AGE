@@ -47,12 +47,15 @@
   <div *ngIf="competitionId && groupService.wcif && ! readyForExport">
     <div  *ngIf="! importStrategy">
       <h3>General configuration (2)</h3>
-      <select class='form-control' [disabled]="groupsGenerated" [(ngModel)]='groupService.configuration.groupStrategy'>
-        <option value='basic'>Random groups (no staff assignments)</option>
-        <option value='basicBySpeed'>Groups by speed, fast first (no staff assignments)</option>
-        <option value='basicBySpeedReverse'>Groups by speed, fast last (no staff assignments)</option>
-        <option value='advanced'>Groups with staffing for one group in every event one competes in</option>
-      </select><br><br>
+      <mat-form-field>
+        <mat-label>Strategy</mat-label>
+        <mat-select [disabled]='groupsGenerated' [(value)]='groupService.configuration.groupStrategy' panelWidth='null'>
+          <mat-option value='basic'>Random groups (no staff assignments)</mat-option>
+          <mat-option value='basicBySpeed'>Groups by speed, fast first (no staff assignments)</mat-option>
+          <mat-option value='basicBySpeedReverse'>Groups by speed, fast last (no staff assignments)</mat-option>
+          <mat-option value='advanced'>Groups with staffing for one group in every event one competes in</mat-option>
+        </mat-select>
+      </mat-form-field>
 
       <div *ngIf="advancedStrategy">
         We'll be using <input type="number" [(ngModel)]="groupService.configuration.totalNumberOfTimers" (ngModelChange)="handleTotalNumberOfTimersSet($event)" min="1" step="1" [disabled]="groupsGenerated"> timers in total<br><br>

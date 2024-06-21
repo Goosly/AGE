@@ -30,6 +30,10 @@ button {
   border-radius: 8px;
 }
 
+button:hover {
+  background-color: #43c7ee;
+}
+
 .small {
   padding: 6px 2px;
 }

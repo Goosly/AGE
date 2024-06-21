@@ -10,6 +10,7 @@ import {EventId} from '@wca/helpers';
 import {AnnuntiaWcif} from '../test/annuntia';
 import {ConfirmSaveWcifDialogComponent} from './dialog/confirm-save-wcif-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
+import {NotificationService} from '../common/notification';
 
 declare var $: any;
 
@@ -42,6 +43,7 @@ export class AppComponent  {
     public groupService: GroupService,
     public exportService: ExportService,
     public scoreCardsService: ScoreCardService,
+    public notificationService: NotificationService,
     public dialog: MatDialog
     ) {
       this.Math = Math;
@@ -142,7 +144,7 @@ export class AppComponent  {
       this.groupsGenerated = true;
     } catch (error) {
       console.error(error);
-      alert(error);
+      this.notificationService.show(error);
     }
   }
 

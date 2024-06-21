@@ -5,6 +5,7 @@ import {Activity, AssignmentCode, EventId, Person} from '@wca/helpers';
 import {ActivityHelper} from './activity';
 import {parseActivityCode} from '@wca/helpers/lib/helpers/activity';
 import * as moment from 'moment-timezone';
+import {NotificationService} from './notification';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class GroupService {
   userWcaId: string;
   document: Document;
 
-  constructor() {}
+  constructor(private notificationService: NotificationService) {}
 
   generateGrouping(eventId: EventId) {
     if (Helpers.getEvent(eventId, this.wcif).configuration.skip) {
@@ -81,7 +82,7 @@ export class GroupService {
     expectedHeaders.forEach(expectedHeader => {
       if (!headers.includes(expectedHeader)) {
         const error: string = 'Expected header ' + expectedHeader + ' in the selected csv file, but it was not present.';
-        alert(error);
+        this.showError(error);
         throw new Error(error);
       }
     });
@@ -128,10 +129,10 @@ export class GroupService {
     let potentialRunners: Array<any> = this.wcif.persons.filter(p => p[eventId].competing && this.canRun(p, staff));
 
     if (potentialScramblers.length < this.numberOfGroups(event) * event.configuration.scramblers) {
-      alert('Not enough scramblers for ' + eventId + '!\nPlease double check and manually assign more scramblers');
+      this.showError('Not enough scramblers for ' + eventId + '!\nPlease double check and manually assign more scramblers');
     }
     if (potentialRunners.length < this.numberOfGroups(event) * event.configuration.runners) {
-      alert('Not enough runners for ' + eventId + '!\nPlease double check and manually assign more runners');
+      this.showError('Not enough runners for ' + eventId + '!\nPlease double check and manually assign more runners');
     }
 
     let group = 0; // Group starts counting at 0, so always display as group+1
@@ -290,13 +291,13 @@ export class GroupService {
 
   public processWcif(): void {
     if (! this.wcif.events || this.wcif.events.length === 0) {
-      alert('No events found! Please define all rounds and the schedule on the WCA website and then restart.');
+      this.showError('No events found! Please define all rounds and the schedule on the WCA website and then restart.');
       this.wcif = undefined;
       throw new Error('No events');
     }
 
     if (! this.wcif.persons || this.wcif.persons.length === 0) {
-      alert('No competitors found! Maybe registration is not open yet?');
+      this.showError('No competitors found! Maybe registration is not open yet?');
       this.wcif = undefined;
       throw new Error('No competitors');
     }
@@ -304,7 +305,7 @@ export class GroupService {
     for (const e of this.wcif.events) {
       e.numberOfRegistrations = 0; // Add field
       if (! e.rounds || ! e.rounds.length) {
-        alert('No rounds found for ' + e.id + '! Please define all rounds and the schedule on the WCA website and then restart.');
+        this.showError('No rounds found for ' + e.id + '! Please define all rounds and the schedule on the WCA website and then restart.');
         this.wcif = undefined;
         throw new Error('No rounds for ' + e.id);
       }
@@ -471,7 +472,7 @@ export class GroupService {
         callback(importedCompetitorsCounter);
       }.bind(this);
     } else {
-      alert('Please select a CSV file to import first');
+      this.showError('Please select a CSV file to import first');
       throw Error('No CSV file to import');
     }
   }
@@ -632,5 +633,9 @@ export class GroupService {
   //   });
   //   room.stationNumberTo = split;
   // }
+
+  private showError(error: string) {
+    this.notificationService.show(error);
+  }
 
 }
