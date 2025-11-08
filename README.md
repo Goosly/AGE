@@ -11,3 +11,8 @@ To run locally:
 
 To build & deploy to GitHub Pages, simply run the bash script:
 1) > sh build-prod.sh
+
+If needed, install Angular CLI first:
+> ng add angular-cli-ghpages --project demo
+
+https://github.com/angular-schule/angular-cli-ghpages
