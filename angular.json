@@ -48,7 +48,6 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "baseHref": "/AGE/",
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
