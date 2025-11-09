@@ -24,7 +24,7 @@ describe('test', function() {
   });
 
   it('test getStageName', function() {
-    const group: GroupService = new GroupService();
+    const group: GroupService = new GroupService(null);
     group.wcif = AnnuntiaWcif.wcif;
     group.processWcif();
 
@@ -274,7 +274,7 @@ describe('test', function() {
   });
 
   it('test process and import wcif of Annuntia', function() {
-    const group: GroupService = new GroupService();
+    const group: GroupService = new GroupService(null);
     group.wcif = AnnuntiaWcif.wcif;
     group.processWcif();
     group.importAssignmentsFromWcif();
@@ -290,7 +290,7 @@ describe('test', function() {
   });
 
   it('test findFirstEventOfPerson', function() {
-    const group: GroupService = new GroupService();
+    const group: GroupService = new GroupService(null);
     group.wcif = AnnuntiaWcif.wcif;
     group.processWcif();
     Helpers.sortCompetitorsByName(group.wcif);
@@ -304,7 +304,7 @@ describe('test', function() {
   });
 
   it('test findFirstEventOfPerson', function() {
-    const group: GroupService = new GroupService();
+    const group: GroupService = new GroupService(null);
     group.wcif = AnnuntiaWcif.wcif;
     group.processWcif();
     Helpers.sortCompetitorsByName(group.wcif);
@@ -318,7 +318,7 @@ describe('test', function() {
   });
 
   it('test generateStaffBasedOnPersonalBests', function() {
-    const group: GroupService = new GroupService();
+    const group: GroupService = new GroupService(null);
     group.wcif = AnnuntiaWcif.wcif;
     group.processWcif();
     const staff: StaffPerson[] = Helpers.generateStaffBasedOnPersonalBests(group.wcif);
