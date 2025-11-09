@@ -120,7 +120,10 @@ export class ActivityHelper {
             const activityCode = parseActivityCode(childActivity.activityCode);
             const competitors = wcif.persons.filter(p => p[activityCode.eventId].group.split(';')[0] === ('' + activityCode.groupNumber));
             competitors.forEach((competitor, index) => {
-              this.createAssignmentFor(competitor, childActivity, 'competitor', stationNumberFrom + index);
+              this.createAssignmentFor(competitor,
+                childActivity,
+                'competitor',
+                configuration.fixedSeating ? (stationNumberFrom + index) : null);
 
               // TODO Refactor: this must be done whenever stationNumbers of stages change!
               competitor[activityCode.eventId].stationNumber = stationNumberFrom + index;

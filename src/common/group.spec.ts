@@ -10,7 +10,7 @@ describe('test', function() {
     const event = {
       configuration: {stages: 2, scrambleGroups: 2}
     };
-    const group: GroupService = new GroupService();
+    const group: GroupService = new GroupService(null);
 
     expect(group.decrement(3, event)).toBe(2);
     expect(group.decrement(2, event)).toBe(1);
@@ -26,7 +26,7 @@ describe('test', function() {
   });
 
   it('test generate basic grouping of Belgian Open', function() {
-    const group: GroupService = new GroupService();
+    const group: GroupService = new GroupService(null);
     group.wcif = BelgianOpenWcif.wcif;
     group.processWcif();
     group.importAssignmentsFromWcif();
@@ -69,7 +69,7 @@ describe('test', function() {
   });
 
   it('test generate advanced grouping wcif of Annuntia', function() {
-    const group: GroupService = new GroupService();
+    const group: GroupService = new GroupService(null);
     group.wcif = AnnuntiaWcif.wcif;
     group.processWcif();
 
@@ -111,7 +111,7 @@ describe('test', function() {
   });
 
   it('test generate advanced grouping wcif of Annuntia with fixed seating', function() {
-    const group: GroupService = new GroupService();
+    const group: GroupService = new GroupService(null);
     group.wcif = AnnuntiaWcif.wcif;
     group.processWcif();
 
@@ -144,7 +144,7 @@ describe('test', function() {
   });
 
   it('test generate advanced grouping wcif of Annuntia: new competitors compete first, then judge', function() {
-    const group: GroupService = new GroupService();
+    const group: GroupService = new GroupService(null);
     group.wcif = AnnuntiaWcif.wcif;
     group.processWcif();
 
@@ -195,7 +195,7 @@ describe('test', function() {
   });
 
   it('test getStaff', function() {
-    const group: GroupService = new GroupService();
+    const group: GroupService = new GroupService(null);
 
     const csv = 'name,wcaId,run,222,333,444,555,666,777,333bf,333oh,clock,minx,pyram,skewb,sq1,444bf,555bf,333mbf\r\nAdrien Schumacker,2016SCHU02,x,x,x,x,x,,x,x,x,,x,x,x,x,,,\r\n';
     const staff: StaffPerson[] = group.getStaff(csv);
