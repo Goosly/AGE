@@ -17,6 +17,7 @@ declare var $: any;
 @Component({
   selector: 'my-app',
   templateUrl: './app.component.html',
+  standalone: false,
   styleUrls: [ './app.component.css' ]
 })
 export class AppComponent  {

@@ -6,7 +6,7 @@ import {Helpers} from './helpers';
 describe('test', function() {
 
   it('test addChildActivitiesForFirstRounds with stages', function() {
-    const group: GroupService = new GroupService();
+    const group: GroupService = new GroupService(null);
     group.wcif = AnnuntiaWcif.wcif;
     group.processWcif();
     const activity = group.wcif.schedule.venues[0].rooms[0].activities[13];
