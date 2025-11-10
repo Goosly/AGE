@@ -266,7 +266,9 @@ export class ScoreCardService {
   private getScoreCardTemplate(info: ScoreCardInfo) {
     if ('333mbf' === info.eventId) {
       return this.oneMbldScoreCard(info);
-    } else if (['666', '777', '333bf', '444bf', '555bf'].includes(info.eventId)) {
+    } else if ('333bf' === info.eventId && this.groupService.wcif.schedule?.startDate?.includes('2025')) {
+      return this.oneMo3ScoreCard(info);
+    } else if (['666', '777', '444bf', '555bf'].includes(info.eventId)) {
       return this.oneMo3ScoreCard(info);
     }
     return this.oneAvg5ScoreCard(info);
