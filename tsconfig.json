@@ -12,6 +12,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "ES2022",
+    "esModuleInterop": true,
     "typeRoots": [
       "node_modules/@types"
     ],

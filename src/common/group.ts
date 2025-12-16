@@ -4,7 +4,7 @@ import {Helpers} from './helpers';
 import {Activity, AssignmentCode, EventId, Person} from '@wca/helpers';
 import {ActivityHelper} from './activity';
 import {parseActivityCode} from '@wca/helpers/lib/helpers/activity';
-import * as moment from 'moment-timezone';
+import moment from 'moment-timezone';
 import {NotificationService} from './notification';
 
 @Injectable({

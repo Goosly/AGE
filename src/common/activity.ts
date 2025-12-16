@@ -1,5 +1,5 @@
 import {Activity} from '@wca/helpers';
-import * as moment from 'moment-timezone';
+import moment from 'moment-timezone';
 import {activityCodeToName, parseActivityCode, ParsedActivityCode} from '@wca/helpers/lib/helpers/activity';
 import {Helpers} from './helpers';
 import {GeneralConfiguration, Wcif} from './classes';

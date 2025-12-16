@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {EventConfiguration, GeneralConfiguration, Wcif} from './classes';
 import {saveAs} from 'file-saver';
 import {Person} from '@wca/helpers';
-import * as moment from 'moment-timezone';
+import moment from 'moment-timezone';
 import {Helpers} from './helpers';
 
 declare var pdfMake: any;
