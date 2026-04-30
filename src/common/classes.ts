@@ -4,6 +4,7 @@ export class Wcif {
   persons?: Array<any>;
   events?: Array<any>;
   id?: any;
+  formatVersion?: string;
   name?: string;
   schedule?: Schedule;
   extensions?: any[];

@@ -92,6 +92,7 @@ export class ApiService {
     }));
     const wcifToSend = {
       id: wcif.id,
+      formatVersion: wcif.formatVersion,
       schedule: wcif.schedule,
       persons: persons,
     };
