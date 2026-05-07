@@ -122,18 +122,30 @@ describe('test', function() {
       persons: [
         {name: 'Foo', sq1: {group: '12'}},
         {name: 'Foo2', sq1: {group: '3;R1;R2'}},
-        {name: 'Foo3', sq1: {group: '1'}},
+        {name: 'Foo3', sq1: {group: '1;R3'}},
+        {name: 'Foo4', sq1: {group: ''}},
+        {name: 'Foo5', sq1: {group: '1;R3'}},
         {name: 'Bar', sq1: {group: '12;R3'}},
-        {name: 'Bar2', sq1: {group: '1'}}
+        {name: 'Bar2', sq1: {group: '1;J3'}},
+        {name: 'Bar4', sq1: {group: '1;J3'}},
+        {name: 'Bar3', sq1: {group: '1;J3'}},
+        {name: 'Bar5', sq1: {group: '1;J3'}},
+        {name: 'Bar1', sq1: {group: '1;J3'}}
       ]
     };
 
     Helpers.sortCompetitorsByGroupInEvent(wcif, 'sq1');
-    expect(wcif.persons[0].name).toBe( 'Bar2');
-    expect(wcif.persons[1].name).toBe( 'Foo3');
-    expect(wcif.persons[2].name).toBe( 'Foo2');
-    expect(wcif.persons[3].name).toBe( 'Bar');
-    expect(wcif.persons[4].name).toBe( 'Foo');
+    expect(wcif.persons[0].name).toBe( 'Bar1'); // First group, judges group 3
+    expect(wcif.persons[1].name).toBe( 'Bar2'); // Name > previous name
+    expect(wcif.persons[2].name).toBe( 'Bar3'); // Name > previous name
+    expect(wcif.persons[3].name).toBe( 'Bar4'); // Name > previous name
+    expect(wcif.persons[4].name).toBe( 'Bar5'); // Name > previous name
+    expect(wcif.persons[5].name).toBe( 'Foo3'); // Runs in same group, and R > J
+    expect(wcif.persons[6].name).toBe( 'Foo5'); // Name > previous name
+    expect(wcif.persons[7].name).toBe( 'Foo2'); // Group 3 > group 1
+    expect(wcif.persons[8].name).toBe( 'Bar'); // Group 12 > group 3
+    expect(wcif.persons[9].name).toBe( 'Foo'); // Equal group, and no staff assignment
+    expect(wcif.persons[10].name).toBe( 'Foo4'); // No assignment
   });
 
   it('test startsWithANumber', function() {
