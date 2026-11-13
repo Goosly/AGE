@@ -67,7 +67,7 @@ export class GroupService {
       staffPerson.name = personToAdd[headers.indexOf('name')];
       staffPerson.wcaId = personToAdd[headers.indexOf('wcaId')];
       staffPerson.isAllowedTo = [];
-      ['run', '222', '333', '444', '555', '666', '777', '333bf', '333oh', 'clock', 'minx', 'pyram', 'skewb', 'sq1', '444bf', '555bf', '333mbf'].forEach(task => {
+      ['run', '222', '333', '444', '555', '666', '777', '333bf', '333oh', 'clock', 'minx', 'pyram', 'skewb', 'sq1', '444bf', '555bf', '333mbf', 'fto'].forEach(task => {
         if (!!personToAdd[headers.indexOf(task)]) {
           staffPerson.isAllowedTo.push(task);
         }
@@ -78,7 +78,7 @@ export class GroupService {
   }
 
   private validateHeaders(headers: string[]) {
-    const expectedHeaders: string[] = ['name', 'wcaId', 'run', '222', '333', '444', '555', '666', '777', '333bf', '333oh', 'clock', 'minx', 'pyram', 'skewb', 'sq1', '444bf', '555bf', '333mbf'];
+    const expectedHeaders: string[] = ['name', 'wcaId', 'run', '222', '333', '444', '555', '666', '777', '333bf', '333oh', 'clock', 'minx', 'pyram', 'skewb', 'sq1', '444bf', '555bf', '333mbf', 'fto'];
     expectedHeaders.forEach(expectedHeader => {
       if (!headers.includes(expectedHeader)) {
         const error: string = 'Expected header ' + expectedHeader + ' in the selected csv file, but it was not present.';
@@ -503,6 +503,7 @@ export class GroupService {
       { id: 'pyram', stages: 1, scramblers: 2, runners: 2, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
       { id: 'skewb', stages: 1, scramblers: 2, runners: 2, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
       { id: 'sq1', stages: 1, scramblers: 2, runners: 2, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
+      { id: 'fto', stages: 1, scramblers: 2, runners: 2, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: false, scrambleGroups: 2 },
       { id: '444bf', stages: 1, scramblers: 2, runners: 0, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: true, scrambleGroups: 1 },
       { id: '555bf', stages: 1, scramblers: 2, runners: 0, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: true, scrambleGroups: 1 },
       { id: '333mbf', stages: 1, scramblers: 2, runners: 0, timers: this.configuration.totalNumberOfTimers, totalTimers: this.configuration.totalNumberOfTimers, skip: true, scrambleGroups: 1 },
